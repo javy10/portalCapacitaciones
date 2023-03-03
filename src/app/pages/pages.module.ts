@@ -14,6 +14,7 @@ import { PagesComponent } from './pages.component';
 import { listCollaboratorComponent } from './listCollaborator/listcollaborator.component';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
 import { DatatableComponent } from './datatable/datatable.component';
+import { ListevaluationComponent } from './listevaluation/listevaluation.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { DatatableComponent } from './datatable/datatable.component';
     PagesComponent,
     listCollaboratorComponent,
     CollaboratorComponent,
-    DatatableComponent
+    DatatableComponent,
+    ListevaluationComponent
   ],
   exports: [
     DashboardComponent,
