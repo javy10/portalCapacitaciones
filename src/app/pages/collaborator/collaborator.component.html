@@ -1,0 +1,111 @@
+<div class="modal fade" id="ExtralargeModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Datos del colaborador</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">              
+                <form [formGroup]="formUser" class="row g-3">
+                    <div class="col-md-3">
+                        <div class="wrapper">
+                            <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" hidden="hidden"/>
+                            <label for="image1">
+                                <img src="../../../assets/img/avatar.jpg" class="img-fluid rounded-start" alt="..."/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label">Número de documento</label>
+                                <input type="text" formControlName="dui" class="form-control" placeholder="Ingresa el dui">
+                                <div class="alert alert-danger mt-2" [hidden]="dui.valid || dui.pristine">
+                                    El Dui es obligatorio
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label">Nombres</label>
+                                <input type="text" formControlName="nombres" class="form-control" placeholder="Ingresa los nombres">
+                                <div class="alert alert-danger mt-2" [hidden]="nombres.valid || nombres.pristine">
+                                    Los nombres son obligatorios
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label">apellidos</label>
+                                <input type="text" formControlName="apellidos" class="form-control" placeholder="Ingresa los apellidos">
+                                <div class="alert alert-danger mt-2" [hidden]="apellidos.valid || apellidos.pristine">
+                                    Los apellidos son obligatorios
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label">Agencia</label>
+                                <select class="form-select" id="agencia" formControlName="agencia" >
+                                    <option selected>Selecciona</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <div class="alert alert-danger mt-2" [hidden]="agencia.valid || agencia.pristine">
+                                    Debes seleccionar una agencia
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label">Departamento</label>
+                                <select class="form-select" id="agencia" formControlName="departamento" >
+                                    <option selected>Selecciona</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <div class="alert alert-danger mt-2" [hidden]="departamento.valid || departamento.pristine">
+                                    Debes seleccionar un departamento
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label">Cargo</label>
+                                <select class="form-select" id="agencia" formControlName="cargo" >
+                                    <option selected>Selecciona</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <div class="alert alert-danger mt-2" [hidden]="cargo.valid || cargo.pristine">
+                                    Debes seleccionar un cargo
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label">Teléfono</label>
+                                <input type="text" formControlName="telefono" class="form-control" placeholder="Ingresa el Telefono">
+                                <div class="alert alert-danger mt-2" [hidden]="telefono.valid || telefono.pristine">
+                                    El Telefono es obligatorio
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label">Email</label>
+                                <input type="email" formControlName="email" class="form-control" placeholder="Ingresa el email">
+                                <div class="alert alert-danger mt-2" [hidden]="email.valid || email.pristine">
+                                <span *ngIf="email.errors?.['required']">
+                                    El email es obligatorio
+                                </span>
+                                <span *ngIf="email.errors?.['email']">
+                                    El email debe de ser valido
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+                <button type="submit" class="btn btn-primary" form="formColaborador" [disabled]="formUser.invalid">
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Extra Large Modal-->
