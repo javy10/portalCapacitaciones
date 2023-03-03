@@ -17,9 +17,9 @@ import { NotpagesfoundComponent } from './notpagesfound/notpagesfound.component'
   ],
   imports: [
     BrowserModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    AppRoutingModule,
     PagesModule,
     AuthModule
   ],

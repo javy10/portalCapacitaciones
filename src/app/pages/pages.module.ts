@@ -15,6 +15,10 @@ import { listCollaboratorComponent } from './listCollaborator/listcollaborator.c
 import { CollaboratorComponent } from './collaborator/collaborator.component';
 import { DatatableComponent } from './datatable/datatable.component';
 import { ListevaluationComponent } from './listevaluation/listevaluation.component';
+import { EvaluationComponent } from './evaluation/evaluation.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { PreguntaComponent } from './pregunta/pregunta.component';
+
 
 
 @NgModule({
@@ -25,7 +29,11 @@ import { ListevaluationComponent } from './listevaluation/listevaluation.compone
     listCollaboratorComponent,
     CollaboratorComponent,
     DatatableComponent,
-    ListevaluationComponent
+    ListevaluationComponent,
+    EvaluationComponent,
+    TabsComponent,
+    PreguntaComponent,
+    
   ],
   exports: [
     DashboardComponent,

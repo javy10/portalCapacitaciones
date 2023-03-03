@@ -8,6 +8,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { listCollaboratorComponent } from './listCollaborator/listcollaborator.component';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
 import { ListevaluationComponent } from './listevaluation/listevaluation.component';
+import { EvaluationComponent } from './evaluation/evaluation.component';
 
 const routes: Routes = [
     {
@@ -18,6 +19,7 @@ const routes: Routes = [
           { path: 'list-collaborator', component: listCollaboratorComponent },
           { path: 'collaborator', component: CollaboratorComponent },
           { path: 'list-evaluation', component: ListevaluationComponent },
+          { path: 'evaluation', component: EvaluationComponent },
         ]
     },
 ];
