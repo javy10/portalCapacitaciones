@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { ColaboradorService } from 'src/app/services/colaborador.service';
+import { Colaborador } from '../../interfaces/colaborador';
 
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
-  styles: [
-  ]
+  styleUrls: ['./datatable.component.css']
 })
 export class DatatableComponent implements OnDestroy, OnInit {
 
@@ -14,7 +15,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   data: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private _colaboradorService: ColaboradorService) {}
 
   ngOnInit(): void {
 
@@ -25,12 +26,16 @@ export class DatatableComponent implements OnDestroy, OnInit {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
       }
     };
+    // this.data = this._colaboradorService.getCollaborator();
+    // this.dtTrigger.next(0);
+    
       this.http.get('https://dummy.restapiexample.com/api/v1/employees')
       .subscribe(( res: any) => {
         this.data = res.data;
         this.dtTrigger.next(0);
       });    
   }
+
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }

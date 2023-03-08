@@ -40,11 +40,10 @@
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label class="form-label">Agencia</label>
-                                <select class="form-select" id="agencia" formControlName="agencia" >
-                                    <option selected>Selecciona</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select  class="form-select" id="agencia" formControlName="agencia" >
+                                    <option *ngFor="let e of listaAgencia" [value]=" e.id " >
+                                        {{ e.nombre }}
+                                    </option>
                                 </select>
                                 <div class="alert alert-danger mt-2" [hidden]="agencia.valid || agencia.pristine">
                                     Debes seleccionar una agencia
@@ -53,10 +52,9 @@
                             <div class="col-md-4 mb-2">
                                 <label class="form-label">Departamento</label>
                                 <select class="form-select" id="agencia" formControlName="departamento" >
-                                    <option selected>Selecciona</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option *ngFor="let e of listaDepartamento" [value]=" e.id " >
+                                        {{ e.nombre }}
+                                    </option>
                                 </select>
                                 <div class="alert alert-danger mt-2" [hidden]="departamento.valid || departamento.pristine">
                                     Debes seleccionar un departamento

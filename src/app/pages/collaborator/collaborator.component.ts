@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ColaboradorService } from 'src/app/services/colaborador.service';
 
 
 @Component({
@@ -8,9 +9,12 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
   styles: [
   ]
 })
-export class CollaboratorComponent {
+export class CollaboratorComponent implements OnInit {
 
-  constructor(public fb:FormBuilder) {}
+  constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService) {}
+
+  listaAgencia:any=[];
+  listaDepartamento:any=[];
 
   formUser = this.fb.group({
     'dui': ['', Validators.required],
@@ -49,6 +53,26 @@ export class CollaboratorComponent {
   get email() {
     return this.formUser.get('email') as FormControl;
   }
+
+  ngOnInit(): void {
+    this.loadAgencia();
+    this.loadDepartamento();
+  }
+
+  loadAgencia() {
+    return this.colaboradorService.getAgencia().subscribe((data: any) => {
+      console.log(data)
+      this.listaAgencia = data;
+    })
+  }
+
+  loadDepartamento() {
+    return this.colaboradorService.getDepartamento().subscribe((data: any) => {
+      console.log(data)
+      this.listaDepartamento = data;
+    });
+  }
+
 }
 
 
