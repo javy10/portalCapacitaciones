@@ -53,6 +53,7 @@
                             <div class="col-md-4 mb-2">
                                 <label class="form-label">Departamento</label>
                                 <select class="form-select" id="departamento" formControlName="departamento" (change)="handleChange()">
+                                    <option selected>SELECCIONA</option>
                                     <option *ngFor="let e of listaDepartamento" [value]=" e.id ">
                                         {{ e.nombre }}
                                     </option>
@@ -64,6 +65,7 @@
                             <div class="col-md-4 mb-2">
                                 <label class="form-label">Cargo</label>
                                 <select class="form-select" id="cargo" formControlName="cargo" (change)="handleChange()">
+                                    <option selected>SELECCIONA</option>
                                     <option *ngFor="let e of listaCargo" [value]=" e.id ">
                                         {{ e.nombre }}
                                     </option>
