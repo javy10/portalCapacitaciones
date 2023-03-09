@@ -5,5 +5,5 @@ export interface Colaborador {
     departamento: string;
     cargo: string;
     ultimoIngreso: string;
-    
+    habilitado: string;
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
+
 // import { DataTableDirective } from 'angular-datatables';
  
 @Component({
@@ -7,7 +8,8 @@ import { Component, OnInit, ViewChildren } from '@angular/core';
   styles: [
   ]
 })
-export class listCollaboratorComponent {
+export class listCollaboratorComponent  {
 
+ 
   
 }

@@ -15,6 +15,7 @@ export class CollaboratorComponent implements OnInit {
 
   listaAgencia:any=[];
   listaDepartamento:any=[];
+  listaCargo:any=[];
 
   formUser = this.fb.group({
     'dui': ['', Validators.required],
@@ -59,32 +60,26 @@ export class CollaboratorComponent implements OnInit {
     this.loadDepartamento();
   }
 
-  loadAgencia() {
-    return this.colaboradorService.getAgencia().subscribe((data: any) => {
-      //console.log(data)
+  async loadAgencia() {
+    return  await new Promise(resolve => resolve( this.colaboradorService.getAgencia().subscribe((data: any) => {
       this.listaAgencia = data;
-    })
+    })));
   }
 
-  loadDepartamento() {
-    return this.colaboradorService.getDepartamento().subscribe((data: any) => {
-      //console.log(data)
+  async loadDepartamento() {
+    return  await new Promise(resolve => resolve( this.colaboradorService.getDepartamento().subscribe((data: any) => {
       this.listaDepartamento = data;
-    });
+    })));
   }
 
-  loadDetalleCargo() {
+  async handleChange() {
+    const id = document.getElementById('departamento') as HTMLInputElement;
+    const valor = parseInt(id.value, 10);
 
+    await new Promise(resolve => resolve(this.colaboradorService.postDeptCargo(valor).subscribe((response) => {
+      this.listaCargo = response.dataDB;
+    })));
   }
-
-  myInput = document.getElementById('departamento') as HTMLInputElement;
-  myInput2 = this.myInput.addEventListener('change', ({ target }) => {
-    const valor = (target as HTMLInputElement).value;
-    console.log(valor);
-    id: valor;
-    return this.colaboradorService.postDeptCargo().subscribe()
-  });
-
 
 }
 

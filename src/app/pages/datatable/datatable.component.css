@@ -2,6 +2,9 @@
 .edit {
     color: #1f516f;
   }
-  .delete {
-    color: #e15639;
-  }
+.delete {
+  color: #e15639;
+}
+.table {
+  font-size: 12px;
+}

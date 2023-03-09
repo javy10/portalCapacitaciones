@@ -1,35 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { Agencia } from '../interfaces/agencia';
 import { Colaborador } from '../interfaces/colaborador';
 import { Departamento } from '../interfaces/departamento';
-import { Cargo } from '../interfaces/cargo';
+import { LoginForm } from '../interfaces/login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ColaboradorService {
 
-  url = 'http://127.0.0.1:8000/api';
   constructor(private http:HttpClient) { }
+  
+  url = 'http://127.0.0.1:8000/api';
 
-  listCollaborator: Colaborador[] = [
-    {position: 1, foto: 'Hydrogen', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 2, foto: 'Helium', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 3, foto: 'Lithium', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 4, foto: 'Beryllium', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 5, foto: 'Boron', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 6, foto: 'Carbon', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 7, foto: 'Nitrogen', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 8, foto: 'Oxygen', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 9, foto: 'Fluorine', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-    {position: 10, foto: 'Neon', oficina: 'Oficina central', departamento: 'Staff', cargo: 'Analista de programacion', ultimoIngreso: '06/03/2023'},
-  ];
 
-  getCollaborator() {
-    // devuelve una copia del listado collaborator
-    return this.listCollaborator.slice();
+  getCollaborator(): Observable<Colaborador> {
+    return this.http.get<Colaborador>(this.url+'/colaborador');
   }
 
   getAgencia(): Observable<Agencia> {
@@ -38,7 +26,14 @@ export class ColaboradorService {
   getDepartamento(): Observable<Departamento> {
     return this.http.get<Departamento>(this.url+'/departamentos');
   }
-  postDeptCargo(): Observable<Cargo> {
-    return this.http.get<Departamento>(this.url+'/cargo/');
+  postDeptCargo(id: number): Observable<any> {
+    console.log(id)
+    return this.http.get<any>(this.url +'/cargos/'+id)
   }
+
+  // login
+  login(formData: LoginForm) {
+    return this.http.post(this.url+'/login', formData)
+  }
+  
 }
