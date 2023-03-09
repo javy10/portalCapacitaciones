@@ -5,7 +5,7 @@
                 <h5 class="modal-title">Datos del colaborador</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">              
+            <div class="modal-body">
                 <form [formGroup]="formUser" class="row g-3">
                     <div class="col-md-3">
                         <div class="wrapper">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label class="form-label">Departamento</label>
-                                <select class="form-select" id="agencia" formControlName="departamento" >
+                                <select class="form-select" id="departamento" formControlName="departamento" >
                                     <option *ngFor="let e of listaDepartamento" [value]=" e.id " >
                                         {{ e.nombre }}
                                     </option>

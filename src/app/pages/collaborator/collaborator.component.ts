@@ -61,17 +61,30 @@ export class CollaboratorComponent implements OnInit {
 
   loadAgencia() {
     return this.colaboradorService.getAgencia().subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.listaAgencia = data;
     })
   }
 
   loadDepartamento() {
     return this.colaboradorService.getDepartamento().subscribe((data: any) => {
-      console.log(data)
+      //console.log(data)
       this.listaDepartamento = data;
     });
   }
+
+  loadDetalleCargo() {
+
+  }
+
+  myInput = document.getElementById('departamento') as HTMLInputElement;
+  myInput2 = this.myInput.addEventListener('change', ({ target }) => {
+    const valor = (target as HTMLInputElement).value;
+    console.log(valor);
+    id: valor;
+    return this.colaboradorService.postDeptCargo().subscribe()
+  });
+
 
 }
 

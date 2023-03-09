@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Agencia } from '../interfaces/agencia';
 import { Colaborador } from '../interfaces/colaborador';
 import { Departamento } from '../interfaces/departamento';
-
+import { Cargo } from '../interfaces/cargo';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +38,7 @@ export class ColaboradorService {
   getDepartamento(): Observable<Departamento> {
     return this.http.get<Departamento>(this.url+'/departamentos');
   }
-
+  postDeptCargo(): Observable<Cargo> {
+    return this.http.get<Departamento>(this.url+'/cargo/');
+  }
 }
