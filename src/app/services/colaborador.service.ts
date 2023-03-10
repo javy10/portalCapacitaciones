@@ -32,8 +32,8 @@ export class ColaboradorService {
   }
 
   saveColaborador(datos: any): Observable<any> {
-    //return this.http.post<any>(this.url+'/colaboradores/',+datos);
-    return datos;
+    return this.http.post(this.url+'/colaborador', datos);
+    //return datos;
   }
 
   // login

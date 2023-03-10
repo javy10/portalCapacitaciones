@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form [formGroup]="formUser" class="row g-3">
+                <form [formGroup]="formUser" class="row g-3" (ngSubmit)="guardar()">
                     <div class="col-md-3">
                         <div class="wrapper">
                             <input type="file" name="image1" id="image1" formControlName="foto" accept=".gif, .jpg, .png" hidden="hidden"/>
@@ -76,7 +76,7 @@
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label class="form-label">Teléfono</label>
-                                <input type="text" formControlName="telefono" class="form-control" placeholder="Ingresa el Telefono">
+                                <input type="number" formControlName="telefono" class="form-control" placeholder="Ingresa el Telefono">
                                 <div class="alert alert-danger mt-2" [hidden]="telefono.valid || telefono.pristine">
                                     El Telefono es obligatorio
                                 </div>
@@ -95,17 +95,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cerrar
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            Guardar
+                        </button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Cerrar
-                </button>
-                <button type="submit" class="btn btn-primary" form="formColaborador" [disabled]="formUser.invalid" (click)="guardar()">
-                    Guardar
-                </button>
             </div>
         </div>
     </div>
 </div>
 <!-- End Extra Large Modal-->
+
+<!-- [disabled]="formUser.invalid" -->

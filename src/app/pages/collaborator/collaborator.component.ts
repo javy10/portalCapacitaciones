@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Colaborador } from 'src/app/interfaces/colaborador';
@@ -12,12 +13,12 @@ import { ColaboradorService } from 'src/app/services/colaborador.service';
 })
 export class CollaboratorComponent implements OnInit {
 
-  constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService) {}
+  constructor(public fb:FormBuilder,  private http: HttpClient, private colaboradorService:ColaboradorService) {}
 
   listaAgencia:any=[];
   listaDepartamento:any=[];
   listaCargo:any=[];
-  colaborador!: Colaborador;
+  // colaborador!: Colaborador;
 
   formUser = this.fb.group({
     'dui': ['', Validators.required],
@@ -27,9 +28,7 @@ export class CollaboratorComponent implements OnInit {
     'departamento': ['', Validators.required],
     'cargo': ['', Validators.required],
     'telefono': ['', Validators.required],
-    'email': ['', [
-      Validators.required, Validators.email
-    ]],
+    'email': ['', [Validators.required, Validators.email]],
     'foto': []
   })
 
@@ -81,18 +80,39 @@ export class CollaboratorComponent implements OnInit {
 
     await new Promise(resolve => resolve(this.colaboradorService.postDeptCargo(valor).subscribe((response) => {
       this.listaCargo = response.dataDB;
-      console.log(this.listaCargo)
+      //console.log(this.listaCargo)
     })));
   }
 
   async guardar() {
-    console.log(this.formUser.controls)
-    // await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(this.formUser).subscribe((response) => {
+    // console.log(JSON.parse(JSON.stringify(this.formUser.value)))
+    // await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(JSON.parse(JSON.stringify(this.formUser.value))).subscribe((response) => {
     //   console.log(response);
     // })));
+    //console.log(this.formUser.value);
+
+    const colaborador: Colaborador = {
+      nombres: this.formUser.value.nombres!,
+      apellidos: this.formUser.value.apellidos!,
+      dui: this.formUser.value.dui!,
+      clave: '1234',
+      telefono: this.formUser.value.telefono!,
+      correo: this.formUser.value.email!,
+      agencia: this.formUser.value.agencia!,
+      departamento: this.formUser.value.departamento!,
+      cargo: this.formUser.value.cargo!,
+      foto: this.formUser.value.foto!,
+      habilitado: 'S',
+      ultimoIngreso: ''
+    }
+    //console.log(colaborador);
+    await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(JSON.parse(JSON.stringify(colaborador))).subscribe((response) => {
+        console.log(response);
+    })));
+    //  this.colaboradorService.saveColaborador(colaborador).subscribe(() => {
+    //   console.log();
+    // });
   }
-
-
 }
 
 
