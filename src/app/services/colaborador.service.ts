@@ -12,12 +12,12 @@ import { LoginForm } from '../interfaces/login';
 export class ColaboradorService {
 
   constructor(private http:HttpClient) { }
-  
+
   url = 'http://127.0.0.1:8000/api';
 
 
   getCollaborator(): Observable<Colaborador> {
-    return this.http.get<Colaborador>(this.url+'/colaborador');
+    return this.http.get<Colaborador>(this.url+'/colaboradores');
   }
 
   getAgencia(): Observable<Agencia> {
@@ -31,9 +31,14 @@ export class ColaboradorService {
     return this.http.get<any>(this.url +'/cargos/'+id)
   }
 
+  saveColaborador(datos: any): Observable<any> {
+    //return this.http.post<any>(this.url+'/colaboradores/',+datos);
+    return datos;
+  }
+
   // login
   login(formData: LoginForm) {
     return this.http.post(this.url+'/login', formData)
   }
-  
+
 }

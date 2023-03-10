@@ -9,7 +9,7 @@
                 <form [formGroup]="formUser" class="row g-3">
                     <div class="col-md-3">
                         <div class="wrapper">
-                            <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" hidden="hidden"/>
+                            <input type="file" name="image1" id="image1" formControlName="foto" accept=".gif, .jpg, .png" hidden="hidden"/>
                             <label for="image1">
                                 <img src="../../../assets/img/avatar.jpg" class="img-fluid rounded-start" alt="..."/>
                             </label>
@@ -66,7 +66,7 @@
                                 <label class="form-label">Cargo</label>
                                 <select class="form-select" id="cargo" formControlName="cargo" (change)="handleChange()">
                                     <option selected>SELECCIONA</option>
-                                    <option *ngFor="let e of listaCargo" [value]=" e.id ">
+                                    <option *ngFor="let e of listaCargo" [value]=" e.cargo_id ">
                                         {{ e.nombre }}
                                     </option>
                                 </select>
@@ -101,7 +101,7 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     Cerrar
                 </button>
-                <button type="submit" class="btn btn-primary" form="formColaborador" [disabled]="formUser.invalid">
+                <button type="submit" class="btn btn-primary" form="formColaborador" [disabled]="formUser.invalid" (click)="guardar()">
                     Guardar
                 </button>
             </div>

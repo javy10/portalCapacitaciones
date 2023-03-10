@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Colaborador } from 'src/app/interfaces/colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 
 
@@ -16,6 +17,7 @@ export class CollaboratorComponent implements OnInit {
   listaAgencia:any=[];
   listaDepartamento:any=[];
   listaCargo:any=[];
+  colaborador!: Colaborador;
 
   formUser = this.fb.group({
     'dui': ['', Validators.required],
@@ -27,7 +29,8 @@ export class CollaboratorComponent implements OnInit {
     'telefono': ['', Validators.required],
     'email': ['', [
       Validators.required, Validators.email
-    ]]
+    ]],
+    'foto': []
   })
 
   get dui() {
@@ -78,8 +81,17 @@ export class CollaboratorComponent implements OnInit {
 
     await new Promise(resolve => resolve(this.colaboradorService.postDeptCargo(valor).subscribe((response) => {
       this.listaCargo = response.dataDB;
+      console.log(this.listaCargo)
     })));
   }
+
+  async guardar() {
+    console.log(this.formUser.controls)
+    // await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(this.formUser).subscribe((response) => {
+    //   console.log(response);
+    // })));
+  }
+
 
 }
 

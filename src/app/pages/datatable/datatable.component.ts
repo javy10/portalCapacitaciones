@@ -42,12 +42,12 @@ export class DatatableComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
-  
+
   loadColaborador() {
     return this._colaboradorService.getCollaborator().subscribe((data: any) => {
       this.listaColaborador = data.dataDB;
       this.dtTrigger.next(0);
-      //console.log(data.dataDB)
+      console.log(data.dataDB)
     });
   }
 }

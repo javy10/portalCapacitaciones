@@ -1,9 +1,13 @@
 export interface Colaborador {
-    position: number;
     foto: string;
     oficina: string;
     departamento: string;
     cargo: string;
     ultimoIngreso: string;
     habilitado: string;
+    nombres: string;
+    apellidos: string;
+    dui: string;
+    telefono: string;
+    correo: string;
 }
