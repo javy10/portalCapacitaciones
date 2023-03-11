@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Colaborador } from 'src/app/interfaces/colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Swal from 'sweetalert2';
+
+
+import * as $ from 'jquery';
 
 
 @Component({
@@ -19,7 +22,10 @@ export class CollaboratorComponent implements OnInit {
   listaAgencia:any=[];
   listaDepartamento:any=[];
   listaCargo:any=[];
-  // colaborador!: Colaborador;
+  rowData:any; 
+
+  @ViewChild('ExtralargeModal') myModal: any;
+  //myModal = $('#ExtralargeModal');
 
   formUser = this.fb.group({
     'dui': ['', Validators.required],
@@ -57,6 +63,9 @@ export class CollaboratorComponent implements OnInit {
   get email() {
     return this.formUser.get('email') as FormControl;
   }
+  get foto() {
+    return this.formUser.get('foto') as FormControl;
+  }
 
   ngOnInit(): void {
     this.loadAgencia();
@@ -81,26 +90,10 @@ export class CollaboratorComponent implements OnInit {
 
     await new Promise(resolve => resolve(this.colaboradorService.postDeptCargo(valor).subscribe((response) => {
       this.listaCargo = response.dataDB;
-      //console.log(this.listaCargo)
     })));
   }
 
   async guardar() {
-    // console.log(JSON.parse(JSON.stringify(this.formUser.value)))
-    // await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(JSON.parse(JSON.stringify(this.formUser.value))).subscribe((response) => {
-    //   Swal.fire({
-    //     position: 'top-end',
-    //     icon: 'success',
-    //     title: 'Colaborador registrado con exito',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-    //   const modal = document.getElementById('ExtralargeModal');
-    //   modal!.style.display = 'none';
-    // })));
-    // console.log(this.formUser.value);
-
-    // console.log(this.formUser.value)
 
     const colaborador: Colaborador = {
       nombres: this.formUser.value.nombres!,
@@ -129,9 +122,15 @@ export class CollaboratorComponent implements OnInit {
         const modal = document.getElementById('ExtralargeModal');
         modal!.style.display = 'none';
     })));
-
-
   }
+
+  mostrar(row: any) {
+    this.rowData = row;
+    console.log( this.rowData)
+    this.myModal.nativeElement.modal('show');
+  }
+  
+  
 }
 
 

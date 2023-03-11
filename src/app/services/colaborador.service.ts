@@ -15,7 +15,8 @@ export class ColaboradorService {
 
   url = 'http://127.0.0.1:8000/api';
 
-
+  datos: any;
+  
   getCollaborator(): Observable<Colaborador> {
     return this.http.get<Colaborador>(this.url+'/colaboradores');
   }
@@ -34,6 +35,11 @@ export class ColaboradorService {
   saveColaborador(datos: any): Observable<any> {
     return this.http.post(this.url+'/colaborador', datos);
     //return datos;
+  }
+
+  getDatos() {
+    this.datos;
+    console.log(this.datos)
   }
 
   // login

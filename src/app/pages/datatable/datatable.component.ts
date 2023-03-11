@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { Colaborador } from '../../interfaces/colaborador';
+import { CollaboratorComponent } from '../collaborator/collaborator.component';
 
 @Component({
   selector: 'app-datatable',
@@ -15,6 +16,9 @@ export class DatatableComponent implements OnDestroy, OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   data: any;
   listaColaborador:any=[];
+  selectedRow: any;
+
+  colaborador!: CollaboratorComponent;
 
   constructor(private http: HttpClient, private _colaboradorService: ColaboradorService) {}
 
@@ -47,7 +51,8 @@ export class DatatableComponent implements OnDestroy, OnInit {
     return this._colaboradorService.getCollaborator().subscribe((data: any) => {
       this.listaColaborador = data.dataDB;
       this.dtTrigger.next(0);
-      console.log(data.dataDB)
+      //console.log(data.dataDB)
     });
   }
+ 
 }

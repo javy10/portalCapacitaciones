@@ -13,15 +13,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let e of listaColaborador">
+            <tr *ngFor="let item of listaColaborador" (click)="selectedRow = item">
                 <td></td>
-                <td>{{ e.agencia }}</td>
-                <td>{{ e.departamento }}</td>
-                <td>{{ e.nombre }} {{e.apellido}}</td>
-                <td>{{ e.cargo }}</td>
-                <td>{{ e.utlimoIngreso }}</td>
+                <td>{{ item.agencia }}</td>
+                <td>{{ item.departamento }}</td>
+                <td>{{ item.nombre }} {{item.apellido}}</td>
+                <td>{{ item.cargo }}</td>
+                <td>{{ item.utlimoIngreso }}</td>
                <td style="text-align: center;">
-                    <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                    <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" (click)="colaborador.mostrar(selectedRow)">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                     <a type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar">
