@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Colaborador } from 'src/app/interfaces/colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -87,9 +88,19 @@ export class CollaboratorComponent implements OnInit {
   async guardar() {
     // console.log(JSON.parse(JSON.stringify(this.formUser.value)))
     // await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(JSON.parse(JSON.stringify(this.formUser.value))).subscribe((response) => {
-    //   console.log(response);
+    //   Swal.fire({
+    //     position: 'top-end',
+    //     icon: 'success',
+    //     title: 'Colaborador registrado con exito',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   })
+    //   const modal = document.getElementById('ExtralargeModal');
+    //   modal!.style.display = 'none';
     // })));
-    //console.log(this.formUser.value);
+    // console.log(this.formUser.value);
+
+    // console.log(this.formUser.value)
 
     const colaborador: Colaborador = {
       nombres: this.formUser.value.nombres!,
@@ -108,10 +119,18 @@ export class CollaboratorComponent implements OnInit {
     //console.log(colaborador);
     await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(JSON.parse(JSON.stringify(colaborador))).subscribe((response) => {
         console.log(response);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Colaborador registrado con exito',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        const modal = document.getElementById('ExtralargeModal');
+        modal!.style.display = 'none';
     })));
-    //  this.colaboradorService.saveColaborador(colaborador).subscribe(() => {
-    //   console.log();
-    // });
+
+
   }
 }
 

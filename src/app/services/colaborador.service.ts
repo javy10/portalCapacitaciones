@@ -27,7 +27,7 @@ export class ColaboradorService {
     return this.http.get<Departamento>(this.url+'/departamentos');
   }
   postDeptCargo(id: number): Observable<any> {
-    console.log(id)
+    //console.log(id)
     return this.http.get<any>(this.url +'/cargos/'+id)
   }
 

@@ -64,9 +64,9 @@
                             </div>
                             <div class="col-md-4 mb-2">
                                 <label class="form-label">Cargo</label>
-                                <select class="form-select" id="cargo" formControlName="cargo" (change)="handleChange()">
+                                <select class="form-select" id="cargo" formControlName="cargo">
                                     <option selected>SELECCIONA</option>
-                                    <option *ngFor="let e of listaCargo" [value]=" e.cargo_id ">
+                                    <option *ngFor="let e of listaCargo" [value]=" e.id ">
                                         {{ e.nombre }}
                                     </option>
                                 </select>
