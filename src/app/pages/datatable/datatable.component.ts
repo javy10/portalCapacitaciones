@@ -4,6 +4,8 @@ import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { Colaborador } from '../../interfaces/colaborador';
 import { CollaboratorComponent } from '../collaborator/collaborator.component';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-datatable',
@@ -20,7 +22,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
 
   colaborador!: CollaboratorComponent;
 
-  constructor(private http: HttpClient, private _colaboradorService: ColaboradorService) {}
+  constructor(private http: HttpClient, private _colaboradorService: ColaboradorService, private router: Router) {}
 
   ngOnInit(): void {
 
@@ -51,8 +53,39 @@ export class DatatableComponent implements OnDestroy, OnInit {
     return this._colaboradorService.getCollaborator().subscribe((data: any) => {
       this.listaColaborador = data.dataDB;
       this.dtTrigger.next(0);
-      //console.log(data.dataDB)
+      console.log(data.dataDB)
     });
   }
+  eliminarColaborador(id: number) {
+    //console.log(id)
+    Swal.fire({
+      title: 'Estás seguro de deshabilitar a éste colaborador?',
+      text: "El colaborador ya no aparecera en el Portal de Capacitaciones!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, seguro!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        new Promise(resolve => resolve(this._colaboradorService.eliminar(id).subscribe((response) => {
+          Swal.fire(
+            'Deshabilitado!',
+            'Colaborador deshabilitado con exito.',
+            'success'
+          )
+          this.loadColaborador()     
+        })));
+      }
+    })
+  }
+
  
 }

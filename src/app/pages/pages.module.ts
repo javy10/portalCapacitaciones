@@ -19,8 +19,6 @@ import { EvaluationComponent } from './evaluation/evaluation.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { PreguntaComponent } from './pregunta/pregunta.component';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent,

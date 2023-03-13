@@ -14,35 +14,59 @@ export class ColaboradorService {
   constructor(private http:HttpClient) { }
 
   url = 'http://127.0.0.1:8000/api';
-
   datos: any;
   
+  // COLABORADOR ***********************************************************************************************************************************************
   getCollaborator(): Observable<Colaborador> {
     return this.http.get<Colaborador>(this.url+'/colaboradores');
   }
-
-  getAgencia(): Observable<Agencia> {
-    return this.http.get<Agencia>(this.url+'/agencias');
-  }
-  getDepartamento(): Observable<Departamento> {
-    return this.http.get<Departamento>(this.url+'/departamentos');
-  }
-  postDeptCargo(id: number): Observable<any> {
-    //console.log(id)
-    return this.http.get<any>(this.url +'/cargos/'+id)
-  }
-
   saveColaborador(datos: any): Observable<any> {
     return this.http.post(this.url+'/colaborador', datos);
     //return datos;
   }
-
-  getDatos() {
-    this.datos;
-    console.log(this.datos)
+  eliminar(id: number): Observable<any> {
+    //console.log(id)
+    return this.http.get<any>(this.url +'/eliminarcolaborador/'+id)
+  }
+  getColaboradorID(id: number) {
+    return this.http.get<any>(this.url +'/colaborador/'+id)
   }
 
-  // login
+  editarColaborador(datos: any, id: number): Observable<any> {
+    return this.http.put(this.url+'/editarcolaborador', datos, id);
+  }
+
+
+  //AGENCIA ***********************************************************************************************************************************************
+  getAgencia(): Observable<Agencia> {
+    return this.http.get<Agencia>(this.url+'/agencias');
+  }
+  getAgenciaId(id: number): Observable<Agencia> {
+    return this.http.get<Agencia>(this.url +'/agencia/'+id)
+  }
+
+
+  //DEPARTAMENTO ***********************************************************************************************************************************************
+  getDepartamento(): Observable<Departamento> {
+    return this.http.get<Departamento>(this.url+'/departamentos');
+  }
+  getDepartamentoId(id: number): Observable<any> {
+    return this.http.get<any>(this.url +'/departamento/'+id)
+  }
+
+
+  //CARGO ***********************************************************************************************************************************************
+  postDeptCargo(id: number): Observable<any> {
+    //console.log(id)
+    return this.http.get<any>(this.url +'/cargos/'+id)
+  }
+  getCargoId(id: number): Observable<any> {
+    return this.http.get<any>(this.url +'/cargo/'+id)
+  }
+
+
+
+  // login ***********************************************************************************************************************************************
   login(formData: LoginForm) {
     return this.http.post(this.url+'/login', formData)
   }

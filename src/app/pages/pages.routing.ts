@@ -18,6 +18,7 @@ const routes: Routes = [
           { path: 'progress', component: ProgressComponent },
           { path: 'list-collaborator', component: listCollaboratorComponent },
           { path: 'collaborator', component: CollaboratorComponent },
+          { path: 'collaborator/:id', component: CollaboratorComponent },
           { path: 'list-evaluation', component: ListevaluationComponent },
           { path: 'evaluation', component: EvaluationComponent },
         ]

@@ -1,4 +1,5 @@
 export interface Colaborador {
+    
     nombres: string;
     apellidos: string;
     dui: string;
