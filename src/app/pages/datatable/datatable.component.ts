@@ -80,11 +80,11 @@ export class DatatableComponent implements OnDestroy, OnInit {
             'Deshabilitado!',
             'Colaborador deshabilitado con exito.',
             'success'
-          )
-          this.loadColaborador()     
+          )   
         })));
       }
-    })
+    });
+    this.loadColaborador();
   }
 
  

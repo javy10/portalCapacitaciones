@@ -18,6 +18,10 @@ export class CollaboratorComponent implements OnInit {
   listaCargo:any=[];
   colaborador!: Colaborador;
   formUser: FormGroup;
+  ngSelectA: any;
+  ngSelectD: any;
+  ngSelectC: any;
+  img: any;
 
   constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute) {
 
@@ -127,8 +131,6 @@ export class CollaboratorComponent implements OnInit {
   }
 
   cargar() {
-
-
     const id = this.activeRoute.snapshot.paramMap.get('id');
     if(id) {
       const titulo = document.getElementById('title');
@@ -144,28 +146,35 @@ export class CollaboratorComponent implements OnInit {
         let id = e['id'];
         if(id) {
           new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(id).subscribe((response) => {
-            this.colaborador = response;
+            this.colaborador = response.dataDB;
             this.formUser.patchValue(this.colaborador);
 
-            // this.colaboradorService.getAgenciaId(response.agencia_id).subscribe((res: any) => {
-            //   console.log(res)
-            //   this.listaAgencia = res;
-            // });
-            // this.colaboradorService.getDepartamentoId(response.departamento_id).subscribe((res) => {
-            //   this.listaDepartamento = res;
-            // });
-            // this.colaboradorService.getCargoId(response.cargo_id).subscribe((res) => {
-            //   this.listaCargo = res;
-            // });
+            this.colaboradorService.getAgenciaId(response.dataDB.agencia_id).subscribe((res: any) => {
+              this.ngSelectA = res.dataDB.id;
+            });
+            this.colaboradorService.getDepartamentoId(response.dataDB.departamento_id).subscribe((res: any) => {
+              this.ngSelectD = res.dataDB.id;
+            });
+            this.colaboradorService.getCargoId(response.dataDB.cargo_id).subscribe((res: any) => {
+              new Promise(resolve => resolve(this.colaboradorService.postDeptCargo(this.ngSelectD).subscribe((response) => {
+                this.listaCargo = response.dataDB;
+                this.ngSelectC = res.dataDB.id;
+              })));
+            });
+            const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
+            
+            const objectURL = URL.createObjectURL(response.dataDB.foto);
+            imagenPrevisualizacion.src = objectURL;
           })));
-
         }
       });
     } else {
       const btnEdit = document.getElementById('btnActualizar');
       btnEdit!.hidden = true;
+      this.ngSelectA = 0;
+      this.ngSelectD = 0;
+      this.ngSelectC = 0;
     }
-
   }
 
   async editar() {
@@ -183,11 +192,7 @@ export class CollaboratorComponent implements OnInit {
       habilitado: 'S',
       ultimoIngreso: ''
     }
-
     const id = this.activeRoute.snapshot.paramMap.get('id');
-    console.log(id);
-    console.log(colaborador);
-
     await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(id, colaborador).subscribe((response) => {
       console.log(response);
       Swal.fire({
@@ -206,6 +211,44 @@ export class CollaboratorComponent implements OnInit {
       this.router.navigate(['/dashboard/list-collaborator']);
     })));
   }
+
+  cancelar() {
+    const dui = document.getElementById('dui') as HTMLInputElement;
+    dui.value = "";
+    const nombres = document.getElementById('nombres') as HTMLInputElement;
+    nombres.value = "";
+    const apellidos = document.getElementById('apellidos') as HTMLInputElement;
+    apellidos.value = "";
+    this.ngSelectA = 0;
+    this.ngSelectD = 0;
+    this.ngSelectC = 0;
+    const telefono = document.getElementById('telefono') as HTMLInputElement;
+    telefono.value = "";
+    const correo = document.getElementById('correo') as HTMLInputElement;
+    correo.value = "";
+  }
+
+  changeFoto() {
+    let foto = document.getElementById('foto') as HTMLInputElement;
+    localStorage.setItem('foto', foto.value);
+
+    const seleccionArchivos = document.querySelector("#foto") as HTMLInputElement;
+    const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
+    // Los archivos seleccionados, pueden ser muchos o uno
+    const archivos = seleccionArchivos.files;
+    // Si no hay archivos salimos de la función y quitamos la imagen
+    if (!archivos || !archivos.length) {
+      imagenPrevisualizacion.src = "";
+      return;
+    }
+    // Ahora tomamos el primer archivo, el cual vamos a previsualizar
+    const primerArchivo = archivos[0];
+    // Lo convertimos a un objeto de tipo objectURL
+    const objectURL = URL.createObjectURL(primerArchivo);
+    // Y a la fuente de la imagen le ponemos el objectURL
+    imagenPrevisualizacion.src = objectURL;
+  }
+
 }
 
 

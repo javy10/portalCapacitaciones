@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Agencia } from '../interfaces/agencia';
 import { Colaborador } from '../interfaces/colaborador';
 import { Departamento } from '../interfaces/departamento';
