@@ -15,7 +15,7 @@ export class ColaboradorService {
 
   url = 'http://127.0.0.1:8000/api';
   datos: any;
-  
+
   // COLABORADOR ***********************************************************************************************************************************************
   getCollaborator(): Observable<Colaborador> {
     return this.http.get<Colaborador>(this.url+'/colaboradores');
@@ -32,8 +32,8 @@ export class ColaboradorService {
     return this.http.get<any>(this.url +'/colaborador/'+id)
   }
 
-  editarColaborador(datos: any, id: number): Observable<any> {
-    return this.http.put(this.url+'/editarcolaborador', datos, id);
+  editarColaborador(id: any, datos: any ): Observable<any> {
+    return this.http.put(this.url+'/editarcolaborador/'+ id, datos);
   }
 
 

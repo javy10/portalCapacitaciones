@@ -4,8 +4,8 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <h1 class="card-title text-center" id="title">Guardar colaborador</h1>
-                    <form [formGroup]="formUser" class="row g-3" (ngSubmit)="guardar()">
+                    <h1 class="card-title text-center titulo" id="title">Guardar colaborador</h1>
+                    <form [formGroup]="formUser" class="row g-3 body" (ngSubmit)="guardar()">
                         <div class="col-md-3">
                             <div class="wrapper">
                                 <input type="file" name="image1" id="image1" formControlName="foto" accept=".gif, .jpg, .png" hidden="hidden"/>
@@ -94,14 +94,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer footer">
                             <button type="button" class="btn btn-secondary">
                                 Cancelar
                             </button>
                             <button type="submit" class="btn btn-primary" id="btnGuardar">
                                 Guardar
                             </button>
-                            <button type="submit" class="btn btn-primary" id="btnActualizar" >
+                            <button type="button" class="btn btn-primary" id="btnActualizar" (click)="editar()">
                                 Actualizar
                             </button>
                         </div>

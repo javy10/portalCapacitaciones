@@ -9,8 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-collaborator',
   templateUrl: './collaborator.component.html',
-  styles: [
-  ]
+  styleUrls: ['./collaborator.component.css']
 })
 export class CollaboratorComponent implements OnInit {
 
@@ -128,7 +127,7 @@ export class CollaboratorComponent implements OnInit {
   }
 
   cargar() {
-   
+
 
     const id = this.activeRoute.snapshot.paramMap.get('id');
     if(id) {
@@ -147,7 +146,7 @@ export class CollaboratorComponent implements OnInit {
           new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(id).subscribe((response) => {
             this.colaborador = response;
             this.formUser.patchValue(this.colaborador);
-            
+
             // this.colaboradorService.getAgenciaId(response.agencia_id).subscribe((res: any) => {
             //   console.log(res)
             //   this.listaAgencia = res;
@@ -159,9 +158,12 @@ export class CollaboratorComponent implements OnInit {
             //   this.listaCargo = res;
             // });
           })));
-  
+
         }
       });
+    } else {
+      const btnEdit = document.getElementById('btnActualizar');
+      btnEdit!.hidden = true;
     }
 
   }
@@ -181,16 +183,17 @@ export class CollaboratorComponent implements OnInit {
       habilitado: 'S',
       ultimoIngreso: ''
     }
-    
+
     const id = this.activeRoute.snapshot.paramMap.get('id');
     console.log(id);
+    console.log(colaborador);
 
-    await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(JSON.parse(JSON.stringify(colaborador, id))).subscribe((response) => {
+    await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(id, colaborador).subscribe((response) => {
       console.log(response);
       Swal.fire({
         //position: 'center',
         icon: 'success',
-        title: 'Colaborador registrado con exito',
+        title: 'Colaborador actualizado con exito',
         showClass: {
           popup: 'animate__animated animate__fadeInDown'
         },
