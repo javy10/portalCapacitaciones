@@ -8,7 +8,7 @@
                     <form [formGroup]="formUser" class="row g-3 " (ngSubmit)="guardar()">
                         <div class="col-md-2">
                             <div class="wrapper">
-                                <input type="file" name="foto" id="foto"  accept=".gif, .jpg, .png" hidden="hidden" (change)="changeFoto()"  />
+                                <input type="file" name="foto" id="foto"  accept=".gif, .jpg, .png" hidden="hidden" (change)="changeFoto($event)"  />
                                 <label for="foto">
                                     <img src="../../../assets/img/avatar.jpg" id="img" formControlName="foto" class="img-fluid rounded-start" alt="..." />
                                 </label>

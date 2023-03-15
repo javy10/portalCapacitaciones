@@ -22,6 +22,7 @@ export class CollaboratorComponent implements OnInit {
   ngSelectD: any;
   ngSelectC: any;
   img: any;
+  imagen: File | null = null;
 
   constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute) {
 
@@ -95,7 +96,17 @@ export class CollaboratorComponent implements OnInit {
     })));
   }
 
+
+  changeFoto(event: any) {
+    this.imagen = event.target.files[0];
+}
+
   async guardar() {
+
+    console.log(this.imagen)
+
+    //const formData = new FormData();
+    //formData.append('imagen', this.imagen!);
 
     const colaborador: Colaborador = {
       nombres: this.formUser.value.nombres!,
@@ -107,7 +118,7 @@ export class CollaboratorComponent implements OnInit {
       agencia: this.formUser.value.agencia!,
       departamento: this.formUser.value.departamento!,
       cargo: this.formUser.value.cargo!,
-      foto: this.formUser.value.foto!,
+      foto: this.imagen!.name,
       habilitado: 'S',
       ultimoIngreso: ''
     }
@@ -162,7 +173,7 @@ export class CollaboratorComponent implements OnInit {
               })));
             });
             const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
-            
+
             const objectURL = URL.createObjectURL(response.dataDB.foto);
             imagenPrevisualizacion.src = objectURL;
           })));
@@ -228,7 +239,7 @@ export class CollaboratorComponent implements OnInit {
     correo.value = "";
   }
 
-  changeFoto() {
+  changeFotoo() {
     let foto = document.getElementById('foto') as HTMLInputElement;
     localStorage.setItem('foto', foto.value);
 
