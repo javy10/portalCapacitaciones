@@ -1,0 +1,5 @@
+.container_img {
+    display: flex;
+    justify-content: center; /* Alineación horizontal */
+    align-items: center; /* Alineación vertical */
+}

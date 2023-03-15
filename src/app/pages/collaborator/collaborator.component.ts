@@ -5,6 +5,7 @@ import { Colaborador } from 'src/app/interfaces/colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SHA256 } from 'crypto-js';
 
 @Component({
   selector: 'app-collaborator',
@@ -23,6 +24,7 @@ export class CollaboratorComponent implements OnInit {
   ngSelectC: any;
   img: any;
   imagen: File | null = null;
+  codAgencia: any;
 
   constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute) {
 
@@ -95,34 +97,47 @@ export class CollaboratorComponent implements OnInit {
       this.listaCargo = response.dataDB;
     })));
   }
+  async handleChangeAgencia() {
+    const id = document.getElementById('agencia') as HTMLInputElement;
+    const valor = parseInt(id.value, 10);
+
+    await new Promise(resolve => resolve(this.colaboradorService.getAgenciaId(valor).subscribe((response) => {
+      this.codAgencia = response.dataDB.codAgencia;
+    })));
+  }
 
 
-  changeFoto(event: any) {
+  changeFotoo(event: any) {
     this.imagen = event.target.files[0];
-}
+  }
 
   async guardar() {
+      
+    // Concatenamos valores para la clave del usuario
+    const nombreClave = this.formUser.value.nombres.charAt(0).toUpperCase();
+    const apellidoClave = this.formUser.value.apellidos.split(' ')[0].toLowerCase();
+    const valorClave = nombreClave+apellidoClave+this.codAgencia;
+    //console.log(nombreClave+apellidoClave+this.codAgencia)
+    
+    //encriptamos la clave
+    const claveEncriptada = SHA256(valorClave).toString();
 
-    console.log(this.imagen)
+    const formData = new FormData();
+    formData.append('nombres', this.formUser.value.nombres),
+    formData.append('apellidos', this.formUser.value.apellidos),
+    formData.append('dui', this.formUser.value.dui),
+    formData.append('clave', claveEncriptada),
+    formData.append('telefono', this.formUser.value.telefono),
+    formData.append('correo', this.formUser.value.correo),
+    formData.append('agencia', this.formUser.value.agencia),
+    formData.append('departamento', this.formUser.value.departamento),
+    formData.append('cargo', this.formUser.value.cargo),
+    formData.append('foto', this.imagen!),
+    formData.append('habilitado', 'S'),
+    formData.append('ultimoIngreso', ''),
 
-    //const formData = new FormData();
-    //formData.append('imagen', this.imagen!);
-
-    const colaborador: Colaborador = {
-      nombres: this.formUser.value.nombres!,
-      apellidos: this.formUser.value.apellidos!,
-      dui: this.formUser.value.dui!,
-      clave: '1234',
-      telefono: this.formUser.value.telefono!,
-      correo: this.formUser.value.correo!,
-      agencia: this.formUser.value.agencia!,
-      departamento: this.formUser.value.departamento!,
-      cargo: this.formUser.value.cargo!,
-      foto: this.imagen!.name,
-      habilitado: 'S',
-      ultimoIngreso: ''
-    }
-    await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(JSON.parse(JSON.stringify(colaborador))).subscribe((response) => {
+    console.log(formData)
+    await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(formData).subscribe((response) => {
         console.log(response);
         Swal.fire({
           //position: 'center',
@@ -158,6 +173,7 @@ export class CollaboratorComponent implements OnInit {
         if(id) {
           new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(id).subscribe((response) => {
             this.colaborador = response.dataDB;
+            //console.log(response.dataDB)
             this.formUser.patchValue(this.colaborador);
 
             this.colaboradorService.getAgenciaId(response.dataDB.agencia_id).subscribe((res: any) => {
@@ -173,9 +189,10 @@ export class CollaboratorComponent implements OnInit {
               })));
             });
             const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
-
-            const objectURL = URL.createObjectURL(response.dataDB.foto);
-            imagenPrevisualizacion.src = objectURL;
+            console.log(response.dataDB.foto)
+            // const img = localStorage.getItem('foto');
+            // const objectURL = URL.createObjectURL(img);
+            //  imagenPrevisualizacion.src = objectURL;
           })));
         }
       });
@@ -189,22 +206,21 @@ export class CollaboratorComponent implements OnInit {
   }
 
   async editar() {
-    const colaborador: Colaborador = {
-      nombres: this.formUser.value.nombres!,
-      apellidos: this.formUser.value.apellidos!,
-      dui: this.formUser.value.dui!,
-      clave: '1234',
-      telefono: this.formUser.value.telefono!,
-      correo: this.formUser.value.correo!,
-      agencia: this.formUser.value.agencia!,
-      departamento: this.formUser.value.departamento!,
-      cargo: this.formUser.value.cargo!,
-      foto: this.formUser.value.foto!,
-      habilitado: 'S',
-      ultimoIngreso: ''
-    }
+    const formData = new FormData();
+    formData.append('dui', this.formUser.value.dui),
+    formData.append('nombres', this.formUser.value.nombres),
+    formData.append('apellidos', this.formUser.value.apellidos),
+    formData.append('agencia', this.formUser.value.agencia),
+    formData.append('departamento', this.formUser.value.departamento),
+    formData.append('cargo', this.formUser.value.cargo),
+    formData.append('foto', this.imagen!),
+    formData.append('telefono', this.formUser.value.telefono),
+    formData.append('correo', this.formUser.value.correo),
+    formData.append('habilitado', 'S'),
+    formData.append('ultimoIngreso', '')
+
     const id = this.activeRoute.snapshot.paramMap.get('id');
-    await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(id, colaborador).subscribe((response) => {
+    await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(id, formData).subscribe((response) => {
       console.log(response);
       Swal.fire({
         //position: 'center',
@@ -239,7 +255,8 @@ export class CollaboratorComponent implements OnInit {
     correo.value = "";
   }
 
-  changeFotoo() {
+  changeFoto(event: any) {
+    this.imagen = event.target.files[0];
     let foto = document.getElementById('foto') as HTMLInputElement;
     localStorage.setItem('foto', foto.value);
 

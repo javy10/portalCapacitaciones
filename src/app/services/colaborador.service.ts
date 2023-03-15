@@ -35,14 +35,26 @@ export class ColaboradorService {
   editarColaborador(id: any, datos: any ): Observable<any> {
     return this.http.put(this.url+'/editarcolaborador/'+ id, datos);
   }
-
+  
+  // login ***********************************************************************************************************************************************
+  login(formData: LoginForm) {
+    return this.http.post(this.url+'/login', formData)
+  }
+  getColaboradorDui(dui: any) {
+    //console.log(dui)
+    return this.http.get<any>(this.url +'/login/'+dui)
+  }
+  editarIntentos(dui: any) {
+    console.log(dui)
+    return this.http.get<any>(this.url +'/editarintentos/'+dui)
+  }
 
   //AGENCIA ***********************************************************************************************************************************************
   getAgencia(): Observable<Agencia> {
     return this.http.get<Agencia>(this.url+'/agencias');
   }
-  getAgenciaId(id: number): Observable<Agencia> {
-    return this.http.get<Agencia>(this.url +'/agencia/'+id)
+  getAgenciaId(id: number): Observable<any> {
+    return this.http.get<any>(this.url +'/agencia/'+id)
   }
 
 
@@ -66,9 +78,5 @@ export class ColaboradorService {
 
 
 
-  // login ***********************************************************************************************************************************************
-  login(formData: LoginForm) {
-    return this.http.post(this.url+'/login', formData)
-  }
 
 }
