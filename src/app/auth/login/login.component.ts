@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { SHA256 } from 'crypto-js';
 import Swal from 'sweetalert2';
+// import { AuthInterceptor } from 'src/app/interceptors/auth.interceptor';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,7 @@ export class LoginComponent {
     clave: ['', Validators.required]
   });
 
-  constructor(private router: Router, private fb: FormBuilder, private colaboradorService: ColaboradorService) { }
+  constructor(private router: Router, private fb: FormBuilder, private colaboradorService: ColaboradorService, private http: HttpClient,) { }
   year = new Date().getFullYear();
 
   async login() {
@@ -30,11 +32,9 @@ export class LoginComponent {
     let claveIngresada = document.getElementById('clave') as HTMLInputElement;
     let botonLogin = document.getElementById('login') as HTMLInputElement;
     
-    
     await new Promise(resolve => resolve(this.colaboradorService.getColaboradorDui(duiIngresado.value).subscribe((response) => {
       console.log(response.dataDB);
       
-
       if(response.dataDB == ''){
         Swal.fire({
           icon: 'error',
@@ -72,7 +72,6 @@ export class LoginComponent {
             //position: 'center',
             icon: 'success',
             title: 'Colaborador Correcto!!',
-            
             timerProgressBar: true,
             showClass: {
               popup: 'animate__animated animate__fadeInDown'
@@ -125,13 +124,5 @@ export class LoginComponent {
         })));
       }
     })));
-    //console.log(duiIngresado)
-   
-    // this.colaboradorService.login( this.loginForm.value )
-    // .subscribe( resp => {
-    //   console.log(resp);
-    // }, (err) => {
-    //   console.log('Error');
-    // });
   }
 }

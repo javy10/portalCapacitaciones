@@ -1,11 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
-import { Colaborador } from '../../interfaces/colaborador';
-import { CollaboratorComponent } from '../collaborator/collaborator.component';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-datatable',
@@ -20,9 +16,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
   listaColaborador:any=[];
   selectedRow: any;
 
-  colaborador!: CollaboratorComponent;
-
-  constructor(private http: HttpClient, private _colaboradorService: ColaboradorService, private router: Router) {}
+  constructor(private _colaboradorService: ColaboradorService) {}
 
   ngOnInit(): void {
 
@@ -54,6 +48,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
       this.listaColaborador = data.dataDB;
       this.dtTrigger.next(0);
       console.log(data.dataDB)
+      //this.intentos = data.dataDB.intentos;
     });
   }
   eliminarColaborador(id: number) {
