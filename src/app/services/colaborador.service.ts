@@ -35,7 +35,12 @@ export class ColaboradorService {
   editarColaborador(id: any, datos: any ): Observable<any> {
     return this.http.put(this.url+'/editarcolaborador/'+ id, datos);
   }
-  
+
+  desbloquear(id: number): Observable<any> {
+    //console.log(id)
+    return this.http.get<any>(this.url +'/desbloquear/'+id)
+  }
+
   // login ***********************************************************************************************************************************************
   login(formData: LoginForm) {
     return this.http.post(this.url+'/login', formData)

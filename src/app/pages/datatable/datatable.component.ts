@@ -30,13 +30,13 @@ export class DatatableComponent implements OnDestroy, OnInit {
       pagingType: 'full_numbers',
       pageLength: 5,
       columnDefs: [
-        { "width": "3%", "targets": 0 },
+        { "width": "2%", "targets": 0 },
         { "width": "15%", "targets": 1 },
         { "width": "15%", "targets": 2 },
         { "width": "15%", "targets": 3 },
         { "width": "25%", "targets": 4 },
-        { "width": "15%", "targets": 5 },
-        { "width": "20%", "targets": 6 }
+        { "width": "10%", "targets": 5 },
+        { "width": "25%", "targets": 6 }
       ],
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
@@ -80,12 +80,41 @@ export class DatatableComponent implements OnDestroy, OnInit {
             'Deshabilitado!',
             'Colaborador deshabilitado con exito.',
             'success'
-          )   
+          )
         })));
       }
     });
     this.loadColaborador();
   }
 
- 
+  desbloquear(id: number) {
+    Swal.fire({
+      title: 'Quieres desbloquear a éste colaborador?',
+      text: "El colaborador podra ingresar al Portal de Capacitaciones!",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, seguro!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        new Promise(resolve => resolve(this._colaboradorService.desbloquear(id).subscribe((response) => {
+          Swal.fire(
+            'Desbloqueado!',
+            'Colaborador desbloqueado con exito.',
+            'success'
+          )
+        })));
+      }
+    });
+  }
+
+
 }
