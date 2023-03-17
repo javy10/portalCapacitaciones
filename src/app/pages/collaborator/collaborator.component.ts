@@ -158,20 +158,21 @@ export class CollaboratorComponent implements OnInit {
     //console.log(nombreClave+apellidoClave+this.codAgencia)
     
     //encriptamos la clave
-    const claveEncriptada = SHA256(valorClave).toString();
+    //const claveEncriptada = SHA256(valorClave).toString();
 
     const formData = new FormData();
     formData.append('nombres', this.formUser.value.nombres),
     formData.append('apellidos', this.formUser.value.apellidos),
     formData.append('dui', this.formUser.value.dui),
-    formData.append('clave', claveEncriptada),
+    formData.append('password', valorClave),
     formData.append('telefono', this.formUser.value.telefono),
     formData.append('correo', this.formUser.value.correo),
-    formData.append('agencia', this.formUser.value.agencia),
-    formData.append('departamento', this.formUser.value.departamento),
-    formData.append('cargo', this.formUser.value.cargo),
+    formData.append('agencia_id', this.formUser.value.agencia),
+    formData.append('departamento_id', this.formUser.value.departamento),
+    formData.append('cargo_id', this.formUser.value.cargo),
     formData.append('foto', this.imagen!),
     formData.append('habilitado', 'S'),
+    formData.append('intentos', '4'),
     formData.append('ultimoIngreso', ''),
 
     console.log(formData)

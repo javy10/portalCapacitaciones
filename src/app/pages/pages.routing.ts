@@ -9,10 +9,11 @@ import { listCollaboratorComponent } from './listCollaborator/listcollaborator.c
 import { CollaboratorComponent } from './collaborator/collaborator.component';
 import { ListevaluationComponent } from './listevaluation/listevaluation.component';
 import { EvaluationComponent } from './evaluation/evaluation.component';
+import { UserGuardGuard } from '../Guard/user-guard.guard';
 
 const routes: Routes = [
     {
-        path: 'dashboard', component: PagesComponent,
+        path: 'dashboard', component: PagesComponent, canActivate: [UserGuardGuard],
         children: [
           { path: '', component: DashboardComponent },
           { path: 'progress', component: ProgressComponent },

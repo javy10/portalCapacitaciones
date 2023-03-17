@@ -21,7 +21,7 @@ export class ColaboradorService {
     return this.http.get<Colaborador>(this.url+'/colaboradores');
   }
   saveColaborador(datos: any): Observable<any> {
-    return this.http.post(this.url+'/colaborador', datos);
+    return this.http.post(this.url+'/register', datos);
     //return datos;
   }
   eliminar(id: number): Observable<any> {
@@ -42,16 +42,23 @@ export class ColaboradorService {
   }
 
   // login ***********************************************************************************************************************************************
-  login(formData: LoginForm) {
+  login(formData: any) {
     return this.http.post(this.url+'/login', formData)
+  }
+  logout() {
+    return this.http.post(this.url+'/logout', {})
   }
   getColaboradorDui(dui: any) {
     //console.log(dui)
     return this.http.get<any>(this.url +'/login/'+dui)
   }
   editarIntentos(dui: any) {
-    console.log(dui)
+    //console.log(dui)
     return this.http.get<any>(this.url +'/editarintentos/'+dui)
+  }
+  editarIntentosEquivocados (dui: any) {
+    //console.log(dui)
+    return this.http.get<any>(this.url +'/editarIntentosEquivocados/'+dui)
   }
 
   //AGENCIA ***********************************************************************************************************************************************
