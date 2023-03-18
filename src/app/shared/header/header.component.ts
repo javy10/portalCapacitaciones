@@ -14,17 +14,13 @@ import { CookieService } from 'ngx-cookie-service';
 export class HeaderComponent {
 
   constructor(
-    private http: HttpClient,
     private router: Router,
     private _colaboradorService: ColaboradorService,
-    private cookieService: CookieService
   ) {
   }
   
   logout() {
-    // AuthInterceptor.accessToken = '';
     this._colaboradorService.logout().subscribe((data: any) => {
-      //this.cookieService.remove('token');
       localStorage.removeItem('token');
       this.router.navigate(['/login']);
     });

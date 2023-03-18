@@ -5,14 +5,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { CookieService } from 'ngx-cookie-service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from '../interceptors/auth.interceptor';
+import { ResetclaveComponent } from './resetclave/resetclave.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
+    ResetclaveComponent,
   ],
   exports: [
     LoginComponent,
@@ -24,13 +23,5 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     FormsModule,
     ReactiveFormsModule
   ],
-  // providers: [
-  //   CookieService,
-  //   {
-  //     provide: HTTP_INTERCEPTORS,
-  //     useClass: AuthInterceptor,
-  //     multi: true
-  //   }
-  // ],
 })
 export class AuthModule { }

@@ -8,7 +8,6 @@ import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 import { NotpagesfoundComponent } from './notpagesfound/notpagesfound.component';
 
-import { CookieService } from 'ngx-cookie-service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -27,7 +26,6 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     AuthModule
   ],
   providers: [
-    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -87,8 +87,4 @@ export class ColaboradorService {
   getCargoId(id: number): Observable<any> {
     return this.http.get<any>(this.url +'/cargo/'+id)
   }
-
-
-
-
 }

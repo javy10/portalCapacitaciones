@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables'
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -18,8 +18,6 @@ import { ListevaluationComponent } from './listevaluation/listevaluation.compone
 import { EvaluationComponent } from './evaluation/evaluation.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { PreguntaComponent } from './pregunta/pregunta.component';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthInterceptor } from '../interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -50,13 +48,5 @@ import { AuthInterceptor } from '../interceptors/auth.interceptor';
     FormsModule,
     BrowserModule
   ],
-  // providers: [
-  //   CookieService,
-  //   {
-  //     provide: HTTP_INTERCEPTORS,
-  //     useClass: AuthInterceptor,
-  //     multi: true
-  //   }
-  // ],
 })
 export class PagesModule { }
