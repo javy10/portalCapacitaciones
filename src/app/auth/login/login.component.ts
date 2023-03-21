@@ -172,6 +172,6 @@ export class LoginComponent implements OnInit{
   }
 
   reset() {
-    this.router.navigate(['/reset/'+this.id])
+    this.router.navigate(['/reset'])
   }
 }

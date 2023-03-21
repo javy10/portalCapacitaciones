@@ -34,17 +34,17 @@ export class AuthInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
           console.log('Error: ' + err.message);
           if(err.status === 401) {
-            //this.handler401Error();
+            this.handler401Error();
           }
           return throwError(err + ' ERROR EXTRA');
       })
     );
   }
-  // private handler401Error() : Observable<any> {
-  //   this._colaboradorService.logout().subscribe((data: any) => {
-  //     localStorage.removeItem('token');
-  //     this.router.navigate(['/login']);
-  //   });
-  //   return throwError('ERORR 401');
-  // }
+  private handler401Error() : Observable<any> {
+    this._colaboradorService.logout().subscribe((data: any) => {
+      localStorage.removeItem('token');
+      this.router.navigate(['/login']);
+    });
+    return throwError('ERORR 401');
+  }
 }

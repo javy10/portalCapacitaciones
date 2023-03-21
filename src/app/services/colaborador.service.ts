@@ -49,21 +49,21 @@ export class ColaboradorService {
     return this.http.post(this.url+'/logout', {})
   }
   getColaboradorDui(dui: any) {
-    //console.log(dui)
     return this.http.get<any>(this.url +'/login/'+dui)
   }
   editarIntentos(dui: any) {
-    //console.log(dui)
     return this.http.get<any>(this.url +'/editarintentos/'+dui)
   }
   editarIntentosEquivocados (dui: any) {
-    //console.log(dui)
     return this.http.get<any>(this.url +'/editarIntentosEquivocados/'+dui)
+  }
+  reestablecerClave(data: any) {
+    return this.http.post<any>(this.url +'/password/reset', data)
   }
 
   //AGENCIA ***********************************************************************************************************************************************
   getAgencia(): Observable<Agencia> {
-    return this.http.get<Agencia>(this.url+'/agencias');
+    return this.http.get<Agencia>(this.url+'/agencias')
   }
   getAgenciaId(id: number): Observable<any> {
     return this.http.get<any>(this.url +'/agencia/'+id)

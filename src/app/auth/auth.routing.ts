@@ -7,7 +7,7 @@ import { ResetclaveComponent } from './resetclave/resetclave.component';
 const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent },
-    { path: 'reset/:id', component: ResetclaveComponent },
+    { path: 'reset', component: ResetclaveComponent },
 ];
 
 @NgModule({

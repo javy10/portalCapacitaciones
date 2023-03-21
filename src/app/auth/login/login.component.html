@@ -1,74 +1,19 @@
-<!-- 
-    <main>
-    <div class="container">
-        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-            <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="pt-4 pb-2">
-                            <h5 class="card-title text-center pb-0 fs-4">Login</h5>
-                            <p class="text-center ">ACACYPAC - Portal Capacitaciones</p>
-                        </div>
-                        <form class="row g-3 needs-validation"
-                                autocomplete="off"
-                                [formGroup]="loginForm" 
-                                (ngSubmit)="login()"
-                                id="loginForm"
-                                novalidate>
-                            <div class="container_img">
-                                <img src="../../../assets/img/logo.png" alt="" style="width: auto;">
-                            </div>
-                            <div class="col-12">
-                                <label for="dui" class="form-label">DUI</label>
-                                <div class="form-group has-validation">
-                                    <input type="text" name="username" formControlName="dui" class="form-control" id="dui" placeholder="Ingresa tú dui" (keypress)="validateFormat($event)" maxlength="10">
-                                    <div class="invalid-feedback">Ingresa tu número de documento</div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="clave" class="form-label">Clave</label>
-                                <div class="form-group has-validation">
-                                    <input type="password" name="clave" formControlName="clave" class="form-control" id="clave" placeholder="Ingresa tú clave">
-                                    <div class="invalid-feedback">Ingresa la clave!</div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-success w-100" type="submit" id="login">Iniciar sesión</button>
-                            </div>
-                            <div class="claveOlvidada">
-                               <a (click)="reset()"> ¿Olvidaste la contraseña?</a>
-                            </div>
-                        </form>
-                    </div>
+<main>
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 background-radial-gradient">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Login">
                 </div>
-                <div class="credits">
-                    Designed by <a href="#">Equipo TI</a> {{ year }}
-                </div>
-            </div>
-            </div>
-        </div>
-        </section>
-    </div>
-</main>
- -->
-
- <main>
-<section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 background-radial-gradient">
-    <div class="container-fluid h-custom">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-md-9 col-lg-6 col-xl-5">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Login"></div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 position-relative">
                     <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
                     <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-                    <div class="card mb-3 cascading-right" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px); ">
+                    <div class="card mb-3 cascading-right">
                         <div class="card-body">
                             <div class="pt-4 pb-2">
-                                <h5 class="card-title text-center pb-0 fs-4">Login</h5>
-                                <p class="text-center ">ACACYPAC - Portal Capacitaciones</p>
+                                <!-- <h5 class="card-title text-center pb-0 fs-4">Login</h5> -->
+                                <h4 class="text-center ">ACACYPAC - Portal de Capacitaciones</h4>
                             </div>
                             <form class="row g-3 needs-validation"
                                     autocomplete="off"
@@ -97,7 +42,7 @@
                                     <button class="btn btn-success w-100" type="submit" id="login">Iniciar sesión</button>
                                 </div>
                                 <div class="claveOlvidada">
-                                   <a (click)="reset()"> ¿Olvidaste la contraseña?</a>
+                                <a (click)="reset()"> ¿Olvidaste la contraseña?</a>
                                 </div>
                             </form>
                         </div>

@@ -1,3 +1,109 @@
 h5, span {
     text-align: center;
 }
+
+
+.container_img {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+} 
+
+.claveOlvidada {
+    text-align: center;
+}
+.claveOlvidada > a {
+    color: blue;
+    cursor: pointer;
+}
+.credits {
+    color: white;
+}
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+    }
+    .h-custom {
+    height: calc(100% - 73px);
+    }
+    @media (max-width: 450px) {
+    .h-custom {
+    height: 100%;
+    }
+}
+
+  /* .background-radial-gradient {
+    background-color: hsl(218, 41%, 15%);
+    background-image: radial-gradient(650px circle at 0% 0%,
+        hsl(218, 41%, 35%) 15%,
+        hsl(218, 41%, 30%) 35%,
+        hsl(218, 41%, 20%) 75%,
+        hsl(218, 41%, 19%) 80%,
+        transparent 100%),
+      radial-gradient(1250px circle at 100% 100%,
+        hsl(218, 41%, 45%) 15%,
+        hsl(218, 41%, 30%) 35%,
+        hsl(218, 41%, 20%) 75%,
+        hsl(218, 41%, 19%) 80%,
+        transparent 100%);
+  } */
+  .background-radial-gradient {
+    background-color: hsl(176, 89%, 18%);
+    background-image: radial-gradient(650px circle at 0% 0%,
+      hsl(173, 77%, 24%) 15%,
+      hsl(178, 71%, 24%) 35%,
+      hsl(176, 70%, 18%) 75%,
+      hsl(170, 78%, 16%) 80%,
+        transparent 100%),
+      radial-gradient(1250px circle at 100% 100%,
+        hsl(173, 77%, 24%) 15%,
+        hsl(178, 71%, 24%) 35%,
+        hsl(176, 70%, 18%) 75%,
+        hsl(170, 78%, 16%) 80%,
+        transparent 100%);
+  }
+  #radius-shape-1 {
+    height: 220px;
+    width: 220px;
+    top: -60px;
+    left: -130px;
+    background: radial-gradient(#043336, #178A92);
+    overflow: hidden;
+  }
+
+  #radius-shape-2 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    bottom: -60px;
+    right: -110px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(#043336, #178A92);
+    overflow: hidden;
+  }
+
+  .bg-glass {
+    background-color: hsla(0, 0%, 100%, 0.9) !important;
+    backdrop-filter: saturate(200%) blur(25px);
+  }
+
+  .cardBackground {
+    background: hsla(0, 0%, 100%, 0.55);
+    backdrop-filter: blur(30px);
+  }
+  .cascading-right {
+    margin-right: -50px;
+  }
+  @media (max-width: 991.98px) {
+    .cascading-right {
+      margin-right: 0;
+    }
+  }
+
+  .card {
+    width: 75%;
+    height: 20%;
+  }
