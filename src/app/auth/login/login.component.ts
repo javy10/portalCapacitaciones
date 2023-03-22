@@ -16,19 +16,19 @@ export class LoginComponent implements OnInit{
   loginForm: FormGroup;
   year = new Date().getFullYear();
   id = 0;
-  
+
   constructor(
-    private router: Router, 
-    private fb: FormBuilder, 
-    private colaboradorService: ColaboradorService, 
-  ) { 
+    private router: Router,
+    private fb: FormBuilder,
+    private colaboradorService: ColaboradorService,
+  ) {
     this.loginForm = this.fb.group({
       dui: ['', Validators.required],
       clave: ['', Validators.required]
     });
   }
 
- 
+
 
   ngOnInit(): void {
     if(this.verificarLogin()){
@@ -37,9 +37,12 @@ export class LoginComponent implements OnInit{
   }
 
   async login() {
-    
+
     let duiIngresado = document.getElementById('dui') as HTMLInputElement;
     let claveIngresada = document.getElementById('clave') as HTMLInputElement;
+
+    console.log(duiIngresado.value);
+    console.log(claveIngresada.value);
 
     const formData = new FormData();
     formData.append('dui', duiIngresado.value),
@@ -47,7 +50,6 @@ export class LoginComponent implements OnInit{
 
     await new Promise(resolve => resolve(this.colaboradorService.getColaboradorDui(duiIngresado.value).subscribe((res) => {
       console.log(res.dataDB);
-      this.id = res.dataDB[0].id;
       if(res.dataDB == '') {
         Swal.fire({
           icon: 'error',
@@ -63,6 +65,7 @@ export class LoginComponent implements OnInit{
         });
       }
         else {
+          this.id = res.dataDB[0].id;
           new Promise(resolve => resolve(this.colaboradorService.login(formData).subscribe((response: any) => {
             if(response.success == true) {
               Swal.fire({
@@ -87,11 +90,11 @@ export class LoginComponent implements OnInit{
                   this.router.navigate(['']);
                 }
               });
-            } 
-            else 
+            }
+            else
             {
               //console.log(res.dataDB[0].intentos - 1);
-              if(res.dataDB[0].intentos > 0) 
+              if(res.dataDB[0].intentos > 0)
               {
 
                 new Promise(resolve => resolve(this.colaboradorService.editarIntentosEquivocados(duiIngresado.value).subscribe((response) => {
@@ -141,7 +144,7 @@ export class LoginComponent implements OnInit{
               }
             }
           })));
-        } 
+        }
     })));
   }
 
