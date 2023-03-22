@@ -10,6 +10,7 @@ import { NotpagesfoundComponent } from './notpagesfound/notpagesfound.component'
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ReactiveFormsModule,
     FormsModule,
     PagesModule,
-    AuthModule
+    AuthModule,
+    SharedModule
   ],
   providers: [
     {

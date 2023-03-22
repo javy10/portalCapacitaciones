@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Agencia } from '../interfaces/agencia';
 import { Colaborador } from '../interfaces/colaborador';
 import { Departamento } from '../interfaces/departamento';
@@ -87,4 +87,6 @@ export class ColaboradorService {
   getCargoId(id: number): Observable<any> {
     return this.http.get<any>(this.url +'/cargo/'+id)
   }
+
+
 }

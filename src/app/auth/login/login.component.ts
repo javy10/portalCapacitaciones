@@ -41,111 +41,127 @@ export class LoginComponent implements OnInit{
     let duiIngresado = document.getElementById('dui') as HTMLInputElement;
     let claveIngresada = document.getElementById('clave') as HTMLInputElement;
 
-    console.log(duiIngresado.value);
-    console.log(claveIngresada.value);
+    if(duiIngresado.value.length > 0 && claveIngresada.value.length > 0){
 
-    const formData = new FormData();
-    formData.append('dui', duiIngresado.value),
-    formData.append('password', claveIngresada.value)
+      console.log(duiIngresado.value);
+      console.log(claveIngresada.value);
 
-    await new Promise(resolve => resolve(this.colaboradorService.getColaboradorDui(duiIngresado.value).subscribe((res) => {
-      console.log(res.dataDB);
-      if(res.dataDB == '') {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          },
-          text: 'No se ha encontrado ningún usuario con éstas credenciales!',
-          footer: '<h5 href="">Verifica que tengas las credenciales correctas</h5>',
-        });
-      }
-        else {
-          this.id = res.dataDB[0].id;
-          new Promise(resolve => resolve(this.colaboradorService.login(formData).subscribe((response: any) => {
-            if(response.success == true) {
-              Swal.fire({
-                //position: 'center',
-                icon: 'success',
-                title: 'Colaborador Correcto!!',
-                timerProgressBar: true,
-                showClass: {
-                  popup: 'animate__animated animate__fadeInDown'
-                },
-                hideClass: {
-                  popup: 'animate__animated animate__fadeOutUp'
-                },
-                showConfirmButton: false,
-                timer: 1500,
-                didOpen: () => {
-                  Swal.showLoading()
-                },
-                willClose: () => {
-                  localStorage.setItem('token', response.dataDB.original.access_token);
-                  localStorage.setItem('logeado', response.success);
-                  this.router.navigate(['']);
-                }
-              });
-            }
-            else
-            {
-              //console.log(res.dataDB[0].intentos - 1);
-              if(res.dataDB[0].intentos > 0)
-              {
+      const formData = new FormData();
+      formData.append('dui', duiIngresado.value),
+      formData.append('password', claveIngresada.value)
 
-                new Promise(resolve => resolve(this.colaboradorService.editarIntentosEquivocados(duiIngresado.value).subscribe((response) => {
-                  if((res.dataDB[0].intentos - 1) != 0) {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Oops...',
-                      showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                      },
-                      hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                      },
-                      text: 'Usuario Incorrecto! Te quedan '+ (res.dataDB[0].intentos - 1)  +' intentos restantes',
-                      footer: '<h5 href="">Verifica que tengas las credenciales correctas</h5>',
-                    });
-                  } else {
-                    Swal.fire({
-                      title: 'El usuario se ha bloqueado...',
-                      width: 600,
-                      padding: '3em',
-                      color: '#716add',
-                      background: '#fff url(../../../assets/img/fondo.png)',
-                      backdrop: `
-                        rgba(0,0,123,0.4)
-                        url("../../../assets/img/error1.gif")
-                        left top
-                        no-repeat
-                      `
-                    });
-                  }
-                })));
-              } else {
+      await new Promise(resolve => resolve(this.colaboradorService.getColaboradorDui(duiIngresado.value).subscribe((res) => {
+        console.log(res.dataDB);
+        if(res.dataDB == '') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            },
+            text: 'No se ha encontrado ningún usuario con éstas credenciales!',
+            footer: '<h5 href="">Verifica que tengas las credenciales correctas</h5>',
+          });
+        }
+          else {
+            this.id = res.dataDB[0].id;
+            new Promise(resolve => resolve(this.colaboradorService.login(formData).subscribe((response: any) => {
+              if(response.success == true) {
                 Swal.fire({
-                  title: 'El usuario está bloqueado...',
-                  width: 600,
-                  padding: '3em',
-                  color: '#716add',
-                  background: '#fff url(../../../assets/img/fondo.png)',
-                  backdrop: `
-                    rgba(0,0,123,0.4)
-                    url("../../../assets/img/error1.gif")
-                    left top
-                    no-repeat
-                  `
+                  //position: 'center',
+                  icon: 'success',
+                  title: 'Colaborador Correcto!!',
+                  timerProgressBar: true,
+                  showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                  },
+                  hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                  },
+                  showConfirmButton: false,
+                  timer: 1500,
+                  didOpen: () => {
+                    Swal.showLoading()
+                  },
+                  willClose: () => {
+                    localStorage.setItem('token', response.dataDB.original.access_token);
+                    localStorage.setItem('logeado', response.success);
+                    this.router.navigate(['']);
+                  }
                 });
               }
-            }
-          })));
-        }
-    })));
+              else
+              {
+                //console.log(res.dataDB[0].intentos - 1);
+                if(res.dataDB[0].intentos > 0)
+                {
+
+                  new Promise(resolve => resolve(this.colaboradorService.editarIntentosEquivocados(duiIngresado.value).subscribe((response) => {
+                    if((res.dataDB[0].intentos - 1) != 0) {
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        showClass: {
+                          popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                          popup: 'animate__animated animate__fadeOutUp'
+                        },
+                        text: 'Usuario Incorrecto! Te quedan '+ (res.dataDB[0].intentos - 1)  +' intentos restantes',
+                        footer: '<h5 href="">Verifica que tengas las credenciales correctas</h5>',
+                      });
+                    } else {
+                      Swal.fire({
+                        title: 'El usuario se ha bloqueado...',
+                        width: 600,
+                        padding: '3em',
+                        color: '#716add',
+                        background: '#fff url(../../../assets/img/fondo.png)',
+                        backdrop: `
+                          rgba(0,0,123,0.4)
+                          url("../../../assets/img/error1.gif")
+                          left top
+                          no-repeat
+                        `
+                      });
+                    }
+                  })));
+                } else {
+                  Swal.fire({
+                    title: 'El usuario está bloqueado...',
+                    width: 600,
+                    padding: '3em',
+                    color: '#716add',
+                    background: '#fff url(../../../assets/img/fondo.png)',
+                    backdrop: `
+                      rgba(0,0,123,0.4)
+                      url("../../../assets/img/error1.gif")
+                      left top
+                      no-repeat
+                    `
+                  });
+                }
+              }
+            })));
+          }
+      })));
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        text: 'Los campos no pueden estar vacios!!!',
+        footer: '<h5 href="">Ingresa las credenciales correctas</h5>',
+      });
+    }
   }
 
   verificarLogin(): boolean {

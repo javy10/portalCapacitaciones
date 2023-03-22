@@ -57,40 +57,40 @@
 
 
 
-  <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 background-radial-gradient overflow-hidden">
-      <div class="container-fluid h-custom ">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-              <div class="col-md-9 col-lg-6 col-xl-5">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid imagen" alt="Login">
-              </div>
-              <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 position-relative">
-                <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
-                <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
-                  <div class="wrapper bg-glass">
-                    <div class="container_img">
-                      <img src="../../../assets/img/logo.png" alt="" >
+<section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 background-radial-gradient overflow-hidden">
+    <div class="container-fluid h-custom ">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid imagen" alt="Login">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 position-relative">
+            <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
+            <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
+                <div class="wrapper bg-glass">
+                <div class="container_img">
+                    <img src="../../../assets/img/logo.png" alt="" >
+                </div>
+                <div class="text-center mt-4 name">
+                    ACACYPAC - Portal de Capacitaciones
+                </div>
+                <form class="p-3 mt-3 row g-3 needs-validation" [formGroup]="loginForm" (ngSubmit)="login()" id="loginForm" novalidate>
+                    <div class="form-group form-field d-flex align-items-center">
+                        <span class="far fa-user"></span>
+                        <input type="text" name="userName" formControlName="dui" id="dui" class="form-control" placeholder="Ingresa tú dui" (keypress)="validateFormat($event)" maxlength="10" required="true" />
+                        <div class="invalid-feedback">Ingresa tu número de documento</div>
                     </div>
-                    <div class="text-center mt-4 name">
-                        ACACYPAC - Portal de Capacitaciones
+                    <div class="form-group form-field d-flex align-items-center">
+                        <span class="fas fa-key"></span>
+                        <input type="password" name="password" formControlName="clave" id="clave" class="form-control" placeholder="Clave" maxlength="25" required="true" />
+                        <div class="invalid-feedback">Ingresa la clave!</div>
                     </div>
-                    <form class="p-3 mt-3 needs-validation" [formGroup]="loginForm" (ngSubmit)="login()" id="loginForm" novalidate>
-                        <div class="form-group has-validation form-field d-flex align-items-center">
-                           <span class="far fa-user"></span>
-                          <input type="text" name="userName" formControlName="dui" id="dui" class="form-control" placeholder="Ingresa tú dui" (keypress)="validateFormat($event)" maxlength="10" required>
-                          <div class="invalid-feedback">Ingresa tu número de documento</div>
-                        </div>
-                        <div class="form-group has-validation form-field d-flex align-items-center">
-                            <span class="fas fa-key"></span>
-                            <input type="password" name="password" formControlName="clave" id="clave" class="form-control" placeholder="Clave" maxlength="25" required>
-                            <div class="invalid-feedback">Ingresa la clave!</div>
-                        </div>
-                        <button class="btn mt-3" type="submit" id="login">Iniciar sesion</button>
-                    </form>
-                    <div class="text-center fs-6 claveOlvidada">
-                        <a (click)="reset()">Forget password?</a>
-                    </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+                    <button class="btn mt-3" type="submit" id="login">Iniciar sesion</button>
+                </form>
+                <div class="text-center fs-6 claveOlvidada">
+                    <a (click)="reset()">Forget password?</a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
