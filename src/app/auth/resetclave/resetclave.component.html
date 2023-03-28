@@ -55,13 +55,17 @@
                 <div class="text-center mt-4 name">
                   Reestablecer la contraseña
                 </div>
-                <form class="p-3 mt-3 needs-validation" id="reset" novalidate>
-                    <div class="form-group has-validation form-field d-flex align-items-center">
+                <form class="p-3 mt-3" id="reset" [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="form-group form-field d-flex align-items-center">
                         <span class="fas fa-key"></span>
-                        <input type="email" name="email" formControlName="email" id="email" class="form-control" placeholder="Ingresa tu email" maxlength="50" required>
-                        <div class="invalid-feedback">Ingresa el correo electronico</div>
+                        <input type="email" name="email" formControlName="email" id="email" class="form-control" placeholder="Ingresa tu email" maxlength="50">
+                        <!-- <div class="invalid-feedback">Ingresa el correo electronico</div> -->
+                        <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
+                            <div *ngIf="form.get('email')?.errors?.['required']">Email is required</div>
+                            <div *ngIf="form.get('email')?.errors?.['email']">Invalid email format</div>
+                          </div>
                     </div>
-                    <button class="btn mt-3" type="submit" id="login">Reestablecer contraseña</button>
+                    <button class="btn mt-3" type="submit" id="login" [disabled]="form.invalid">Reestablecer contraseña</button>
                 </form>
                 <div class="text-center fs-6 claveOlvidada">
                     <span>No tienes una cuenta?

@@ -18,9 +18,9 @@ export class HeaderComponent {
   }
   
   logout() {
-    this._colaboradorService.logout().subscribe((data: any) => {
-      localStorage.removeItem('token');
-      this.router.navigate(['/login']);
-    });
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+    // this._colaboradorService.logout().subscribe((data: any) => {
+    // });
   }
 }

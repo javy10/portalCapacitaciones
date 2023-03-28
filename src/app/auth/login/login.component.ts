@@ -28,8 +28,6 @@ export class LoginComponent implements OnInit{
     });
   }
 
-
-
   ngOnInit(): void {
     if(this.verificarLogin()){
       this.router.navigate(['']);

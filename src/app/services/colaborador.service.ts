@@ -57,9 +57,14 @@ export class ColaboradorService {
   editarIntentosEquivocados (dui: any) {
     return this.http.get<any>(this.url +'/editarIntentosEquivocados/'+dui)
   }
-  reestablecerClave(data: any) {
-    return this.http.post<any>(this.url +'/password/reset', data)
+  reestablecerClave(data: any): Observable<any>  {
+    const url = `${this.url}/forgot-password`;
+    const body = { data };
+    //return this.http.post(url, body);
+    return data;
+    //return this.http.post<any>(this.url +'/forgot-password', data)
   }
+
 
   //AGENCIA ***********************************************************************************************************************************************
   getAgencia(): Observable<Agencia> {
