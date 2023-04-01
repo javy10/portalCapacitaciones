@@ -8,8 +8,10 @@ import { Component, OnInit, ViewChildren } from '@angular/core';
   styles: [
   ]
 })
-export class listCollaboratorComponent  {
+export class listCollaboratorComponent  implements OnInit{
 
- 
+ ngOnInit(): void {
+   
+ }
   
 }

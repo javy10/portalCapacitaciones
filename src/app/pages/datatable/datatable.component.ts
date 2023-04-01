@@ -15,10 +15,13 @@ export class DatatableComponent implements OnDestroy, OnInit {
   data: any;
   listaColaborador:any=[];
   selectedRow: any;
+  Id = '';
 
   constructor(private _colaboradorService: ColaboradorService) {}
 
   ngOnInit(): void {
+
+    this.Id = localStorage.getItem('id')!;
 
     this.dtOptions = {
       pagingType: 'full_numbers',

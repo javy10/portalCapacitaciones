@@ -41,6 +41,8 @@ export class ColaboradorService {
     return this.http.get<any>(this.url +'/desbloquear/'+id)
   }
 
+  
+
   // login ***********************************************************************************************************************************************
   login(formData: any) {
     return this.http.post(this.url+'/login', formData)

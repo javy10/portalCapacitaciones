@@ -87,6 +87,7 @@ export class LoginComponent implements OnInit{
                   willClose: () => {
                     localStorage.setItem('token', response.dataDB.original.access_token);
                     localStorage.setItem('logeado', response.success);
+                    localStorage.setItem('id', this.id.toString());
                     this.router.navigate(['']);
                   }
                 });
