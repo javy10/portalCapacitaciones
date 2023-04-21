@@ -5,7 +5,6 @@ import { Colaborador } from 'src/app/interfaces/colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SHA256 } from 'crypto-js';
 
 @Component({
   selector: 'app-collaborator',
@@ -155,10 +154,6 @@ export class CollaboratorComponent implements OnInit {
     const nombreClave = this.formUser.value.nombres.charAt(0).toUpperCase();
     const apellidoClave = this.formUser.value.apellidos.split(' ')[0].toLowerCase();
     const valorClave = nombreClave+apellidoClave+this.codAgencia;
-    //console.log(nombreClave+apellidoClave+this.codAgencia)
-    
-    //encriptamos la clave
-    //const claveEncriptada = SHA256(valorClave).toString();
 
     const formData = new FormData();
     formData.append('nombres', this.formUser.value.nombres),
@@ -172,7 +167,7 @@ export class CollaboratorComponent implements OnInit {
     formData.append('cargo_id', this.formUser.value.cargo),
     formData.append('foto', this.imagen!),
     formData.append('habilitado', 'S'),
-    formData.append('intentos', '4'),
+    formData.append('intentos', '5'),
     formData.append('ultimoIngreso', ''),
 
     console.log(formData)
@@ -249,17 +244,19 @@ export class CollaboratorComponent implements OnInit {
     formData.append('dui', this.formUser.value.dui),
     formData.append('nombres', this.formUser.value.nombres),
     formData.append('apellidos', this.formUser.value.apellidos),
-    formData.append('agencia', this.formUser.value.agencia),
-    formData.append('departamento', this.formUser.value.departamento),
-    formData.append('cargo', this.formUser.value.cargo),
+    formData.append('agencia_id', this.formUser.value.agencia),
+    formData.append('departamento_id', this.formUser.value.departamento),
+    formData.append('cargo_id', this.formUser.value.cargo),
     formData.append('foto', this.imagen!),
     formData.append('telefono', this.formUser.value.telefono),
     formData.append('correo', this.formUser.value.correo),
     formData.append('habilitado', 'S'),
     formData.append('ultimoIngreso', '')
 
+    console.log(this.formUser.value)
+
     const id = this.activeRoute.snapshot.paramMap.get('id');
-    await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(id, formData).subscribe((response) => {
+    await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(id, this.formUser.value).subscribe((response) => {
       console.log(response);
       Swal.fire({
         //position: 'center',

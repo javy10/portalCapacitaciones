@@ -7,28 +7,23 @@
             <i class="bi bi-grid"></i>
             <span>Dashboard</span>
             </a>
-        </li><!-- End Dashboard Nav -->
+        </li>
 
-        <li class="nav-heading">Administración</li>
+        <li class="nav-heading" *ngIf="permisos == 1">Administración</li>
 
-        <!-- <li class="nav-item">
+         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-grid"></i><span>Documentación</span><i class="bi bi-chevron-down ms-auto"></i>
+              <i class="bi bi-file-earmark-text-fill"></i><span>Documentación</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="list-collaborator">
-                        <i class="bi bi-circle"></i><span>Listado colaboradores</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="collaborator">
-                        <i class="bi bi-circle"></i><span>Colaboradores</span>
+                    <a routerLink="/dashboard/list-documentos">
+                        <i class="bi bi-circle"></i><span>Listado de documentos</span>
                     </a>
                 </li>
             </ul>
         </li>
-        <li class="nav-item">
+       <!-- <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-layout-text-window-reverse"></i><span>Evaluaciones</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
@@ -51,208 +46,156 @@
                     </a>
                 </li>
             </ul>
-        </li><!-- End Charts Nav -->
-
+        </li>
 
         <li class="nav-heading">Documentos</li>
+        
+        <!-- <li class="nav-item" >
+            <a class="nav-link collapsed" data-bs-target="#politicas2-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-folder-fill"></i><span>Políticas v2</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="politicas2-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li *ngFor="let item of listaDocumentos">
+                <a href="{{item}}" target="_blank">{{ item }} </a>
+              </li>
+            </ul>
+        </li> -->
 
-        <li class="nav-item">
+        <li class="nav-item" >
             <a class="nav-link collapsed" data-bs-target="#politicas-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Políticas</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="politicas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 1 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 1 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#reglamento-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Reglamento</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="reglamento-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 2 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 2 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#manual-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Manual</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="manual-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 3 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 3 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#instructivo-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Intructivo</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="instructivo-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 4 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 4 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#normativa-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Normativa</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="normativa-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 5 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 5 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#estudio-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Estudio</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="estudio-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 6 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 6 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#ley-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Ley</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="ley-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 7 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 7 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#boletin-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Boletín</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="boletin-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 8 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 8 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#circulares-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-folder-fill"></i><span>Circulares</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="circulares-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 1</span>
+              <li *ngFor="let item of listaDocumentos">
+                <a type="button" *ngIf="item.tipoDocumento_id === 9 && item.colaborador_id === id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 2</span>
-                </a>
-              </li>
-              <li>
-                <a >
-                  <i class="bi bi-circle"></i><span>Archivo 3</span>
+                <a type="button" *ngIf="item.tipoDocumento_id === 9 && item.departamento_id === departamento_id"  (click)="cargarPDF(item.nombreArchivo)">
+                  <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
             </ul>
-        </li><!-- End Icons Nav -->
+        </li>
     </ul>
 </aside><!-- End Sidebar-->

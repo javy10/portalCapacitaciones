@@ -1,44 +1,21 @@
-
-.titulo {
-  /* background-color: rgba(0, 95, 85, 1);
-  color: #FFFFFF; */
-  font-size: 1.5rem;
+th , td {
+    text-align: center;
 }
 
-.card {
-  --border-size: 3px;
-  --border-angle: 0turn;
-  /* width: 60vmin;
-  height: 50vmin; */
-  background-image: conic-gradient( rgb(247, 245, 249), rgb(253, 253, 255) 50%, rgb(250, 247, 252)), conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
-  background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)), cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  -webkit-animation: bg-spin 3s linear infinite;
-          animation: bg-spin 3s linear infinite;
-}
-@-webkit-keyframes bg-spin {
-  to {
-    --border-angle: 1turn;
+.table {
+    font-size: 11px;
   }
+  table th {
+    text-align: center;
 }
-@keyframes bg-spin {
-  to {
-    --border-angle: 1turn;
-  }
-}
-/* .card:hover {
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
-} */
-
-@property --border-angle {
-  syntax: "<angle>";
-  inherits: true;
-  initial-value: 0turn;
+table tr th{
+    background:#19948a;
+    color:white;
+    vertical-align:center;
 }
 
-/****************************
+/*****************************
+
 /* Esto es definir los estilos CSS para un elemento de botón. Establece el relleno, el tamaño de la
   fuente, la transformación del texto, el espaciado entre letras, el grosor de la fuente, el color,
   el color de fondo, el borde, el radio del borde, la sombra del cuadro, la transición, el cursor y
@@ -62,8 +39,8 @@
   }
   
   button:hover {
-    background-color: #23c483;
-    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    background-color: #1fa7d9;
+    box-shadow: 0px 15px 20px rgba(38, 156, 186, 0.4);
     color: #fff;
     transform: translateY(-7px);
   }

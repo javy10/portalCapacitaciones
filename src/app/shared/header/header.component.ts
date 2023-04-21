@@ -11,17 +11,19 @@ import { ColaboradorService } from 'src/app/services/colaborador.service';
 })
 export class HeaderComponent implements OnInit{
 
-  constructor(
-    private router: Router,
-    public colaboradorService: ColaboradorService,
-  ) {
+  constructor(private router: Router, public colaboradorService: ColaboradorService) {
+    this.eliminarSesion();
   }
+
+  private sessionTimeoutInMinutes = 5;
+  private timeoutHandle: any;
 
   nombre = '';
   apellido = '';
   agencia = 0;
 
   ngOnInit(): void {
+    this.eliminarSesion();
     const Id = localStorage.getItem('id');
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
       //console.log(res.dataDB);
@@ -41,5 +43,11 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/login']);
     // this._colaboradorService.logout().subscribe((data: any) => {
     // });
+  }
+  eliminarSesion() {
+    setTimeout(() => {
+      localStorage.removeItem('token');
+      window.location.reload();
+    }, 6 * 60 * 60 * 1000); // 6 horas en milisegundos
   }
 }

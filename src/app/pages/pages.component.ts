@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-pages',
@@ -6,6 +6,16 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class PagesComponent {
+export class PagesComponent implements OnInit{
   year = new Date().getFullYear();
+  path: any;
+
+  ngOnInit(): void {
+    console.log(this.path)
+  }
+
+  enviarDatos(datos: any) {
+    console.log(datos)
+    this.path = datos;
+  }
 }

@@ -2,9 +2,9 @@
 <app-sidebar></app-sidebar>
 <main id="main" class="main">
   <!-- BREADCRUBS -->
-  <app-breadcrumbs></app-breadcrumbs>
+  <!-- <app-breadcrumbs></app-breadcrumbs> -->
   <!-- SISTEMA DE RUTAS -->
-  <router-outlet></router-outlet>
+  <router-outlet (enviarPath)="enviarDatos($event)"></router-outlet>
 </main>
 
  <!-- ======= Footer ======= -->

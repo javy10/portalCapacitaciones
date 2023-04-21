@@ -5,8 +5,7 @@ import { Component, OnInit, ViewChildren } from '@angular/core';
 @Component({
   selector: 'app-listcollaborator',
   templateUrl: './listcollaborator.component.html',
-  styles: [
-  ]
+  styleUrls: ['./listcollaborator.component.css']
 })
 export class listCollaboratorComponent  implements OnInit{
 

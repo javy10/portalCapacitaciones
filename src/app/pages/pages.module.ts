@@ -14,10 +14,13 @@ import { PagesComponent } from './pages.component';
 import { listCollaboratorComponent } from './listCollaborator/listcollaborator.component';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
 import { DatatableComponent } from './datatable/datatable.component';
-import { ListevaluationComponent } from './listevaluation/listevaluation.component';
-import { EvaluationComponent } from './evaluation/evaluation.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { PreguntaComponent } from './pregunta/pregunta.component';
+import { ListdocumentosComponent } from './listdocumentos/listdocumentos.component';
+import { DtdocumentosComponent } from './datatable/dtdocumentos/dtdocumentos.component';
+import { DocumentosComponent } from './documentos/documentos.component';
+import { TabdocumentoComponent } from './tabs/tabdocumento/tabdocumento.component';
+import { DtarchivodocumentosComponent } from './datatable/dtarchivodocumentos/dtarchivodocumentos.component';
+import { DtpermisodocumentosComponent } from './datatable/dtpermisodocumentos/dtpermisodocumentos.component';
+import { ArchivoComponent } from './archivo/archivo.component';
 
 @NgModule({
   declarations: [
@@ -27,11 +30,13 @@ import { PreguntaComponent } from './pregunta/pregunta.component';
     listCollaboratorComponent,
     CollaboratorComponent,
     DatatableComponent,
-    ListevaluationComponent,
-    EvaluationComponent,
-    TabsComponent,
-    PreguntaComponent,
-    
+    ListdocumentosComponent,
+    DtdocumentosComponent,
+    DocumentosComponent,
+    TabdocumentoComponent,
+    DtarchivodocumentosComponent,
+    DtpermisodocumentosComponent,
+    ArchivoComponent,
   ],
   exports: [
     DashboardComponent,

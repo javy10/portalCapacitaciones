@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Agencia } from '../interfaces/agencia';
 import { Colaborador } from '../interfaces/colaborador';
 import { Departamento } from '../interfaces/departamento';
@@ -33,6 +33,7 @@ export class ColaboradorService {
   }
 
   editarColaborador(id: any, datos: any ): Observable<any> {
+    console.log(id, datos)
     return this.http.put(this.url+'/editarcolaborador/'+ id, datos);
   }
 
@@ -94,6 +95,8 @@ export class ColaboradorService {
   getCargoId(id: number): Observable<any> {
     return this.http.get<any>(this.url +'/cargo/'+id)
   }
+
+
 
 
 }

@@ -7,9 +7,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { listCollaboratorComponent } from './listCollaborator/listcollaborator.component';
 import { CollaboratorComponent } from './collaborator/collaborator.component';
-import { ListevaluationComponent } from './listevaluation/listevaluation.component';
-import { EvaluationComponent } from './evaluation/evaluation.component';
 import { UserGuardGuard } from '../Guard/user-guard.guard';
+import { ListdocumentosComponent } from './listdocumentos/listdocumentos.component';
+import { DocumentosComponent } from './documentos/documentos.component';
+import { ArchivoComponent } from './archivo/archivo.component';
 
 const routes: Routes = [
     {
@@ -20,8 +21,9 @@ const routes: Routes = [
           { path: 'list-collaborator', component: listCollaboratorComponent },
           { path: 'collaborator', component: CollaboratorComponent },
           { path: 'collaborator/:id', component: CollaboratorComponent },
-          { path: 'list-evaluation', component: ListevaluationComponent },
-          { path: 'evaluation', component: EvaluationComponent },
+          { path: 'list-documentos', component: ListdocumentosComponent},
+          { path: 'documentos', component: DocumentosComponent},
+          { path: 'archivo/:nombre', component: ArchivoComponent},
         ]
     },
 ];

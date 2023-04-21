@@ -16,6 +16,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
   listaColaborador:any=[];
   selectedRow: any;
   Id = '';
+  isLoading = false;
 
   constructor(private _colaboradorService: ColaboradorService) {}
 
@@ -26,6 +27,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
+      searching: true,
       columnDefs: [
         { "width": "2%", "targets": 0 },
         { "width": "15%", "targets": 1 },
@@ -39,7 +41,9 @@ export class DatatableComponent implements OnDestroy, OnInit {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
       }
     };
+    
     this.loadColaborador()
+    //this.isLoading = false
   }
 
   ngOnDestroy(): void {
@@ -47,13 +51,16 @@ export class DatatableComponent implements OnDestroy, OnInit {
   }
 
   loadColaborador() {
-    return this._colaboradorService.getCollaborator().subscribe((data: any) => {
-      this.listaColaborador = data.dataDB;
-      this.dtTrigger.next(0);
-      console.log(data.dataDB)
-      //this.intentos = data.dataDB.intentos;
+    //this.isLoading = true;
+    this._colaboradorService.getCollaborator().subscribe((data: any) => {
+      if(data){
+        this.listaColaborador = data.dataDB;
+        this.dtTrigger.next(0);
+        //this.isLoading = false
+      }
     });
   }
+
   eliminarColaborador(id: number) {
     //console.log(id)
     Swal.fire({

@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="bg-white rounded p-2">
+                <ul class="nav nav-tabs ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#all">Archivos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#latest">Permisos</a>
+                    </li>
+                    
+                </ul>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tab-content p-4">
+                            <div id="all" class="tab-pane fade in active show">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-10">
+                                        <div class="card">
+                                            <app-dtarchivodocumentos (eventoEnviarDataDoc)="enviarDatos($event)"></app-dtarchivodocumentos>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="latest" class="tab-pane fade">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-10">
+                                        <div class="card">
+                                            <app-dtpermisodocumentos (eventoEnviarDataPer)="pasarDatos($event)"></app-dtpermisodocumentos>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
