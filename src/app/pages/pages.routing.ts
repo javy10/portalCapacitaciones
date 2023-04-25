@@ -11,13 +11,18 @@ import { UserGuardGuard } from '../Guard/user-guard.guard';
 import { ListdocumentosComponent } from './listdocumentos/listdocumentos.component';
 import { DocumentosComponent } from './documentos/documentos.component';
 import { ArchivoComponent } from './archivo/archivo.component';
+import { BlankComponent } from './blank/blank.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { TabperfilComponent } from './tabs/tabperfil/tabperfil.component';
 
 const routes: Routes = [
     {
         path: 'dashboard', component: PagesComponent, canActivate: [UserGuardGuard],
         children: [
           { path: '', component: DashboardComponent },
-          { path: 'progress', component: ProgressComponent },
+          { path: 'blank', component: BlankComponent },
+          { path: 'perfil/:id', component: PerfilComponent },
+          { path: 'tabperfil/:id', component: TabperfilComponent },
           { path: 'list-collaborator', component: listCollaboratorComponent },
           { path: 'collaborator', component: CollaboratorComponent },
           { path: 'collaborator/:id', component: CollaboratorComponent },

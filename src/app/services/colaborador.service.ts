@@ -21,7 +21,9 @@ export class ColaboradorService {
     return this.http.get<Colaborador>(this.url+'/colaboradores');
   }
   saveColaborador(datos: any): Observable<any> {
-    return this.http.post(this.url+'/register', datos);
+    console.log(datos)
+    // return this.http.post(this.url+'/register', datos);
+    return this.http.post(this.url+'/colaborador', datos);
     //return datos;
   }
   eliminar(id: number): Observable<any> {
@@ -32,9 +34,9 @@ export class ColaboradorService {
     return this.http.get<any>(this.url +'/colaborador/'+id)
   }
 
-  editarColaborador(id: any, datos: any ): Observable<any> {
-    console.log(id, datos)
-    return this.http.put(this.url+'/editarcolaborador/'+ id, datos);
+  editarColaborador(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/editarcolaborador', datos);
   }
 
   desbloquear(id: number): Observable<any> {
@@ -42,6 +44,15 @@ export class ColaboradorService {
     return this.http.get<any>(this.url +'/desbloquear/'+id)
   }
 
+  getFotoURL(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.get(this.url+'/fotoURL/'+datos, { responseType: 'blob' });
+  }
+
+  editarPassword(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/editPassword', datos);
+  }
   
 
   // login ***********************************************************************************************************************************************

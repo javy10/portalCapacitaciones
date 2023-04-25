@@ -1,17 +1,16 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Colaborador } from 'src/app/interfaces/colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Swal from 'sweetalert2';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-collaborator',
-  templateUrl: './collaborator.component.html',
-  styleUrls: ['./collaborator.component.css']
+  selector: 'app-perfil',
+  templateUrl: './perfil.component.html',
+  styleUrls: ['./perfil.component.css']
 })
-export class CollaboratorComponent implements OnInit {
+export class PerfilComponent implements OnInit {
 
   listaAgencia:any=[];
   listaDepartamento:any=[];
@@ -181,9 +180,9 @@ export class CollaboratorComponent implements OnInit {
     formData.append('intentos', '5'),
     formData.append('ultimoIngreso', ''),
 
-    // console.log(this.imagen);
-    // console.log(this.formUser.value)
-    // console.log(formData)
+    console.log(this.imagen);
+    console.log(this.formUser.value)
+    console.log(formData)
     await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(formData).subscribe((response) => {
         console.log(response);
         Swal.fire({
@@ -205,12 +204,10 @@ export class CollaboratorComponent implements OnInit {
 
   cargar() {
     const id = this.activeRoute.snapshot.paramMap.get('id');
-    //const idPerfil = localStorage.getItem('id');
+    
     if(id){
       this.isLoading = true;
       this.guardando = false;
-      const titulo = document.getElementById('title');
-      titulo!.innerHTML = 'Editar colaborador';
 
       const btnGuardar = document.getElementById('btnGuardar');
       btnGuardar!.hidden = true;
@@ -222,6 +219,22 @@ export class CollaboratorComponent implements OnInit {
         let id = e['id'];
         if(id) {
           new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(id).subscribe((response) => {
+            const dui = document.getElementById('dui') as HTMLInputElement;
+            dui.disabled = true;
+            const nombres = document.getElementById('nombres') as HTMLInputElement;
+            nombres.disabled = true;
+            const apellidos = document.getElementById('apellidos') as HTMLInputElement;
+            apellidos.disabled = true;
+            const agencia = document.getElementById('agencia') as HTMLInputElement;
+            agencia.disabled = true;
+            const departamento = document.getElementById('departamento') as HTMLInputElement;
+            departamento.disabled = true;
+            const cargo = document.getElementById('cargo') as HTMLInputElement;
+            cargo.disabled = true;
+            const telefono = document.getElementById('telefono') as HTMLInputElement;
+            telefono.disabled = true;
+            const correo = document.getElementById('correo') as HTMLInputElement;
+            correo.disabled = true;
             this.colaborador = response.dataDB;
             //console.log(response.dataDB)
             this.formUser.patchValue(this.colaborador);
@@ -254,72 +267,13 @@ export class CollaboratorComponent implements OnInit {
         }
       });
     } 
-    // else if(idPerfil){
-    //   this.isLoading = true;
-    //   this.guardando = false;
-
-    //   const titulo = document.getElementById('title');
-    //   titulo!.innerHTML = 'Editar perfil';
-    //   const btnGuardar = document.getElementById('btnGuardar');
-    //   btnGuardar!.hidden = true;
+    // else {
     //   const btnEdit = document.getElementById('btnActualizar');
-    //   btnEdit!.hidden = false;
-      
-    //   new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(idPerfil)).subscribe((response) => {
-    //     this.colaborador = response.dataDB;
-    //     //console.log(response.dataDB)
-    //     this.formUser.patchValue(this.colaborador);
-
-    //     this.colaboradorService.getAgenciaId(response.dataDB.agencia_id).subscribe((res: any) => {
-    //       this.ngSelectA = res.dataDB.id;
-    //     });
-    //     this.colaboradorService.getDepartamentoId(response.dataDB.departamento_id).subscribe((res: any) => {
-    //       this.ngSelectD = res.dataDB.id;
-    //     });
-    //     this.colaboradorService.getCargoId(response.dataDB.cargo_id).subscribe((res: any) => {
-    //       new Promise(resolve => resolve(this.colaboradorService.postDeptCargo(this.ngSelectD).subscribe((response) => {
-    //         this.listaCargo = response.dataDB;
-    //         this.ngSelectC = res.dataDB.id;
-    //       })));
-    //     });
-    //     this.colaboradorService.getFotoURL(response.dataDB.foto).subscribe((data: any) => {
-    //       this.isLoading = false;
-    //       const dui = document.getElementById('dui') as HTMLInputElement;
-    //       dui.disabled = true;
-    //       const nombres = document.getElementById('nombres') as HTMLInputElement;
-    //       nombres.disabled = true;
-    //       const apellidos = document.getElementById('apellidos') as HTMLInputElement;
-    //       apellidos.disabled = true;
-    //       const agencia = document.getElementById('agencia') as HTMLInputElement;
-    //       agencia.disabled = true;
-    //       const departamento = document.getElementById('departamento') as HTMLInputElement;
-    //       departamento.disabled = true;
-    //       const cargo = document.getElementById('cargo') as HTMLInputElement;
-    //       cargo.disabled = true;
-    //       const telefono = document.getElementById('telefono') as HTMLInputElement;
-    //       telefono.disabled = true;
-    //       const correo = document.getElementById('correo') as HTMLInputElement;
-    //       correo.disabled = true;
-
-    //       setTimeout(() => {
-    //         const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
-    //         this.imgTamanio = data.size;
-    //         let binaryData = [];
-    //         binaryData.push(data); 
-    //         let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
-    //         this.imgTamanio == 13 ? imagenPrevisualizacion.src = this.avatar : imagenPrevisualizacion.src = foo;
-    //       }, 100);
-    //     });
-    //   })));
-
-    // } 
-    else {
-      const btnEdit = document.getElementById('btnActualizar');
-      btnEdit!.hidden = true;
-      this.ngSelectA = 0;
-      this.ngSelectD = 0;
-      this.ngSelectC = 0;
-    }
+    //   btnEdit!.hidden = true;
+    //   this.ngSelectA = 0;
+    //   this.ngSelectD = 0;
+    //   this.ngSelectC = 0;
+    // }
   }
 
   async editar() {
@@ -400,5 +354,3 @@ export class CollaboratorComponent implements OnInit {
   }
 
 }
-
-

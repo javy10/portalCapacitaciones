@@ -21,6 +21,10 @@ import { TabdocumentoComponent } from './tabs/tabdocumento/tabdocumento.componen
 import { DtarchivodocumentosComponent } from './datatable/dtarchivodocumentos/dtarchivodocumentos.component';
 import { DtpermisodocumentosComponent } from './datatable/dtpermisodocumentos/dtpermisodocumentos.component';
 import { ArchivoComponent } from './archivo/archivo.component';
+import { BlankComponent } from './blank/blank.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { CambiarclaveComponent } from './cambiarclave/cambiarclave.component';
+import { TabperfilComponent } from './tabs/tabperfil/tabperfil.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,10 @@ import { ArchivoComponent } from './archivo/archivo.component';
     DtarchivodocumentosComponent,
     DtpermisodocumentosComponent,
     ArchivoComponent,
+    BlankComponent,
+    PerfilComponent,
+    CambiarclaveComponent,
+    TabperfilComponent,
   ],
   exports: [
     DashboardComponent,

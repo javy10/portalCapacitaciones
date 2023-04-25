@@ -1,11 +1,5 @@
-.card {
-    /* height: 43rem; */
-    /* height: 87vh; /* la tarjeta ocupa el 80% del alto de la ventana */
-    /* width: 72vw;   */
-}
-
-/**************/
-.loader {
+ /**************/
+ .loader {
     --size-loader: 70px;
     --size-orbe: 10px;
     width: var(--size-loader);
@@ -46,15 +40,4 @@
     100% {
       transform: rotate(360deg);
     }
-  }
-
-  /*************************************/
-
-  .iframe-desvanecer {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  
-  .iframe-desvanecer.cargando {
-    opacity: 1;
   }

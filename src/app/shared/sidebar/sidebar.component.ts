@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
@@ -23,6 +23,8 @@ export class SidebarComponent implements OnInit{
   Pdocumento_id: any;
   Pdepartamento: any;
   Puser: any;
+
+  pdfNombre!: string;
   
   /**
    * La función ngOnInit recupera la identificación del usuario del almacenamiento local, obtiene sus
@@ -70,7 +72,12 @@ export class SidebarComponent implements OnInit{
   * "cargarPDF" navega a una ruta específica
   */
   cargarPDF(nombre: any){
-    this.router.navigate(['/dashboard/archivo', nombre]);
+    sessionStorage.setItem('reloaded', 'true');
+    this.router.navigate(['/dashboard/blank']);
+    setTimeout(() => {
+      this.router.navigate(['/dashboard/archivo', nombre]);
+      console.log(nombre)
+  }, 1500);
   }
   
 }

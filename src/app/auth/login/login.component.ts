@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit{
   loginForm: FormGroup;
   year = new Date().getFullYear();
   id = 0;
+  
 
   constructor(
     private router: Router,
@@ -192,4 +193,47 @@ export class LoginComponent implements OnInit{
   reset() {
     this.router.navigate(['/reset'])
   }
+
+
+  // Show/hide password onClick of button using Javascript only
+
+// https://stackoverflow.com/questions/31224651/show-hide-password-onclick-of-button-using-javascript-only
+
+show() {
+  const p = document.getElementById('pwd') as HTMLInputElement;
+  p.setAttribute('type', 'text');
+}
+
+hide() {
+  const p = document.getElementById('pwd') as HTMLInputElement;
+  p.setAttribute('type', 'password');
+}
+
+pwShown = 0;
+
+seleccionar(){
+  
+  if (this.pwShown == 0) {
+    this.pwShown = 1;
+    this.show();
+  } else {
+      this.pwShown = 0;
+      this.hide();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

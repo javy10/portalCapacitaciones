@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class DatatableComponent implements OnDestroy, OnInit {
 
+  /* Estas son propiedades declaradas en la clase `DatatableComponent`. */
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   data: any;
@@ -20,10 +21,11 @@ export class DatatableComponent implements OnDestroy, OnInit {
 
   constructor(private _colaboradorService: ColaboradorService) {}
 
+  /**
+   * La función ngOnInit inicializa el componente y establece las opciones para un DataTable.
+   */
   ngOnInit(): void {
-
     this.Id = localStorage.getItem('id')!;
-
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -41,26 +43,32 @@ export class DatatableComponent implements OnDestroy, OnInit {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
       }
     };
-    
     this.loadColaborador()
-    //this.isLoading = false
   }
 
+  /**
+   * La función ngOnDestroy cancela la suscripción de dtTrigger.
+   */
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
   loadColaborador() {
-    //this.isLoading = true;
+    this.isLoading = true;
     this._colaboradorService.getCollaborator().subscribe((data: any) => {
-      if(data){
-        this.listaColaborador = data.dataDB;
-        this.dtTrigger.next(0);
-        //this.isLoading = false
-      }
+      this.listaColaborador = data.dataDB;
+      this.isLoading = false;
+      setTimeout(() => {
+          this.dtTrigger.next(0);
+      }, 1000);
     });
   }
 
+  /**
+   * Esta función solicita al usuario que confirme la desactivación de un colaborador y luego llama a
+   * un servicio para eliminar el colaborador si se confirma.
+   * @param {number} id - El ID del colaborador que necesita ser deshabilitado.
+   */
   eliminarColaborador(id: number) {
     //console.log(id)
     Swal.fire({
@@ -87,11 +95,16 @@ export class DatatableComponent implements OnDestroy, OnInit {
             'success'
           )
         })));
+        this.loadColaborador();
       }
     });
-    this.loadColaborador();
   }
 
+  /**
+   * Esta función muestra un mensaje de confirmación y llama a un servicio para desbloquear a un
+   * colaborador.
+   * @param {number} id - number - representa la ID del colaborador que necesita ser desbloqueado.
+   */
   desbloquear(id: number) {
     Swal.fire({
       title: 'Quieres desbloquear a éste colaborador?',

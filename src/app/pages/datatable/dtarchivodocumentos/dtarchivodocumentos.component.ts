@@ -144,7 +144,10 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
 
     this.listaDocumentos.push(this.docs);
     this.docs = '';
-    //this.dtTrigger.next(0);
+    // setTimeout(() => {
+    //   this.dtTrigger.next(0);
+    // }, 500);
+    
     this.isLoading = false;
     this.cancelar();
     console.log(this.listaDocumentos)

@@ -21,17 +21,23 @@ export class HeaderComponent implements OnInit{
   nombre = '';
   apellido = '';
   agencia = 0;
+  cargo = 0;
+  id = localStorage.getItem('id');
 
   ngOnInit(): void {
     this.eliminarSesion();
     const Id = localStorage.getItem('id');
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
-      //console.log(res.dataDB);
+      console.log(res.dataDB);
       this.nombre = res.dataDB.nombres.split(' ')[0];
       this.apellido = res.dataDB.apellidos.split(' ')[0];
       new Promise(resolve => resolve(this.colaboradorService.getAgenciaId(res.dataDB.agencia_id).subscribe((resp) => {
         //console.log(resp)
         this.agencia = resp.dataDB.codAgencia;
+      })));
+      new Promise(resolve => resolve(this.colaboradorService.getCargoId(res.dataDB.cargo_id).subscribe((resp) => {
+        console.log(resp)
+        this.cargo = resp.dataDB.nombre;
       })));
     })));
   }
@@ -50,4 +56,14 @@ export class HeaderComponent implements OnInit{
       window.location.reload();
     }, 6 * 60 * 60 * 1000); // 6 horas en milisegundos
   }
+
+  perfil(){
+    //[routerLink]="['/dashboard/collaborator', item.id]"
+    this.router.navigate(['/dashboard/tabperfil/'+ this.id]);
+  }
+
+
+
+
+
 }

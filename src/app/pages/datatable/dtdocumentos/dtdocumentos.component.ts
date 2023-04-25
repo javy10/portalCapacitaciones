@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class DtdocumentosComponent implements OnInit {
 
+  /* Estas son propiedades de la clase `DtdocumentosComponent` en una aplicación Angular. */
   listaDocumentos:any=[];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -18,8 +19,20 @@ export class DtdocumentosComponent implements OnInit {
   isLoading = false;
 
 
+  /**
+   * Esta es una función constructora que toma un DocumentoService como parámetro.
+   * @param {DocumentoService} documentosService - El parámetro "documentosService" es una instancia de
+   * la clase "DocumentoService" que se está inyectando en el constructor de la clase actual. Esta es
+   * una práctica común en las aplicaciones de Angular, donde los servicios se utilizan para
+   * proporcionar una funcionalidad que se puede compartir entre varios componentes. Al inyectar el
+   * servicio en el constructor.
+   */
   constructor(private documentosService: DocumentoService) {}
 
+  /**
+   * La función inicializa las opciones de DataTable y carga documentos mientras establece el indicador
+   * isLoading en falso.
+   */
   ngOnInit(): void {
     //this.Id = localStorage.getItem('id')!;
     this.dtOptions = {
@@ -38,19 +51,34 @@ export class DtdocumentosComponent implements OnInit {
       }
     };
     this.loadDocumentos();
-    this.isLoading = false;
   }
  
+  /**
+   * Esta función carga una lista de documentos y establece una bandera para indicar que se está
+   * cargando actualmente.
+   * @returns La función `loadDocumentos()` devuelve una Promesa que resuelve el resultado de la
+   * llamada al método `subscribe()` en el observable `documentosService.getListaDocumentos()`. El
+   * método `subscribe()` se usa para escuchar los datos emitidos por el observable y ejecutar la
+   * función de devolución de llamada pasada como argumento. En este caso, la función de devolución de
+   * llamada está actualizando la propiedad `listaDocumentos` con los datos
+   */
   async loadDocumentos() {
     this.isLoading = true;
     return  await new Promise(resolve => resolve( this.documentosService.getListaDocumentos().subscribe((data: any) => {
       this.listaDocumentos = data.dataDB;
-      console.log(this.listaDocumentos)
-      this.dtTrigger.next(0);
-      
+      this.isLoading = false;
+      setTimeout(() => {
+          this.dtTrigger.next(0);
+      }, 1000);
     })));
   }
 
+  /**
+   * Esta función solicita al usuario que confirme la eliminación de un documento y luego llama a un
+   * servicio para eliminarlo si se confirma.
+   * @param {any} datos - El parámetro "datos" es de tipo "cualquiera", lo que significa que puede ser
+   * cualquier tipo de dato. Se está pasando como argumento a la función "eliminarDocumento".
+   */
   eliminarDocumento(datos: any) {
     console.log(datos)
     Swal.fire({
