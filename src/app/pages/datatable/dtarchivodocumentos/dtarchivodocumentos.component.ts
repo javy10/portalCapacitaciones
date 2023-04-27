@@ -1,10 +1,11 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { DocumentoService } from 'src/app/services/documento.service';
-
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   selectedValue!: any;
   isLoading = false;
 
-  constructor(private documentoService: DocumentoService, private fb:FormBuilder, private http: HttpClient) {
+  constructor(private documentoService: DocumentoService, private fb:FormBuilder, private http: HttpClient, private datePipe: DatePipe) {
     this.formDocumento = this.fb.group({
       'pdf': ['', Validators.required],
       'descripcion': ['', Validators.required],
@@ -127,8 +128,14 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   cargar(){
     this.isLoading = true;
     console.log(this.archivo)
+
     const fechaLimite = document.querySelector("#fechaLimite") as HTMLInputElement;
-    let today = new Date().toLocaleString()
+    let fechaObj = new Date(fechaLimite.value);
+    const fechaFormateada = this.datePipe.transform(fechaObj, 'yyyy-MM-dd HH:mm:ss')
+
+
+    let today = new Date().toLocaleString();
+
     let cadena = this.formDocumento.value.pdf;
     const partes = cadena.split('\\');
     const nombre = partes[2]
@@ -136,7 +143,7 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
       'descripcion': this.formDocumento.value.descripcion,
       'actualizado': today,
       'lectura': this.formDocumento.value.lectura,
-      'fechaLimite': fechaLimite.value,
+      'fechaLimite': fechaFormateada,
       'pdf' : nombre,
       'disponible': this.formDocumento.value.disponible,
       'urlPdf': this.archivo

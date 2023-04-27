@@ -4,10 +4,10 @@
             <div class=" rounded p-2">
                 <ul class="nav nav-tabs ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#all">Archivos</a>
+                        <a class="nav-link active" data-bs-toggle="tab" href="#all">Preguntas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#latest">Permisos</a>
+                        <a class="nav-link" data-bs-toggle="tab" href="#latest">Grupos</a>
                     </li>
                     
                 </ul>
@@ -19,7 +19,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-10">
                                         <div class="card">
                                         </div>
-                                        <app-dtarchivodocumentos (eventoEnviarDataDoc)="enviarDatos($event)"></app-dtarchivodocumentos>
+                                        <app-dtpreguntas></app-dtpreguntas>
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-10">
                                         <div class="card">
                                         </div>
-                                        <app-dtpermisodocumentos (eventoEnviarDataPer)="pasarDatos($event)"></app-dtpermisodocumentos>
+                                        <app-dtgrupos></app-dtgrupos>
                                     </div>
                                 </div>
                             </div>

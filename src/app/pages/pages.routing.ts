@@ -14,6 +14,8 @@ import { ArchivoComponent } from './archivo/archivo.component';
 import { BlankComponent } from './blank/blank.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { TabperfilComponent } from './tabs/tabperfil/tabperfil.component';
+import { ListevaluacionComponent } from './listevaluacion/listevaluacion.component';
+import { EvaluacionComponent } from './evaluacion/evaluacion.component';
 
 const routes: Routes = [
     {
@@ -29,6 +31,8 @@ const routes: Routes = [
           { path: 'list-documentos', component: ListdocumentosComponent},
           { path: 'documentos', component: DocumentosComponent},
           { path: 'archivo/:nombre', component: ArchivoComponent},
+          { path: 'list-evaluaciones', component: ListevaluacionComponent},
+          { path: 'evaluacion', component: EvaluacionComponent},
         ]
     },
 ];

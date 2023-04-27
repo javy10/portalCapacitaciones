@@ -107,11 +107,11 @@ export class DocumentosComponent implements OnInit{
       
       await new Promise(resolve => resolve(this.documentoService.saveDocumentos(formData).subscribe((response) => {
         console.log(response);
-        // this.datosPermisos = '';
-        // this.datosDoc = [];
-        // this.tipoPermiso_id = [];
-        // this.departamento_id = [];
-        // this.colaborador_id = [];
+        this.datosPermisos = '';
+        this.datosDoc = [];
+        this.tipoPermiso_id = [];
+        this.departamento_id = [];
+        this.colaborador_id = [];
         // this.enviarPath.emit(response.path);
       })));
     }

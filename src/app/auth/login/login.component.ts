@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit{
 
   async login() {
 
-    let duiIngresado = document.getElementById('dui') as HTMLInputElement;
-    let claveIngresada = document.getElementById('clave') as HTMLInputElement;
+    let duiIngresado = document.getElementById('txt-input') as HTMLInputElement;
+    let claveIngresada = document.getElementById('pwd') as HTMLInputElement;
 
     if(duiIngresado.value.length > 0 && claveIngresada.value.length > 0){
 
@@ -171,6 +171,7 @@ export class LoginComponent implements OnInit{
   ////validamos campo de DUI
   validateFormat(event: any) {
     let key;
+    let duiIngresado = document.getElementById('txt-input') as HTMLInputElement;
     if (event.type === 'paste') {
       key = event.clipboardData.getData('text/plain');
     } else {
@@ -184,8 +185,8 @@ export class LoginComponent implements OnInit{
       event.preventDefault();
       }
     }
-    if (this.loginForm.value.dui.length === 8) {
-        let dui = document.getElementById('dui') as HTMLInputElement;
+    if (duiIngresado.value.length === 8) {
+        let dui = document.getElementById('txt-input') as HTMLInputElement;
         dui.value += '-';
     }
   }

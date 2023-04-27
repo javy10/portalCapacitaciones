@@ -229,20 +229,12 @@ header h2 {
 /*  A welcome message or an explanation of the login form */
 header p {letter-spacing: 0.05em;}
 
-
-
-/* //////////////////////////////////////////// */
-/* //////////////////////////////////////////// */
-
-
 .input-item {
     background: #fff;
     color: #333;
     padding: 14.5px 0px 15px 9px;
     border-radius: 5px 0px 0px 5px;
 }
-
-
 
 /* Show/hide password Font Icon */
 #eye {
@@ -294,32 +286,40 @@ input:focus {
 /* input[type="text"] {min-width: 250px;} */
 /* buttons  */
 button {
-    display: inline-block;
-    color: #252537;
+  display: inline-block;
+  color: #252537;
+
+  width: 280px;
+  height: 50px;
+
+  padding: 0 20px;
+  background: #fff;
+  border-radius: 5px;
   
-    width: 280px;
-    height: 50px;
+  outline: none;
+  border: none;
+
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s linear;
   
-    padding: 0 20px;
-    background: #fff;
-    border-radius: 5px;
-    
-    outline: none;
-    border: none;
-  
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s linear;
-    
-    margin: 7% auto;
-    letter-spacing: 0.05em;
+  margin: 7% auto;
+  letter-spacing: 0.05em;
+
+ 
+
 }
+
 /* Submits */
 .submits {
-    width: 48%;
+    width: 100%;
     display: inline-block;
     float: left;
     margin-left: 2%;
+    color: steelblue;
+}
+.submits:hover {
+  color: blue;
 }
 
 /*       Forgot Password button FAF3DD  */
@@ -350,17 +350,17 @@ button:hover {
 
 
 
-button, input, select {
+ button, input {
   border: 0;
   outline: 0;
   font-size: 16px;
   border-radius: 320px;
   padding: 16px;
-  background-color: #EBECF0;
+  background-color: #ffffff;
   text-shadow: 1px 1px 0 #FFF;
 }
 
-input {
+/* input {
   margin-right: 8px;
   box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
   width: 100%;
@@ -368,7 +368,7 @@ input {
   transition: all 0.2s ease-in-out;
   appearance: none;
   -webkit-appearance: none;
-}
+} */
 input:focus {
   box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
 }
@@ -376,14 +376,22 @@ input:focus {
 button {
   color: #61677C;
   font-weight: bold;
-  box-shadow: -5px -5px 20px #8dddd0, 5px 5px 20px #fff;
+  box-shadow: -5px -5px 20px #fff, 5px 5px 20px #BABECC;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
   font-weight: 600;
-}
+} 
+
+
 button:hover {
   box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+  background-color: rgb(82, 198, 184);
+  color: white;
 }
 button:active {
   box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+}
+
+i {
+  margin-right: 8px;
 }

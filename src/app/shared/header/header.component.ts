@@ -23,12 +23,17 @@ export class HeaderComponent implements OnInit{
   agencia = 0;
   cargo = 0;
   id = localStorage.getItem('id');
+  foto: any;
+  imgTamanio:any;
+  avatar = '../../../assets/img/avatar1.png';
 
   ngOnInit(): void {
-    this.eliminarSesion();
     const Id = localStorage.getItem('id');
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
+      this.eliminarSesion();
       console.log(res.dataDB);
+      this.foto = res.dataDB.foto;
+      console.log(this.foto)
       this.nombre = res.dataDB.nombres.split(' ')[0];
       this.apellido = res.dataDB.apellidos.split(' ')[0];
       new Promise(resolve => resolve(this.colaboradorService.getAgenciaId(res.dataDB.agencia_id).subscribe((resp) => {
@@ -39,8 +44,20 @@ export class HeaderComponent implements OnInit{
         console.log(resp)
         this.cargo = resp.dataDB.nombre;
       })));
+      this.colaboradorService.getFotoURL(this.foto).subscribe((data: any) => {
+        //this.isLoading = false;
+   
+        setTimeout(() => {
+          const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
+          this.imgTamanio = data.size;
+          let binaryData = [];
+          binaryData.push(data); 
+          let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
+          this.imgTamanio == 13 ? imagenPrevisualizacion.src = this.avatar : imagenPrevisualizacion.src = foo;
+        }, 100);
+      });
     })));
-  }
+  } 
   
   logout() {
     localStorage.removeItem('token');
@@ -61,7 +78,6 @@ export class HeaderComponent implements OnInit{
     //[routerLink]="['/dashboard/collaborator', item.id]"
     this.router.navigate(['/dashboard/tabperfil/'+ this.id]);
   }
-
 
 
 

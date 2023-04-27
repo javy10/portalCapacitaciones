@@ -54,7 +54,7 @@
 </main>
 -->
 
-<section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 background-radial-gradient overflow-hidden">
+<!-- <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4 background-radial-gradient overflow-hidden">
     <div class="container-fluid h-custom ">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
@@ -90,37 +90,31 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
-<!-- <div class="overlay">
-    <form>
+<div class="overlay">
+    <form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="login()" id="loginForm" novalidate>
         <div class="con">
             <header class="head-form">
-                <h2>Log In</h2>
-                <p>login here using your username and password</p>
+                <h2>Login</h2>
+                <p>Ingresarás al Poral de Capacitaciones</p>
             </header>
             <br />
             <div class="field-set">
-                <span class="input-item">
-                    <i class="bi bi-person-circle"></i>
-                </span>
-                <input class="form-input" id="txt-input" type="text" placeholder="# DUI" required />
+                <span class="input-item"><i class="bi bi-person-circle"></i></span>
+                <input class="form-input" id="txt-input" type="text" placeholder="# DUI" (keypress)="validateFormat($event)" maxlength="10" required />
                 <br />
-                <span class="input-item">
-                    <i class="bi bi-key"></i>
-                </span>
-                <input class="form-input" type="password" placeholder="Contraseña" id="pwd" name="password" required />
-                <span>
-                    <i class="bi bi-eye" aria-hidden="true" type="button" id="eye" (click)="seleccionar()"></i>
-                </span>
-                
+                <span class="input-item"><i class="bi bi-key"></i></span>
+                <div class="invalid-feedback">Ingresa tu número de documento</div>
+                <input class="form-input" type="password" placeholder="Contraseña" id="pwd" name="password" maxlength="25" required />
+                <span><i class="bi bi-eye" aria-hidden="true" type="button" id="eye" (click)="seleccionar()"></i></span>
+                <div class="invalid-feedback">Ingresa la clave!</div>
                 <br />
-                <button class="log-in">Log In</button>
+                <button class="log-in" type="submit" id="login">Iniciar Sesión</button>
             </div>
             <div class="other">
-                <button class="btn submits frgt-pass">Forgot Password</button>
-               
+                <a class="btn submits frgt-pass" (click)="reset()">¿Olvidaste la contraseña?</a>
             </div>
         </div>
     </form>
-</div> -->
+</div>

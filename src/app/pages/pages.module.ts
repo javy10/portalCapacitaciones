@@ -25,6 +25,13 @@ import { BlankComponent } from './blank/blank.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { CambiarclaveComponent } from './cambiarclave/cambiarclave.component';
 import { TabperfilComponent } from './tabs/tabperfil/tabperfil.component';
+import { ListevaluacionComponent } from './listevaluacion/listevaluacion.component';
+import { DtevaluacionesComponent } from './datatable/dtevaluaciones/dtevaluaciones.component';
+import { TabevaluacionesComponent } from './tabs/tabevaluaciones/tabevaluaciones.component';
+import { EvaluacionComponent } from './evaluacion/evaluacion.component';
+import { DtpreguntasComponent } from './datatable/dtpreguntas/dtpreguntas.component';
+import { DtgruposComponent } from './datatable/dtgrupos/dtgrupos.component';
+
 
 @NgModule({
   declarations: [
@@ -45,6 +52,12 @@ import { TabperfilComponent } from './tabs/tabperfil/tabperfil.component';
     PerfilComponent,
     CambiarclaveComponent,
     TabperfilComponent,
+    ListevaluacionComponent,
+    DtevaluacionesComponent,
+    TabevaluacionesComponent,
+    EvaluacionComponent,
+    DtpreguntasComponent,
+    DtgruposComponent
   ],
   exports: [
     DashboardComponent,

@@ -1,0 +1,74 @@
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card ">
+            <div class="card-body ">
+                <div class="form mt-3">
+                    <div class="row">
+                        <h1 class="card-title text-center titulo" id="title">Guardar Evaluación</h1>
+                        <form  class="row g-3 ">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-4 mb-2">
+                                        <label class="form-label">Título del documento</label>
+                                        <input type="text"  class="form-control" id="titulo" placeholder="Ingresa el título" formControlName="tituloD"  maxlength="100" required>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="tituloD.valid || tituloD.pristine">
+                                            Debes seleccionar un titulo
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-8 mb-2">
+                                        <label class="form-label">Descripción general</label>
+                                        <input type="text"  id="descripcion" class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion" required>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                            Debes seleccionar un descripcion
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-2 mb-2">
+                                        <label class="form-label">Calificación mínima</label>
+                                        <input type="number"  id="descripcion" class="form-control" placeholder="Ingresa la calificación mínima" formControlName="descripcion" required>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                            Debes seleccionar un descripcion
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-2 mb-2">
+                                        <label class="form-label">Intentos</label>
+                                        <select  class="form-select" id="tipo" formControlName="intentos" required>
+                                            <option value="0" disabled selected>Selecciona</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="tipo.valid || tipo.pristine">
+                                            Debes seleccionar un tipo
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label class="form-label">Minutos de evaluación (Vacío = Sin límite)</label>
+                                        <input type="number"  id="descripcion" class="form-control" placeholder="Ingresa los minutos de la evaluación (opcional)" formControlName="minutos" required>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                            Debes seleccionar un descripcion
+                                        </div> -->
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer footer">
+                                    <button type="button" class="btn btn-secondary cancelar"  routerLink="/dashboard/list-documentos">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-success" id="btnGuardar"  >
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                            <app-tabevaluaciones></app-tabevaluaciones>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
