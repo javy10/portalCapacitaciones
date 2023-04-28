@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 export class DtevaluacionesComponent implements OnInit {
 
   /* Estas son propiedades de la clase `DtdocumentosComponent` en una aplicación Angular. */
-  listaDocumentos:any=[];
+  listaEvaluaciones:any=[];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   data: any;
@@ -49,10 +49,10 @@ export class DtevaluacionesComponent implements OnInit {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
       }
     };
-    this.loadDocumentos();
+    this.loadEvaluaciones();
   }
 
-  async loadDocumentos() {
+  async loadEvaluaciones() {
     // this.isLoading = true;
     // return  await new Promise(resolve => resolve( this.evaluacionesService.getListaDocumentos().subscribe((data: any) => {
     //   this.listaDocumentos = data.dataDB;

@@ -1,7 +1,7 @@
 
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { DocumentoService } from 'src/app/services/documento.service';
@@ -24,6 +24,8 @@ export class DtpreguntasComponent implements OnInit{
   ngSelectC: any;
   respuestas:any;
   preguntas:any;
+  @Output()
+  eventoEnviarDataPregunta = new EventEmitter<any>()
 
 
   constructor(private documentoService: DocumentoService, private fb:FormBuilder, private http: HttpClient, private datePipe: DatePipe){
@@ -68,23 +70,7 @@ export class DtpreguntasComponent implements OnInit{
     return this.formRespuesta.get('correcta') as FormControl;
   }
 
-  cargar() {
-    let cantidad;
-    for (let index = 0; index < this.listaRespuestas.length; index++) {
-      cantidad = this.listaRespuestas.filter((item:any) => item.valor).length;
-    }
-    console.log(cantidad);
-    let today = new Date().toLocaleString();
-    this.preguntas = {
-      'pregunta': this.formPregunta.value.pregunta,
-      'opciones': cantidad + ' opciones',
-      'ultimaModificacion': today,
-      'fechaRegistro': today,
-    }
-    this.listaPreguntas.push(this.preguntas);
-    this.preguntas = '';
-  }
-
+  
   cargarRespuesta() {
     this.isLoading = true;
     let today = new Date().toLocaleString();
@@ -101,6 +87,26 @@ export class DtpreguntasComponent implements OnInit{
     this.isLoading = false;
   }
 
+  cargar() {
+    let cantidad;
+    for (let index = 0; index < this.listaRespuestas.length; index++) {
+      cantidad = this.listaRespuestas.filter((item:any) => item.valor).length;
+    }
+    console.log(cantidad);
+    let today = new Date().toLocaleString();
+    this.preguntas = {
+      'pregunta': this.formPregunta.value.pregunta,
+      'opciones': cantidad + ' opciones',
+      'ultimaModificacion': today,
+      'fechaRegistro': today,
+      'respuestas': this.listaRespuestas
+    }
+    this.listaPreguntas.push(this.preguntas);
+    this.preguntas = '';
+    this.pasarDatos(this.listaPreguntas);
+    console.log(this.listaPreguntas);
+  }
+
 
   cancelar() {
     
@@ -110,7 +116,10 @@ export class DtpreguntasComponent implements OnInit{
 
   }
 
-
+  pasarDatos(listaRespuestas:any) {
+    console.log(listaRespuestas)
+    this.eventoEnviarDataPregunta.emit(listaRespuestas);
+  }
 
 
 

@@ -32,15 +32,9 @@
     initial-value: 0turn;
   }
 
-  /*************************
+  /*************************/
 
-  * Esto es definir los estilos CSS para un elemento de botón. Establece el relleno, el tamaño de la
-  fuente, la transformación del texto, el espaciado entre letras, el grosor de la fuente, el color,
-  el color de fondo, el borde, el radio del borde, la sombra del cuadro, la transición, el cursor y
-  las propiedades del contorno del botón. También define los estilos para cuando se pasa el cursor
-  sobre el botón o se hace clic en él, incluido el cambio del color de fondo, la sombra del cuadro,
-  el color y la posición. */
-  button {
+  /* button {
     padding: 1.3em 3em;
     font-size: 11px;
     text-transform: uppercase;
@@ -72,4 +66,46 @@
   
   button:active {
     transform: translateY(-1px);
+  } */
+
+  .form {
+    background-image: linear-gradient(-225deg, #effefd 50%, #8dddd0 50%);
+  }
+  
+  button, input, select {
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    border-radius: 320px;
+    padding: 16px;
+    background-color: #EBECF0;
+    text-shadow: 1px 1px 0 #FFF;
+  }
+  
+  input {
+    margin-right: 8px;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input:focus {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+  }
+  
+  button {
+    color: #61677C;
+    font-weight: bold;
+    /* box-shadow: -5px -5px 20px #8dddd0, 5px 5px 20px #fff; */
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  button:hover {
+    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+  }
+  button:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
   }

@@ -75,7 +75,70 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
     this.loadAgencia();
     this.loadDepartamento();
-    this.cargar();
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    if(id){
+      this.isLoading = true;
+      this.guardando = false;
+
+      const btnGuardar = document.getElementById('btnGuardar');
+      btnGuardar!.hidden = true;
+
+      const btnEdit = document.getElementById('btnActualizar');
+      btnEdit!.hidden = false;
+
+      this.activeRoute.params.subscribe( e => {
+        let id = e['id'];
+        if(id) {
+          new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(id).subscribe((response) => {
+            const dui = document.getElementById('dui') as HTMLInputElement;
+            dui.disabled = true;
+            const nombres = document.getElementById('nombres') as HTMLInputElement;
+            nombres.disabled = true;
+            const apellidos = document.getElementById('apellidos') as HTMLInputElement;
+            apellidos.disabled = true;
+            const agencia = document.getElementById('agencia') as HTMLInputElement;
+            agencia.disabled = true;
+            const departamento = document.getElementById('departamento') as HTMLInputElement;
+            departamento.disabled = true;
+            const cargo = document.getElementById('cargo') as HTMLInputElement;
+            cargo.disabled = true;
+            const telefono = document.getElementById('telefono') as HTMLInputElement;
+            telefono.disabled = true;
+            const correo = document.getElementById('correo') as HTMLInputElement;
+            correo.disabled = true;
+            this.colaborador = response.dataDB;
+            console.log(response.dataDB)
+            this.formUser.patchValue(this.colaborador);
+
+            this.colaboradorService.getAgenciaId(response.dataDB.agencia_id).subscribe((res: any) => {
+              this.ngSelectA = res.dataDB.id;
+            });
+            this.colaboradorService.getDepartamentoId(response.dataDB.departamento_id).subscribe((res: any) => {
+              this.ngSelectD = res.dataDB.id;
+            });
+            this.colaboradorService.getCargoId(response.dataDB.cargo_id).subscribe((res: any) => {
+              new Promise(resolve => resolve(this.colaboradorService.postDeptCargo(this.ngSelectD).subscribe((response) => {
+                this.listaCargo = response.dataDB;
+                this.ngSelectC = res.dataDB.id;
+              })));
+            });
+            this.colaboradorService.getFotoURL(response.dataDB.foto).subscribe((data: any) => {
+              this.isLoading = false;
+              console.log(data)
+              setTimeout(() => {
+                const imagenPrevisualizacion = document.getElementById("img") as HTMLInputElement;
+                this.imgTamanio = data.size;
+                let binaryData = [];
+                binaryData.push(data); 
+                let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
+                console.log(foo)
+                imagenPrevisualizacion.src = foo;
+              }, 1000);
+            });
+          })));
+        }
+      });
+    } 
     this.cambiarEstadoLoading();
   }
 
@@ -203,70 +266,7 @@ export class PerfilComponent implements OnInit {
   }
 
   cargar() {
-    const id = this.activeRoute.snapshot.paramMap.get('id');
     
-    if(id){
-      this.isLoading = true;
-      this.guardando = false;
-
-      const btnGuardar = document.getElementById('btnGuardar');
-      btnGuardar!.hidden = true;
-
-      const btnEdit = document.getElementById('btnActualizar');
-      btnEdit!.hidden = false;
-
-      this.activeRoute.params.subscribe( e => {
-        let id = e['id'];
-        if(id) {
-          new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(id).subscribe((response) => {
-            const dui = document.getElementById('dui') as HTMLInputElement;
-            dui.disabled = true;
-            const nombres = document.getElementById('nombres') as HTMLInputElement;
-            nombres.disabled = true;
-            const apellidos = document.getElementById('apellidos') as HTMLInputElement;
-            apellidos.disabled = true;
-            const agencia = document.getElementById('agencia') as HTMLInputElement;
-            agencia.disabled = true;
-            const departamento = document.getElementById('departamento') as HTMLInputElement;
-            departamento.disabled = true;
-            const cargo = document.getElementById('cargo') as HTMLInputElement;
-            cargo.disabled = true;
-            const telefono = document.getElementById('telefono') as HTMLInputElement;
-            telefono.disabled = true;
-            const correo = document.getElementById('correo') as HTMLInputElement;
-            correo.disabled = true;
-            this.colaborador = response.dataDB;
-            //console.log(response.dataDB)
-            this.formUser.patchValue(this.colaborador);
-
-            this.colaboradorService.getAgenciaId(response.dataDB.agencia_id).subscribe((res: any) => {
-              this.ngSelectA = res.dataDB.id;
-            });
-            this.colaboradorService.getDepartamentoId(response.dataDB.departamento_id).subscribe((res: any) => {
-              this.ngSelectD = res.dataDB.id;
-            });
-            this.colaboradorService.getCargoId(response.dataDB.cargo_id).subscribe((res: any) => {
-              new Promise(resolve => resolve(this.colaboradorService.postDeptCargo(this.ngSelectD).subscribe((response) => {
-                this.listaCargo = response.dataDB;
-                this.ngSelectC = res.dataDB.id;
-              })));
-            });
-            this.colaboradorService.getFotoURL(response.dataDB.foto).subscribe((data: any) => {
-              this.isLoading = false;
-         
-              setTimeout(() => {
-                const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
-                this.imgTamanio = data.size;
-                let binaryData = [];
-                binaryData.push(data); 
-                let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
-                this.imgTamanio == 13 ? imagenPrevisualizacion.src = this.avatar : imagenPrevisualizacion.src = foo;
-              }, 100);
-            });
-          })));
-        }
-      });
-    } 
     // else {
     //   const btnEdit = document.getElementById('btnActualizar');
     //   btnEdit!.hidden = true;

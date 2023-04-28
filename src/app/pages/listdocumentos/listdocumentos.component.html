@@ -2,17 +2,19 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-9">
-                        <h5 class="card-title">Listado de documentos</h5>
+                <div class="form mt-3">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 class="card-title">Listado de documentos</h5>
+                        </div>
+                        <div class="col-3 mt-2 d-flex flex-row justify-content-end p-2">
+                            <button type="button" class="btn btn-primary" routerLink="/dashboard/documentos">
+                                <i class="bi bi-plus-lg"></i>Agregar documento
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-3 mt-2 d-flex flex-row justify-content-end p-2">
-                        <button type="button" class="btn btn-primary" routerLink="/dashboard/documentos">
-                            <i class="bi bi-plus-lg"></i>Agregar documento
-                        </button>
-                    </div>
+                    <app-dtdocumentos></app-dtdocumentos>
                 </div>
-                <app-dtdocumentos></app-dtdocumentos>
             </div>
         </div>
     </div>

@@ -150,7 +150,7 @@
     background-image: linear-gradient(-225deg, #effefd 50%, #8dddd0 50%);
   }
   
-  button, input, select {
+  button, input:not(#foto), select {
     border: 0;
     outline: 0;
     font-size: 16px;
@@ -160,7 +160,7 @@
     text-shadow: 1px 1px 0 #FFF;
   }
   
-  input {
+  input:not(#foto) {
     margin-right: 8px;
     box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
     width: 100%;

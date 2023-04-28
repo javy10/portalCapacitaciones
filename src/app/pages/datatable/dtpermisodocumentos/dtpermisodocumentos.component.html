@@ -39,51 +39,53 @@
           <h5 class="modal-title" id="exampleModalLabel">Permisos para el documento</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <form [formGroup]="formPermiso" id="form">
-                <div class="row">
-                    <label class="form-label mt-2">Tipo de permiso</label>
-                    <div >
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="departamento" name="tipo" formControlName="departamento" value="1" [(ngModel)]="selectedOption">
-                            <label class="form-check-label" for="departamento">Departamento</label>
+        <div class="form">
+            <div class="modal-body">
+                <form [formGroup]="formPermiso" id="form">
+                    <div class="row">
+                        <label class="form-label mt-2">Tipo de permiso</label>
+                        <div >
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="departamento" name="tipo" formControlName="departamento" value="1" [(ngModel)]="selectedOption">
+                                <label class="form-check-label" for="departamento">Departamento</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" id="colaborador" name="tipo" formControlName="colaborador" value="2" [(ngModel)]="selectedOption">
+                                <label class="form-check-label" for="colaborador">Colaborador</label>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="colaborador" name="tipo" formControlName="colaborador" value="2" [(ngModel)]="selectedOption">
-                            <label class="form-check-label" for="colaborador">Colaborador</label>
+                        <div class="mt-2">
+                            <label class="form-label mt-2">Departamento</label>
+                            <select [(ngModel)]='ngSelectD' class="form-select" id="departamentoSelect" formControlName="departamentoSelect" required>
+                                <option value="0" disabled selected>Selecciona</option>
+                                <option *ngFor="let e of listaDepartamento" [value]="e.id">
+                                    {{ e.nombre }}
+                                </option>
+                            </select>
+                            <div class="alert alert-danger mt-2" [hidden]="departamentoSelect.valid || departamentoSelect.pristine">
+                                Debes seleccionar una opción
+                            </div>
                         </div>
+                        <div class=" mt-2">
+                            <label class="form-label mt-2">Colaborador</label>
+                            <select [(ngModel)]='ngSelectC' class="form-select" id="colaboradorSelect" formControlName="colaboradorSelect" required>
+                                <option value="0" disabled selected>Selecciona</option>
+                                <option *ngFor="let e of listaColaborador" [value]="e.id">
+                                    {{ e.nombres }} {{ e.apellidos }}
+                                </option>
+                            </select>
+                            <div class="alert alert-danger mt-2" [hidden]="colaboradorSelect.valid || colaboradorSelect.pristine">
+                                Debes seleccionar una opción
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="mt-2">
-                        <label class="form-label mt-2">Departamento</label>
-                        <select [(ngModel)]='ngSelectD' class="form-select" id="departamentoSelect" formControlName="departamentoSelect" required>
-                            <option value="0" disabled selected>Selecciona</option>
-                            <option *ngFor="let e of listaDepartamento" [value]="e.id">
-                                {{ e.nombre }}
-                            </option>
-                        </select>
-                        <div class="alert alert-danger mt-2" [hidden]="departamentoSelect.valid || departamentoSelect.pristine">
-                            Debes seleccionar una opción
-                        </div>
-                    </div>
-                    <div class=" mt-2">
-                        <label class="form-label mt-2">Colaborador</label>
-                        <select [(ngModel)]='ngSelectC' class="form-select" id="colaboradorSelect" formControlName="colaboradorSelect" required>
-                            <option value="0" disabled selected>Selecciona</option>
-                            <option *ngFor="let e of listaColaborador" [value]="e.id">
-                                {{ e.nombres }} {{ e.apellidos }}
-                            </option>
-                        </select>
-                        <div class="alert alert-danger mt-2" [hidden]="colaboradorSelect.valid || colaboradorSelect.pristine">
-                            Debes seleccionar una opción
-                        </div>
-                    </div>
-                    
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary cancelar" data-bs-dismiss="modal" (click)="cancelar()">Cerrar</button>
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="cargar()">Agregar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary cancelar" data-bs-dismiss="modal" (click)="cancelar()">Cerrar</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="cargar()">Agregar</button>
+            </div>
         </div>
       </div>
     </div>

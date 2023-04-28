@@ -58,12 +58,12 @@
                                     <button type="button" class="btn btn-secondary cancelar"  routerLink="/dashboard/list-documentos">
                                         Cancelar
                                     </button>
-                                    <button type="submit" class="btn btn-success" id="btnGuardar"  >
+                                    <button type="submit" class="btn btn-success" id="btnGuardar"  (click)="guardarEvaluacion()">
                                         Guardar
                                     </button>
                                 </div>
                             </div>
-                            <app-tabevaluaciones></app-tabevaluaciones>
+                            <app-tabevaluaciones (eventoEnviarDataGrupo)="pasarDatosGrupo($event)" (eventoEnviarDataPregunta)="pasarDatosPregunta($event)"></app-tabevaluaciones>
                         </form>
                     </div>
                 </div>
