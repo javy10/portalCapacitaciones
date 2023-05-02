@@ -19,6 +19,10 @@ export class DocumentoService {
         return this.http.get<any>(this.url+'/tipoDocumentos')
     }
 
+    getTipoDocumentoID(id: number): Observable<any> {
+        return this.http.get<any>(this.url+'/tipoDocumentos/'+id)
+    }
+
     getDocumentos(): Observable<any> {
       return this.http.get<any>(this.url+'/documentos');
     }
@@ -39,6 +43,16 @@ export class DocumentoService {
     saveDocumentos(datos: any): Observable<any> {
       console.log(datos)
       return this.http.post(this.url+'/documentos', datos);
+    }
+
+    getDocumentoID(id: number) {
+      console.log(id)
+      return this.http.get<any>(this.url +'/documentoID/'+id)
+    }
+
+    getDetalleDocumentoID(id: number) {
+      console.log(id)
+      return this.http.get<any>(this.url +'/detalleDoc/'+id)
     }
 
     // PERMISOS*****

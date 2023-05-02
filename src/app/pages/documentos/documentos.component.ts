@@ -18,6 +18,8 @@ export class DocumentosComponent implements OnInit{
   datosDoc: any;
   datosPermisos: any;
   data: any;
+  id:any;
+  docs:any;
 
   tipoPermiso_id: [] = [];
   departamento_id: [] = [];
@@ -30,14 +32,14 @@ export class DocumentosComponent implements OnInit{
 
   constructor(public fb:FormBuilder, private documentoService:DocumentoService, private router: Router, private activeRoute: ActivatedRoute) {
     this.formDocumento = this.fb.group({
-      'tituloD': ['', Validators.required],
+      'titulo': ['', Validators.required],
       'descripcion': ['', Validators.required],
       'tipo': ['', Validators.required],
     })
   }
 
-  get tituloD() {
-    return this.formDocumento.get('tituloD') as FormControl;
+  get titulo() {
+    return this.formDocumento.get('titulo') as FormControl;
   }
   get descripcion() {
     return this.formDocumento.get('descripcion') as FormControl;
@@ -48,7 +50,7 @@ export class DocumentosComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadTipoDocumento();
-    
+    this.cargar();
   }
 
   async loadTipoDocumento() {
@@ -137,4 +139,55 @@ export class DocumentosComponent implements OnInit{
       }
     });
   }
+
+  cargar() {
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    this.id = id;
+    //const idPerfil = localStorage.getItem('id');
+    if(id){
+      const titulo = document.getElementById('title');
+      titulo!.innerHTML = 'Editar Documento';
+      
+      const btnGuardar = document.getElementById('btnGuardar');
+      btnGuardar!.hidden = true;
+      
+      const btnEdit = document.getElementById('btnActualizar');
+      btnEdit!.hidden = false;
+      
+      console.log(this.id)
+      // this.activeRoute.params.subscribe( e => {
+      //   let id = e['id'];
+      //   if(id) {
+          new Promise(resolve => resolve(this.documentoService.getDocumentoID(this.id).subscribe((response) => {
+            this.docs = response.dataDB;
+            console.log(response)
+            this.formDocumento.patchValue(this.docs);
+
+            this.documentoService.getTipoDocumentoID(response.dataDB.tipoDocumento_id).subscribe((res: any) => {
+              console.log(res)
+              this.ngSelect = res.dataDB.id;
+            });
+          })));
+        // }
+      // });
+    }
+    else {
+      const btnEdit = document.getElementById('btnActualizar');
+      btnEdit!.hidden = true;
+      this.ngSelect = 0;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

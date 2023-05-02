@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,10 +15,18 @@ export class TabdocumentoComponent implements OnInit {
   @Output()
   eventoEnviarDataDoc = new EventEmitter<any>()
 
+  idDoc:any;
+
+  @Input() 
+  id: any;
+
   arreglo = [];
 
   ngOnInit(): void {
     console.log(this.arreglo);
+    console.log(this.id);
+    this.idDoc = this.id;
+    console.log(this.idDoc)
   }
 
   pasarDatos(datos:any) {

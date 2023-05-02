@@ -35,6 +35,7 @@ export class DtevaluacionesComponent implements OnInit {
   ngOnInit(): void {
     //this.Id = localStorage.getItem('id')!;
     this.dtOptions = {
+      lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
       pageLength: 5,
       columnDefs: [

@@ -240,9 +240,9 @@ export class CollaboratorComponent implements OnInit {
             });
             this.colaboradorService.getFotoURL(response.dataDB.foto).subscribe((data: any) => {
               this.isLoading = false;
-         
+              this.img = response.dataDB.foto;
               setTimeout(() => {
-                const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
+                const imagenPrevisualizacion = document.querySelector("#image") as HTMLInputElement;
                 this.imgTamanio = data.size;
                 let binaryData = [];
                 binaryData.push(data); 
@@ -331,7 +331,7 @@ export class CollaboratorComponent implements OnInit {
     formData.append('agencia_id', this.formUser.value.agencia),
     formData.append('departamento_id', this.formUser.value.departamento),
     formData.append('cargo_id', this.formUser.value.cargo),
-    formData.append('foto', this.imagen!),
+    formData.append('foto', this.imagen == null ? this.img : this.imagen),
     formData.append('telefono', this.formUser.value.telefono),
     formData.append('correo', this.formUser.value.correo),
     formData.append('habilitado', 'S'),
@@ -383,7 +383,7 @@ export class CollaboratorComponent implements OnInit {
     localStorage.setItem('foto', foto.value);
 
     const seleccionArchivos = document.querySelector("#foto") as HTMLInputElement;
-    const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
+    const imagenPrevisualizacion = document.querySelector("#image") as HTMLInputElement;
     // Los archivos seleccionados, pueden ser muchos o uno
     const archivos = seleccionArchivos.files;
     // Si no hay archivos salimos de la función y quitamos la imagen

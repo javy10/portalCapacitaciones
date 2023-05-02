@@ -61,7 +61,7 @@ export class SidebarComponent implements OnInit{
       this.listaDocumentos = res.dataDB;
       console.log(this.listaDocumentos)
     })));
-  } 
+  }
   /**
    * La función obtiene permisos para un documento de un servicio y los asigna a las variables.
    */

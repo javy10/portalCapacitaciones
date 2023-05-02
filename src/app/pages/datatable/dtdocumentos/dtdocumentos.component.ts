@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
@@ -19,6 +19,8 @@ export class DtdocumentosComponent implements OnInit {
   isLoading = false;
 
 
+
+
   /**
    * Esta es una función constructora que toma un DocumentoService como parámetro.
    * @param {DocumentoService} documentosService - El parámetro "documentosService" es una instancia de
@@ -34,6 +36,7 @@ export class DtdocumentosComponent implements OnInit {
    * isLoading en falso.
    */
   ngOnInit(): void {
+    
     //this.Id = localStorage.getItem('id')!;
     this.dtOptions = {
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -67,6 +70,7 @@ export class DtdocumentosComponent implements OnInit {
     this.isLoading = true;
     return  await new Promise(resolve => resolve( this.documentosService.getListaDocumentos().subscribe((data: any) => {
       this.listaDocumentos = data.dataDB;
+      console.log(this.listaDocumentos)
       this.isLoading = false;
       setTimeout(() => {
           this.dtTrigger.next(0);

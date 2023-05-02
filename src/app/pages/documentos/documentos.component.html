@@ -11,8 +11,8 @@
                                 <div class="row">
                                     <div class="col-md-4 mb-2">
                                         <label class="form-label">Título del documento</label>
-                                        <input type="text"  class="form-control" id="titulo" placeholder="Ingresa el título" formControlName="tituloD"  maxlength="100" required>
-                                        <div class="alert alert-danger mt-2" [hidden]="tituloD.valid || tituloD.pristine">
+                                        <input type="text"  class="form-control" id="titulo" placeholder="Ingresa el título" formControlName="titulo"  maxlength="100" required>
+                                        <div class="alert alert-danger mt-2" [hidden]="titulo.valid || titulo.pristine">
                                             Debes seleccionar un titulo
                                         </div>
                                     </div>
@@ -43,9 +43,12 @@
                                     <button type="submit" class="btn btn-success" id="btnGuardar" (click)="guardarDatos()" >
                                         Guardar
                                     </button>
+                                    <button type="submit" class="btn btn-success" id="btnActualizar">
+                                        Actualizar
+                                    </button>
                                 </div>
                             </div>
-                            <app-tabdocumento (eventoEnviarDataDoc)="pasarDatosDoc($event)" (eventoEnviarDataPer)="pasarDatosPer($event)"></app-tabdocumento>
+                            <app-tabdocumento (eventoEnviarDataDoc)="pasarDatosDoc($event)" (eventoEnviarDataPer)="pasarDatosPer($event)" [id]="id"></app-tabdocumento>
                         </form>
                     </div>
                 </div>

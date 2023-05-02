@@ -27,6 +27,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
   ngOnInit(): void {
     this.Id = localStorage.getItem('id')!;
     this.dtOptions = {
+      lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
       pageLength: 5,
       searching: true,

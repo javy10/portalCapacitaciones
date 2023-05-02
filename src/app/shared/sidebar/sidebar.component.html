@@ -61,10 +61,10 @@
             </a>
             <ul id="politicas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 1 && ((item.colaborador_id == id && item.departamento_id == departamento_id))  && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 1 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 1 &&  item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 1 &&  item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -77,10 +77,10 @@
             </a>
             <ul id="reglamento-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 2 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 2 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 2 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 2 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -92,10 +92,10 @@
             </a>
             <ul id="manual-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 3 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 3 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 3 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 3 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -107,11 +107,11 @@
             </a>
             <ul id="instructivo-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 4 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 4 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                   <!-- <i class="bi bi-circle"></i><span>{{ item.colaborador_id }}</span> -->
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 4 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 4 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -123,10 +123,10 @@
             </a>
             <ul id="normativa-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 5 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 5 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 5 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 5 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -138,10 +138,10 @@
             </a>
             <ul id="estrategia-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 6 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 6 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 6 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 6 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -153,10 +153,10 @@
             </a>
             <ul id="estudio-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 7 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 7 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 7 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 7 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0"  (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -168,10 +168,10 @@
             </a>
             <ul id="ley-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 8 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 8 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0" (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 8 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 8 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0" (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -183,10 +183,10 @@
             </a>
             <ul id="boletin-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 9 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 9 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0" (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 9 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 9 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0" (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>
@@ -198,10 +198,10 @@
             </a>
             <ul id="circulares-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li *ngFor="let item of listaDocumentos">
-                <a type="button" *ngIf="item.tipoDocumento_id === 10 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 10 && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0" (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
-                <a type="button" *ngIf="item.tipoDocumento_id === 10 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null)"  (click)="cargarPDF(item.nombreArchivo)">
+                <a type="button" *ngIf="item.tipoDocumento_id === 10 && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0" (click)="cargarPDF(item.nombreArchivo)">
                   <i class="bi bi-circle"></i><span>{{ item.nombreArchivo }}</span>
                 </a>
               </li>

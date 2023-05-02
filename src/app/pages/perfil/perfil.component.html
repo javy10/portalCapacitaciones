@@ -8,7 +8,7 @@
                         <form [formGroup]="formUser" class="row g-3 " (ngSubmit)="guardar()">
                             <div class="col-md-3" >
                                 <div class="wrapper ">
-                                    <input  type="file" name="foto" id="foto" accept=".jpg, .png" hidden="hidden" (change)="changeFoto($event)"  />
+                                    <input  type="file" name="foto" id="foto" accept="image/*" hidden="hidden" (change)="changeFoto($event)"  />
                                     <label class="position-relative " for="foto">
                                         <div class="position-absolute w-100 h-100 mx-auto align-items-center">
                                             <div class="mx-auto loader" *ngIf="isLoading">
@@ -19,7 +19,7 @@
                                                 <div class="orbe" style="--index: 4"></div>
                                             </div>
                                         </div>
-                                        <img *ngIf="!isLoading" src="{{avatar}}" id="img" class="img-fluid rounded-start rounded-pill" alt="..." />
+                                        <img *ngIf="!isLoading" src="{{avatar}}" id="imagen" class="img-fluid rounded-start rounded-pill" alt="..." />
                                         
                                     </label>
                                 </div>

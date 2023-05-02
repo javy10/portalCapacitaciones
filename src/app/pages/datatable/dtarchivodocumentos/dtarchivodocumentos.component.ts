@@ -1,6 +1,6 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
@@ -24,6 +24,10 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
 
   @Output()
   eventoEnviarDataDoc = new EventEmitter<any>()
+
+  @Input()
+  idDoc: any;
+
   
   data: any;
   listaDocumentos: any = [];
@@ -33,11 +37,15 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   formDocumento!: FormGroup;
   saveArchivo: any;
   docs: any;
+  detalledocs: any;
+  archivodocs: any;
   descripcionn!: string;
   lecturaa!: any;
   fechaLimitee!: string;
   selectedValue!: any;
   isLoading = false;
+  idDocumento: any;
+  
 
   constructor(private documentoService: DocumentoService, private fb:FormBuilder, private http: HttpClient, private datePipe: DatePipe) {
     this.formDocumento = this.fb.group({
@@ -50,6 +58,7 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.idDoc)
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -70,8 +79,10 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
       }
     };
     this.listaDocumentos = [];
+    this.loadDetalleDoc();
     this.ngSelectL = 0;
     this.ngSelectD = 0;
+
   }
 
   ngOnDestroy(): void {
@@ -128,11 +139,16 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   cargar(){
     this.isLoading = true;
     console.log(this.archivo)
+    let fechaFormateada = '';
 
     const fechaLimite = document.querySelector("#fechaLimite") as HTMLInputElement;
-    let fechaObj = new Date(fechaLimite.value);
-    const fechaFormateada = this.datePipe.transform(fechaObj, 'yyyy-MM-dd HH:mm:ss')
-
+    console.log(fechaLimite.value)
+   
+    if(fechaLimite.value != '' && fechaLimite.value != null) {
+      let fechaObj = new Date(fechaLimite.value);
+      fechaFormateada = this.datePipe.transform(fechaObj, 'yyyy-MM-dd HH:mm:ss')!;
+      console.log('Hola')
+    }
 
     let today = new Date().toLocaleString();
 
@@ -196,5 +212,56 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
     console.log(this.listaDocumentos);
   }
 
+  async loadDetalleDoc() {
+    return  await new Promise(resolve => resolve( this.documentoService.getDetalleDocumentoID(this.idDoc).subscribe((data: any) => {
+      console.log(data)
+      this.idDocumento = data.dataDB[0].documento_id;
+      console.log(this.idDocumento);
+      this.detalledocs = {
+        'documento_id': data.dataDB[0].documento_id,
+        'descripcion': data.dataDB[0].descripcion,
+        'actualizado': data.dataDB[0].updated_at,
+        'lectura': data.dataDB[0].lectura,
+        'fechaLimite': data.dataDB[0].fechaLimite,
+        'disponible': data.dataDB[0].disponible,
+      }
+      this.listaDocumentos.push(this.detalledocs);
+    })));
+  }
+
+  datosArchivo(id:number) {
+    new Promise(resolve => resolve( this.documentoService.getDetalleDocumentoID(id).subscribe((data: any) => {
+      console.log(data.dataDB)
+    
+      this.archivodocs = {
+        // 'pdf': data.dataDB[0].nombreArchivo,
+        'descripcion': data.dataDB[0].descripcion,
+        'fechaLimite': data.dataDB[0].fechaLimite,
+      }
+      this.ngSelectL = data.dataDB[0].lectura == '0' ? 0 : 1;
+      this.ngSelectD = data.dataDB[0].disponible == '0' ? 0 : 1;
+      this.formDocumento.patchValue(this.archivodocs);
+
+      
+
+      this.documentoService.getDocumentoURL(data.dataDB[0].nombreArchivo).subscribe((datos: any) => {
+        console.log(datos);
+        setTimeout(() => {
+          const archivoPrevisualizacion = document.querySelector("#filePDF") as HTMLInputElement;
+          let binaryData = [];
+          binaryData.push(datos); 
+          let foo = URL.createObjectURL(new Blob(binaryData, {type: "application/pdf"}));
+          archivoPrevisualizacion.src = foo;
+
+          const blob = new Blob([foo], { type: 'text/plain' });
+          const archivo = new File([blob], data.dataDB[0].nombreArchivo, { type: 'text/plain' });
+
+          const input = document.getElementById('pdf') as HTMLInputElement;
+          input.value += archivo;
+          //this.iframeCargado();
+        }, 100);
+      });
+    })));
+  }
 
 }

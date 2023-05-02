@@ -30,6 +30,7 @@ const routes: Routes = [
           { path: 'collaborator/:id', component: CollaboratorComponent },
           { path: 'list-documentos', component: ListdocumentosComponent},
           { path: 'documentos', component: DocumentosComponent},
+          { path: 'documentos/:id', component: DocumentosComponent},
           { path: 'archivo/:nombre', component: ArchivoComponent},
           { path: 'list-evaluaciones', component: ListevaluacionComponent},
           { path: 'evaluacion', component: EvaluacionComponent},

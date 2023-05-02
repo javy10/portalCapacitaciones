@@ -126,14 +126,13 @@ export class PerfilComponent implements OnInit {
               this.isLoading = false;
               console.log(data)
               setTimeout(() => {
-                const imagenPrevisualizacion = document.getElementById("img") as HTMLInputElement;
+                const imagenPrevisualizacion = document.querySelector("#imagen") as HTMLInputElement;
                 this.imgTamanio = data.size;
                 let binaryData = [];
                 binaryData.push(data); 
                 let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
-                console.log(foo)
-                imagenPrevisualizacion.src = foo;
-              }, 1000);
+                this.imgTamanio == 13 ? imagenPrevisualizacion.src = this.avatar : imagenPrevisualizacion.src = foo;
+              }, 100);
             });
           })));
         }
@@ -335,21 +334,15 @@ export class PerfilComponent implements OnInit {
     console.log(this.imagen);
     let foto = document.getElementById('foto') as HTMLInputElement;
     localStorage.setItem('foto', foto.value);
-
     const seleccionArchivos = document.querySelector("#foto") as HTMLInputElement;
-    const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
-    // Los archivos seleccionados, pueden ser muchos o uno
+    const imagenPrevisualizacion = document.querySelector("#imagen") as HTMLInputElement;
     const archivos = seleccionArchivos.files;
-    // Si no hay archivos salimos de la función y quitamos la imagen
     if (!archivos || !archivos.length) {
       imagenPrevisualizacion.src = "";
       return;
     }
-    // Ahora tomamos el primer archivo, el cual vamos a previsualizar
     const primerArchivo = archivos[0];
-    // Lo convertimos a un objeto de tipo objectURL
     const objectURL = URL.createObjectURL(primerArchivo);
-    // Y a la fuente de la imagen le ponemos el objectURL
     imagenPrevisualizacion.src = objectURL;
   }
 
