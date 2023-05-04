@@ -60,6 +60,15 @@ export class DocumentoService {
       return this.http.get<any>(this.url+'/permisos')
     }
 
+    getDetallePermisosID(id: number) {
+      console.log(id)
+      return this.http.get<any>(this.url +'/detallePermisos/'+id)
+    }
+    getDetalleID(id: number) {
+      console.log(id)
+      return this.http.get<any>(this.url +'/detalleID/'+id)
+    }
+
 
 
 

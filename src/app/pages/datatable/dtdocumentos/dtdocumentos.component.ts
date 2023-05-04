@@ -109,8 +109,11 @@ export class DtdocumentosComponent implements OnInit {
             'Documento deshabilitado con éxito.',
             'success'
           )
+          setTimeout(() => {
+            this.loadDocumentos();
+            window.location.reload();
+          }, 2000);
         })));
-        this.loadDocumentos();
       }
     });
   }

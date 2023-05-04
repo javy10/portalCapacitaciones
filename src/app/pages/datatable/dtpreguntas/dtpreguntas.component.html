@@ -32,6 +32,9 @@
                     </a>                   
                 </td>
             </tr>
+            <tr *ngIf="listaPreguntas.length === 0">
+                <td colspan="6" style="text-align: center;">No hay registros</td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -83,6 +86,9 @@
                                                     <i class="bi bi-trash"></i>
                                                 </a>                   
                                             </td>
+                                        </tr>
+                                        <tr *ngIf="listaRespuestas.length === 0">
+                                            <td colspan="6" style="text-align: center;">No hay registros</td>
                                         </tr>
                                     </tbody>
                                 </table>

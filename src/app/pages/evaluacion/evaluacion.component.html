@@ -7,12 +7,12 @@
                 <div class="form mt-3">
                     <div class="row">
                         <h1 class="card-title text-center titulo" id="title">Guardar Evaluación</h1>
-                        <form  class="row g-3 ">
+                        <form [formGroup]="formEvaluacion" class="row g-3 ">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-4 mb-2">
-                                        <label class="form-label">Título del documento</label>
-                                        <input type="text"  class="form-control" id="titulo" placeholder="Ingresa el título" formControlName="tituloD"  maxlength="100" required>
+                                        <label class="form-label">Título de la evaluacion</label>
+                                        <input type="text"  class="form-control" id="titulo" placeholder="Ingresa el título" formControlName="tituloE"  maxlength="100" required>
                                         <!-- <div class="alert alert-danger mt-2" [hidden]="tituloD.valid || tituloD.pristine">
                                             Debes seleccionar un titulo
                                         </div> -->
@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="col-md-2 mb-2">
                                         <label class="form-label">Calificación mínima</label>
-                                        <input type="number"  id="descripcion" class="form-control" placeholder="Ingresa la calificación mínima" formControlName="descripcion" required>
+                                        <input type="number"  id="descripcion" class="form-control" placeholder="Ingresa la calificación mínima" formControlName="calificacion" required>
                                         <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
                                             Debes seleccionar un descripcion
                                         </div> -->
@@ -47,10 +47,7 @@
                                     </div>
                                     <div class="col-md-4 mb-2">
                                         <label class="form-label">Minutos de evaluación (Vacío = Sin límite)</label>
-                                        <input type="number"  id="descripcion" class="form-control" placeholder="Ingresa los minutos de la evaluación (opcional)" formControlName="minutos" required>
-                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
-                                            Debes seleccionar un descripcion
-                                        </div> -->
+                                        <input type="number"  id="descripcion" class="form-control" placeholder="Ingresa los minutos de la evaluación (opcional)" required>
                                     </div>
 
                                 </div>

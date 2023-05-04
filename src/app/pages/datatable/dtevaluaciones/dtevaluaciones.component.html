@@ -42,6 +42,9 @@
                     </a>
                 </td>
             </tr>
+            <tr *ngIf="listaEvaluaciones.length === 0">
+                <td colspan="7">No hay registros</td>
+            </tr>
         </tbody>
     </table>
 </div>

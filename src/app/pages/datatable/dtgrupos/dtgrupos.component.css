@@ -98,12 +98,12 @@ table tr th{
     transform: translateY(-1px);
   } */
 
-  @media (max-width: 767px) {
+  /* @media (max-width: 767px) {
     .table-responsive td:nth-child(n+4), 
     .table-responsive th:nth-child(n+4) {
       display: none;
     }
-  }
+  } */
 
    /**************/
 .loader {

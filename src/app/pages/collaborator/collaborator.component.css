@@ -5,11 +5,10 @@
   font-size: 1.5rem;
 }
 
-.card {
+/* .card {
   --border-size: 3px;
   --border-angle: 0turn;
-  /* width: 60vmin;
-  height: 50vmin; */
+
   background-image: conic-gradient( rgb(247, 245, 249), rgb(253, 253, 255) 50%, rgb(250, 247, 252)), conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
   background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)), cover;
   background-position: center center;
@@ -27,16 +26,16 @@
     --border-angle: 1turn;
   }
 }
-/* .card:hover {
+.card:hover {
   -webkit-animation-play-state: paused;
           animation-play-state: paused;
-} */
+}
 
 @property --border-angle {
   syntax: "<angle>";
   inherits: true;
   initial-value: 0turn;
-}
+} */
 
 /****************************
 /* Esto es definir los estilos CSS para un elemento de botón. Establece el relleno, el tamaño de la
@@ -80,7 +79,7 @@
   } */
 
   /**************/
-.loader {
+/* .loader {
   --size-loader: 70px;
   --size-orbe: 10px;
   width: var(--size-loader);
@@ -121,11 +120,11 @@
   100% {
     transform: rotate(360deg);
   }
-}
+} */
 
 /**********/
 
-.form {
+/* .form {
   background-image: linear-gradient(-225deg, #effefd 50%, #8dddd0 50%);
 }
 
@@ -165,4 +164,4 @@ button:hover {
 }
 button:active {
   box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
-}
+} */

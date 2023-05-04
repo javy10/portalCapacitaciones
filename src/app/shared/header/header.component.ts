@@ -57,6 +57,7 @@ export class HeaderComponent implements OnInit{
         }, 100);
       });
     })));
+
   } 
   
   logout() {

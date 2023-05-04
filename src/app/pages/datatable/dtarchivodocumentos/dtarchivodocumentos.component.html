@@ -33,13 +33,16 @@
                 <td>{{ item.lectura == 0 ? 'Si' : 'No' }}</td>
                 <td>{{ item.disponible == 0 ? 'Si' : 'No' }}</td>
                <td style="text-align: center;">
-                    <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="datosArchivo(item.documento_id)">
+                    <!-- <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="datosArchivo(item.documento_id)">
                         <i class="bi bi-pencil-square"></i>
-                    </a>
+                    </a> -->
                     <a type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar" (click)="eliminar(item)">
                         <i class="bi bi-trash"></i>
                     </a>                   
                 </td>
+            </tr>
+            <tr *ngIf="listaDocumentos.length === 0">
+                <td colspan="7">No hay registros</td>
             </tr>
         </tbody>
     </table>

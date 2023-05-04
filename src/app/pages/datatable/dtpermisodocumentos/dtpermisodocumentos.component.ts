@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
@@ -23,8 +23,17 @@ export class DtpermisodocumentosComponent implements OnInit{
   ngSelectD: any;
   ngSelectC: any;
 
+  detallePer: any;
+  archivoPer: any;
+
+  nombreDepartamento: any = [];
+  nombreColaborador: any = [];
+
   @Output()
-  eventoEnviarDataPer = new EventEmitter<any>()
+  eventoEnviarDataPer = new EventEmitter<any>();
+
+  @Input()
+  idDoc: any;
 
   constructor(private documentoService:DocumentoService, private colaboradorService: ColaboradorService, private fb:FormBuilder) {
     this.formPermiso = this.fb.group({
@@ -49,6 +58,9 @@ export class DtpermisodocumentosComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
+    console.log(this.idDoc)
+    this.loadDetallePermisos();
     
     const departamento = document.getElementById("departamento") as HTMLInputElement;
     const colaborador = document.getElementById("colaborador") as HTMLInputElement;
@@ -167,5 +179,79 @@ export class DtpermisodocumentosComponent implements OnInit{
     }
     console.log(this.listaPermisos);
   }
+
+  async loadDetallePermisos() {
+    return  await new Promise(resolve => resolve( this.documentoService.getDetallePermisosID(this.idDoc).subscribe((data: any) => {
+      console.log(data.dataDB)
+      
+        
+
+      for (let index = 0; index < data.dataDB.length; index++) {
+
+        console.log(data.dataDB[index])
+          
+        this.detallePer = {
+          'id': data.dataDB[index].id,
+          'nombre': data.dataDB[index].nombre == null ? data.dataDB[index].nombres +' '+ data.dataDB[index].apellidos : data.dataDB[index].nombre,
+          'tipoPermiso_id': data.dataDB[index].departamento_id == null ? 2 : 1,
+          'fechaRegistro': data.dataDB[index].created_at,
+        }
+        
+        this.listaPermisos.push(this.detallePer)
+        this.detallePer = '';
+        console.log(this.listaPermisos)
+      }
+    })));
+  }
+ 
+  datosPermisos(id:number){
+    console.log(id)
+    this.cancelar();
+
+    const btnGuardar = document.getElementById('btnGuardar');
+    btnGuardar!.hidden = true;
+
+    const btnEdit = document.getElementById('btnActualizar');
+    btnEdit!.hidden = false;
+
+
+    new Promise(resolve => resolve( this.documentoService.getDetalleID(id).subscribe((data: any) => {
+      console.log(data.dataDB)
+
+      if(data.dataDB[0].departamento_id == null) {
+        const colabCheck = document.getElementById("colaborador") as HTMLInputElement;
+        const dep = document.getElementById("departamento") as HTMLInputElement;
+        const colab = document.getElementById("colaboradorSelect") as HTMLInputElement;
+        colabCheck.checked = true;
+        colab.disabled = false;
+        dep.checked = false;
+
+        this.colaboradorService.getColaboradorID(data.dataDB[0].colaborador_id).subscribe((res: any) => {
+          this.ngSelectC = res.dataDB.id;
+        });
+
+      } else {
+        const dep = document.getElementById("departamento") as HTMLInputElement;
+        const depart = document.getElementById("departamentoSelect") as HTMLInputElement;
+        const colabCheck = document.getElementById("colaboradorSelect") as HTMLInputElement;
+        dep.checked = true;
+        depart.disabled = false;
+        colabCheck.checked = false;
+
+        this.colaboradorService.getDepartamentoId(data.dataDB[0].departamento_id).subscribe((res: any) => {
+          console.log(res.dataDB)
+          this.ngSelectD = res.dataDB.id;
+        });
+
+      }
+
+     
+
+      
+
+    })));
+  } 
+
+  
   
 }

@@ -10,9 +10,15 @@ import { DocumentoService } from 'src/app/services/documento.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent implements OnInit {
 
-  constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe) {}
+ 
+
+  constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe) {
+
+    
+
+  }
 
  /* Estas son declaraciones de variables en TypeScript. */
   permisos = 0;
@@ -96,5 +102,9 @@ export class SidebarComponent implements OnInit{
       console.log(nombre)
   }, 1500);
   }
+
+  
+
+ 
   
 }

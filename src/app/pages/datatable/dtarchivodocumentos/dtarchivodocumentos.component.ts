@@ -241,7 +241,7 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
       this.ngSelectL = data.dataDB[0].lectura == '0' ? 0 : 1;
       this.ngSelectD = data.dataDB[0].disponible == '0' ? 0 : 1;
       this.formDocumento.patchValue(this.archivodocs);
-
+      this.archivodocs = '';
       
 
       this.documentoService.getDocumentoURL(data.dataDB[0].nombreArchivo).subscribe((datos: any) => {
@@ -253,11 +253,14 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
           let foo = URL.createObjectURL(new Blob(binaryData, {type: "application/pdf"}));
           archivoPrevisualizacion.src = foo;
 
-          const blob = new Blob([foo], { type: 'text/plain' });
-          const archivo = new File([blob], data.dataDB[0].nombreArchivo, { type: 'text/plain' });
+          const fecha = document.getElementById('fechaLimite') as HTMLInputElement;
+          fecha.value = data.dataDB[0].fechaLimite;
 
-          const input = document.getElementById('pdf') as HTMLInputElement;
-          input.value += archivo;
+          // const blob = new Blob([foo], { type: 'text/plain' });
+          // const archivo = new File([blob], data.dataDB[0].nombreArchivo, { type: 'text/plain' });
+
+          // const input = document.getElementById('pdf') as HTMLInputElement;
+          // input.value += archivo;
           //this.iframeCargado();
         }, 100);
       });

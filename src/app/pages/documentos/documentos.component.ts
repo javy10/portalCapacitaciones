@@ -136,6 +136,7 @@ export class DocumentosComponent implements OnInit{
       willClose: () => {
         //window.location.reload();
         this.router.navigate(['dashboard/list-documentos']);
+        window.location.reload();
       }
     });
   }
