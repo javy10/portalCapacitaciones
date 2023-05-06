@@ -10,7 +10,7 @@ table tr th{
     vertical-align:center;
 }
   
-  /**************/
+/*   
   .loader {
     --size-loader: 70px;
     --size-orbe: 10px;
@@ -52,4 +52,4 @@ table tr th{
     100% {
       transform: rotate(360deg);
     }
-  }
+  } */

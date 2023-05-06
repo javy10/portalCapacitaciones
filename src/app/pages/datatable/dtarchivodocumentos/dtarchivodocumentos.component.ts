@@ -45,6 +45,8 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   selectedValue!: any;
   isLoading = false;
   idDocumento: any;
+
+  
   
 
   constructor(private documentoService: DocumentoService, private fb:FormBuilder, private http: HttpClient, private datePipe: DatePipe) {
@@ -266,5 +268,21 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
       });
     })));
   }
+
+
+  
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+  
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      // Aquí se pueden realizar las operaciones necesarias con los archivos
+    }
+  }
+  
+
 
 }

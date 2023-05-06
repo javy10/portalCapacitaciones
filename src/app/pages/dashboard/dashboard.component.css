@@ -1,0 +1,15 @@
+li {
+  list-style-type: none;
+}
+
+ul {
+  list-style: none; /* eliminar los puntos */
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+li {
+  float: left; /* mostrar los elementos como una fila */
+  margin-right: 10px; /* agregar un espacio entre elementos */
+}

@@ -14,14 +14,7 @@ table tr th{
     vertical-align:center;
 }
 
-/*****************************
-
-/* Esto es definir los estilos CSS para un elemento de botón. Establece el relleno, el tamaño de la
-  fuente, la transformación del texto, el espaciado entre letras, el grosor de la fuente, el color,
-  el color de fondo, el borde, el radio del borde, la sombra del cuadro, la transición, el cursor y
-  las propiedades del contorno del botón. También define los estilos para cuando se pasa el cursor
-  sobre el botón o se hace clic en él, incluido el cambio del color de fondo, la sombra del cuadro,
-  el color y la posición. */
+/*
   button {
     padding: 1.3em 3em;
     font-size: 11px;
@@ -62,3 +55,4 @@ table tr th{
       display: none;
     }
   }
+  */
