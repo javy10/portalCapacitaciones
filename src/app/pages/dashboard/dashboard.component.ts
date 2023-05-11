@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +28,15 @@ export class DashboardComponent implements OnInit{
   fecha: any;
 
   tipoDoc: any;
+  id_departamento: any;
+
+
+  coloresSuaves = ['#FFCDD2', '#C8E6C9', '#E1BEE7', '#BBDEFB', '#F0F4C3', '#B2DFDB', '#D1C4E9', '#FFE0B2'];
+
+  indiceColor = Math.floor(Math.random() * this.coloresSuaves.length);
+  
+  colorAleatorio = this.coloresSuaves[this.indiceColor];
+  
 
   constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe) {
 
@@ -38,26 +48,26 @@ export class DashboardComponent implements OnInit{
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
       this.cargos = res.dataDB.cargo_id;
       this.departamento_id = res.dataDB.departamento_id;
+      this.id_departamento = this.departamento_id;
       console.log(this.departamento_id)
       console.log(this.cargos)
+      console.log(this.id_departamento)
     })));
     this.listarDocumentos();
     this.loadTipoDocumento();
     this.obtenerPermisos();
+    
   }
-
   listarDocumentos() {
     let today = new Date();
     const fechaFormateada = this.datePipe.transform(today, 'yyyy-MM-dd HH:mm:ss');
     this.fecha = fechaFormateada;
     console.log(this.fecha)
     // 2023-04-26 11:30:00
-
     this.id = localStorage.getItem('id');
     new Promise(resolve => resolve(this.documentoService.getDocumentos().subscribe((res) => {
       this.listaDocumentos = res.dataDB;
       console.log(this.listaDocumentos)
-
     })));
   }
   obtenerPermisos() {
@@ -83,12 +93,63 @@ export class DashboardComponent implements OnInit{
       console.log(nombre)
   }, 1500);
   }
-
+ 
   loadTipoDocumento(){
-    new Promise(resolve => resolve(this.documentoService.getTipoDocumentos().subscribe((res) => {
-      this.listaTipoDocumentos = res;
-      console.log(this.listaTipoDocumentos)
+    console.log(this.id)
+    new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(this.id!)).subscribe((res) => {
+      this.departamento_id = res.dataDB.departamento_id;
+      console.log(this.departamento_id)
+      const formData = new FormData();
+      formData.append('idC', this.id);
+      formData.append('idD', this.departamento_id);
+      
+      new Promise(resolve => resolve(this.documentoService.getBuscarTipoDocumentos(formData).subscribe((res) => {
+        this.listaTipoDocumentos = res.dataDB;
+        console.log(this.listaTipoDocumentos)
+      })));
     })));
+    
+    
   }
+
+  deshabilitar(id: number){
+    Swal.fire({
+      title: 'Estás seguro de deshabilitar a éste colaborador?',
+      text: "El colaborador ya no aparecera en el Portal de Capacitaciones!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, seguro!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        new Promise(resolve => resolve(this.documentoService.eliminarTipoDocumento(id).subscribe((response) => {
+          Swal.fire(
+            'Deshabilitado!',
+            'Tipo documento deshabilitado con exito.',
+            'success'
+          )
+        })));
+      }
+      setTimeout(() => {
+        window.location.reload();
+    }, 1000);
+    });
+  }
+
+
+
+
+
+
+
+
 
 }

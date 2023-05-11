@@ -16,6 +16,10 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { TabperfilComponent } from './tabs/tabperfil/tabperfil.component';
 import { ListevaluacionComponent } from './listevaluacion/listevaluacion.component';
 import { EvaluacionComponent } from './evaluacion/evaluacion.component';
+import { TipodocumentoComponent } from './tipodocumento/tipodocumento.component';
+import { ListtipodocumentoComponent } from './listtipodocumento/listtipodocumento.component';
+import { ListcolaboradoresdeshabilitadosComponent } from './listcolaboradoresdeshabilitados/listcolaboradoresdeshabilitados.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 
 const routes: Routes = [
     {
@@ -34,6 +38,11 @@ const routes: Routes = [
           { path: 'archivo/:nombre', component: ArchivoComponent},
           { path: 'list-evaluaciones', component: ListevaluacionComponent},
           { path: 'evaluacion', component: EvaluacionComponent},
+          { path: 'tipo-documento', component: TipodocumentoComponent},
+          { path: 'tipo-documento/:id', component: TipodocumentoComponent},
+          { path: 'list-tipo-documentos', component: ListtipodocumentoComponent},
+          { path: 'list-colaboradores-deshabilitados', component: ListcolaboradoresdeshabilitadosComponent},
+          { path: 'configuracion', component: ConfiguracionComponent},
         ]
     },
 ];

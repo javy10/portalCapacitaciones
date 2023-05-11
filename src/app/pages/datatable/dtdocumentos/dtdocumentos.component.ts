@@ -56,7 +56,7 @@ export class DtdocumentosComponent implements OnInit {
     };
     this.loadDocumentos();
   }
- 
+
   /**
    * Esta función carga una lista de documentos y establece una bandera para indicar que se está
    * cargando actualmente.
@@ -77,7 +77,6 @@ export class DtdocumentosComponent implements OnInit {
       }, 1000);
     })));
   }
-
   /**
    * Esta función solicita al usuario que confirme la eliminación de un documento y luego llama a un
    * servicio para eliminarlo si se confirma.

@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit{
 
   nombre = '';
   apellido = '';
-  agencia = 0;
+  agencia:any;
   cargo = 0;
   id = localStorage.getItem('id');
   foto: any;
@@ -37,12 +37,14 @@ export class HeaderComponent implements OnInit{
       this.nombre = res.dataDB.nombres.split(' ')[0];
       this.apellido = res.dataDB.apellidos.split(' ')[0];
       new Promise(resolve => resolve(this.colaboradorService.getAgenciaId(res.dataDB.agencia_id).subscribe((resp) => {
-        //console.log(resp)
+        console.log(resp.dataDB)
         this.agencia = resp.dataDB.codAgencia;
+        console.log(this.agencia)
       })));
       new Promise(resolve => resolve(this.colaboradorService.getCargoId(res.dataDB.cargo_id).subscribe((resp) => {
         console.log(resp)
         this.cargo = resp.dataDB.nombre;
+        console.log(this.cargo)
       })));
       this.colaboradorService.getFotoURL(this.foto).subscribe((data: any) => {
         //this.isLoading = false;
@@ -57,8 +59,7 @@ export class HeaderComponent implements OnInit{
         }, 100);
       });
     })));
-
-  } 
+  }
   
   logout() {
     localStorage.removeItem('token');

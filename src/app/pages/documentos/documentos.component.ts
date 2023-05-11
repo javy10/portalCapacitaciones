@@ -79,7 +79,7 @@ export class DocumentosComponent implements OnInit{
     datos = this.datosDoc;
     
     const formData = new FormData();
-    formData.append('titulo' , this.formDocumento.value.tituloD),
+    formData.append('titulo' , this.formDocumento.value.titulo),
     formData.append('descripcion' , this.formDocumento.value.descripcion),
     formData.append('tipoDocumento_id' , this.formDocumento.value.tipo),
     formData.append('usuario_id' , localStorage.getItem('id')!),
@@ -109,12 +109,15 @@ export class DocumentosComponent implements OnInit{
       
       await new Promise(resolve => resolve(this.documentoService.saveDocumentos(formData).subscribe((response) => {
         console.log(response);
-        this.datosPermisos = '';
-        this.datosDoc = [];
-        this.tipoPermiso_id = [];
-        this.departamento_id = [];
-        this.colaborador_id = [];
-        // this.enviarPath.emit(response.path);
+        if(response.success == true) {
+
+          // this.datosPermisos = '';
+          // this.datosDoc = [];
+          // this.tipoPermiso_id = [];
+          // this.departamento_id = [];
+          // this.colaborador_id = [];
+          
+        }
       })));
     }
 
@@ -134,9 +137,9 @@ export class DocumentosComponent implements OnInit{
         Swal.showLoading()
       },
       willClose: () => {
+        
+        //this.router.navigate(['dashboard/list-documentos']);
         //window.location.reload();
-        this.router.navigate(['dashboard/list-documentos']);
-        window.location.reload();
       }
     });
   }

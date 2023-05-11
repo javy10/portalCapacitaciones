@@ -215,21 +215,23 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   }
 
   async loadDetalleDoc() {
-    return  await new Promise(resolve => resolve( this.documentoService.getDetalleDocumentoID(this.idDoc).subscribe((data: any) => {
-      console.log(data)
-      this.idDocumento = data.dataDB[0].documento_id;
-      console.log(this.idDocumento);
-      this.detalledocs = {
-        'documento_id': data.dataDB[0].documento_id,
-        'descripcion': data.dataDB[0].descripcion,
-        'actualizado': data.dataDB[0].updated_at,
-        'lectura': data.dataDB[0].lectura,
-        'fechaLimite': data.dataDB[0].fechaLimite,
-        'disponible': data.dataDB[0].disponible,
-      }
-      this.listaDocumentos.push(this.detalledocs);
-    })));
-  }
+    if(this.idDoc){
+      return  await new Promise(resolve => resolve( this.documentoService.getDetalleDocumentoID(this.idDoc).subscribe((data: any) => {
+        console.log(data)
+        this.idDocumento = data.dataDB[0].documento_id;
+        console.log(this.idDocumento);
+        this.detalledocs = {
+          'documento_id': data.dataDB[0].documento_id,
+          'descripcion': data.dataDB[0].descripcion,
+          'actualizado': data.dataDB[0].updated_at,
+          'lectura': data.dataDB[0].lectura,
+          'fechaLimite': data.dataDB[0].fechaLimite,
+          'disponible': data.dataDB[0].disponible,
+        }
+        this.listaDocumentos.push(this.detalledocs);
+      })));
+    }
+  } 
 
   datosArchivo(id:number) {
     new Promise(resolve => resolve( this.documentoService.getDetalleDocumentoID(id).subscribe((data: any) => {

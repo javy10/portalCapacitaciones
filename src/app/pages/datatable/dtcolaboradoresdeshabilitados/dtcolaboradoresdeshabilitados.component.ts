@@ -1,16 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-datatable',
-  templateUrl: './datatable.component.html',
-  styleUrls: ['./datatable.component.css']
+  selector: 'app-dtcolaboradoresdeshabilitados',
+  templateUrl: './dtcolaboradoresdeshabilitados.component.html',
+  styleUrls: ['./dtcolaboradoresdeshabilitados.component.css']
 })
-export class DatatableComponent implements OnDestroy, OnInit {
+export class DtcolaboradoresdeshabilitadosComponent implements OnInit {
 
-  /* Estas son propiedades declaradas en la clase `DatatableComponent`. */
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   data: any;
@@ -21,9 +20,6 @@ export class DatatableComponent implements OnDestroy, OnInit {
 
   constructor(private _colaboradorService: ColaboradorService) {}
 
-  /**
-   * La función ngOnInit inicializa el componente y establece las opciones para un DataTable.
-   */
   ngOnInit(): void {
     this.Id = localStorage.getItem('id')!;
     this.dtOptions = {
@@ -47,16 +43,13 @@ export class DatatableComponent implements OnDestroy, OnInit {
     this.loadColaborador()
   }
 
-  /**
-   * La función ngOnDestroy cancela la suscripción de dtTrigger.
-   */
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
   loadColaborador() {
     this.isLoading = true;
-    this._colaboradorService.getCollaborator().subscribe((data: any) => {
+    this._colaboradorService.getCollaboratorDeshabilitados().subscribe((data: any) => {
       this.listaColaborador = data.dataDB;
       this.isLoading = false;
       setTimeout(() => {
@@ -65,47 +58,6 @@ export class DatatableComponent implements OnDestroy, OnInit {
     });
   }
 
-  /**
-   * Esta función solicita al usuario que confirme la desactivación de un colaborador y luego llama a
-   * un servicio para eliminar el colaborador si se confirma.
-   * @param {number} id - El ID del colaborador que necesita ser deshabilitado.
-   */
-  eliminarColaborador(id: number) {
-    //console.log(id)
-    Swal.fire({
-      title: 'Estás seguro de deshabilitar a éste colaborador?',
-      text: "El colaborador ya no aparecera en el Portal de Capacitaciones!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Si, seguro!',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        new Promise(resolve => resolve(this._colaboradorService.eliminar(id).subscribe((response) => {
-          Swal.fire(
-            'Deshabilitado!',
-            'Colaborador deshabilitado con exito.',
-            'success'
-          )
-        })));
-        this.loadColaborador();
-      }
-    });
-  }
-
-  /**
-   * Esta función muestra un mensaje de confirmación y llama a un servicio para desbloquear a un
-   * colaborador.
-   * @param {number} id - number - representa la ID del colaborador que necesita ser desbloqueado.
-   */
   desbloquear(id: number) {
     Swal.fire({
       title: 'Quieres desbloquear a éste colaborador?',
@@ -137,6 +89,5 @@ export class DatatableComponent implements OnDestroy, OnInit {
       }
     });
   }
-
-
+  
 }

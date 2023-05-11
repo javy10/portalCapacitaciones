@@ -1,16 +1,17 @@
+
 .table {
     font-size: 11px;
   }
   table th {
     text-align: center;
-}
-table tr th{
+  }
+  table tr th{
     background:#19948a;
     color:white;
-    vertical-align:center;
-}
+    /* vertical-align:center; */
+  }
   
-  
+  /**************/
   .loader {
     --size-loader: 70px;
     --size-orbe: 10px;

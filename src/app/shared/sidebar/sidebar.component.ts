@@ -49,7 +49,7 @@ export class SidebarComponent implements OnInit {
       console.log(this.permisos)
     })));
     this.listarDocumentos();
-    this.obtenerPermisos();
+    //this.obtenerPermisos();
   }
   
   /**
@@ -75,7 +75,7 @@ export class SidebarComponent implements OnInit {
     new Promise(resolve => resolve(this.documentoService.getPermisos().subscribe((res) => {
       console.log(res.dataDB);
       for (let index = 0; index < res.dataDB.length; index++) {
-        this.Pdocumento_id.push(res.dataDB[index].documento_id);
+        //this.Pdocumento_id.push(res.dataDB[index].documento_id);
         this.Pdepartamento.push(res.dataDB[index].departamento_id);
         this.Puser.push(res.dataDB[index].colaborador_id);
       }

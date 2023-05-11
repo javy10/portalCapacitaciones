@@ -31,6 +31,12 @@ import { TabevaluacionesComponent } from './tabs/tabevaluaciones/tabevaluaciones
 import { EvaluacionComponent } from './evaluacion/evaluacion.component';
 import { DtpreguntasComponent } from './datatable/dtpreguntas/dtpreguntas.component';
 import { DtgruposComponent } from './datatable/dtgrupos/dtgrupos.component';
+import { TipodocumentoComponent } from './tipodocumento/tipodocumento.component';
+import { ListtipodocumentoComponent } from './listtipodocumento/listtipodocumento.component';
+import { DttipodocumentosComponent } from './datatable/dttipodocumentos/dttipodocumentos.component';
+import { DtcolaboradoresdeshabilitadosComponent } from './datatable/dtcolaboradoresdeshabilitados/dtcolaboradoresdeshabilitados.component';
+import { ListcolaboradoresdeshabilitadosComponent } from './listcolaboradoresdeshabilitados/listcolaboradoresdeshabilitados.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
 
 
 @NgModule({
@@ -57,7 +63,13 @@ import { DtgruposComponent } from './datatable/dtgrupos/dtgrupos.component';
     TabevaluacionesComponent,
     EvaluacionComponent,
     DtpreguntasComponent,
-    DtgruposComponent
+    DtgruposComponent,
+    TipodocumentoComponent,
+    ListtipodocumentoComponent,
+    DttipodocumentosComponent,
+    DtcolaboradoresdeshabilitadosComponent,
+    ListcolaboradoresdeshabilitadosComponent,
+    ConfiguracionComponent
   ],
   exports: [
     DashboardComponent,

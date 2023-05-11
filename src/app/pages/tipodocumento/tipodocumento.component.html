@@ -1,0 +1,32 @@
+
+
+<div class="mainDiv">
+  <div class="cardStyle form">
+      <form [formGroup]="formTipo" action="" method="post" name="signupForm" id="signupForm">
+      
+          <img src="" id="signupLogo"/>
+          
+          <h2 class="formTitle" id="title">
+            Tipo documento
+          </h2>
+          
+          <div class="inputDiv">
+              <label class="inputLabel" for="tipo">Nombre</label>
+              <input type="text" id="tipo" name="tipo" formControlName="tipo" required>
+              <div class="alert alert-danger mt-2" [hidden]="tipo.valid || tipo.pristine">
+                Debes ingresar el tipo de documento
+              </div>
+          </div>
+          
+          <div class="buttonWrapper d-flex justify-content-center align-items-center">
+              <button type="button" class="btn btn-primary" id="btnGuardar" (click)="guardar();" [disabled]="!formTipo.valid">
+                  Guardar
+              </button>
+              <button type="button" class="btn btn-primary" id="btnActualizar" (click)="editar();" [disabled]="!formTipo.valid" hidden>
+                  Actualizar
+              </button>
+          </div>
+      
+      </form>
+  </div>
+</div>

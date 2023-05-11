@@ -105,22 +105,19 @@
                                     <h6>1244</h6>
                                     <span class="text-danger small pt-1 fw-bold">12%</span> <span
                                         class="text-muted small pt-2 ps-1">decrease</span>
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
                 </div><!-- End Customers Card -->
             </div>
         </div>
     </div>
 </section>
 
-<h3>Documentos disponibles</h3>
+<!-- <h3>Documentos disponibles</h3> -->
 
-<section class="section">
+<section class="section dashboard">
     <div class="row">
         <div class="col-lg-12">
 
@@ -164,17 +161,30 @@
                 </div>
             </div> -->
             
-            <div class="card" *ngFor="let tipo of listaTipoDocumentos; let i = index" >
+            <div class="card" *ngFor="let tipo of listaTipoDocumentos; let i = index" style="background-color:  colorAleatorio ">
+
+                <div class="filter ">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <!-- <li class="dropdown-header text-start">
+                            <h6>Opciones</h6>
+                        </li> -->
+
+                        <li><a class="dropdown-item" (click)="deshabilitar(tipo.id)">Deshabilitar</a></li>
+                    </ul>
+                </div>
+
                 <div class="card-body" >
                   <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <div class="accordion-item">
+                    <div class="accordion-item mx-5">
                         <h2 class="accordion-header" id="heading{{ tipo.tipo }}">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#miElementoPersonalizado' + tipo.tipo" aria-expanded="true" [attr.aria-controls]="'miElementoPersonalizado' + tipo.tipo">
                               <h5>{{ tipo.tipo }}</h5>
                             </button>
                           </h2>
                         <div [id]="'miElementoPersonalizado' + tipo.tipo" class="accordion-collapse collapse show"  [attr.data-bs-parent]="'#miAcordeonPersonalizado'">
-                        <div class="accordion-body">
+                        <div class="accordion-body ">
+                            
                             <li *ngFor="let item of listaDocumentos">
                               
                                 <a type="button" *ngIf="item.tipoDocumento_id == tipo.id && item.colaborador_id == id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0 "  (click)="cargarPDF(item.nombreArchivo)">
@@ -186,7 +196,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a type="button" *ngIf="item.tipoDocumento_id == tipo.id &&  item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0 "  (click)="cargarPDF(item.nombreArchivo)">
+                                <a type="button" *ngIf="item.tipoDocumento_id == tipo.id && item.departamento_id == departamento_id && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0 "  (click)="cargarPDF(item.nombreArchivo)">
                                     <div class="card">
                                         <div class="card-body">
                                             <img  src="../../../assets/img/pdf.png" alt="" style="height: 100px; width: 100px;">
@@ -195,7 +205,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                
+                            
                             </li>
                         </div>
                       </div>
@@ -203,6 +213,9 @@
                   </div>    
                 </div>
             </div>
+
+            
+
         </div>
     </div>
 </section>

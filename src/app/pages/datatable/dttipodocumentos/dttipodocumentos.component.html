@@ -1,10 +1,3 @@
-
-<!-- <div class="d-flex justify-content-center" *ngIf="isLoading">
-    <div class="spinner-border text-success" style="width: 5rem; height: 5rem;" role="status" *ngIf="isLoading">
-      <span class="visually-hidden">Cargando...</span>
-    </div>
-</div> -->
-
 <div class="mx-auto loader" *ngIf="isLoading">
     <div class="orbe" style="--index: 0"></div>
     <div class="orbe" style="--index: 1"></div>
@@ -18,34 +11,35 @@
         <thead>
             <tr>
                 <th>N°</th>
-                <th>Título</th>
-                <th>Nombre del archivo</th>
                 <th>Tipo de documento</th>
                 <th>Fecha registro</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            
-            <tr *ngFor="let item of listaDocumentos; let i = index;">
-                <td>{{ i + 1 }}</td>
-                <td>{{ item.titulo }}</td>
-                <td>{{ item.nombreArchivo }}</td>
+            <tr *ngFor="let item of listaTipoDocumentos; let i = index;">
+                <td>{{ item.id }}</td>
                 <td>{{ item.tipo }}</td>
-                <td>{{ item.created_at }}</td>
+                <td>{{ item.created_at | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
                <td style="text-align: center;">
-                    <!-- <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" [routerLink]="['/dashboard/documentos', item.id]">
+                    <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"  [routerLink]="['/dashboard/tipo-documento', item.id]">
                         <i class="bi bi-pencil-square"></i>
-                    </a> -->
+                    </a>
                     <a type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar" (click)="eliminarDocumento(item)">
                         <i class="bi bi-trash"></i>
                     </a>
+                    <a type="button" class="btn btn-outline-warning ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Desbloquear" (click)="desbloquear(item.id)" *ngIf="item.habilitado == 'N'">
+                        <i class="bi bi-lock-fill"></i>
+                    </a>
                 </td>
+                
             </tr>
-            <tr *ngIf="listaDocumentos.length == 0">
+            <tr *ngIf="listaTipoDocumentos.length === 0">
                 <td colspan="6">No hay registros</td>
             </tr>
         </tbody>
     </table>
 </div>
 
+
+<!--  [routerLink]="['/dashboard/tipo-documento', item.id]"  -->

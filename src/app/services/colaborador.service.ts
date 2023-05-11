@@ -20,6 +20,10 @@ export class ColaboradorService {
   getCollaborator(): Observable<Colaborador> {
     return this.http.get<Colaborador>(this.url+'/colaboradores');
   }
+  getCollaboratorDeshabilitados(): Observable<Colaborador> {
+    return this.http.get<Colaborador>(this.url+'/colaboradoresDeshabilitados');
+  }
+
   saveColaborador(datos: any): Observable<any> {
     console.log(datos)
     // return this.http.post(this.url+'/register', datos);
@@ -105,6 +109,10 @@ export class ColaboradorService {
   }
   getCargoId(id: number): Observable<any> {
     return this.http.get<any>(this.url +'/cargo/'+id)
+  }
+
+  getCargo(): Observable<any> {
+    return this.http.get<any>(this.url+'/cargos');
   }
 
 
