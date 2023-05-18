@@ -20,6 +20,9 @@ import { TipodocumentoComponent } from './tipodocumento/tipodocumento.component'
 import { ListtipodocumentoComponent } from './listtipodocumento/listtipodocumento.component';
 import { ListcolaboradoresdeshabilitadosComponent } from './listcolaboradoresdeshabilitados/listcolaboradoresdeshabilitados.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { ListconfiguracionComponent } from './listconfiguracion/listconfiguracion.component';
+import { PermisosComponent } from './permisos/permisos.component';
+import { ListpermisosComponent } from './listpermisos/listpermisos.component';
 
 const routes: Routes = [
     {
@@ -43,6 +46,11 @@ const routes: Routes = [
           { path: 'list-tipo-documentos', component: ListtipodocumentoComponent},
           { path: 'list-colaboradores-deshabilitados', component: ListcolaboradoresdeshabilitadosComponent},
           { path: 'configuracion', component: ConfiguracionComponent},
+          { path: 'configuracion/:id/:idC/:idD/:idCa', component: ConfiguracionComponent},
+          { path: 'list-configuracion', component: ListconfiguracionComponent},
+          { path: 'permisos/:id', component: PermisosComponent},
+          { path: 'permisos/:id/:idD/:idP', component: PermisosComponent},
+          { path: 'list-permisos', component: ListpermisosComponent},
         ]
     },
 ];

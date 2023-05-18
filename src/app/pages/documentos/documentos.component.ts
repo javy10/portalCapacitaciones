@@ -73,75 +73,102 @@ export class DocumentosComponent implements OnInit{
     console.log(this.datosDoc)
   }
 
-  async guardarDatos() {
+  guardarDatos() {
   
     let tipoPermiso_id = [], departamento_id = [], colaborador_id = [], datos = [];
     datos = this.datosDoc;
+    console.log(datos);
     
     const formData = new FormData();
     formData.append('titulo' , this.formDocumento.value.titulo),
-    formData.append('descripcion' , this.formDocumento.value.descripcion),
+    formData.append('descripcionDoc' , this.formDocumento.value.descripcion),
     formData.append('tipoDocumento_id' , this.formDocumento.value.tipo),
-    formData.append('usuario_id' , localStorage.getItem('id')!),
+    formData.append('usuario_id' , localStorage.getItem('id')!)
+    //formData.append('detalleDoc', JSON.stringify(datos))
 
-    formData.append('detalleDoc', JSON.stringify(datos))
-    console.log(datos);
+    this.documentoService.saveDocumentos(formData).subscribe((response) => {
 
-    for (const itemPer of this.datosPermisos) {
-      console.log(itemPer);
-      tipoPermiso_id.push(parseInt(itemPer.tipoPermiso_id));
-      departamento_id.push(parseInt(itemPer.departamento_id));
-      colaborador_id.push(parseInt(itemPer.colaborador_id));
-    }
-
-    formData.append('tipoPermiso_id' , JSON.stringify(tipoPermiso_id)),
-    formData.append('departamento_id', JSON.stringify(departamento_id)),
-    formData.append('colaborador_id', JSON.stringify(colaborador_id))
-
-
-    for (const itemDoc of this.datosDoc) {
-      formData.append('descripcionDetalle' , itemDoc.descripcion),
-      formData.append('lectura' , itemDoc.lectura),
-      formData.append('fechaLimite' , itemDoc.fechaLimite),
-      formData.append('nombreArchivo' , itemDoc.pdf),
-      formData.append('url', itemDoc.urlPdf),
-      formData.append('disponible' , itemDoc.disponible)
-      
-      await new Promise(resolve => resolve(this.documentoService.saveDocumentos(formData).subscribe((response) => {
-        console.log(response);
-        if(response.success == true) {
-
-          // this.datosPermisos = '';
-          // this.datosDoc = [];
-          // this.tipoPermiso_id = [];
-          // this.departamento_id = [];
-          // this.colaborador_id = [];
-          
+      if(this.datosDoc) { 
+         for (const itemDoc of this.datosDoc) {
+          formData.append('descripcionDetalle' , itemDoc.descripcion),
+          formData.append('lectura' , itemDoc.lectura),
+          formData.append('fechaLimite' , itemDoc.fechaLimite),
+          formData.append('nombreArchivo' , itemDoc.pdf),
+           formData.append('url', itemDoc.urlPdf)
+          formData.append('disponible' , itemDoc.disponible)
+  
+          this.documentoService.saveDetalleDocumentos(formData).subscribe((response) => {
+            console.log(response);
+            if(response.success == true) {
+              this.datosPermisos = '';
+              this.datosDoc = [];
+              this.tipoPermiso_id = [];
+              this.departamento_id = [];
+              this.colaborador_id = [];
+            }
+          });
         }
-      })));
-    }
-
-    Swal.fire({
-      //position: 'center',
-      icon: 'success',
-      title: 'Documento registrado con éxito',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      },
-      showConfirmButton: false,
-      timer: 1500,
-      didOpen: () => {
-        Swal.showLoading()
-      },
-      willClose: () => {
-        
-        //this.router.navigate(['dashboard/list-documentos']);
-        //window.location.reload();
+        Swal.fire({
+          //position: 'center',
+          icon: 'success',
+          title: 'Documento registrado con éxito',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          },
+          showConfirmButton: false,
+          timer: 1500,
+          didOpen: () => {
+            Swal.showLoading()
+          },
+          willClose: () => {
+            
+            this.router.navigate(['dashboard/list-documentos']);
+            //window.location.reload();
+          }
+        });
       }
     });
+
+    
+    // else { 
+    //   await new Promise(resolve => resolve(this.documentoService.saveDocumentos(formData).subscribe((response) => {
+    //     console.log(response);
+    //     if(response.success == true) {
+
+    //       this.datosPermisos = '';
+    //       this.datosDoc = [];
+    //       this.tipoPermiso_id = [];
+    //       this.departamento_id = [];
+    //       this.colaborador_id = [];
+
+    //       Swal.fire({
+    //         //position: 'center',
+    //         icon: 'success',
+    //         title: 'Documento registrado con éxito',
+    //         showClass: {
+    //           popup: 'animate__animated animate__fadeInDown'
+    //         },
+    //         hideClass: {
+    //           popup: 'animate__animated animate__fadeOutUp'
+    //         },
+    //         showConfirmButton: false,
+    //         timer: 1500,
+    //         didOpen: () => {
+    //           Swal.showLoading()
+    //         },
+    //         willClose: () => {
+              
+    //           this.router.navigate(['dashboard/list-documentos']);
+    //           //window.location.reload();
+    //         }
+    //       });
+    //     }
+    //   })));
+    // }
+    
   }
 
   cargar() {
@@ -182,9 +209,106 @@ export class DocumentosComponent implements OnInit{
     }
   }
 
+  editar() {
+
+    console.log(this.datosDoc)
+    console.log(this.datosPermisos)
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    let tipoPermiso_id = [], departamento_id = [], colaborador_id = [], datos = [];
+    datos = this.datosDoc;
+    let today = new Date().toLocaleString();
+    
+    const formData = new FormData();
+    formData.append('documento_id' , id!),
+    formData.append('titulo' , this.formDocumento.value.titulo),
+    formData.append('descripcion' , this.formDocumento.value.descripcion),
+    formData.append('tipoDocumento_id' , this.formDocumento.value.tipo),
+    formData.append('usuario_id' , localStorage.getItem('id')!),
+    formData.append('updated_at' , today),
+    //formData.append('detalleDoc', JSON.stringify(datos))
+    console.log(datos);
+    this.documentoService.editarDocumentos(formData).subscribe((response) => {
+      if(this.datosDoc) {
+        for (const itemDoc of this.datosDoc) {
+          console.log(itemDoc)
+          formData.append('id' , itemDoc.id),
+          formData.append('descripcionDetalle' , itemDoc.descripcion),
+          formData.append('lectura' , itemDoc.lectura),
+          formData.append('fechaLimite' , itemDoc.fechaLimite),
+          formData.append('nombreArchivo' , this.formDocumento.value.titulo),
+          formData.append('url', itemDoc.urlPdf),
+          formData.append('disponible' , itemDoc.disponible)
+          
+          this.documentoService.editarDetalleDocumentos(formData).subscribe((response) => {
+            console.log(response);
+            // if(response.success == true) {
+              
+            // }
+          });
+        } 
+        this.datosPermisos = '';
+        this.datosDoc = [];
+        this.tipoPermiso_id = [];
+        this.departamento_id = [];
+        this.colaborador_id = [];
+        Swal.fire({
+          //position: 'center',
+          icon: 'success',
+          title: 'Documento actualizado con éxito',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          },
+          showConfirmButton: false,
+          timer: 1500,
+          didOpen: () => {
+            Swal.showLoading()
+          },
+          willClose: () => {
+            
+            this.router.navigate(['dashboard/list-documentos']);
+            //window.location.reload();
+          }
+        });
+      } 
+    });   
 
 
 
+  }
+
+
+  
+      // if(this.datosPermisos) {
+      //   for (const itemPer of this.datosPermisos) {
+      //     console.log(itemPer);
+      //     tipoPermiso_id.push(parseInt(itemPer.tipoPermiso_id));
+      //     departamento_id.push(parseInt(itemPer.departamento_id));
+      //     colaborador_id.push(parseInt(itemPer.colaborador_id));
+      //   }
+    
+      //   formData.append('tipoPermiso_id' , JSON.stringify(tipoPermiso_id)),
+      //   formData.append('departamento_id', JSON.stringify(departamento_id)),
+      //   formData.append('colaborador_id', JSON.stringify(colaborador_id))
+      // }
+
+    // if(this.datosPermisos) {
+    //   for (const itemPer of this.datosPermisos) {
+    //     console.log(itemPer);
+    //     tipoPermiso_id.push(parseInt(itemPer.tipoPermiso_id));
+    //     departamento_id.push(parseInt(itemPer.departamento_id));
+    //     colaborador_id.push(parseInt(itemPer.colaborador_id));
+    //     formData.append('permiso_id' , itemPer.permiso_id)
+    //     formData.append('idDetallePermiso' , itemPer.idDetallePermiso)
+    //     formData.append('documento_id' , id!)
+    //   }
+
+    //   formData.append('tipoPermiso_id' , JSON.stringify(tipoPermiso_id)),
+    //   formData.append('departamento_id', JSON.stringify(departamento_id)),
+    //   formData.append('colaborador_id', JSON.stringify(colaborador_id))
+    // } 
 
 
 

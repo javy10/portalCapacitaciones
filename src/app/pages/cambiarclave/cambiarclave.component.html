@@ -1,68 +1,16 @@
-<!-- <div class="col-md-6 offset-md-3">
-    <span class="anchor" id="formChangePassword"></span>
-    <hr class="mb-5">
-    
-    <div class="card card-outline-secondary">
-        <div class="card-header">
-            <h3 class="mb-0">Cambiar la contraseña</h3>
+<div class="container">
+    <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Nueva Contraseña</label>
+          <input type="password" class="form-control"id="password" name="password" formControlName="clave" required >
+          
         </div>
-        <div class="card-body">
-            <form class="form" role="form" autocomplete="off">
-                <div class="form-group">
-                    <label for="inputPasswordOld">Contraseña actual</label>
-                    <input type="password" class="form-control" id="inputPasswordOld" required="">
-                </div>
-                <div class="form-group mt-2">
-                    <label for="inputPasswordNew">Nueva contraseña</label>
-                    <input type="password" class="form-control" id="inputPasswordNew" required="">
-                    <span class="form-text small text-muted">    
-                        La contraseña debe tener entre 8 y 20 caracteres y <em>no</em> contener espacios.
-                    </span>
-                </div>
-                <div class="form-group mt-2">
-                    <label for="inputPasswordNewVerify">Repetir contraseña</label>
-                    <input type="password" class="form-control" id="inputPasswordNewVerify" required="">
-                    <span class="form-text small text-muted">
-                        Para confirmar, escriba la nueva contraseña de nuevo.
-                    </span>
-                </div>
-                <div class="form-group mt-3">
-                    <button type="submit" class="btn btn-success btn-lg float-right">Guardar</button>
-                </div>
-            </form>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Confirmar Contraseña</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
         </div>
-    </div>
-</div> -->
-
-<div class="mainDiv">
-    <div class="cardStyle form">
-        <form [formGroup]="formUser" action="" method="post" name="signupForm" id="signupForm">
-        
-            <img src="" id="signupLogo"/>
-            
-            <h2 class="formTitle">
-                Cambiar la contraseña
-            </h2>
-            
-            <div class="inputDiv">
-                <label class="inputLabel" for="password">Nueva Contraseña</label>
-                <input type="password" id="password" name="password" formControlName="clave" required>
-                <div class="alert alert-danger mt-2" [hidden]="clave.valid || clave.pristine">
-                    Debes ingresar la clave
-                </div>
-            </div>
-                
-            <div class="inputDiv">
-                <label class="inputLabel" for="confirmPassword">Confirmar Contraseña</label>
-                <input type="password" id="confirmPassword" name="confirmPassword">
-            </div>
-            
-            <div class="buttonWrapper d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-primary" id="submitButton" (click)="guardar();" [disabled]="!formUser.valid">
-                    Guardar Cambios...
-                </button>
-            </div>
-        
-        </form>
-    </div>
+        <button type="button" class="btn btn-primary" id="submitButton" (click)="guardar();" [disabled]="!formUser.valid">
+            Guardar Cambios...
+        </button>
+    </form>
 </div>

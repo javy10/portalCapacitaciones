@@ -13,3 +13,25 @@ li {
   float: left; /* mostrar los elementos como una fila */
   margin-right: 10px; /* agregar un espacio entre elementos */
 }
+
+.cardStyle {
+  /* width: 300px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; */
+
+  width: 150px;
+  height: 150px;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: clip-path 0.5s ease-in-out;
+
+ 
+}
+
+.cardStyle:hover {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 80%);
+}

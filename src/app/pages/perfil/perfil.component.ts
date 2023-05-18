@@ -28,6 +28,9 @@ export class PerfilComponent implements OnInit {
   isLoading = false;
   guardando = true;
 
+  nombreUser:any;
+  cargoUser:any;
+
   constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute) {
 
     this.formUser = this.fb.group({
@@ -109,6 +112,7 @@ export class PerfilComponent implements OnInit {
             this.colaborador = response.dataDB;
             console.log(response.dataDB)
             this.formUser.patchValue(this.colaborador);
+            this.nombreUser = response.dataDB.nombres + ' ' + response.dataDB.apellidos
 
             this.colaboradorService.getAgenciaId(response.dataDB.agencia_id).subscribe((res: any) => {
               this.ngSelectA = res.dataDB.id;

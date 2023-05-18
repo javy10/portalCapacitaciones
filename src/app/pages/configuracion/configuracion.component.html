@@ -1,20 +1,20 @@
-<div class="mainDiv">
+<!-- <div class="mainDiv">
     <div class="cardStyle form">
         <form [formGroup]="formConfiguracion" action="" method="post" name="signupForm" id="signupForm">
         
             <img src="" id="signupLogo"/>
             
-            <h2 class="formTitle">
-                Configuracion
+            <h2 class="formTitle" id="title">
+                Configuración
             </h2>
             
             <div class="inputDiv">
                 <label class="form-label">Menú</label>
-                <select  class="form-select" id="agencia" formControlName="agencia" >
+                <select  class="form-select" id="menu" formControlName="menu" >
                     <option value="0" disabled selected>Selecciona</option>
-                    <option value="1">Documentación</option>
-                    <option value="2">Evaluaciones</option>
-                    <option value="3">Colaboradores</option>
+                    <option *ngFor="let e of listaMenu" [value]="e.id">
+                        {{ e.nombre }}
+                    </option>
                 </select>
             </div>
                 
@@ -28,22 +28,34 @@
                     <label class="form-check-label" for="colaborador">Colaborador</label>
                 </div>
             </div>
-
             <div class="inputDiv mt-2">
-                <label class="form-label mt-2">Cargos</label>
-                <select [(ngModel)]='ngSelectD' class="form-select" id="cargoSelect" formControlName="cargoSelect" required>
+                <label class="form-label">Departamento</label>
+                <select [(ngModel)]='ngSelectD' data-live-search="true" class="form-select" id="departamento" formControlName="departamento" (change)="handleChange()">
                     <option value="0" disabled selected>Selecciona</option>
-                    <option *ngFor="let e of listaCargos" [value]="e.id">
+                    <option *ngFor="let e of listaDepartamento" [value]="e.id">
+                        {{ e.nombre }}
+                    </option>
+                </select>
+                <div class="alert alert-danger mt-2" [hidden]="departamento.valid || departamento.pristine">
+                    Debes seleccionar un departamento
+                </div>
+            </div>
+            <div class="inputDiv mt-2">
+                <label class="form-label">Cargo</label>
+                <select [(ngModel)]='ngSelectC' data-live-search="true" class="form-select" id="cargoSelect" formControlName="cargoSelect" >
+                    <option value="0" disabled selected>Selecciona</option>
+                    <option *ngFor="let e of listaCargo" [value]=" e.id ">
                         {{ e.nombre }}
                     </option>
                 </select>
                 <div class="alert alert-danger mt-2" [hidden]="cargoSelect.valid || cargoSelect.pristine">
-                    Debes seleccionar una opción
+                    Debes seleccionar un cargo
                 </div>
             </div>
+           
             <div class="inputDiv mt-2">
                 <label class="form-label mt-2">Colaborador</label>
-                <select [(ngModel)]='ngSelectC' class="form-select" id="colaboradorSelect" formControlName="colaboradorSelect" required>
+                <select [(ngModel)]='ngSelectU' data-live-search="true" class="form-select" id="colaboradorSelect" formControlName="colaboradorSelect" required>
                     <option value="0" disabled selected>Selecciona</option>
                     <option *ngFor="let e of listaColaborador" [value]="e.id">
                         {{ e.nombres }} {{ e.apellidos }}
@@ -55,11 +67,88 @@
             </div>
             
             <div class="buttonWrapper d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-primary" id="submitButton" (click)="guardar();" [disabled]="!formConfiguracion.valid">
+                <button type="button" class="btn btn-primary" id="submitButton" (click)="guardar();">
                     Guardar Cambios...
+                </button>
+
+                <button type="button" class="btn btn-primary" id="btnActualizar" (click)="editar();">
+                    Actualizar
                 </button>
             </div>
         
         </form>
     </div>
+</div> -->
+
+
+<div class="container">
+    <div class="card d-flex justify-content-center align-items-center" style="display: inline-block; margin: 0 auto; width: 60%;">
+        <form [formGroup]="formConfiguracion" id="form" style="display: inline-block; margin: 0 auto; width: 50%;">
+            <div class="row">
+                <h3 class="form-label mt-2" id="title">Configuración</h3>
+                <div class="mt-2">
+                    <label class="form-label">Menú</label>
+                    <select [(ngModel)]='ngSelectM' class="form-select" id="menu" formControlName="menu" >
+                        <option value="0" disabled selected>Selecciona</option>
+                        <option *ngFor="let e of listaMenu" [value]="e.id">
+                            {{ e.nombre }}
+                        </option>
+                    </select>
+                </div>
+                <div class="mt-3">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="cargo" name="tipo" formControlName="cargo" value="1" [(ngModel)]="selectedOption">
+                        <label class="form-check-label" for="cargo">Cargo</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="colaborador" name="tipo" formControlName="colaborador" value="2" [(ngModel)]="selectedOption">
+                        <label class="form-check-label" for="colaborador">Colaborador</label>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <label class="form-label mt-2">Departamento</label>
+                    <select [(ngModel)]='ngSelectD' class="form-select" id="departamento" formControlName="departamento" (change)="handleChange()" required>
+                        <option value="0" disabled selected>Selecciona</option>
+                        <option *ngFor="let e of listaDepartamento" [value]="e.id">
+                            {{ e.nombre }}
+                        </option>
+                    </select>
+                    <div class="alert alert-danger mt-2" [hidden]="departamento.valid || departamento.pristine">
+                        Debes seleccionar un departamento
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <label class="form-label">Cargo</label>
+                    <select [(ngModel)]='ngSelectC' data-live-search="true" class="form-select" id="cargoSelect" formControlName="cargoSelect" >
+                        <option value="0" disabled selected>Selecciona</option>
+                        <option *ngFor="let e of listaCargo" [value]=" e.id ">
+                            {{ e.nombre }}
+                        </option>
+                    </select>
+                    <div class="alert alert-danger mt-2" [hidden]="cargoSelect.valid || cargoSelect.pristine">
+                        Debes seleccionar un cargo
+                    </div>
+                </div>
+                <div class=" mt-2">
+                    <label class="form-label mt-2">Colaborador</label>
+                    <select [(ngModel)]='ngSelectU' class="form-select" id="colaboradorSelect" formControlName="colaboradorSelect" required>
+                        <option value="0" disabled selected>Selecciona</option>
+                        <option *ngFor="let e of listaColaborador" [value]="e.id">
+                            {{ e.nombres }} {{ e.apellidos }}
+                        </option>
+                    </select>
+                    <div class="alert alert-danger mt-2" [hidden]="colaboradorSelect.valid || colaboradorSelect.pristine">
+                        Debes seleccionar una opción
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary cancelar" data-bs-dismiss="modal" (click)="cancelar()">Cerrar</button> -->
+                <button type="button" class="btn btn-success" id="submitButton" data-bs-dismiss="modal" (click)="guardar()">Agregar</button>
+                <button type="button" class="btn btn-primary" id="btnActualizar" (click)="editar();"> Actualizar </button>
+            </div>
+        </form>
+    </div>
 </div>
+

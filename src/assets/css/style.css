@@ -377,7 +377,8 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 997;
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: rgba(0, 95, 85, 1);;
+  /* background-color: rgba(0, 95, 85, 1); */
+  background: linear-gradient(-135deg, #086460, #1f1e1e);
   padding-left: 20px;
   color: #fff;
   /* Toggle Sidebar Button */
@@ -1085,9 +1086,10 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
+
 .footer {
-  /* position: fixed; */
-  /* bottom: 0; */
+  /* position: fixed; 
+  bottom: 0; */
   left: 30%;
   padding: 20px 0;
   font-size: 14px;
@@ -1106,3 +1108,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 13px;
   color: #012970;
 }
+
+/* footer .copyright .credits {
+  position: fixed;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+} */

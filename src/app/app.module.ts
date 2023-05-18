@@ -14,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
 import { PagesModule } from './pages/pages.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,

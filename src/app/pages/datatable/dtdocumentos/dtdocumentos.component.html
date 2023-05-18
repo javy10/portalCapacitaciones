@@ -19,7 +19,6 @@
             <tr>
                 <th>N°</th>
                 <th>Título</th>
-                <th>Nombre del archivo</th>
                 <th>Tipo de documento</th>
                 <th>Fecha registro</th>
                 <th>Acciones</th>
@@ -30,20 +29,22 @@
             <tr *ngFor="let item of listaDocumentos; let i = index;">
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.titulo }}</td>
-                <td>{{ item.nombreArchivo }}</td>
                 <td>{{ item.tipo }}</td>
                 <td>{{ item.created_at }}</td>
                <td style="text-align: center;">
-                    <!-- <a type="button" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" [routerLink]="['/dashboard/documentos', item.id]">
-                        <i class="bi bi-pencil-square"></i>
-                    </a> -->
-                    <a type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar" (click)="eliminarDocumento(item)">
-                        <i class="bi bi-trash"></i>
+                    <a type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Permisos" [routerLink]="['/dashboard/permisos', item.id]">
+                        <i class="bi bi-shield-check" style="font-size: 1rem; color: rgb(252, 196, 13);"></i>
+                    </a>
+                    <a type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" [routerLink]="['/dashboard/documentos', item.id]">
+                        <i class="bi bi-pencil-square" style="font-size: 1rem; color: rgb(3, 174, 253);"></i>
+                    </a>
+                    <a type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar" (click)="eliminarDocumento(item)">
+                        <i class="bi bi-trash" style="font-size: 1rem; color: rgb(253, 53, 3);"></i>
                     </a>
                 </td>
             </tr>
             <tr *ngIf="listaDocumentos.length == 0">
-                <td colspan="6">No hay registros</td>
+                <td colspan="5">No hay registros</td>
             </tr>
         </tbody>
     </table>

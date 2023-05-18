@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
+import { MenuService } from 'src/app/services/menu.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -30,15 +31,12 @@ export class DashboardComponent implements OnInit{
   tipoDoc: any;
   id_departamento: any;
 
+  usuario:any;
 
-  coloresSuaves = ['#FFCDD2', '#C8E6C9', '#E1BEE7', '#BBDEFB', '#F0F4C3', '#B2DFDB', '#D1C4E9', '#FFE0B2'];
 
-  indiceColor = Math.floor(Math.random() * this.coloresSuaves.length);
-  
-  colorAleatorio = this.coloresSuaves[this.indiceColor];
   
 
-  constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe) {
+  constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe, ) {
 
 
   }
@@ -57,6 +55,7 @@ export class DashboardComponent implements OnInit{
     this.loadTipoDocumento();
     this.obtenerPermisos();
     
+    
   }
   listarDocumentos() {
     let today = new Date();
@@ -65,9 +64,17 @@ export class DashboardComponent implements OnInit{
     console.log(this.fecha)
     // 2023-04-26 11:30:00
     this.id = localStorage.getItem('id');
-    new Promise(resolve => resolve(this.documentoService.getDocumentos().subscribe((res) => {
-      this.listaDocumentos = res.dataDB;
-      console.log(this.listaDocumentos)
+    new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(this.id!)).subscribe((res) => {
+      //this.departamento_id = res.dataDB.departamento_id;
+      this.usuario = {
+        'idC': this.id,
+        'idD': res.dataDB.departamento_id
+      }
+
+      new Promise(resolve => resolve(this.documentoService.getDocumentosPorDatos(this.usuario).subscribe((res) => {
+        this.listaDocumentos = res.dataDB;
+        console.log(this.listaDocumentos)
+      })));
     })));
   }
   obtenerPermisos() {
@@ -84,7 +91,6 @@ export class DashboardComponent implements OnInit{
       console.log(this.Puser)
     })));
   }
-
   cargarPDF(nombre: any){
     sessionStorage.setItem('reloaded', 'true');
     this.router.navigate(['/dashboard/blank']);
@@ -108,9 +114,9 @@ export class DashboardComponent implements OnInit{
         console.log(this.listaTipoDocumentos)
       })));
     })));
-    
-    
   }
+ 
+ 
 
   deshabilitar(id: number){
     Swal.fire({

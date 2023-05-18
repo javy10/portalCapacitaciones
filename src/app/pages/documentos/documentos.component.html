@@ -9,14 +9,14 @@
                         <form [formGroup]="formDocumento" class="row g-3 ">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-4 mb-2">
+                                    <div class="col-md-6 mb-2">
                                         <label class="form-label">Título del documento</label>
                                         <input type="text"  class="form-control" id="titulo" placeholder="Ingresa el título" formControlName="titulo"  maxlength="100" required>
                                         <div class="alert alert-danger mt-2" [hidden]="titulo.valid || titulo.pristine">
                                             Debes seleccionar un titulo
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-2">
+                                    <div class="col-md-6 mb-2">
                                         <label class="form-label">Descripción general</label>
                                         <input type="text"  id="descripcion" class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion" required>
                                         <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
@@ -35,20 +35,23 @@
                                             Debes seleccionar un tipo
                                         </div>
                                     </div>
+                                    <div class="col-md-8 mb-2 modal-footer footer">
+                                        <button type="button" class="btn btn-secondary cancelar"  routerLink="/dashboard/list-documentos">
+                                            Cancelar
+                                        </button>
+                                        <button type="submit" class="btn btn-success" id="btnGuardar" (click)="guardarDatos()" >
+                                            Guardar
+                                        </button>
+                                        <button type="submit" class="btn btn-success" id="btnActualizar" (click)="editar()">
+                                            Actualizar
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="modal-footer footer">
-                                    <button type="button" class="btn btn-secondary cancelar"  routerLink="/dashboard/list-documentos">
-                                        Cancelar
-                                    </button>
-                                    <button type="submit" class="btn btn-success" id="btnGuardar" (click)="guardarDatos()" >
-                                        Guardar
-                                    </button>
-                                    <button type="submit" class="btn btn-success" id="btnActualizar">
-                                        Actualizar
-                                    </button>
+                                    
                                 </div>
+                                <app-tabdocumento (eventoEnviarDataDoc)="pasarDatosDoc($event)" (eventoEnviarDataPer)="pasarDatosPer($event)" [id]="id"></app-tabdocumento>
                             </div>
-                            <app-tabdocumento (eventoEnviarDataDoc)="pasarDatosDoc($event)" (eventoEnviarDataPer)="pasarDatosPer($event)" [id]="id"></app-tabdocumento>
                         </form>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { DocumentoService } from 'src/app/services/documento.service';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -45,7 +46,8 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   selectedValue!: any;
   isLoading = false;
   idDocumento: any;
-
+  idDetalleDoc:any;
+  
   
   
 
@@ -140,49 +142,90 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
 
   cargar(){
     this.isLoading = true;
-    console.log(this.archivo)
-    let fechaFormateada = '';
-
-    const fechaLimite = document.querySelector("#fechaLimite") as HTMLInputElement;
-    console.log(fechaLimite.value)
-   
-    if(fechaLimite.value != '' && fechaLimite.value != null) {
-      let fechaObj = new Date(fechaLimite.value);
-      fechaFormateada = this.datePipe.transform(fechaObj, 'yyyy-MM-dd HH:mm:ss')!;
-      console.log('Hola')
-    }
-
-    let today = new Date().toLocaleString();
-
-    let cadena = this.formDocumento.value.pdf;
-    const partes = cadena.split('\\');
-    const nombre = partes[2]
-    this.docs = {
-      'descripcion': this.formDocumento.value.descripcion,
-      'actualizado': today,
-      'lectura': this.formDocumento.value.lectura,
-      'fechaLimite': fechaFormateada,
-      'pdf' : nombre,
-      'disponible': this.formDocumento.value.disponible,
-      'urlPdf': this.archivo
-    }
-
-    this.listaDocumentos.push(this.docs);
-    this.docs = '';
-    // setTimeout(() => {
-    //   this.dtTrigger.next(0);
-    // }, 500);
     
-    this.isLoading = false;
-    this.cancelar();
+
     console.log(this.listaDocumentos)
 
-    this.enviarDatos(this.listaDocumentos);
+    // for (let index = 0; index < this.listaDocumentos.length; index++) {
+      //const element = this.listaDocumentos[index];
+      let registroExistente;
+      registroExistente = '';
+      registroExistente = this.listaDocumentos.find((registro:any) => registro.disponible == 0 && this.formDocumento.value.disponible == 0);
+      console.log(registroExistente)
+      //console.log(registroExistente.disponible)
+      if(registroExistente){
+        console.log('Hola')
+      } else {
+        console.log('No')
+      }
+      //const registroExistente = registros.find(registro => registro.id === nuevoRegistro.id);
+      if(registroExistente) {
+        Swal.fire({
+          //position: 'center',
+          icon: 'warning',
+          title: 'Solo puede haber un documento disponible',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          },
+          showConfirmButton: true,
+        });
+      } else {
+
+        console.log(this.archivo)
+        let fechaFormateada = '';
+
+        const fechaLimite = document.querySelector("#fechaLimite") as HTMLInputElement;
+        console.log(fechaLimite.value.trim().length)
+      
+        if(fechaLimite.value != '' && fechaLimite.value != null && fechaLimite.value.trim().length != 0) {
+          let fechaObj = new Date(fechaLimite.value);
+          fechaFormateada = this.datePipe.transform(fechaObj, 'yyyy-MM-dd HH:mm:ss')!;
+          //console.log('Hola')
+        }
+        let fechaFormateadaHoy = '';
+        let today = new Date();
+        //console.log(today)
+        const fechaISO = today.toISOString();
+        //console.log(fechaISO)
+        let fechaHoy = new Date(fechaISO)
+        fechaFormateadaHoy = this.datePipe.transform(fechaHoy, 'yyyy-MM-dd HH:mm:ss')!;
+    
+        let cadena = this.formDocumento.value.pdf;
+        const partes = cadena.split('\\');
+        const nombre = partes[2]
+        this.docs = {
+          'descripcion': this.formDocumento.value.descripcion,
+          'actualizado': fechaFormateadaHoy,
+          'lectura': this.formDocumento.value.lectura,
+          'fechaLimite': fechaFormateada,
+          'pdf' : nombre,
+          'disponible': this.formDocumento.value.disponible,
+          'urlPdf': this.archivo
+        }
+    
+        this.listaDocumentos.push(this.docs);
+        this.docs = '';
+        // setTimeout(() => {
+        //   this.dtTrigger.next(0);
+        // }, 500);
+        
+        this.isLoading = false;
+        this.cancelar();
+        console.log(this.listaDocumentos)
+    
+        this.enviarDatos(this.listaDocumentos);
+      }
+      
+    //}
+
   }
 
   cancelar() {
     const fechaLimite = document.querySelector("#fechaLimite") as HTMLInputElement;
-    const descripcion = document.querySelector("#descripcion") as HTMLInputElement;
+    const descripcion = document.querySelector("#descripcionDoc") as HTMLInputElement;
     const pdf = document.querySelector("#pdf") as HTMLInputElement;
     let iframe = this.myFrame.nativeElement;
     if (iframe) {
@@ -204,6 +247,36 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
     this.eventoEnviarDataDoc.emit(listaDocumentos);
   }
 
+  deshabilitar(id:any) {
+    Swal.fire({
+      title: 'Estás seguro de deshabilitar  éste documento?',
+      text: "El Documento ya no aparecera en el Portal de Capacitaciones!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, seguro!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        new Promise(resolve => resolve(this.documentoService.eliminarDetalledocumentos(id).subscribe((response) => {
+          Swal.fire(
+            'Deshabilitado!',
+            'Documento deshabilitado con éxito.',
+            'success'
+          )
+        })));
+        this.loadDetalleDoc();
+      }
+    });
+  }
+
   eliminar(item: any) {
     // Eliminar el elemento con valor 3 sin modificar el array original
     // Eliminar el elemento con valor 3
@@ -216,27 +289,58 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
 
   async loadDetalleDoc() {
     if(this.idDoc){
+      this.detalledocs = {}
+      console.log(this.idDoc)
       return  await new Promise(resolve => resolve( this.documentoService.getDetalleDocumentoID(this.idDoc).subscribe((data: any) => {
         console.log(data)
         this.idDocumento = data.dataDB[0].documento_id;
         console.log(this.idDocumento);
-        this.detalledocs = {
-          'documento_id': data.dataDB[0].documento_id,
-          'descripcion': data.dataDB[0].descripcion,
-          'actualizado': data.dataDB[0].updated_at,
-          'lectura': data.dataDB[0].lectura,
-          'fechaLimite': data.dataDB[0].fechaLimite,
-          'disponible': data.dataDB[0].disponible,
+        //this.idDetalleDoc = data.dataDB[0].id;
+        for (let index = 0; index < data.dataDB.length; index++) {
+          const element = data.dataDB[index];
+          this.detalledocs = {
+            'id': data.dataDB[index].id,
+            'documento_id': data.dataDB[index].documento_id,
+            'descripcion': data.dataDB[index].descripcion,
+            'actualizado': data.dataDB[index].updated_at,
+            'lectura': data.dataDB[index].lectura,
+            'fechaLimite': data.dataDB[index].fechaLimite,
+            'disponible': data.dataDB[index].disponible,
+          }
+          this.listaDocumentos.push(this.detalledocs);
         }
-        this.listaDocumentos.push(this.detalledocs);
       })));
     }
-  } 
+  }
+ 
+  filaSeleccionada:any;
+  idDocu:any;
 
   datosArchivo(id:number) {
-    new Promise(resolve => resolve( this.documentoService.getDetalleDocumentoID(id).subscribe((data: any) => {
-      console.log(data.dataDB)
     
+    console.log(id)
+    this.idDocu = id;
+    const filas = document.querySelectorAll('table tr');
+
+    // Recorre las filas y agrega el evento de clic
+    filas.forEach((fila, indice) => {
+      fila.addEventListener('click', (event) => {
+        // Aquí obtienes el índice de la fila seleccionada
+        console.log('Índice de fila seleccionada:', indice);
+        //this.filaSeleccionada = indice;
+        this.filaSeleccionada = (event.target as HTMLTableRowElement).closest('tr');
+      });
+    });
+
+    new Promise(resolve => resolve( this.documentoService.getDocumentoDetalleID(id).subscribe((data: any) => {
+      console.log(data.dataDB)
+      this.idDetalleDoc = data.dataDB[0].id;
+      const btnGuardar = document.getElementById('btnAceptar');
+      btnGuardar!.hidden = true;
+      
+      const btnEdit = document.getElementById('btnEditar');
+      btnEdit!.hidden = false;
+
       this.archivodocs = {
         // 'pdf': data.dataDB[0].nombreArchivo,
         'descripcion': data.dataDB[0].descripcion,
@@ -283,6 +387,102 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
     if (files && files.length > 0) {
       // Aquí se pueden realizar las operaciones necesarias con los archivos
     }
+  }
+
+  editar() {
+
+    let registroExistente;
+    registroExistente = '';
+    registroExistente = this.listaDocumentos.find((registro:any) => registro.disponible == 0 && this.formDocumento.value.disponible == 0);
+    console.log(registroExistente)
+    //console.log(registroExistente.disponible)
+    if(registroExistente){
+      console.log('Hola')
+    } else {
+      console.log('No')
+    }
+
+    if(registroExistente) {
+      Swal.fire({
+        //position: 'center',
+        icon: 'warning',
+        title: 'Solo puede haber un documento disponible',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        showConfirmButton: true,
+      });
+    } else {
+
+    console.log( this.detalledocs)
+
+    console.log(this.filaSeleccionada)
+
+    const tabla = document.getElementById('miTabla') as HTMLTableElement;
+
+    const celdas = this.filaSeleccionada.querySelectorAll('td');
+    console.log(celdas)
+
+    let fechaFormateadaHoy = '';
+      let today = new Date();
+      //console.log(today)
+      const fechaISO = today.toISOString();
+      //console.log(fechaISO)
+      let fechaHoy = new Date(fechaISO)
+      fechaFormateadaHoy = this.datePipe.transform(fechaHoy, 'yyyy-MM-dd HH:mm:ss')!;
+
+      let fechaFormateada = '';
+      const fechaLimite = document.querySelector("#fechaLimite") as HTMLInputElement;
+      console.log(fechaLimite.value.trim().length)
+    
+      if(fechaLimite.value != '' && fechaLimite.value != null && fechaLimite.value.trim().length != 0) {
+        let fechaObj = new Date(fechaLimite.value);
+        fechaFormateada = this.datePipe.transform(fechaObj, 'yyyy-MM-dd HH:mm:ss')!;
+        //console.log('Hola')
+      }
+
+      const descripcion = this.formDocumento.value.descripcion;
+      const lectura = this.formDocumento.value.lectura;
+      const disponible = this.formDocumento.value.disponible;
+
+      celdas[1].innerHTML = descripcion;
+      celdas[2].innerHTML = fechaFormateadaHoy;
+      celdas[3].innerHTML = fechaFormateada;
+      celdas[4].innerHTML = lectura == 0 ? 'Si' : 'No';
+      celdas[5].innerHTML = disponible == 0 ? 'Si' : 'No';
+
+      const indiceObjeto = this.listaDocumentos.findIndex((objeto:any) => objeto.id === this.idDocu);
+
+      if (indiceObjeto !== -1) {
+        this.listaDocumentos[indiceObjeto].id = this.idDetalleDoc;
+        this.listaDocumentos[indiceObjeto].descripcion = this.formDocumento.value.descripcion;
+        this.listaDocumentos[indiceObjeto].actualizado = fechaFormateadaHoy;
+        this.listaDocumentos[indiceObjeto].lectura = this.formDocumento.value.lectura;
+        this.listaDocumentos[indiceObjeto].fechaLimite = fechaFormateada;
+        this.listaDocumentos[indiceObjeto].pdf = '';
+        this.listaDocumentos[indiceObjeto].disponible = this.formDocumento.value.disponible;
+        if(this.archivo != null) {
+          this.listaDocumentos[indiceObjeto].urlPdf = this.archivo;
+        } else {
+          this.listaDocumentos[indiceObjeto].urlPdf = null;
+        }
+      }
+      console.log(this.listaDocumentos)
+    
+      this.enviarDatos(this.listaDocumentos);
+
+      const btnGuardar = document.getElementById('btnAceptar');
+      btnGuardar!.hidden = false;
+      
+      const btnEdit = document.getElementById('btnEditar');
+      btnEdit!.hidden = true;
+
+    }
+
+
   }
   
 

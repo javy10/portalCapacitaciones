@@ -1,0 +1,47 @@
+<div class="container card">
+    <form [formGroup]="formPermiso" id="form">
+        <div class="row">
+            <h3 class="form-label mt-2" id="title">Tipo de permiso</h3>
+            <div >
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="departamento" name="tipo" formControlName="departamento" value="1" [(ngModel)]="selectedOption">
+                    <label class="form-check-label" for="departamento">Departamento</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="colaborador" name="tipo" formControlName="colaborador" value="2" [(ngModel)]="selectedOption">
+                    <label class="form-check-label" for="colaborador">Colaborador</label>
+                </div>
+            </div>
+            <div class="mt-2">
+                <label class="form-label mt-2">Departamento</label>
+                <select [(ngModel)]='ngSelectD' class="form-select" id="departamentoSelect" formControlName="departamentoSelect"  required>
+                    <option value="0" disabled selected>Selecciona</option>
+                    <option *ngFor="let e of listaDepartamento" [value]="e.id">
+                        {{ e.nombre }}
+                    </option>
+                </select>
+                <div class="alert alert-danger mt-2" [hidden]="departamentoSelect.valid || departamentoSelect.pristine">
+                    Debes seleccionar una opción
+                </div>
+            </div>
+            <div class=" mt-2">
+                <label class="form-label mt-2">Colaborador</label>
+                <select [(ngModel)]='ngSelectC' class="form-select" id="colaboradorSelect" formControlName="colaboradorSelect" required>
+                    <option value="0" disabled selected>Selecciona</option>
+                    <option *ngFor="let e of listaColaborador" [value]="e.id">
+                        {{ e.nombres }} {{ e.apellidos }}
+                    </option>
+                </select>
+                <div class="alert alert-danger mt-2" [hidden]="colaboradorSelect.valid || colaboradorSelect.pristine">
+                    Debes seleccionar una opción
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary cancelar" (click)="cancelar()">Cancelar</button>
+            <button type="submit" id="btnAceptarP" class="btn btn-success" (click)="guardar()">Guardar</button>
+            <button type="submit" id="btnEditarP" class="btn btn-success" (click)="editar()" hidden>Actualizar</button>
+        </div>
+    </form>
+</div>

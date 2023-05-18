@@ -4,6 +4,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
+import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,32 +15,43 @@ export class SidebarComponent implements OnInit {
 
  
 
-  constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe) {
-
-    
+  constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe, private menuService: MenuService) {
 
   }
 
  /* Estas son declaraciones de variables en TypeScript. */
   permisos = 0;
   listaDocumentos:any = [];
+  listaMenus:any = [];
   nombre: any;
   archivoUrl!: any;
   id: any;
   departamento_id: any;
+  cargo_id: any;
   Pdocumento_id: any = [];
   Pdepartamento: any = [];
   Puser: any = [];
-
   pdfNombre!: string;
   fecha: any;
 
+// users
+  ucargo_id:any;
+  udepart_id:any;
+  uuser_id:any;  
+
+// detalle
+  listaDetalle:any=[];
+  idCargo:any;
+  idDepar:any;
+  idUser:any;
+  idMenu:any;
   
   /**
    * La función ngOnInit recupera la identificación del usuario del almacenamiento local, obtiene sus
    * permisos y la identificación del departamento del servicio del colaborador y enumera sus
    * documentos mientras inicializa el componente.
    */
+
   ngOnInit(): void {
     const Id = localStorage.getItem('id');
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
@@ -49,6 +61,7 @@ export class SidebarComponent implements OnInit {
       console.log(this.permisos)
     })));
     this.listarDocumentos();
+    this.loadDetalle();
     //this.obtenerPermisos();
   }
   
@@ -103,8 +116,39 @@ export class SidebarComponent implements OnInit {
   }, 1500);
   }
 
-  
+  loadDetalle() {
+    const Id = localStorage.getItem('id');
+    console.log(Id)
+    
+    this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
+      this.departamento_id = res.dataDB.departamento_id;
 
- 
+      const formData = new FormData();
+      formData.append('id', Id!.toString()),
+      formData.append('idDepart', this.departamento_id),
+      
+      console.log(this.departamento_id)
+  
+      this.menuService.getDetallePermiso(formData).subscribe((data: any) => {
+        this.listaDetalle = data;
+        console.log(this.listaDetalle)
+        console.log(this.listaDetalle[0].menu_id)
+        console.log(data)
+        for (let index = 0; index < this.listaDetalle.length; index++) {
+          const element = this.listaDetalle[index];
+          //console.log(element)
+          this.idCargo = this.listaDetalle[index].cargo_id;
+          this.idDepar = this.listaDetalle[index].departamento_id;
+          this.idUser = this.listaDetalle[index].colaborador_id;
+          this.idMenu = this.listaDetalle[index].menu_id;
+    
+          console.log(this.listaDetalle[index].cargo_id)
+          console.log(this.listaDetalle[index].departamento_id)
+          console.log(this.listaDetalle[index].colaborador_id)
+          console.log(this.listaDetalle[index].menu_id)
+        }
+      });
+    });
+  }
   
 }

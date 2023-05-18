@@ -37,6 +37,11 @@ import { DttipodocumentosComponent } from './datatable/dttipodocumentos/dttipodo
 import { DtcolaboradoresdeshabilitadosComponent } from './datatable/dtcolaboradoresdeshabilitados/dtcolaboradoresdeshabilitados.component';
 import { ListcolaboradoresdeshabilitadosComponent } from './listcolaboradoresdeshabilitados/listcolaboradoresdeshabilitados.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { ListconfiguracionComponent } from './listconfiguracion/listconfiguracion.component';
+import { DtconfiguracionComponent } from './datatable/dtconfiguracion/dtconfiguracion.component';
+import { PermisosComponent } from './permisos/permisos.component';
+import { ListpermisosComponent } from './listpermisos/listpermisos.component';
+import { DtpermisosComponent } from './datatable/dtpermisos/dtpermisos.component';
 
 
 @NgModule({
@@ -69,7 +74,12 @@ import { ConfiguracionComponent } from './configuracion/configuracion.component'
     DttipodocumentosComponent,
     DtcolaboradoresdeshabilitadosComponent,
     ListcolaboradoresdeshabilitadosComponent,
-    ConfiguracionComponent
+    ConfiguracionComponent,
+    ListconfiguracionComponent,
+    DtconfiguracionComponent,
+    PermisosComponent,
+    ListpermisosComponent,
+    DtpermisosComponent
   ],
   exports: [
     DashboardComponent,

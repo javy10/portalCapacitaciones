@@ -94,10 +94,10 @@ export class DtpermisodocumentosComponent implements OnInit{
       //destroy:true,
       columnDefs: [
         { "width": "2%", "targets": 0 },
-        { "width": "25%", "targets": 1 },
-        { "width": "15%", "targets": 2 },
-        { "width": "20%", "targets": 3 },
-        { "width": "15%", "targets": 4 },
+        { "width": "20%", "targets": 1 },
+        { "width": "30%", "targets": 2 },
+        { "width": "8%", "targets": 3 },
+        { "width": "8%", "targets": 4 },
       ],
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
@@ -183,8 +183,6 @@ export class DtpermisodocumentosComponent implements OnInit{
   async loadDetallePermisos() {
     return  await new Promise(resolve => resolve( this.documentoService.getDetallePermisosID(this.idDoc).subscribe((data: any) => {
       console.log(data.dataDB)
-      
-        
 
       for (let index = 0; index < data.dataDB.length; index++) {
 
@@ -204,19 +202,42 @@ export class DtpermisodocumentosComponent implements OnInit{
     })));
   }
  
-  datosPermisos(id:number){
+  filaSeleccionada:any;
+  nombre:any;
+  idPermiso:any;
+  idDetallePermiso:any;
+
+  datosPermisos(id:number, nombre:any){
     console.log(id)
+    console.log(nombre)
+    this.nombre = nombre;
+
     this.cancelar();
 
-    const btnGuardar = document.getElementById('btnGuardar');
-    btnGuardar!.hidden = true;
+    const filas = document.querySelectorAll('table tr');
 
-    const btnEdit = document.getElementById('btnActualizar');
-    btnEdit!.hidden = false;
-
-
+    // Recorre las filas y agrega el evento de clic
+    filas.forEach((fila, indice) => {
+      fila.addEventListener('click', (event) => {
+        // Aquí obtienes el índice de la fila seleccionada
+        console.log('Índice de fila seleccionada:', indice);
+        //this.filaSeleccionada = indice;
+        this.filaSeleccionada = (event.target as HTMLTableRowElement).closest('tr');
+      });
+    });
+    
+    
+    
     new Promise(resolve => resolve( this.documentoService.getDetalleID(id).subscribe((data: any) => {
       console.log(data.dataDB)
+      this.idPermiso = data.dataDB[0].permiso_id
+      this.idDetallePermiso = data.dataDB[0].id
+
+      const btnGuardar = document.getElementById('btnAceptarP') as HTMLInputElement;
+      btnGuardar!.hidden = true;
+      
+      const btnEdit = document.getElementById('btnEditarP') as HTMLInputElement;
+      btnEdit!.hidden = false;
 
       if(data.dataDB[0].departamento_id == null) {
         const colabCheck = document.getElementById("colaborador") as HTMLInputElement;
@@ -225,7 +246,7 @@ export class DtpermisodocumentosComponent implements OnInit{
         colabCheck.checked = true;
         colab.disabled = false;
         dep.checked = false;
-
+ 
         this.colaboradorService.getColaboradorID(data.dataDB[0].colaborador_id).subscribe((res: any) => {
           this.ngSelectC = res.dataDB.id;
         });
@@ -242,16 +263,80 @@ export class DtpermisodocumentosComponent implements OnInit{
           console.log(res.dataDB)
           this.ngSelectD = res.dataDB.id;
         });
-
       }
-
-     
 
       
 
     })));
   } 
 
+  editar() {
+
+    let today = new Date().toLocaleString();
+    const tipo = document.querySelector('input[name="tipo"]:checked') as HTMLInputElement;
+    let nombreDepar = '', idDepar = 0;
+    let nombreColab = '', idColab = 0;
+
+    if(tipo.value == '1') {
+      const combo = document.getElementById('departamentoSelect') as HTMLSelectElement;
+      const nombreCombo = combo.options[combo.selectedIndex].text;
+      nombreDepar = nombreCombo;
+      idDepar = this.formPermiso.value.departamentoSelect;
+    } else if(tipo.value == '2') {
+      const comboC = document.getElementById('colaboradorSelect') as HTMLSelectElement;
+      const nombreComboC = comboC.options[comboC.selectedIndex].text;
+      nombreColab = nombreComboC;
+      idColab = this.formPermiso.value.colaboradorSelect;
+    }
+
+    const celdas = this.filaSeleccionada.querySelectorAll('td');
+    console.log(celdas)
+
+    const tipoP = tipo.value;
+    const nombre =  nombreDepar == '' ? nombreColab : nombreDepar;
+    const fecha = today;
+
+    console.log(tipoP)
+    console.log(nombre)
+
+    celdas[1].innerHTML = tipoP == '1' ? 'Departamento' : 'Colaborador';
+    celdas[2].innerHTML = nombre;
+    celdas[3].innerHTML = fecha;
+
+    
+    if(tipoP == '2'){
+      const indiceObjeto = this.listaPermisos.findIndex((objeto:any) => objeto.nombre  === this.nombre);
+      console.log(indiceObjeto)
+      if (indiceObjeto !== -1) {
+        this.listaPermisos[indiceObjeto].idDetallePermiso = this.idDetallePermiso;
+        this.listaPermisos[indiceObjeto].permiso_id = this.idPermiso;
+        this.listaPermisos[indiceObjeto].tipoPermiso_id = tipo.value;
+        this.listaPermisos[indiceObjeto].nombre = nombreColab;
+        this.listaPermisos[indiceObjeto].departamento_id = idDepar;
+        this.listaPermisos[indiceObjeto].colaborador_id = idColab;
+        this.listaPermisos[indiceObjeto].fechaRegistro = today;
+        
+      }
+    } else {
+      const indiceObjeto = this.listaPermisos.findIndex((objeto:any) => objeto.nombre === this.nombre);
+
+      if (indiceObjeto !== -1) {
+        this.listaPermisos[indiceObjeto].idDetallePermiso = this.idDetallePermiso;
+        this.listaPermisos[indiceObjeto].permiso_id = this.idPermiso;
+        this.listaPermisos[indiceObjeto].tipoPermiso_id = tipo.value;
+        this.listaPermisos[indiceObjeto].nombre = nombreDepar;
+        this.listaPermisos[indiceObjeto].departamento_id = idDepar;
+        this.listaPermisos[indiceObjeto].colaborador_id = idColab;
+        this.listaPermisos[indiceObjeto].fechaRegistro = today;
+        
+      }
+    }
+    console.log(this.listaPermisos)
+
+    this.pasarDatos(this.listaPermisos);
+
+    
+  }
   
   
 }

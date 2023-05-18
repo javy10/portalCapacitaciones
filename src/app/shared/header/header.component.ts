@@ -59,6 +59,19 @@ export class HeaderComponent implements OnInit{
         }, 100);
       });
     })));
+
+    // ocultar el sidebar con menu hamburguesa - toggle
+    const ocuultar = document.getElementById("ocuultar") as HTMLInputElement;
+    let cont = 0;
+    ocuultar.addEventListener("click", function() {
+      if (cont == 0) {
+        document.body.classList.add('toggle-sidebar');
+        cont = 1;
+      } else {
+        document.body.classList.remove('toggle-sidebar');
+        cont = 0;
+      }
+    });
   }
   
   logout() {

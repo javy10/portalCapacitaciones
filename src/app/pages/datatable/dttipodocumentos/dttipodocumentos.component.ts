@@ -27,7 +27,7 @@ export class DttipodocumentosComponent implements OnInit {
         { "width": "2%", "targets": 0 },
         { "width": "20%", "targets": 1 },
         { "width": "10%", "targets": 2 },
-        { "width": "5%", "targets": 3 },
+        { "width": "6%", "targets": 3 },
       ],
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
