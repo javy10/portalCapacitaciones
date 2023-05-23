@@ -1,0 +1,86 @@
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card ">
+            <div class="card-body ">
+                <div class="form mt-3">
+                    <div class="row">
+                        <h2 class="card-title text-center titulo" id="title">Crear Pregunta</h2>
+                        <hr>
+                        <form [formGroup]="formPregunta" class="row g-3 ">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-3 mb-2">
+                                        <label class="form-label">Tipo de pregunta</label>
+                                        <select [(ngModel)]='ngSelect' class="form-select" id="tipo" formControlName="tipo" (change)="seleccionTipo()" required>
+                                            <option value="0" disabled selected>Selecciona</option>
+                                            <option value="1">Verdadero o Falso</option>
+                                            <option value="2">Seleccionar solo una respuesta</option>
+                                            <option value="3">Selección múltiple</option>
+                                        </select>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="tituloD.valid || tituloD.pristine">
+                                            Debes seleccionar un titulo
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-12 mb-2">
+                                        <label class="form-label">Pregunta</label>
+                                        <input type="text"  id="pregunta" class="form-control" placeholder="Ingresa la descripción" formControlName="pregunta" required>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                            Debes seleccionar un descripcion
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-3 mb-2" id="inputContainer">
+                                        <label class="form-label">Respuesta </label> 
+                                        <i *ngIf="VF == false" class="bi bi-plus-square ms-2" style="font-size: 2rem; color: rgb(17, 179, 2);" (click)="agregarInput()"></i>
+                                        <br>
+                                        <div *ngIf="VF" class="input-group mb-3">
+                                            <input type="text" id="pregunta1" class="form-control" placeholder="Verdadero" value="Verdadero" disabled required>
+                                            <div class="input-group-text">
+                                              <input class="form-check-input mt-0" type="radio" name="radioGroup" value="true">
+                                            </div>
+                                        </div>
+                                        <div *ngIf="VF" class="input-group mb-3">
+                                            <input type="text" id="pregunta2" class="form-control" placeholder="Falso" value="Falso" disabled required>
+                                            <div class="input-group-text">
+                                              <input class="form-check-input mt-0" type="radio" name="radioGroup" value="false">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                            Debes seleccionar un descripcion
+                                        </div> -->
+                                    </div>
+                                    <div  class="col-md-2 mt-5">
+                                        <!-- <div class="input-group mb-3">
+                                            <input type="text" id="pregunta" class="form-control" placeholder="Ingresa la respuesta"  required>
+                                            <div class="input-group-text">
+                                              <input class="form-check-input mt-0" type="radio" name="radioGroup" >
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer footer">
+                                    <button type="button" class="btn btn-secondary cancelar"  >
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-success" id="btnCrearCard"  (click)="obtenerValoresInputs()">
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="card-container"></div>
+    <div *ngIf="ocultarBoton == true" class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto text-center d-flex align-items-center">
+                <button id="btnGuardarPreguntas" type="button" class="btn btn-success mx-auto">Guardar preguntas...</button>
+            </div>
+          </div>
+    </div>
+</div>

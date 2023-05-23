@@ -16,7 +16,7 @@ export class DtevaluacionesComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   data: any;
   isLoading = false;
-
+  evaluacion:any;
 
   /**
    * Esta es una función constructora que toma un DocumentoService como parámetro.
@@ -54,14 +54,15 @@ export class DtevaluacionesComponent implements OnInit {
   }
 
   async loadEvaluaciones() {
-    // this.isLoading = true;
-    // return  await new Promise(resolve => resolve( this.evaluacionesService.getListaDocumentos().subscribe((data: any) => {
-    //   this.listaDocumentos = data.dataDB;
-    //   this.isLoading = false;
-    //   setTimeout(() => {
-    //       this.dtTrigger.next(0);
-    //   }, 1000);
-    // })));
+    this.evaluacion = {
+      'titulo': 'prueba 1',
+      'descripcion': 'gfgfgfgfgg',
+      'preguntas': '22/05/2023',
+      'grupos': '1 colaboradores',      
+      'fechaRegistro': '22/05/2023',
+    }
+
+    this.listaEvaluaciones.push(this.evaluacion);
   }
 
   eliminarDocumento(datos: any) {

@@ -30,8 +30,10 @@ export class DashboardComponent implements OnInit{
 
   tipoDoc: any;
   id_departamento: any;
+  id_cargo:any;
 
   usuario:any;
+  isLoading = false;
 
 
   
@@ -66,6 +68,8 @@ export class DashboardComponent implements OnInit{
     this.id = localStorage.getItem('id');
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(this.id!)).subscribe((res) => {
       //this.departamento_id = res.dataDB.departamento_id;
+      console.log(res.dataDB)
+      this.id_cargo = res.dataDB.cargo_id
       this.usuario = {
         'idC': this.id,
         'idD': res.dataDB.departamento_id
@@ -102,6 +106,7 @@ export class DashboardComponent implements OnInit{
  
   loadTipoDocumento(){
     console.log(this.id)
+    this.isLoading = true;
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(this.id!)).subscribe((res) => {
       this.departamento_id = res.dataDB.departamento_id;
       console.log(this.departamento_id)
@@ -112,6 +117,7 @@ export class DashboardComponent implements OnInit{
       new Promise(resolve => resolve(this.documentoService.getBuscarTipoDocumentos(formData).subscribe((res) => {
         this.listaTipoDocumentos = res.dataDB;
         console.log(this.listaTipoDocumentos)
+        this.isLoading = false;
       })));
     })));
   }

@@ -1,4 +1,6 @@
 
+
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
@@ -11,7 +13,7 @@ import { ColaboradorService } from 'src/app/services/colaborador.service';
 })
 export class HeaderComponent implements OnInit{
 
-  constructor(private router: Router, public colaboradorService: ColaboradorService) {
+  constructor(private router: Router, public colaboradorService: ColaboradorService, private datePipe: DatePipe) {
     this.eliminarSesion();
   }
 
@@ -26,6 +28,7 @@ export class HeaderComponent implements OnInit{
   foto: any;
   imgTamanio:any;
   avatar = '../../../assets/img/avatar1.png';
+  logs:any;
 
   ngOnInit(): void {
     const Id = localStorage.getItem('id');
@@ -36,6 +39,7 @@ export class HeaderComponent implements OnInit{
       console.log(this.foto)
       this.nombre = res.dataDB.nombres.split(' ')[0];
       this.apellido = res.dataDB.apellidos.split(' ')[0];
+
       new Promise(resolve => resolve(this.colaboradorService.getAgenciaId(res.dataDB.agencia_id).subscribe((resp) => {
         console.log(resp.dataDB)
         this.agencia = resp.dataDB.codAgencia;
@@ -72,21 +76,34 @@ export class HeaderComponent implements OnInit{
         cont = 0;
       }
     });
+
+    // Escucha eventos de actividad del usuario para restablecer el temporizador de sesión
+    document.addEventListener('mousemove',  this.eliminarSesion);
+    document.addEventListener('keydown',  this.eliminarSesion);
+    document.addEventListener('click',  this.eliminarSesion);
   }
   
   logout() {
+
+    this.logsSalida();
+
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     localStorage.removeItem('logeado');
     this.router.navigate(['/login']);
+
+
+
     // this._colaboradorService.logout().subscribe((data: any) => {
     // });
   }
   eliminarSesion() {
     setTimeout(() => {
+      this.logsSalida();
       localStorage.removeItem('token');
       window.location.reload();
-    }, 6 * 60 * 60 * 1000); // 6 horas en milisegundos
+    // }, 6 * 60 * 60 * 1000); // 6 horas en milisegundos
+    }, 4 * 3600000); // 6 horas en milisegundos
   }
 
   perfil(){
@@ -94,6 +111,22 @@ export class HeaderComponent implements OnInit{
     this.router.navigate(['/dashboard/tabperfil/'+ this.id]);
   }
 
+  logsSalida() {
+    let fechaFormateadaHoy = '';
+    let today = new Date();
+    const fechaISO = today.toISOString();
+    let fechaHoy = new Date(fechaISO)
+    fechaFormateadaHoy = this.datePipe.transform(fechaHoy, 'yyyy-MM-dd HH:mm:ss')!;
+
+    this.logs = {
+      'colaborador_id': localStorage.getItem('id'),
+      'fechaSalida': fechaFormateadaHoy,
+    }
+
+    this.colaboradorService.editarSalida(this.logs).subscribe((respuest) => {
+      console.log(respuest)
+    });
+  }
 
 
 

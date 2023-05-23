@@ -39,7 +39,7 @@
                                         <button type="button" class="btn btn-secondary cancelar"  routerLink="/dashboard/list-documentos">
                                             Cancelar
                                         </button>
-                                        <button type="submit" class="btn btn-success" id="btnGuardar" (click)="guardarDatos()" >
+                                        <button type="submit" class="btn btn-success" id="btnGuardar" (click)="guardarDatos()" [disabled]="!formDocumento.valid">
                                             Guardar
                                         </button>
                                         <button type="submit" class="btn btn-success" id="btnActualizar" (click)="editar()">

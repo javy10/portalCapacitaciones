@@ -65,6 +65,9 @@ export class ConfiguracionComponent implements OnInit {
     this.loadDepartamento();
     this.loadColaboradores();
     this.cargar();
+
+    this.ngSelectM = 0;
+
     
   }
 
@@ -72,6 +75,13 @@ export class ConfiguracionComponent implements OnInit {
     return  await new Promise(resolve => resolve( this.documentoService.getMenus().subscribe((data: any) => {
       console.log(data)
       this.listaMenu = data;
+
+      const depart = document.getElementById("departamento") as HTMLSelectElement;
+      const cargo = document.getElementById("cargoSelect") as HTMLSelectElement;
+      const colab = document.getElementById("colaboradorSelect") as HTMLSelectElement;
+      depart.disabled = true;
+      cargo.disabled = true;
+      colab.disabled = true;
     })));
   }
 
@@ -291,7 +301,28 @@ export class ConfiguracionComponent implements OnInit {
 
   }
 
+  cambiarUno() {
+    const depart = document.getElementById("departamento") as HTMLSelectElement;
+    const cargo = document.getElementById("cargoSelect") as HTMLSelectElement;
+    const colab = document.getElementById("colaboradorSelect") as HTMLSelectElement;
+    depart.disabled = false;
+    cargo.disabled = false;
+    colab.disabled = true;
+    this.ngSelectC = 0;
+    this.ngSelectD = 0;
+    this.ngSelectU = 0;
+  }
 
+  cambiarDos() {
+   const depart = document.getElementById("departamento") as HTMLSelectElement;
+    const cargo = document.getElementById("cargoSelect") as HTMLSelectElement;
+    const colab = document.getElementById("colaboradorSelect") as HTMLSelectElement;
+    depart.disabled = true;
+    cargo.disabled = true;
+    colab.disabled = false;
+    this.ngSelectD = 0;
+    this.ngSelectC = 0;
+  }
 
 
 

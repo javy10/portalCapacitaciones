@@ -18,7 +18,7 @@ export class PermisosComponent implements OnInit {
       'departamento': ['', Validators.required],
       'colaborador': ['', Validators.required],
       'departamentoSelect': ['', Validators.required],
-      'colaboradorSelect': ['', Validators.required],
+      'colaboradorSelect': ['', Validators.required, ],
     });
   }
 
@@ -33,6 +33,8 @@ export class PermisosComponent implements OnInit {
   idDetallePermiso: any;
   idD: any;
   idP: any;
+  
+
 
   get departamento() {
     return this.formPermiso.get('departamento') as FormControl;
@@ -48,32 +50,31 @@ export class PermisosComponent implements OnInit {
   }
 
   ngOnInit(): void {
- 
-    const departamento = document.getElementById("departamento") as HTMLInputElement;
-    const colaborador = document.getElementById("colaborador") as HTMLInputElement;
-    const colab = document.getElementById("colaboradorSelect") as HTMLSelectElement;
-    const depart = document.getElementById("departamentoSelect") as HTMLSelectElement;
     
     this.loadDepartamento();
     this.loadColaboradores();
-    
+ 
+    const departamento = document.getElementById("departamento") as HTMLInputElement;
+    const colaborador = document.getElementById("colaborador") as HTMLInputElement;
+    const colab = document.getElementById("colaboradorSelec") as HTMLSelectElement;
+    const depart = document.getElementById("departamentoSelec") as HTMLSelectElement;
+
     this.ngSelectD = 0;
     this.ngSelectC = 0;
-
     colab.disabled = true;
     depart.disabled = true;
-
-    departamento.addEventListener("click", function() {
-      colab.disabled = true;
-      depart.disabled = false;
-      
-      //this.ngSelectC = 0;
-    });
-    colaborador.addEventListener("click", function() {
-      depart.disabled = true;
-      colab.disabled = false;
-      
-      //this.ngSelectD = 0;
+    
+    const id = this.activeRoute.snapshot.paramMap.get('id')!;
+    console.log(id)
+    this.documentoService.getDetalleID(parseInt(id)).subscribe((response) => {
+      console.log(response.dataDB)
+      if(response.dataDB) {
+        colab.disabled = true;
+        depart.disabled = true;
+      } else {
+        colab.disabled = true;
+        depart.disabled = true;
+      }
     });
 
     this.cargar();
@@ -85,6 +86,7 @@ export class PermisosComponent implements OnInit {
       this.listaDepartamento = data;
     })));
   }
+  
   async loadColaboradores() {
     return  await new Promise(resolve => resolve( this.colaboradorService.getCollaborator().subscribe((data: any) => {
       this.listaColaborador = data.dataDB;
@@ -93,8 +95,8 @@ export class PermisosComponent implements OnInit {
 
   cancelar() {
     const myForm = document.getElementById("form") as HTMLFormElement;
-    const colab = document.getElementById("colaboradorSelect") as HTMLInputElement;
-    const depart = document.getElementById("departamentoSelect") as HTMLInputElement;
+    const colab = document.getElementById("colaboradorSelec") as HTMLInputElement;
+    const depart = document.getElementById("departamentoSelec") as HTMLInputElement;
     colab.disabled = true;
     depart.disabled = true;
     this.ngSelectD = 0;
@@ -104,6 +106,15 @@ export class PermisosComponent implements OnInit {
   }
 
   guardar() {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
     const id = this.activeRoute.snapshot.paramMap.get('id');
     let today = new Date().toLocaleString();
     const tipo = document.querySelector('input[name="tipo"]:checked') as HTMLInputElement;
@@ -111,12 +122,12 @@ export class PermisosComponent implements OnInit {
     let nombreColab = '', idColab = 0;
 
     if(tipo.value == '1') {
-      const combo = document.getElementById('departamentoSelect') as HTMLSelectElement;
+      const combo = document.getElementById('departamentoSelec') as HTMLSelectElement;
       const nombreCombo = combo.options[combo.selectedIndex].text;
       nombreDepar = nombreCombo;
       idDepar = this.formPermiso.value.departamentoSelect;
     } else if(tipo.value == '2') {
-      const comboC = document.getElementById('colaboradorSelect') as HTMLSelectElement;
+      const comboC = document.getElementById('colaboradorSelec') as HTMLSelectElement;
       const nombreComboC = comboC.options[comboC.selectedIndex].text;
       nombreColab = nombreComboC;
       idColab = this.formPermiso.value.colaboradorSelect;
@@ -148,8 +159,28 @@ export class PermisosComponent implements OnInit {
             Swal.showLoading()
           },
           willClose: () => {
+
+            swalWithBootstrapButtons.fire({
+              title: '¿Quiéres agregar más permisos a éste documento?',
+              text: "",
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonText: 'Si, agregaré más!',
+              cancelButtonText: 'No, ya no!',
+              reverseButtons: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
+              } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+                this.router.navigate(['dashboard/list-permisos']);
+              }
+            })
             
-            this.router.navigate(['dashboard/list-permisos']);
             //window.location.reload();
           }
         });
@@ -195,8 +226,8 @@ export class PermisosComponent implements OnInit {
             if(response.dataDB[0].departamento_id == null) {
               const colabCheck = document.getElementById("colaborador") as HTMLInputElement;
               const dep = document.getElementById("departamento") as HTMLInputElement;
-              const colab = document.getElementById("colaboradorSelect") as HTMLInputElement;
-              const depart = document.getElementById("departamentoSelect") as HTMLInputElement;
+              const colab = document.getElementById("colaboradorSelec") as HTMLInputElement;
+              const depart = document.getElementById("departamentoSelec") as HTMLInputElement;
               colab.disabled = false;
               depart.disabled = true;
               colabCheck.checked = true;
@@ -208,8 +239,8 @@ export class PermisosComponent implements OnInit {
       
             } else {
               const dep = document.getElementById("departamento") as HTMLInputElement;
-              const depar = document.getElementById("departamentoSelect") as HTMLInputElement;
-              const colabCheck = document.getElementById("colaboradorSelect") as HTMLInputElement;
+              const depar = document.getElementById("departamentoSelec") as HTMLInputElement;
+              const colabCheck = document.getElementById("colaboradorSelec") as HTMLInputElement;
               dep.checked = true;
               depar.disabled = false;
               colabCheck.checked = true;
@@ -240,12 +271,12 @@ export class PermisosComponent implements OnInit {
     let nombreColab = '', idColab = 0;
 
     if(tipo.value == '1') {
-      const combo = document.getElementById('departamentoSelect') as HTMLSelectElement;
+      const combo = document.getElementById('departamentoSelec') as HTMLSelectElement;
       const nombreCombo = combo.options[combo.selectedIndex].text;
       nombreDepar = nombreCombo;
       idDepar = this.formPermiso.value.departamentoSelect;
     } else if(tipo.value == '2') {
-      const comboC = document.getElementById('colaboradorSelect') as HTMLSelectElement;
+      const comboC = document.getElementById('colaboradorSelec') as HTMLSelectElement;
       const nombreComboC = comboC.options[comboC.selectedIndex].text;
       nombreColab = nombreComboC;
       idColab = this.formPermiso.value.colaboradorSelect;
@@ -300,6 +331,21 @@ export class PermisosComponent implements OnInit {
 
   }
 
+  cambiarUno() {
+    const colab = document.getElementById("colaboradorSelec") as HTMLSelectElement;
+    const depart = document.getElementById("departamentoSelec") as HTMLSelectElement;
+    colab.disabled = true;
+    depart.disabled = false;
+    this.ngSelectC = 0;
+  }
+
+  cambiarDos() {
+    const colab = document.getElementById("colaboradorSelec") as HTMLSelectElement;
+    const depart = document.getElementById("departamentoSelec") as HTMLSelectElement;
+    depart.disabled = true;
+    colab.disabled = false;
+    this.ngSelectD = 0;
+  }
 
 
 }

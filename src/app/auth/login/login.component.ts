@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,12 +17,14 @@ export class LoginComponent implements OnInit{
   loginForm: FormGroup;
   year = new Date().getFullYear();
   id = 0;
+  logs:any;
   
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private colaboradorService: ColaboradorService,
+    private datePipe: DatePipe
   ) {
     this.loginForm = this.fb.group({
       dui: ['', Validators.required],
@@ -89,6 +92,22 @@ export class LoginComponent implements OnInit{
                     localStorage.setItem('token', response.dataDB.original.access_token);
                     localStorage.setItem('logeado', response.success);
                     localStorage.setItem('id', this.id.toString());
+
+                    let fechaFormateadaHoy = '';
+                    let today = new Date();
+                    const fechaISO = today.toISOString();
+                    let fechaHoy = new Date(fechaISO)
+                    fechaFormateadaHoy = this.datePipe.transform(fechaHoy, 'yyyy-MM-dd HH:mm:ss')!;
+
+                    this.logs = {
+                      'colaborador_id': this.id,
+                      'fechaEntrada': fechaFormateadaHoy,
+                    }
+
+                    this.colaboradorService.editarEntrada(this.logs).subscribe((respuest) => {
+                      console.log(respuest)
+                    });
+
                     this.router.navigate(['']);
                   }
                 });

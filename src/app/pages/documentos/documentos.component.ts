@@ -79,95 +79,74 @@ export class DocumentosComponent implements OnInit{
     datos = this.datosDoc;
     console.log(datos);
     
-    const formData = new FormData();
-    formData.append('titulo' , this.formDocumento.value.titulo),
-    formData.append('descripcionDoc' , this.formDocumento.value.descripcion),
-    formData.append('tipoDocumento_id' , this.formDocumento.value.tipo),
-    formData.append('usuario_id' , localStorage.getItem('id')!)
-    //formData.append('detalleDoc', JSON.stringify(datos))
-
-    this.documentoService.saveDocumentos(formData).subscribe((response) => {
-
-      if(this.datosDoc) { 
-         for (const itemDoc of this.datosDoc) {
-          formData.append('descripcionDetalle' , itemDoc.descripcion),
-          formData.append('lectura' , itemDoc.lectura),
-          formData.append('fechaLimite' , itemDoc.fechaLimite),
-          formData.append('nombreArchivo' , itemDoc.pdf),
-           formData.append('url', itemDoc.urlPdf)
-          formData.append('disponible' , itemDoc.disponible)
+    if(datos && this.formDocumento.value.tipo > 0) {
+      const formData = new FormData();
+      formData.append('titulo' , this.formDocumento.value.titulo),
+      formData.append('descripcionDoc' , this.formDocumento.value.descripcion),
+      formData.append('tipoDocumento_id' , this.formDocumento.value.tipo),
+      formData.append('usuario_id' , localStorage.getItem('id')!)
+      ////formData.append('detalleDoc', JSON.stringify(datos))
   
-          this.documentoService.saveDetalleDocumentos(formData).subscribe((response) => {
-            console.log(response);
-            if(response.success == true) {
-              this.datosPermisos = '';
-              this.datosDoc = [];
-              this.tipoPermiso_id = [];
-              this.departamento_id = [];
-              this.colaborador_id = [];
+      this.documentoService.saveDocumentos(formData).subscribe((response) => {
+  
+        if(this.datosDoc) { 
+           for (const itemDoc of this.datosDoc) {
+            formData.append('descripcionDetalle' , itemDoc.descripcion),
+            formData.append('lectura' , itemDoc.lectura),
+            formData.append('fechaLimite' , itemDoc.fechaLimite),
+            formData.append('nombreArchivo' , itemDoc.pdf),
+             formData.append('url', itemDoc.urlPdf)
+            formData.append('disponible' , itemDoc.disponible)
+    
+            this.documentoService.saveDetalleDocumentos(formData).subscribe((response) => {
+              console.log(response);
+              if(response.success == true) {
+                this.datosPermisos = '';
+                this.datosDoc = [];
+                this.tipoPermiso_id = [];
+                this.departamento_id = [];
+                this.colaborador_id = [];
+              }
+            });
+          }
+          Swal.fire({
+            //position: 'center',
+            icon: 'success',
+            title: 'Documento registrado con éxito',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            },
+            showConfirmButton: false,
+            timer: 1500,
+            didOpen: () => {
+              Swal.showLoading()
+            },
+            willClose: () => {
+              
+              this.router.navigate(['dashboard/list-documentos']);
+              //window.location.reload();
             }
           });
         }
-        Swal.fire({
-          //position: 'center',
-          icon: 'success',
-          title: 'Documento registrado con éxito',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          },
-          showConfirmButton: false,
-          timer: 1500,
-          didOpen: () => {
-            Swal.showLoading()
-          },
-          willClose: () => {
-            
-            this.router.navigate(['dashboard/list-documentos']);
-            //window.location.reload();
-          }
-        });
-      }
-    });
-
-    
-    // else { 
-    //   await new Promise(resolve => resolve(this.documentoService.saveDocumentos(formData).subscribe((response) => {
-    //     console.log(response);
-    //     if(response.success == true) {
-
-    //       this.datosPermisos = '';
-    //       this.datosDoc = [];
-    //       this.tipoPermiso_id = [];
-    //       this.departamento_id = [];
-    //       this.colaborador_id = [];
-
-    //       Swal.fire({
-    //         //position: 'center',
-    //         icon: 'success',
-    //         title: 'Documento registrado con éxito',
-    //         showClass: {
-    //           popup: 'animate__animated animate__fadeInDown'
-    //         },
-    //         hideClass: {
-    //           popup: 'animate__animated animate__fadeOutUp'
-    //         },
-    //         showConfirmButton: false,
-    //         timer: 1500,
-    //         didOpen: () => {
-    //           Swal.showLoading()
-    //         },
-    //         willClose: () => {
-              
-    //           this.router.navigate(['dashboard/list-documentos']);
-    //           //window.location.reload();
-    //         }
-    //       });
-    //     }
-    //   })));
-    // }
+      });
+    } else {
+      Swal.fire({
+        //position: 'center',
+        icon: 'warning',
+        title: 'Debes agregar el documento ó el tipo de documento',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        showConfirmButton: true,
+        
+      });
+    }
     
   }
 

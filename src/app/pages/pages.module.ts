@@ -42,6 +42,10 @@ import { DtconfiguracionComponent } from './datatable/dtconfiguracion/dtconfigur
 import { PermisosComponent } from './permisos/permisos.component';
 import { ListpermisosComponent } from './listpermisos/listpermisos.component';
 import { DtpermisosComponent } from './datatable/dtpermisos/dtpermisos.component';
+import { GrupoComponent } from './grupo/grupo.component';
+import { ListgrupoComponent } from './listgrupo/listgrupo.component';
+import { DtgrupoComponent } from './datatable/dtgrupo/dtgrupo.component';
+import { PreguntasComponent } from './preguntas/preguntas.component';
 
 
 @NgModule({
@@ -79,7 +83,11 @@ import { DtpermisosComponent } from './datatable/dtpermisos/dtpermisos.component
     DtconfiguracionComponent,
     PermisosComponent,
     ListpermisosComponent,
-    DtpermisosComponent
+    DtpermisosComponent,
+    GrupoComponent,
+    ListgrupoComponent,
+    DtgrupoComponent,
+    PreguntasComponent
   ],
   exports: [
     DashboardComponent,

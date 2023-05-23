@@ -1,0 +1,25 @@
+.input-container {
+    display: inline-block;
+}
+
+.oculto {
+    display: none;
+}
+
+
+.delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.card {
+    position: relative;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}

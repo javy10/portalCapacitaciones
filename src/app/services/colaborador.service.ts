@@ -83,6 +83,16 @@ export class ColaboradorService {
     //return this.http.post<any>(this.url +'/forgot-password', data)
   }
 
+  editarEntrada(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/editarEntrada', datos);
+  }
+
+  editarSalida(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/editarSalida', datos);
+  }
+
 
   //AGENCIA ***********************************************************************************************************************************************
   getAgencia(): Observable<Agencia> {

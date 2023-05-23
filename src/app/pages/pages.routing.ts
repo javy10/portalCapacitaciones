@@ -23,6 +23,9 @@ import { ConfiguracionComponent } from './configuracion/configuracion.component'
 import { ListconfiguracionComponent } from './listconfiguracion/listconfiguracion.component';
 import { PermisosComponent } from './permisos/permisos.component';
 import { ListpermisosComponent } from './listpermisos/listpermisos.component';
+import { ListgrupoComponent } from './listgrupo/listgrupo.component';
+import { GrupoComponent } from './grupo/grupo.component';
+import { PreguntasComponent } from './preguntas/preguntas.component';
 
 const routes: Routes = [
     {
@@ -41,6 +44,7 @@ const routes: Routes = [
           { path: 'archivo/:nombre', component: ArchivoComponent},
           { path: 'list-evaluaciones', component: ListevaluacionComponent},
           { path: 'evaluacion', component: EvaluacionComponent},
+          { path: 'evaluacion/:id', component: EvaluacionComponent},
           { path: 'tipo-documento', component: TipodocumentoComponent},
           { path: 'tipo-documento/:id', component: TipodocumentoComponent},
           { path: 'list-tipo-documentos', component: ListtipodocumentoComponent},
@@ -51,6 +55,11 @@ const routes: Routes = [
           { path: 'permisos/:id', component: PermisosComponent},
           { path: 'permisos/:id/:idD/:idP', component: PermisosComponent},
           { path: 'list-permisos', component: ListpermisosComponent},
+          { path: 'list-grupos', component: ListgrupoComponent},
+          { path: 'grupo', component: GrupoComponent},
+          { path: 'grupo/:id', component: GrupoComponent},
+          { path: 'pregunta/:id', component: PreguntasComponent},
+          { path: 'pregunta', component: PreguntasComponent},
         ]
     },
 ];

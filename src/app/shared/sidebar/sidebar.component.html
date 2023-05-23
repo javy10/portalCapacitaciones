@@ -61,6 +61,11 @@
             </a>
             <ul id="evaluaciones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngIf="listaDetalle[i].colaborador_id == id && listaDetalle[i].menu_id == 3 || (listaDetalle[i].cargo_id == permisos && listaDetalle[i].departamento_id== departamento_id && listaDetalle[i].menu_id == 3) ">
                 <li>
+                    <a routerLink="/dashboard/list-grupos">
+                        <i class="bi bi-circle"></i><span>Listado de grupos</span>
+                    </a>
+                </li>
+                <li>
                     <a routerLink="/dashboard/list-evaluaciones">
                         <i class="bi bi-circle"></i><span>Listado de evaluaciones</span>
                     </a>

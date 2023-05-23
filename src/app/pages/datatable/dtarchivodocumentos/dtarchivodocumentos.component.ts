@@ -187,9 +187,7 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
         }
         let fechaFormateadaHoy = '';
         let today = new Date();
-        //console.log(today)
         const fechaISO = today.toISOString();
-        //console.log(fechaISO)
         let fechaHoy = new Date(fechaISO)
         fechaFormateadaHoy = this.datePipe.transform(fechaHoy, 'yyyy-MM-dd HH:mm:ss')!;
     

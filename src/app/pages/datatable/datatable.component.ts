@@ -38,7 +38,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
         { "width": "15%", "targets": 3 },
         { "width": "25%", "targets": 4 },
         { "width": "10%", "targets": 5 },
-        { "width": "25%", "targets": 6 }
+        { "width": "8%", "targets": 6 }
       ],
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
