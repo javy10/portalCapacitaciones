@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-preguntas',
@@ -13,8 +14,9 @@ export class PreguntasComponent implements OnInit {
   ngSelect: any;
   VF:any = false;
   ocultarBoton:any = false;
+  preguntasRespuestas: any[] = [];
 
-  constructor(public fb:FormBuilder) {
+  constructor(public fb:FormBuilder, private toastr: ToastrService) {
     this.formPregunta = this.fb.group({
       'pregunta': ['', Validators.required],
       'tipo': ['', Validators.required],
@@ -202,6 +204,8 @@ obtenerValoresInputs() {
   const informacion: any[] = [];
   //console.log(inputs[0].value)
 
+  let PyR = {}
+
   const combobox = document.getElementById('tipo') as HTMLSelectElement;
   const selectedValue = combobox.value;
 
@@ -213,10 +217,15 @@ obtenerValoresInputs() {
       });
     });
 
-    console.log(informacion);
-    console.log(informacion.length)
-    const total = informacion.length;
-    this.crearCard(informacion, total);
+    PyR = {
+      'tipoPregunta': selectedValue,
+      'pregunta': this.formPregunta.value.pregunta,
+      'respuestas': informacion
+    }
+
+    this.preguntasRespuestas.push(PyR);
+
+    this.crearCard(informacion);
 
   } else if(selectedValue == '3') {
     inputs.forEach((input, index) => {
@@ -226,20 +235,29 @@ obtenerValoresInputs() {
       });
     });
 
-    console.log(informacion);
-    console.log(informacion.length)
-    const total = informacion.length;
-    this.crearCard(informacion, total);
+    PyR = {
+      'tipoPregunta': selectedValue,
+      'pregunta': this.formPregunta.value.pregunta,
+      'respuestas': informacion
+    }
+
+    this.preguntasRespuestas.push(PyR);
+
+    this.crearCard(informacion);
   }
+  console.log(this.preguntasRespuestas)
 
 }
 
 cardCounter = 0;
-crearCard(datos:any, total:any) {
+crearCard(datos:any) {
 
   if(datos.length !== 0){
     this.ocultarBoton = true;
     this.cardCounter++;
+    
+    console.log(datos)
+    console.log(datos.length)
 
     const combobox = document.getElementById('tipo') as HTMLSelectElement;
     const selectedValue = combobox.value;
@@ -249,8 +267,7 @@ crearCard(datos:any, total:any) {
 
     if(selectedValue == '1' || selectedValue == '2') {
 
-      console.log(datos[0].respuesta)  
-    
+      //console.log(datos[0].respuesta)  
     
       // Crear un elemento div para la card
       const card = document.createElement('div');
@@ -273,12 +290,17 @@ crearCard(datos:any, total:any) {
       // Agregar el evento de clic al botón de cerrar
       closeButton.addEventListener('click', () => {
         cardContainer.removeChild(card);
-        //this.ocultarBoton = false;
+         // Verificar si ya no quedan cards
+         if (cardContainer.childElementCount === 0) {
+          // No quedan cards, realizar alguna acción aquí
+          this.ocultarBoton = false;
+        }
       });
     
       
       for (let index = 0; index < datos.length; index++) {
-        const element = datos[index];
+        //const element = datos;
+        console.log(datos[index])
     
         // Crea el grupo de radio buttons con un nombre único
         const radioGroupName = 'group-' + this.cardCounter;
@@ -324,7 +346,7 @@ crearCard(datos:any, total:any) {
 
     } else if(selectedValue == '3') {
       //this.cardCounter++;
-      console.log(datos[0].respuesta)  
+      //console.log(datos[0].respuesta)  
     
       //const cardContainer = document.getElementById('card-container') as HTMLInputElement;
     
@@ -349,8 +371,14 @@ crearCard(datos:any, total:any) {
        // Agregar el evento de clic al botón de cerrar
        closeButton.addEventListener('click', () => {
          cardContainer.removeChild(card);
-         //this.ocultarBoton = false;
-       });
+
+         // Verificar si ya no quedan cards
+        if (cardContainer.childElementCount === 0) {
+          // No quedan cards, realizar alguna acción aquí
+          this.ocultarBoton = false;
+        }
+
+      });
     
       
       for (let index = 0; index < datos.length; index++) {
@@ -396,10 +424,9 @@ crearCard(datos:any, total:any) {
        }
     }
 
-    const btnGuardarPreguntas = document.getElementById('btnGuardarPreguntas') as HTMLInputElement;
+    // const btnGuardarPreguntas = document.getElementById('btnGuardarPreguntas') as HTMLInputElement;
     // btnGuardarPreguntas.addEventListener('click', () => {
-    // // Eliminar todas las tarjetas
-    //   //cardContainer.innerHTML = '';
+      
     // });
   }
   
@@ -419,10 +446,13 @@ seleccionTipo() {
 
 }
 
+guardarPregunta() {
+  this.toastr.success('Hello world!', 'Toastr fun!');
+  this.toastr.info('Hello world!', 'Toastr fun!');
+  this.toastr.warning('Hello world!', 'Toastr fun!');
+  this.toastr.error('Hello world!', 'Toastr fun!');
 
-
-
-guardarPregunta() {}
+}
 
 
 

@@ -105,17 +105,6 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
   get disponible() {
     return this.formDocumento.get('disponible') as FormControl;
   }
-  // get fechaLimite() {
-  //   return this.formDocumento.get('fechaLimite') as FormControl;
-  // }
-
-  // loadDocumento() {
-  //   return this.documentoService.getDocumentos().subscribe((data: any) => {
-  //     this.listaDocumentos = data.dataDB;
-  //     this.dtTrigger.next(0);
-  //     console.log(data.dataDB);
-  //   });
-  // }
 
   changeArchivo(event: any) {
     this.archivo = event.target.files[0];
@@ -152,12 +141,7 @@ export class DtarchivodocumentosComponent implements OnDestroy, OnInit {
       registroExistente = '';
       registroExistente = this.listaDocumentos.find((registro:any) => registro.disponible == 0 && this.formDocumento.value.disponible == 0);
       console.log(registroExistente)
-      //console.log(registroExistente.disponible)
-      if(registroExistente){
-        console.log('Hola')
-      } else {
-        console.log('No')
-      }
+
       //const registroExistente = registros.find(registro => registro.id === nuevoRegistro.id);
       if(registroExistente) {
         Swal.fire({

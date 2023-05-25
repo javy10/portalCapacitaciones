@@ -13,6 +13,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
 import { DatePipe } from '@angular/common';
 import { PagesModule } from './pages/pages.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { PagesModule } from './pages/pages.module';
     FormsModule,
     PagesModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(),
   ],
   providers: [
     {
