@@ -12,51 +12,47 @@
                                 <div class="row">
                                     <div class="col-md-4 mb-2">
                                         <label class="form-label">Título de la evaluacion</label>
-                                        <input type="text"  class="form-control" id="titulo" placeholder="Ingresa el título" formControlName="tituloE"  maxlength="100" required>
-                                        <!-- <div class="alert alert-danger mt-2" [hidden]="tituloD.valid || tituloD.pristine">
-                                            Debes seleccionar un titulo
-                                        </div> -->
+                                        <input type="text"  class="form-control" id="nombre" placeholder="Ingresa el titulo de la evaluación" formControlName="nombre"  maxlength="100" required>
+                                        <div class="alert alert-danger mt-2" [hidden]="nombre.valid || nombre.pristine">
+                                            Debes ingresar un titulo
+                                        </div>
                                     </div>
                                     <div class="col-md-8 mb-2">
                                         <label class="form-label">Descripción general</label>
-                                        <input type="text"  id="descripcion" class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion" required>
-                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
-                                            Debes seleccionar un descripcion
-                                        </div> -->
+                                        <input type="text"  id="descripcion" class="form-control" placeholder="Ingresa la descripción de la evaluación" formControlName="descripcion" required>
+                                        <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                            Debes seleccionar un descripción
+                                        </div>
                                     </div>
                                     <div class="col-md-2 mb-2">
                                         <label class="form-label">Calificación mínima</label>
-                                        <input type="number"  id="descripcion" class="form-control" placeholder="Ingresa la calificación mínima" formControlName="calificacion" required>
-                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
-                                            Debes seleccionar un descripcion
-                                        </div> -->
+                                        <input type="number"  id="calificacionMinima" class="form-control" placeholder="Calificación mínima" formControlName="calificacionMinima" required>
+                                        <div class="alert alert-danger mt-2" [hidden]="calificacionMinima.valid || calificacionMinima.pristine">
+                                            Debes ingresar una calificación
+                                        </div>
                                     </div>
                                     <div class="col-md-2 mb-2">
                                         <label class="form-label">Intentos</label>
-                                        <select  class="form-select" id="tipo" formControlName="intentos" required>
+                                        <select [(ngModel)]='ngSelect' class="form-select" id="intentos" formControlName="intentos" required>
                                             <option value="0" disabled selected>Selecciona</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
                                         </select>
-                                        <!-- <div class="alert alert-danger mt-2" [hidden]="tipo.valid || tipo.pristine">
-                                            Debes seleccionar un tipo
-                                        </div> -->
+                                        <div class="alert alert-danger mt-2" [hidden]="intentos.valid || intentos.pristine">
+                                            Debes seleccionar la cantidad de intentos
+                                        </div>
                                     </div>
-                                    <!-- <div class="col-md-4 mb-2">
-                                        <label class="form-label">Minutos de evaluación (Vacío = Sin límite)</label>
-                                        <input type="number"  id="descripcion" class="form-control" placeholder="Ingresa los minutos de la evaluación (opcional)" required>
-                                    </div> -->
-
                                 </div>
                                 <div class="modal-footer footer">
-                                    <button type="button" class="btn btn-secondary cancelar"  routerLink="/dashboard/list-documentos">
+                                    <button type="button" class="btn btn-secondary cancelar" >
                                         Cancelar
                                     </button>
-                                    <button type="submit" class="btn btn-success" id="btnGuardar"  (click)="guardarEvaluacion()">
+                                    <button type="submit" class="btn btn-success" id="btnGuardar" (click)="guardarEvaluacion()" [disabled]="!formEvaluacion.valid">
                                         Guardar
+                                    </button>
+                                    <button type="submit" class="btn btn-success" id="btnActualizar" (click)="editar()" [disabled]="!formEvaluacion.valid">
+                                        Actualizar
                                     </button>
                                 </div>
                             </div>

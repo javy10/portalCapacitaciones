@@ -14,7 +14,7 @@ import { ColaboradorService } from 'src/app/services/colaborador.service';
 export class HeaderComponent implements OnInit{
 
   constructor(private router: Router, public colaboradorService: ColaboradorService, private datePipe: DatePipe) {
-    this.eliminarSesion();
+    //this.eliminarSesion();
   }
 
   private sessionTimeoutInMinutes = 5;
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     const Id = localStorage.getItem('id');
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
-      this.eliminarSesion();
+      //this.eliminarSesion();
       console.log(res.dataDB);
       this.foto = res.dataDB.foto;
       console.log(this.foto)
@@ -78,9 +78,9 @@ export class HeaderComponent implements OnInit{
     });
 
     // Escucha eventos de actividad del usuario para restablecer el temporizador de sesión
-    document.addEventListener('mousemove',  this.eliminarSesion);
-    document.addEventListener('keydown',  this.eliminarSesion);
-    document.addEventListener('click',  this.eliminarSesion);
+    // document.addEventListener('mousemove',  this.eliminarSesion);
+    // document.addEventListener('keydown',  this.eliminarSesion);
+    // document.addEventListener('click',  this.eliminarSesion);
   }
   
   logout() {
@@ -92,18 +92,15 @@ export class HeaderComponent implements OnInit{
     localStorage.removeItem('logeado');
     this.router.navigate(['/login']);
 
-
-
-    // this._colaboradorService.logout().subscribe((data: any) => {
-    // });
   }
+
   eliminarSesion() {
     setTimeout(() => {
       this.logsSalida();
       localStorage.removeItem('token');
       window.location.reload();
     // }, 6 * 60 * 60 * 1000); // 6 horas en milisegundos
-    }, 4 * 3600000); // 6 horas en milisegundos
+    }, 4 * 3600000); // 4 horas en milisegundos
   }
 
   perfil(){

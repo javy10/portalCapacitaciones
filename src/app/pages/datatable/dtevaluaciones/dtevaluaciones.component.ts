@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
 import Swal from 'sweetalert2';
@@ -17,21 +18,11 @@ export class DtevaluacionesComponent implements OnInit {
   data: any;
   isLoading = false;
   evaluacion:any;
+  n_preguntas:any = 0;
+  idEvaluacion:any;
 
-  /**
-   * Esta es una función constructora que toma un DocumentoService como parámetro.
-   * @param {DocumentoService} documentosService - El parámetro "documentosService" es una instancia de
-   * la clase "DocumentoService" que se está inyectando en el constructor de la clase actual. Esta es
-   * una práctica común en las aplicaciones de Angular, donde los servicios se utilizan para
-   * proporcionar una funcionalidad que se puede compartir entre varios componentes. Al inyectar el
-   * servicio en el constructor.
-   */
-  constructor(private evaluacionesService: EvaluacionesService) {}
+  constructor(private evaluacionesService: EvaluacionesService, private toastr: ToastrService,) {}
 
-  /**
-   * La función inicializa las opciones de DataTable y carga documentos mientras establece el indicador
-   * isLoading en falso.
-   */
   ngOnInit(): void {
     //this.Id = localStorage.getItem('id')!;
     this.dtOptions = {
@@ -43,8 +34,9 @@ export class DtevaluacionesComponent implements OnInit {
         { "width": "20%", "targets": 1 },
         { "width": "20%", "targets": 2 },
         { "width": "15%", "targets": 3 },
-        { "width": "15%", "targets": 4 },
-        { "width": "10%", "targets": 5 },
+        { "width": "10%", "targets": 4 },
+        { "width": "15%", "targets": 5 },
+        { "width": "10%", "targets": 6 },
       ],
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
@@ -53,47 +45,54 @@ export class DtevaluacionesComponent implements OnInit {
     this.loadEvaluaciones();
   }
 
-  async loadEvaluaciones() {
-    this.evaluacion = {
-      'titulo': 'prueba 1',
-      'descripcion': 'gfgfgfgfgg',
-      'preguntas': '22/05/2023',
-      'grupos': '1 colaboradores',      
-      'fechaRegistro': '22/05/2023',
-    }
+  loadEvaluaciones() {
 
-    this.listaEvaluaciones.push(this.evaluacion);
+    this.isLoading = true;
+    this.evaluacionesService.getEvaluaciones().subscribe((data: any) => {
+      this.listaEvaluaciones = data.dataDB;
+ 
+      console.log(this.listaEvaluaciones)
+      this.isLoading = false;
+      setTimeout(() => {
+          this.dtTrigger.next(0);
+      }, 1000);
+    });
+  
   }
 
-  eliminarDocumento(datos: any) {
-    // console.log(datos)
-    // Swal.fire({
-    //   title: 'Estás seguro de eliminar éste documento?',
-    //   text: "El Documento ya no aparecera en el Portal de Capacitaciones!",
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   cancelButtonText: 'Cancelar',
-    //   confirmButtonText: 'Si, seguro!',
-    //   showClass: {
-    //     popup: 'animate__animated animate__fadeInDown'
-    //   },
-    //   hideClass: {
-    //     popup: 'animate__animated animate__fadeOutUp'
-    //   },
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     new Promise(resolve => resolve(this.evaluacionesService.eliminar(datos.id).subscribe((response) => {
-    //       Swal.fire(
-    //         'Deshabilitado!',
-    //         'Documento deshabilitado con éxito.',
-    //         'success'
-    //       )
-    //     })));
-    //     this.loadDocumentos();
-    //   }
-    // });
+  obtenerConteo() {
+    this.evaluacionesService.getConteoPreguntas(this.idEvaluacion).subscribe((data: any) => {
+
+    });
+  }
+
+  eliminarEvaluacion(datos: any) {
+    console.log(datos)
+    Swal.fire({
+      title: 'Estás seguro de eliminar ésta evaluación?',
+      text: "La evaluación ya no aparecera en el Portal de Capacitaciones!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, seguro!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.evaluacionesService.eliminarEvaluacion(datos.id).subscribe((response) => {
+          if(response.success == true) {
+            this.toastr.success('Evaluación eliminada con éxito!', 'Éxito!');
+            this.loadEvaluaciones();
+          }
+        });
+      }
+    });
   }
 
 }

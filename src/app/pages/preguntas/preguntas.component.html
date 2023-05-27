@@ -15,9 +15,9 @@
                                         <label class="form-label">Tipo de pregunta</label>
                                         <select [(ngModel)]='ngSelect' class="form-select" id="tipo" formControlName="tipo" (change)="seleccionTipo()" required>
                                             <option value="0" disabled selected>Selecciona</option>
-                                            <option value="1">Verdadero o Falso</option>
-                                            <option value="2">Seleccionar solo una respuesta</option>
-                                            <option value="3">Selección múltiple</option>
+                                            <option *ngFor="let e of listaTipoPregunta;" [value]="e.id">
+                                                {{ e.tipo }}
+                                            </option>
                                         </select>
                                         <!-- <div class="alert alert-danger mt-2" [hidden]="tituloD.valid || tituloD.pristine">
                                             Debes seleccionar un titulo

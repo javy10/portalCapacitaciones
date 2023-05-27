@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
@@ -19,14 +19,16 @@ export class GrupoComponent implements OnInit {
   listaColaboradores:any;
   formGrupos: FormGroup;
   isLoading = false;
-
+  listaGrupos: any = [];
+  grupos:any;
 
   constructor( private fb:FormBuilder, 
     private _colaboradorService: ColaboradorService, 
     private toastr: ToastrService,
     private evaluacionService: EvaluacionesService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    private activeRoute: ActivatedRoute, 
     ) {
     this.formGrupos = this.fb.group({
       'nombre': ['', Validators.required],
@@ -65,6 +67,7 @@ export class GrupoComponent implements OnInit {
       }
     };
     this.loadColaborador();
+    this.cargar();
   }
 
   loadColaborador() {
@@ -80,7 +83,42 @@ export class GrupoComponent implements OnInit {
 
   cancelar() {}
 
-  cargar(){}
+
+  public resultados: any[] = [];
+
+  cargar(){
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    
+    console.log(id)
+    if(id){
+      const titulo = document.getElementById('title');
+      titulo!.innerHTML = 'Editar grupo';
+
+      const btnGuardar = document.getElementById('btnAceptar');
+      btnGuardar!.hidden = true;
+
+      const btnEdit = document.getElementById('btnActualizar');
+      btnEdit!.hidden = false;
+
+      this.activeRoute.params.subscribe( e => {
+        let id = e['id'];
+        if(id) {
+          this.evaluacionService.getGrupoId(id).subscribe((response) => {
+            console.log(response.dataDB)
+            this.formGrupos.patchValue(response.dataDB);
+            this.evaluacionService.obtenerColaboradoresGrupoID(id).subscribe((response) => { 
+              this.resultados = response.dataDB
+              console.log(this.resultados);
+
+            })
+          });
+        }
+      });
+    } else {
+      const btnEdit = document.getElementById('btnActualizar');
+      btnEdit!.hidden = true;
+    }
+  }
 
   // Variable para almacenar el contador de checkboxes seleccionados
   selectedCheckboxCount = 0;
@@ -150,10 +188,12 @@ export class GrupoComponent implements OnInit {
       });
 
     } else {
-      this.toastr.warning('Debes seleccionar al menos a un colaborador!', 'Advertencia!');
+      this.toastr.warning('Debes seleccionar al menos un colaborador!', 'Advertencia!');
     }
   }
 
+  editar() {
 
+  }
 
 }

@@ -28,7 +28,11 @@ export class DtgruposComponent implements OnInit{
   @Output()
   eventoEnviarDataGrupo = new EventEmitter<any>()
 
-  constructor(private fb:FormBuilder, private _colaboradorService: ColaboradorService){
+  constructor(
+    private fb:FormBuilder, 
+    private _colaboradorService: ColaboradorService, 
+    private evaluacionService: EvaluacionesService
+    ){
     this.formGrupos = this.fb.group({
       'nombre': ['', Validators.required],
       'inicia': ['', Validators.required],
@@ -68,38 +72,20 @@ export class DtgruposComponent implements OnInit{
       }
     };
     this.loadGrupos();
-
-    // this.dtOptions1 = {
-    //   lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-    //   pagingType: 'full_numbers',
-    //   pageLength: 5,
-    //   searching: true,
-    //   processing: true,
-    //   //destroy:true,
-    //   columnDefs: [
-    //     { "width": "2%", "targets": 0 },
-    //     { "width": "30%", "targets": 1 },
-    //     { "width": "30%", "targets": 2 },
-    //     { "width": "30%", "targets": 3 },
-    //     { "width": "10%", "targets": 4 },
-    //   ],
-    //   language: {
-    //     url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
-    //   }
-    // };
-    // this.loadColaborador();
+    
   }
 
-  // loadColaborador() {
-  //   this.isLoading = true;
-  //   this._colaboradorService.getCollaborator().subscribe((data: any) => {
-  //     this.listaColaboradores = data.dataDB;
-  //     this.isLoading = false;
-  //     setTimeout(() => {
-  //         this.dtTrigger1.next(0);
-  //     }, 1000);
-  //   });
-  // }
+  loadGrupos() {
+    this.isLoading = true;
+    this.evaluacionService.getObtenerGrupo().subscribe((data: any) => {
+      this.listaGrupos = data.dataDB;
+      console.log(this.listaGrupos)
+      this.isLoading = false;
+      setTimeout(() => {
+          this.dtTrigger.next(0);
+      }, 1000);
+    });
+  }
 
   cancelar() {
     
@@ -107,20 +93,6 @@ export class DtgruposComponent implements OnInit{
 
   eliminar(item: any) {
 
-  }
-
-  loadGrupos(){
-    this.grupos = {
-      'nombre': 'prueba 1',
-      'apertura': '22/05/2023',
-      'cierre': '22/05/2023',
-      'colaboradores': '1 colaboradores',
-      'colaboradores_id': 1,
-      'ultimaModificacion': '22/05/2023',
-      'fechaRegistro': '22/05/2023',
-    }
-
-    this.listaGrupos.push(this.grupos);
   }
 
   cargar() {
