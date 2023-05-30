@@ -2,17 +2,42 @@
     <div class="col-lg-12">
         <div class="card ">
             <div class="card-body ">
-                <div class="form mt-3">
+                <h5 class="card-title text-center">Evaluación</h5>
+                <div class="form" id="myForm">
                     <div class="row">
-                        <div class="container">
-                            <div class="card cardStyle m-4" *ngFor="let item of listadoPreguntas">
+                        <div #container class="container">
+                            <div class="card cardStyle m-4" *ngFor="let pregunta of listadoPreguntas; let i = index;">
                                 <div class="card-body">
-                                  <h5 class="card-title">{{ item.valorPregunta }}</h5>
-                                  <div *ngFor="let data of item.valorRespuesta" class="form-check">
-                                    <input  class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" >
-                                    <label class="form-check-label" for="flexRadioDefault1">{{ data }}</label>
-                                  </div>
+                                    <h5 class="card-title">{{ pregunta.valorPregunta }}</h5>
+                                    <ng-container
+                                        *ngIf="pregunta.tipoPregunta_id == 1 || pregunta.tipoPregunta_id == 2; else checkboxSection">
+                                        <div class="radio" *ngFor="let respuesta of pregunta.valorRespuestas">
+                                            <label>
+                                                <input
+                                                    type="{{ pregunta.tipoPregunta_id === 1 ? 'radio' : pregunta.tipoPregunta_id === 2 ? 'radio' : 'checkbox'}}"
+                                                    name="{{ pregunta.valorPregunta }}"
+                                                    [value]="pregunta.respuesta_id[pregunta.valorRespuestas.indexOf(respuesta)]"
+                                                >
+                                                {{ respuesta }}
+                                            </label>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #checkboxSection>
+                                        <div *ngFor="let respuesta of pregunta.valorRespuestas">
+                                            <label>
+                                                <input 
+                                                    type="checkbox" 
+                                                    name="{{ pregunta.valorPregunta }}"
+                                                    [value]="pregunta.respuesta_id[pregunta.valorRespuestas.indexOf(respuesta)]"
+                                                >
+                                                {{ respuesta }}
+                                            </label>
+                                        </div>
+                                    </ng-template>
                                 </div>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-success" (click)="guardarRespuestas()" *ngIf="listadoPreguntas">Guardar Quiz</button>
                             </div>
                         </div>
                     </div>
@@ -21,3 +46,4 @@
         </div>
     </div>
 </div>
+
