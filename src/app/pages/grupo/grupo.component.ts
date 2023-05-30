@@ -21,6 +21,9 @@ export class GrupoComponent implements OnInit {
   isLoading = false;
   listaGrupos: any = [];
   grupos:any;
+  public datos: any[] = [];
+  // Variable para almacenar el contador de checkboxes seleccionados
+  selectedCheckboxCount = 0;
 
   constructor( private fb:FormBuilder, 
     private _colaboradorService: ColaboradorService, 
@@ -34,6 +37,7 @@ export class GrupoComponent implements OnInit {
       'nombre': ['', Validators.required],
       'apertura': ['', Validators.required],
       'cierre': ['', Validators.required],
+      'check': ['', Validators.required],
     });
   }
 
@@ -45,6 +49,9 @@ export class GrupoComponent implements OnInit {
   }
   get cierre() {
     return this.formGrupos.get('cierre') as FormControl;
+  }
+  get check() {
+    return this.formGrupos.get('check') as FormControl;
   }
 
   ngOnInit(): void {
@@ -84,7 +91,7 @@ export class GrupoComponent implements OnInit {
   cancelar() {}
 
 
-  public resultados: any[] = [];
+  
 
   cargar(){
     const id = this.activeRoute.snapshot.paramMap.get('id');
@@ -107,9 +114,9 @@ export class GrupoComponent implements OnInit {
             console.log(response.dataDB)
             this.formGrupos.patchValue(response.dataDB);
             this.evaluacionService.obtenerColaboradoresGrupoID(id).subscribe((response) => { 
-              this.resultados = response.dataDB
-              console.log(this.resultados);
-
+              for (let index = 0; index < response.dataDB.length; index++) {
+                this.datos.push(response.dataDB[index].colaborador_id);
+              }
             })
           });
         }
@@ -120,8 +127,7 @@ export class GrupoComponent implements OnInit {
     }
   }
 
-  // Variable para almacenar el contador de checkboxes seleccionados
-  selectedCheckboxCount = 0;
+
 
   // Función que se ejecuta cuando se produce un cambio en el estado del checkbox
   handleCheckboxChange(event: Event) {
@@ -193,7 +199,66 @@ export class GrupoComponent implements OnInit {
   }
 
   editar() {
+    
+    
 
+    //if(this.selectedCheckboxCount > 0) {
+      let fechaFormateadaA = '';
+      let fechaFormateadaC = '';
+      const apertura = document.querySelector("#apertura") as HTMLInputElement;
+      const cierre = document.querySelector("#cierre") as HTMLInputElement;
+      let fechaObjA = new Date(apertura.value);
+      fechaFormateadaA = this.datePipe.transform(fechaObjA, 'yyyy-MM-dd HH:mm:ss')!;
+      let fechaObjC = new Date(cierre.value);
+      fechaFormateadaC = this.datePipe.transform(fechaObjC, 'yyyy-MM-dd HH:mm:ss')!;
+
+      const id = this.activeRoute.snapshot.paramMap.get('id');
+
+      const formData = new FormData();
+      formData.append('nombre' , this.formGrupos.value.nombre),
+      formData.append('apertura' , fechaFormateadaA),
+      formData.append('cierre' , fechaFormateadaC),
+      formData.append('grupo_id' , id!)
+
+      const checkboxes = document.querySelectorAll<HTMLInputElement>('table input[type="checkbox"]');
+      const userCells = document.querySelectorAll('table td.user');
+      let checkedUsers: string[] = [];
+      
+      checkboxes.forEach((checkbox, index) => {
+        if (checkbox.checked) {
+          const userCell = userCells[index];
+          const userName = userCell.textContent?.trim();
+          if (userName) {
+            checkedUsers.push(userName);
+          }
+        }
+      });
+      console.log(checkedUsers);
+
+      if(checkedUsers.length === 0){
+        this.toastr.warning('Debes seleccionar al menos un colaborador!', 'Advertencia!');
+        //this.loadColaborador();
+      } else {
+        this.evaluacionService.editarGrupo(formData).subscribe((response) => {
+          if(response.success == true) {
+  
+            console.log(checkedUsers);
+            formData.append('colaborador_id' , checkedUsers.toString())
+            this.evaluacionService.editarDetalleGrupo(formData).subscribe((resp) => {
+            });
+            checkedUsers = [];
+          }
+          this.toastr.success('Grupo actualizado con éxito!', 'Éxito!');
+          setTimeout(() => {
+            this.router.navigate(['dashboard/list-grupos']);
+          }, 1000);
+        });
+      }
+
+
+    // } else {
+    //   this.toastr.warning('Debes seleccionar al menos un colaborador!', 'Advertencia!');
+    // }
   }
 
 }

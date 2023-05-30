@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { ColaboradorService } from './services/colaborador.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,12 @@ export class AppComponent {
   title = 'pcFrontEnd';
   logs:any;
   cont:any = 0;
+  conteo:any = 0;
 
   private inactivityTime: number = 0;
   private readonly MAX_INACTIVITY_TIME: number = 300000; // 5 minutes in milliseconds
   
-  constructor(private datePipe: DatePipe,  private colaboradorService: ColaboradorService, private router: Router) {
+  constructor(private datePipe: DatePipe,  private colaboradorService: ColaboradorService, private router: Router, private toastr: ToastrService,) {
     this.initInactivityTimer();
     this.eliminarSesion();
   }
@@ -27,15 +29,21 @@ export class AppComponent {
   resetInactivityTimer() {
     this.inactivityTime = 0;
   }
-
+  
   private initInactivityTimer() {
     
+    console.log(this.inactivityTime)
     setInterval(() => {
-        this.inactivityTime += 30 * 60 * 1000;
+      
+        this.inactivityTime += 1800000;
         if (this.inactivityTime >= this.MAX_INACTIVITY_TIME) {
-          this.logout();
-        }
-    }, 30 * 60 * 1000);
+          if(this.conteo == 0) {
+            this.conteo = 1;
+            this.toastr.info('Tiempo de inactividad excedido. Cerrando sesión...!', 'Información!');
+            this.logout();
+          }
+        } 
+    }, 1800000);
     
   }
 

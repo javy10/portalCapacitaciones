@@ -3,9 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dtgrupos',
@@ -31,7 +33,8 @@ export class DtgruposComponent implements OnInit{
   constructor(
     private fb:FormBuilder, 
     private _colaboradorService: ColaboradorService, 
-    private evaluacionService: EvaluacionesService
+    private evaluacionService: EvaluacionesService,
+    private toastr: ToastrService,
     ){
     this.formGrupos = this.fb.group({
       'nombre': ['', Validators.required],
@@ -61,11 +64,12 @@ export class DtgruposComponent implements OnInit{
       columnDefs: [
         { "width": "2%", "targets": 0 },
         { "width": "20%", "targets": 1 },
-        { "width": "15%", "targets": 2 },
-        { "width": "20%", "targets": 3 },
-        { "width": "15%", "targets": 4 },
-        { "width": "10%", "targets": 5 },
-        { "width": "25%", "targets": 6 },
+        { "width": "12%", "targets": 2 },
+        { "width": "12%", "targets": 3 },
+        { "width": "12%", "targets": 4 },
+        { "width": "12%", "targets": 5 },
+        { "width": "12%", "targets": 6 },
+        { "width": "8%", "targets": 7 },
       ],
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
@@ -87,12 +91,36 @@ export class DtgruposComponent implements OnInit{
     });
   }
 
-  cancelar() {
-    
-  }
-
-  eliminar(item: any) {
-
+  eliminar(datos: any) {
+    console.log(datos)
+    Swal.fire({
+      title: 'Estás seguro de eliminar éste grupo?',
+      text: "El grupo ya no aparecera en el Portal de Capacitaciones!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, seguro!',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        new Promise(resolve => resolve(this.evaluacionService.eliminar(datos.grupo_id).subscribe((response) => {
+          if(response.success == true) {
+            this.toastr.success('Grupo eliminado con éxito!', 'Éxito!');
+          }
+          setTimeout(() => {
+            this.loadGrupos();
+            window.location.reload();
+          }, 2000);
+        })));
+      }
+    });
   }
 
   cargar() {

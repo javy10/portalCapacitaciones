@@ -127,7 +127,7 @@
                                                 <td >{{ item.nombres }} {{ item.apellidos }}</td>
                                                 <td>{{ item.agencia}}</td>
                                                 <td>{{ item.cargo  }}</td>
-                                                <td><input id="inputCheck" type="checkbox" (change)="handleCheckboxChange($event)" [checked]="resultados.includes(item.id)"></td>
+                                                <td><input id="inputCheck" type="checkbox" (change)="handleCheckboxChange($event)"  [checked]="datos.includes(item.id)" formControlName="check"></td>
                                             </tr>
                                             <tr *ngIf="listaColaboradores.length === 0">
                                                 <td colspan="5" style="text-align: center;">No hay registros</td>
@@ -139,7 +139,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary cancelar" (click)="cancelar()">Cancelar</button>
                                 <button type="submit" id="btnAceptar" class="btn btn-success" (click)="guardar()" [disabled]="!formGrupos.valid">Guardar grupo</button>
-                                <button type="submit" id="btnActualizar" class="btn btn-success" (click)="editar()" [disabled]="!formGrupos.valid">Actualizar grupo</button>
+                                <button type="submit" id="btnActualizar" class="btn btn-success" (click)="editar()" >Actualizar grupo</button>
                             </div>
                         </form>
                     </div>

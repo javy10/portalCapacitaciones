@@ -46,6 +46,7 @@ import { GrupoComponent } from './grupo/grupo.component';
 import { ListgrupoComponent } from './listgrupo/listgrupo.component';
 import { DtgrupoComponent } from './datatable/dtgrupo/dtgrupo.component';
 import { PreguntasComponent } from './preguntas/preguntas.component';
+import { QuizComponent } from './quiz/quiz.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { PreguntasComponent } from './preguntas/preguntas.component';
     GrupoComponent,
     ListgrupoComponent,
     DtgrupoComponent,
-    PreguntasComponent
+    PreguntasComponent,
+    QuizComponent
   ],
   exports: [
     DashboardComponent,

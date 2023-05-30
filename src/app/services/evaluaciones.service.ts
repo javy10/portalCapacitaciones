@@ -84,5 +84,28 @@ export class EvaluacionesService {
     return this.http.get<any>(this.url+'/obtenerColaboradoresGrupoID/'+id)
   }
 
+  editarGrupo(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/editarGrupo', datos);
+  }
+
+  editarDetalleGrupo(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/editarDetalleGrupo', datos);
+  }
+
+  eliminar(id: number): Observable<any> {
+    return this.http.get<any>(this.url +'/eliminarGrupo/'+id)
+  }
+
+  obtenerPreguntas(id: number): Observable<any> {
+    console.log(id)
+    return this.http.get<any>(this.url+'/obtenerPreguntasQuiz/'+id)
+  }
+
+  obtenerRespuestas(id: number): Observable<any> {
+    console.log(id)
+    return this.http.get<any>(this.url+'/obtenerRespestasQuiz/'+id)
+  }
 
 }
