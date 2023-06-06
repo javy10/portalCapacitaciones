@@ -64,6 +64,8 @@ export class EvaluacionComponent implements OnInit{
     console.log(this.datosPregunta)
   }
 
+  
+
   guardarEvaluacion(){
     console.log(this.datosPregunta)
     console.log(this.datosGrupo)
@@ -83,6 +85,7 @@ export class EvaluacionComponent implements OnInit{
         this.evaluacionesServices.editarEvaluacionDetalleGrupo(formData).subscribe((resp) => {
           if(resp.success) {
             this.toastr.success('Evaluación creada con éxito!', 'Éxito!');
+            
           }
           setTimeout(() => {
             this.router.navigate(['/dashboard/list-evaluaciones']);

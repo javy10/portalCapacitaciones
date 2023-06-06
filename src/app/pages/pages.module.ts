@@ -47,6 +47,8 @@ import { ListgrupoComponent } from './listgrupo/listgrupo.component';
 import { DtgrupoComponent } from './datatable/dtgrupo/dtgrupo.component';
 import { PreguntasComponent } from './preguntas/preguntas.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { DtevaluacionesdeshabilitadasComponent } from './datatable/dtevaluacionesdeshabilitadas/dtevaluacionesdeshabilitadas.component';
+import { ListevaluacionesdeshabilitadosComponent } from './listevaluacionesdeshabilitados/listevaluacionesdeshabilitados.component';
 
 
 @NgModule({
@@ -89,7 +91,9 @@ import { QuizComponent } from './quiz/quiz.component';
     ListgrupoComponent,
     DtgrupoComponent,
     PreguntasComponent,
-    QuizComponent
+    QuizComponent,
+    DtevaluacionesdeshabilitadasComponent,
+    ListevaluacionesdeshabilitadosComponent
   ],
   exports: [
     DashboardComponent,

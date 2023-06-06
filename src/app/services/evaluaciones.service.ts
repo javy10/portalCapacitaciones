@@ -43,6 +43,10 @@ export class EvaluacionesService {
     return this.http.get(this.url+'/obtenerEvaluaciones');
   }
 
+  getEvaluacionesDeshabilitadas(): Observable<any> {
+    return this.http.get(this.url+'/obtenerEvaluacionesDeshabilitadas');
+  }
+
   getTipoPregunta(): Observable<any> {
     return this.http.get(this.url+'/obtenerTipoPregunta');
   }
@@ -102,10 +106,38 @@ export class EvaluacionesService {
     console.log(id)
     return this.http.get<any>(this.url+'/obtenerPreguntasQuiz/'+id)
   }
-
+  
   obtenerRespuestas(id: number): Observable<any> {
     console.log(id)
     return this.http.get<any>(this.url+'/obtenerRespestasQuiz/'+id)
   }
+  
+  getObtenerRespuestaCorrecta(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/obtenerRespuestaCorrecta', datos);
+  }
+  
+  saveResultadopreguntas(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/guardarResultadoPreguntas', datos);
+  }
+
+  getObtenerDetalleGrupoEvaluacion(id: number): Observable<any> {
+    console.log(id)
+    return this.http.get<any>(this.url+'/obtenerDetalleGrupoEvaluacion/'+id)
+  }
+
+  editarIntentosEvaluacion(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post<any>(this.url+'/editarIntentosEvaluacion', datos)
+  }
+
+  habilitarEvaluacion(id: any): Observable<any> {
+    console.log(id)
+    return this.http.get(this.url+'/habilitarEvaluacion/'+id);
+  }
+
+
+
 
 }

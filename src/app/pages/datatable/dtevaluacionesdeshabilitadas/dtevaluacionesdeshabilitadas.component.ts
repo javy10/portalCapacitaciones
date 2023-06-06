@@ -5,27 +5,23 @@ import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-dtevaluaciones',
-  templateUrl: './dtevaluaciones.component.html',
-  styleUrls: ['./dtevaluaciones.component.css']
+  selector: 'app-dtevaluacionesdeshabilitadas',
+  templateUrl: './dtevaluacionesdeshabilitadas.component.html',
+  styleUrls: ['./dtevaluacionesdeshabilitadas.component.css']
 })
-export class DtevaluacionesComponent implements OnInit {
+export class DtevaluacionesdeshabilitadasComponent implements OnInit {
 
-  /* Estas son propiedades de la clase `DtdocumentosComponent` en una aplicación Angular. */
-  listaEvaluaciones:any=[];
+  listaEvaluacionesDeshabilitadas:any=[];
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   data: any;
   isLoading = false;
-  evaluacion:any;
-  n_preguntas:any = 0;
-  idEvaluacion:any;
 
-  constructor(private evaluacionesService: EvaluacionesService, private toastr: ToastrService,) {}
+  constructor(private evaluacionesService: EvaluacionesService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    //this.Id = localStorage.getItem('id')!;
     this.dtOptions = {
+      //data: this.loadEvaluacionesDeshabilitadas()!,
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -42,24 +38,25 @@ export class DtevaluacionesComponent implements OnInit {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
       }
     };
-    this.loadEvaluaciones();
+    this.loadEvaluacionesDeshabilitadas();
+    
   }
 
-  loadEvaluaciones() {
+  loadEvaluacionesDeshabilitadas() {
     //this.obtenerConteo();
     this.isLoading = true;
-    this.evaluacionesService.getEvaluaciones().subscribe((data: any) => {
+    this.evaluacionesService.getEvaluacionesDeshabilitadas().subscribe((data: any) => {
       
       
       for(let item of data.dataDB){
         //console.log(item.id)
-        this.evaluacionesService.getConteoPreguntas(item.id).subscribe((data: any) => {
+        this.evaluacionesService.getConteoPreguntas(item.id).subscribe((item: any) => {
           
         });
       }
       
-      this.listaEvaluaciones = data.dataDB;
-      console.log(this.listaEvaluaciones)
+      this.listaEvaluacionesDeshabilitadas = data.dataDB;
+      console.log(this.listaEvaluacionesDeshabilitadas)
 
       this.isLoading = false;
       setTimeout(() => {
@@ -69,17 +66,10 @@ export class DtevaluacionesComponent implements OnInit {
   
   }
 
-  // obtenerConteo() {
-  //   this.evaluacionesService.getConteoPreguntas(this.idEvaluacion).subscribe((data: any) => {
-
-  //   });
-  // }
-
-  eliminarEvaluacion(datos: any) {
-    console.log(datos)
+  habilitar(id: number) {
     Swal.fire({
-      title: 'Estás seguro de eliminar ésta evaluación?',
-      text: "La evaluación ya no aparecera en el Portal de Capacitaciones!",
+      title: 'Estás seguro de habilitar ésta evaluación?',
+      text: "La evaluación aparecerá en el Portal de Capacitaciones nuevamente!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -94,14 +84,19 @@ export class DtevaluacionesComponent implements OnInit {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        this.evaluacionesService.eliminarEvaluacion(datos.id).subscribe((response) => {
-          if(response.success == true) {
-            this.toastr.success('Evaluación eliminada con éxito!', 'Éxito!');
-            this.loadEvaluaciones();
+        this.evaluacionesService.habilitarEvaluacion(id).subscribe((res: any) => {
+          if(res.success == true) {
+            this.toastr.success('Evaluación habilitada con éxito!', 'Éxito!');
+            this. loadEvaluacionesDeshabilitadas();
+          } else {
+            this.toastr.error('A ocurrido un error no controlado!', 'Error!');
           }
         });
       }
     });
   }
+
+
+
 
 }

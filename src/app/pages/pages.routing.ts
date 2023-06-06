@@ -27,6 +27,7 @@ import { ListgrupoComponent } from './listgrupo/listgrupo.component';
 import { GrupoComponent } from './grupo/grupo.component';
 import { PreguntasComponent } from './preguntas/preguntas.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { ListevaluacionesdeshabilitadosComponent } from './listevaluacionesdeshabilitados/listevaluacionesdeshabilitados.component';
 
 const routes: Routes = [
     {
@@ -63,6 +64,7 @@ const routes: Routes = [
           { path: 'pregunta/:id', component: PreguntasComponent},
           { path: 'pregunta', component: PreguntasComponent},
           { path: 'quiz', component: QuizComponent},
+          { path: 'evaluaciones-deshabilitadas', component: ListevaluacionesdeshabilitadosComponent},
         ]
     },
 ];

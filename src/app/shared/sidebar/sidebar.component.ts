@@ -4,7 +4,10 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
+import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
 import { MenuService } from 'src/app/services/menu.service';
+
+
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +18,13 @@ export class SidebarComponent implements OnInit {
 
  
 
-  constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe, private menuService: MenuService) {
+  constructor(
+    public colaboradorService: ColaboradorService, 
+    private documentoService: DocumentoService,  
+    private router: Router,
+    private datePipe: DatePipe, 
+    private menuService: MenuService, 
+    private evaluacionService: EvaluacionesService) {
 
   }
 
@@ -33,6 +42,8 @@ export class SidebarComponent implements OnInit {
   Puser: any = [];
   pdfNombre!: string;
   fecha: any;
+  fechaActual = new Date();
+  habilitarEvaluacion:any = false;
 
 // users
   ucargo_id:any;
@@ -45,6 +56,8 @@ export class SidebarComponent implements OnInit {
   idDepar:any;
   idUser:any;
   idMenu:any;
+
+  listaDetalleEvaluacion:any = [];
   
   /**
    * La función ngOnInit recupera la identificación del usuario del almacenamiento local, obtiene sus
@@ -62,6 +75,7 @@ export class SidebarComponent implements OnInit {
     })));
     this.listarDocumentos();
     this.loadDetalle();
+    this.obtenerDetalleEvaluacion();
     //this.obtenerPermisos();
   }
   
@@ -150,5 +164,31 @@ export class SidebarComponent implements OnInit {
       });
     });
   }
-  
+
+  obtenerDetalleEvaluacion() {
+    const Id = localStorage.getItem('id');
+
+    this.evaluacionService.getObtenerDetalleGrupoEvaluacion(parseInt(Id!)).subscribe((res) => {
+      this.listaDetalleEvaluacion = res.dataDB;
+      console.log(this.listaDetalleEvaluacion)
+      console.log(this.fechaActual)
+
+      const fechaDB = this.fechaActual;
+      const fecha = new Date(fechaDB);
+      const fechaFormateada = this.datePipe.transform(fecha, 'yyyy-MM-dd HH:mm:ss');
+      console.log(fechaFormateada);
+
+      for (let index = 0; index < this.listaDetalleEvaluacion.length; index++) {
+        //const element = this.listaDetalleEvaluacion[index];
+        if(fechaFormateada! >= this.listaDetalleEvaluacion[index].apertura && fechaFormateada! <= this.listaDetalleEvaluacion[index].cierre && this.listaDetalleEvaluacion[index].intentos > 0) {
+          console.log('Hola')
+          this.habilitarEvaluacion = true;
+        } else {
+          this.habilitarEvaluacion = false;
+        }
+         
+      }
+    });
+  }
+   
 }

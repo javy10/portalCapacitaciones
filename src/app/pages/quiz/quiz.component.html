@@ -1,13 +1,20 @@
+<div class="mx-auto loader" *ngIf="isLoading">
+    <div class="orbe" style="--index: 0"></div>
+    <div class="orbe" style="--index: 1"></div>
+    <div class="orbe" style="--index: 2"></div>
+    <div class="orbe" style="--index: 3"></div>
+    <div class="orbe" style="--index: 4"></div>
+</div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="card ">
+        <div *ngIf="!isLoading" class="card ">
             <div class="card-body ">
                 <h5 class="card-title text-center">Evaluación</h5>
-                <div class="form" id="myForm">
+                <div  class="form" id="myForm">
                     <div class="row">
-                        <div #container class="container">
+                        <div  #container class="container">
                             <div class="card cardStyle m-4" *ngFor="let pregunta of listadoPreguntas; let i = index;">
-                                <div class="card-body">
+                                <div  class="card-body">
                                     <h5 class="card-title">{{ pregunta.valorPregunta }}</h5>
                                     <ng-container
                                         *ngIf="pregunta.tipoPregunta_id == 1 || pregunta.tipoPregunta_id == 2; else checkboxSection">
@@ -37,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button class="btn btn-success" (click)="guardarRespuestas()" *ngIf="listadoPreguntas">Guardar Quiz</button>
+                                <button type="button" class="btn btn-success" id="btnGuardarQuiz" (click)="guardarRespuestas()" *ngIf="listadoPreguntas">Guardar respuestas</button>
                             </div>
                         </div>
                     </div>
