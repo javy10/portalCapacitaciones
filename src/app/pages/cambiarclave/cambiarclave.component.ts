@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Swal from 'sweetalert2';
 
@@ -15,7 +16,7 @@ export class CambiarclaveComponent implements OnInit{
 
   formUser!: FormGroup;
   
-  constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute, private toastr: ToastrService) {
     this.formUser = this.fb.group({
       'clave': ['', Validators.required],
       
@@ -42,7 +43,7 @@ export class CambiarclaveComponent implements OnInit{
     if(password.value == confirm_password.value) {
       const formData = new FormData();
       formData.append('clave', password.value)
-      formData.append('id', id!)
+      formData.append('colaborador_id', id!)
   
       Swal.fire({
         title: 'Seguro/a que quieres cambiar la contraseña?',
@@ -57,22 +58,28 @@ export class CambiarclaveComponent implements OnInit{
         if (result.isConfirmed) {
           new Promise(resolve => resolve(this.colaboradorService.editarPassword(formData).subscribe((response) => {
             console.log(response);
-            Swal.fire(
-              'Contraseña actualizada!',
-              'Inicia sesión con la nueva contraseña',
-              'success'
-            )
-            //this.logout();
+            // Swal.fire(
+            //   'Contraseña actualizada!',
+            //   'Inicia sesión con la nueva contraseña',
+            //   'success'
+            // )
+            this.toastr.success('Contraseña actualizada... Ya puedes iniciar sesión con la nueva contraseña', 'Éxito!');
+            setTimeout(() => {
+              this.logout();
+              //window.location.reload();
+            }, 1000);
           })));
         }
       })
     } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Las contraseñas no coinciden',
-        footer: '<a href="">Inténtalo nuevamente</a>'
-      })
+      // Swal.fire({
+      //   icon: 'error',
+      //   title: 'Oops...',
+      //   text: 'Las contraseñas no coinciden',
+      //   footer: '<a href="">Inténtalo nuevamente</a>'
+      // })
+
+      this.toastr.error('Las contraseñas no coinciden... Inténtalo nuevamente', 'Error!');
     }
   }
 

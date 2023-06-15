@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
 import { MenuService } from 'src/app/services/menu.service';
@@ -29,7 +30,7 @@ export class ConfiguracionComponent implements OnInit {
   
 
 
-  constructor(public fb:FormBuilder, private router: Router, private activeRoute: ActivatedRoute, private colaboradorService: ColaboradorService, private documentoService: DocumentoService, private menuService: MenuService) {
+  constructor(public fb:FormBuilder, private router: Router, private activeRoute: ActivatedRoute, private colaboradorService: ColaboradorService, private documentoService: DocumentoService, private menuService: MenuService, private toastr: ToastrService,) {
     this.formConfiguracion = this.fb.group({
       'menu': ['', Validators.required],
       'cargo': ['', Validators.required],
@@ -94,6 +95,7 @@ export class ConfiguracionComponent implements OnInit {
   async loadColaboradores() {
     return  await new Promise(resolve => resolve( this.colaboradorService.getCollaborator().subscribe((data: any) => {
       this.listaColaborador = data.dataDB;
+      console.log(this.listaColaborador)
     })));
   }
 
@@ -109,48 +111,54 @@ export class ConfiguracionComponent implements OnInit {
 
   guardar() {
     
-    const tipo = document.querySelector('input[name="tipo"]:checked') as HTMLInputElement;
+    const tipo = document.querySelector('input[name="cargo"]:checked') as HTMLInputElement;
+    const tipoColaborador = document.querySelector('input[name="colaborador"]:checked') as HTMLInputElement;
     let idCargo = 0;
     let idColab = 0, idDepart = 0;
 
+    const formData = new FormData();
+    console.log(tipo.value)
+    console.log(tipo.value)
     if(tipo.value == '1') {
       const combo = document.getElementById('cargoSelect') as HTMLSelectElement;
       idCargo = this.formConfiguracion.value.cargoSelect;
       idDepart = this.formConfiguracion.value.departamento;
+      formData.append('menu_id', this.formConfiguracion.value.menu),
+      formData.append('tipoPermisoMenu_id', tipo.value == '1' ? tipo.value : tipoColaborador.value),
+      formData.append('departamento_id', idDepart.toString()),
+      formData.append('cargo_id', idCargo.toString())
 
-    } else if(tipo.value == '2') {
+    } else if(tipoColaborador.value == '2') {
       const comboC = document.getElementById('colaboradorSelect') as HTMLSelectElement;    
       idColab = this.formConfiguracion.value.colaboradorSelect;
+      console.log(idColab)
+      formData.append('menu_id', this.formConfiguracion.value.menu),
+      formData.append('colaborador_id', idColab.toString())
     }
 
-    const formData = new FormData();
-    formData.append('menu_id', this.formConfiguracion.value.menu),
-    formData.append('tipoPermisoMenu_id', tipo.value),
-    formData.append('departamento_id', idDepart.toString()),
-    formData.append('cargo_id', idCargo.toString()),
-    formData.append('colaborador_id', idColab.toString()),
 
-    console.log(this.formConfiguracion.value.menu)
-    console.log(tipo.value)
-    console.log(idDepart.toString())
-    console.log(idCargo.toString())
-    console.log(idColab.toString())
+    // console.log(this.formConfiguracion.value.menu)
+    // console.log(tipo.value)
+    // console.log(idDepart.toString())
+    // console.log(idCargo.toString())
+    // console.log(idColab.toString())
 
     this.menuService.savePermisos(formData).subscribe((res) => {
       console.log(res)
       if(res.success) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Configuración registrada con éxito',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          },
-          showConfirmButton: false,
-          timer: 1500
-        })
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: 'Configuración registrada con éxito',
+        //   showClass: {
+        //     popup: 'animate__animated animate__fadeInDown'
+        //   },
+        //   hideClass: {
+        //     popup: 'animate__animated animate__fadeOutUp'
+        //   },
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // });
+        this.toastr.success('Configuración registrada con éxito!', 'Éxito!');
       }
       this.router.navigate(['/dashboard/list-configuracion']);
 
@@ -273,27 +281,28 @@ export class ConfiguracionComponent implements OnInit {
     formData.append('permisoMenu_id', this.idPermisoMenu.toString()),
     formData.append('idconfig', this.idconfig.toString()),
 
-    console.log(this.formConfiguracion.value.menu)
-    console.log(tipo.value)
-    console.log(idDepart.toString())
-    console.log(idCargo.toString())
-    console.log(idColab.toString())
+    // console.log(this.formConfiguracion.value.menu)
+    // console.log(tipo.value)
+    // console.log(idDepart.toString())
+    // console.log(idCargo.toString())
+    // console.log(idColab.toString())
 
     this.menuService.editarPermisos(formData).subscribe((res) => {
       console.log(res)
       if(res.success) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Configuración actualizada con éxito',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          },
-          showConfirmButton: false,
-          timer: 1500
-        })
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: 'Configuración actualizada con éxito',
+        //   showClass: {
+        //     popup: 'animate__animated animate__fadeInDown'
+        //   },
+        //   hideClass: {
+        //     popup: 'animate__animated animate__fadeOutUp'
+        //   },
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // });
+        this.toastr.success('Configuración actualizada con éxito!', 'Éxito!');
       }
       this.router.navigate(['/dashboard/list-configuracion']);
 

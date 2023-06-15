@@ -14,6 +14,8 @@ export class PagesComponent implements OnInit{
 
   ngOnInit(): void {
     console.log(this.path)
+
+    
   }
 
   enviarDatos(datos: any) {

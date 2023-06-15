@@ -96,8 +96,8 @@
     <form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="login()" id="loginForm" novalidate>
         <div class="con">
             <header class="head-form">
-                <h2>Bienvenidos</h2>
-                <p>Portal de Capacitaciones</p>
+                <h2>Bienvenid@s</h2>
+                <p>*Portal de Capacitaciones*</p>
             </header>
             <br />
             <div class="field-set">
@@ -113,7 +113,7 @@
                 <button class="log-in" type="submit" id="login">Iniciar Sesión</button>
             </div>
             <div class="other">
-                <a class="btn submits frgt-pass" >¿Olvidaste la contraseña?</a>
+                <a class="btn submits frgt-pass" (click)="reset()">¿Olvidaste la contraseña?</a>
             </div>
         </div>
     </form>

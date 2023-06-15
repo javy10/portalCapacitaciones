@@ -1096,6 +1096,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s;
   border-top: 1px solid #cddfff;
   clear: both;
+  height: 60px; /* Altura del footer */
 
 }
 .footer .copyright {
@@ -1109,10 +1110,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #012970;
 }
 
-/* footer .copyright .credits {
-  position: fixed;
-  text-align: center;
-  bottom: 0;
-  width: 100%;
-} */
+
+.contenedor {
+  min-height: 100%;
+  margin-bottom: -60px; /* Altura del footer */
+}
 

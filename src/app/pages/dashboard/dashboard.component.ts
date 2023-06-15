@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit{
         console.log(this.listaDocumentos)
       })));
     })));
-  }
+  } 
   obtenerPermisos() {
     new Promise(resolve => resolve(this.documentoService.getPermisos().subscribe((res) => {
       console.log(res.dataDB);

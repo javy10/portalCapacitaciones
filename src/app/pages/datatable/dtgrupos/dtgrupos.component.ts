@@ -85,9 +85,11 @@ export class DtgruposComponent implements OnInit{
       this.listaGrupos = data.dataDB;
       console.log(this.listaGrupos)
       this.isLoading = false;
-      setTimeout(() => {
-          this.dtTrigger.next(0);
-      }, 1000);
+      if(this.listaGrupos.length != 0) {
+        setTimeout(() => {
+            this.dtTrigger.next(0);
+        }, 1000);
+      }
     });
   }
 

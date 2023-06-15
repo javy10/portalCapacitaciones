@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-heading">Principal</li>
         <li class="nav-item">
-            <a class="nav-link collapsed" routerLink="/">
+            <a class="nav-link collapsed" routerLink="/dashboard">
             <i class="bi bi-grid"></i>
             <span>Dashboard</span>
             </a>
@@ -75,6 +75,16 @@
                         <i class="bi bi-circle"></i><span>Listado de evaluaciones deshabilitadas</span>
                     </a>
                 </li>
+                <li>
+                    <a routerLink="/dashboard/list-intentos">
+                        <i class="bi bi-circle"></i><span>Listado de intentos de colaboradores</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/dashboard/list-resultados-evaluacion">
+                        <i class="bi bi-circle"></i><span>Resultados de evaluación</span>
+                    </a>
+                </li>
             </ul>
         </li>
 
@@ -91,12 +101,27 @@
             </ul>
         </li>
 
-        <li class="nav-heading">Evaluaciones</li>
-        <li class="nav-item" >
+        <li class="nav-heading" *ngIf="habilitarEvaluacion">Evaluaciones</li>
+
+       <li class="nav-item" *ngIf="habilitarEvaluacion">
+            <a class="nav-link collapsed" data-bs-target="#evaluacion-nav" data-bs-toggle="collapse" href="#" *ngIf="habilitarEvaluacion">
+              <i class="bi bi-check2-square"></i><span *ngIf="habilitarEvaluacion">Evaluaciones a realizar</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+
+            <ul id="evaluacion-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngFor="let data of listadoEvaluaciones; let i = index; ">
+                <li >
+                    <a (click)="cargarQuiz(data)" *ngIf="data.colaborador_id == id && data.intentos > 0">
+                        <i class="bi bi-circle"></i><span>{{ data.nombre }}</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- <li class="nav-item" >
           <a class="nav-link collapsed" routerLink="/dashboard/quiz" *ngIf="habilitarEvaluacion">
             <i class="bi bi-check2-square"></i><span>Evaluación</span>
           </a>
-      </li>
+        </li> -->
 
     </ul>
 </aside><!-- End Sidebar-->

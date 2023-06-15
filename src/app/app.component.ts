@@ -54,6 +54,7 @@ export class AppComponent {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
     localStorage.removeItem('logeado');
+    localStorage.removeItem('idUserResetPass');
     this.router.navigate(['/login']);
 
   }
@@ -85,4 +86,13 @@ export class AppComponent {
       });
     }
   }
+
+  ngOnInit(): void {
+    
+  }
+
+
+
+
+
 }

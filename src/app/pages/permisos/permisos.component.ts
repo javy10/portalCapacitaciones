@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
 import Swal from 'sweetalert2';
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
 export class PermisosComponent implements OnInit {
 
   constructor(private documentoService:DocumentoService, private colaboradorService: ColaboradorService, 
-    private fb:FormBuilder, private activeRoute: ActivatedRoute, private router: Router) {
+    private fb:FormBuilder, private activeRoute: ActivatedRoute, private router: Router, private toastr: ToastrService,) {
     this.formPermiso = this.fb.group({
       'departamento': ['', Validators.required],
       'colaborador': ['', Validators.required],
@@ -118,15 +119,18 @@ export class PermisosComponent implements OnInit {
     const id = this.activeRoute.snapshot.paramMap.get('id');
     let today = new Date().toLocaleString();
     const tipo = document.querySelector('input[name="tipo"]:checked') as HTMLInputElement;
+    const tipoColaborador = document.querySelector('input[name="colaborador"]:checked') as HTMLInputElement;
     let nombreDepar = '', idDepar = 0;
     let nombreColab = '', idColab = 0;
 
-    if(tipo.value == '1') {
+    console.log(tipo.value)
+
+    if(tipo.value == '1' && tipo.value != null) {
       const combo = document.getElementById('departamentoSelec') as HTMLSelectElement;
       const nombreCombo = combo.options[combo.selectedIndex].text;
       nombreDepar = nombreCombo;
       idDepar = this.formPermiso.value.departamentoSelect;
-    } else if(tipo.value == '2') {
+    } else if(tipoColaborador.value == '2') {
       const comboC = document.getElementById('colaboradorSelec') as HTMLSelectElement;
       const nombreComboC = comboC.options[comboC.selectedIndex].text;
       nombreColab = nombreComboC;
@@ -135,7 +139,7 @@ export class PermisosComponent implements OnInit {
 
     this.permiso = {
       'documento_id': id,
-      'tipoPermiso_id': tipo.value,
+      'tipoPermiso_id': tipo.value == '1' ? tipo.value : tipoColaborador.value,
       'departamento_id': idDepar,
       'colaborador_id': idColab,
       'fechaRegistro': today,
@@ -305,27 +309,30 @@ export class PermisosComponent implements OnInit {
   
       });
       
-        Swal.fire({
-          //position: 'center',
-          icon: 'success',
-          title: 'Permiso actualizado con éxito',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          },
-          showConfirmButton: false,
-          timer: 1500,
-          didOpen: () => {
-            Swal.showLoading()
-          },
-          willClose: () => {
+        // Swal.fire({
+        //   //position: 'center',
+        //   icon: 'success',
+        //   title: 'Permiso actualizado con éxito',
+        //   showClass: {
+        //     popup: 'animate__animated animate__fadeInDown'
+        //   },
+        //   hideClass: {
+        //     popup: 'animate__animated animate__fadeOutUp'
+        //   },
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        //   didOpen: () => {
+        //     Swal.showLoading()
+        //   },
+        //   willClose: () => {
             
-            this.router.navigate(['dashboard/list-permisos']);
-            //window.location.reload();
-          }
-        });
+        //     this.router.navigate(['dashboard/list-permisos']);
+        //     //window.location.reload();
+        //   }
+        // });
+
+        this.toastr.success('Permiso actualizado con éxito!', 'Éxito!');
+        this.router.navigate(['dashboard/list-permisos']);
       
     });
 

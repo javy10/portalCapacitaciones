@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Colaborador } from 'src/app/interfaces/colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Swal from 'sweetalert2';
@@ -31,7 +32,7 @@ export class PerfilComponent implements OnInit {
   nombreUser:any;
   cargoUser:any;
 
-  constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute, private toastr: ToastrService,) {
 
     this.formUser = this.fb.group({
       'dui': ['', Validators.required],
@@ -41,7 +42,7 @@ export class PerfilComponent implements OnInit {
       'departamento': ['', Validators.required],
       'cargo': ['', Validators.required],
       'telefono': ['', Validators.required],
-      'correo': ['', [Validators.required, Validators.email]],
+      'email': ['', [Validators.required, Validators.email]],
       // 'foto': ['']
     })
 
@@ -68,8 +69,8 @@ export class PerfilComponent implements OnInit {
   get telefono() {
     return this.formUser.get('telefono') as FormControl;
   }
-  get correo() {
-    return this.formUser.get('correo') as FormControl;
+  get email() {
+    return this.formUser.get('email') as FormControl;
   }
   // get foto() {
   //   return this.formUser.get('foto') as FormControl;
@@ -126,18 +127,21 @@ export class PerfilComponent implements OnInit {
                 this.ngSelectC = res.dataDB.id;
               })));
             });
-            this.colaboradorService.getFotoURL(response.dataDB.foto).subscribe((data: any) => {
-              this.isLoading = false;
-              console.log(data)
-              setTimeout(() => {
-                const imagenPrevisualizacion = document.querySelector("#imagen") as HTMLInputElement;
-                this.imgTamanio = data.size;
-                let binaryData = [];
-                binaryData.push(data); 
-                let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
-                this.imgTamanio == 13 ? imagenPrevisualizacion.src = this.avatar : imagenPrevisualizacion.src = foo;
-              }, 100);
-            });
+
+            if(response.dataDB.foto) {
+              this.colaboradorService.getFotoURL(response.dataDB.foto).subscribe((data: any) => {
+                this.isLoading = false;
+                console.log(data)
+                setTimeout(() => {
+                  const imagenPrevisualizacion = document.querySelector("#imagen") as HTMLInputElement;
+                  this.imgTamanio = data.size;
+                  let binaryData = [];
+                  binaryData.push(data); 
+                  let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
+                  this.imgTamanio == 13 ? imagenPrevisualizacion.src = this.avatar : imagenPrevisualizacion.src = foo;
+                }, 100);
+              });
+            }
           })));
         }
       });
@@ -251,19 +255,20 @@ export class PerfilComponent implements OnInit {
     console.log(formData)
     await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(formData).subscribe((response) => {
         console.log(response);
-        Swal.fire({
-          //position: 'center',
-          icon: 'success',
-          title: 'Colaborador registrado con exito',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          },
-          showConfirmButton: false,
-          timer: 1500
-        })
+        // Swal.fire({
+        //   //position: 'center',
+        //   icon: 'success',
+        //   title: 'Colaborador registrado con exito',
+        //   showClass: {
+        //     popup: 'animate__animated animate__fadeInDown'
+        //   },
+        //   hideClass: {
+        //     popup: 'animate__animated animate__fadeOutUp'
+        //   },
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // })
+        this.toastr.success('Colaborador registrado con éxito!', 'Éxito!');
         this.router.navigate(['/dashboard/list-collaborator']);
     })));
   }
@@ -290,7 +295,7 @@ export class PerfilComponent implements OnInit {
     formData.append('cargo_id', this.formUser.value.cargo),
     formData.append('foto', this.imagen!),
     formData.append('telefono', this.formUser.value.telefono),
-    formData.append('correo', this.formUser.value.correo),
+    formData.append('correo', this.formUser.value.email),
     formData.append('habilitado', 'S'),
     formData.append('ultimoIngreso', '')
     
@@ -300,20 +305,22 @@ export class PerfilComponent implements OnInit {
     //const id = this.activeRoute.snapshot.paramMap.get('id');
     await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(formData).subscribe((response) => {
       console.log(response);
-      Swal.fire({
-        //position: 'center',
-        icon: 'success',
-        title: 'Colaborador actualizado con exito',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        },
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.router.navigate(['/dashboard/list-collaborator']);
+      // Swal.fire({
+      //   //position: 'center',
+      //   icon: 'success',
+      //   title: 'Colaborador actualizado con exito',
+      //   showClass: {
+      //     popup: 'animate__animated animate__fadeInDown'
+      //   },
+      //   hideClass: {
+      //     popup: 'animate__animated animate__fadeOutUp'
+      //   },
+      //   showConfirmButton: false,
+      //   timer: 1500
+      // });
+
+      this.toastr.success('Colaborador actualizado con éxito!', 'Éxito!');
+      //this.router.navigate(['/dashboard/list-collaborator']);
     })));
   }
 

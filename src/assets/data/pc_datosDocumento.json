@@ -1,0 +1,1379 @@
+[
+  {
+    "idDocumento": 1,
+    "titulo": "Ahorros",
+    "descripcionDoc": "Política de ahorros",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:33:03",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 2,
+    "titulo": "Manejo de efectivo de alta denominación",
+    "descripcionDoc": "Política de manejo de efectivo de alta denominación",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:38:38",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 3,
+    "titulo": "Ahorros",
+    "descripcionDoc": "Reglamento de ahorros",
+    "tipoDocumento_id": 2,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:40:03",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 4,
+    "titulo": "Fondo de protección solidario",
+    "descripcionDoc": "Reglamento de fondo de protección solidario",
+    "tipoDocumento_id": 2,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:40:55",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 5,
+    "titulo": "Proceso Interno Operativo",
+    "descripcionDoc": "Manual de proceso interno operativo",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:43:53",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 6,
+    "titulo": "Control interno",
+    "descripcionDoc": "Manual de control interno",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:44:52",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 7,
+    "titulo": "Procedimientos",
+    "descripcionDoc": "Manual de procedimientos",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:45:49",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 8,
+    "titulo": "Servicios colecturía y pagaduría",
+    "descripcionDoc": "Manual de Servicios colecturía y pagaduría",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:46:55",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 9,
+    "titulo": "Punto Express",
+    "descripcionDoc": "Manual de punto express",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:49:22",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 10,
+    "titulo": "Remisión y control de formularios MH",
+    "descripcionDoc": "Manual de Remisión y control de formularios MH",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:50:39",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 11,
+    "titulo": "Creación de tarjeta de crédito",
+    "descripcionDoc": "Manual Creación de tarjeta de crédito",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:52:36",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 12,
+    "titulo": "Monitoreo de alertas de fraude",
+    "descripcionDoc": "Manual de Monitoreo de alertas de fraude",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:53:30",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 13,
+    "titulo": "Personalización de tarjetas de débito",
+    "descripcionDoc": "Personalización de tarjetas de débito",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:56:16",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 14,
+    "titulo": "Procesos para el servicio de tarjeta de débito",
+    "descripcionDoc": "Procesos para el servicio de tarjeta de débito",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:57:32",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 15,
+    "titulo": "Procesos para el servicio de tarjeta de crédito",
+    "descripcionDoc": "Procesos para el servicio de tarjeta de crédito",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 14:59:37",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 16,
+    "titulo": "Fedecaces App",
+    "descripcionDoc": "Fedecaces App",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 15:05:18",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 17,
+    "titulo": "Control interno efectivo",
+    "descripcionDoc": "Control interno efectivo",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 15:06:24",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 18,
+    "titulo": "Expediente único asociado",
+    "descripcionDoc": "Expediente único asociado",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 15:07:51",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 19,
+    "titulo": "Tratamiento de reclamos, quejas y sugerencias",
+    "descripcionDoc": "Tratamiento de reclamos, quejas y sugerencias",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 8,
+    "fechaRegistro": "29/7/2021 15:09:16",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 20,
+    "titulo": "Desembolsos parciales",
+    "descripcionDoc": "Desembolsos parciales",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/7/2021 15:10:07",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 21,
+    "titulo": "Agropecuaria",
+    "descripcionDoc": "Agropecuaria",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:23:52",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 22,
+    "titulo": "MIPYME",
+    "descripcionDoc": "MIPYME",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:26:11",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 23,
+    "titulo": "Medidas temporales a las cuentas de ACACYPAC",
+    "descripcionDoc": "Medidas temporales a las cuentas de ACACYPAC",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:27:45",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 24,
+    "titulo": "Atención a empleados, pensionados y otros",
+    "descripcionDoc": "Atención a empleados, pensionados y otros",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:32:49",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 25,
+    "titulo": "Recuperación",
+    "descripcionDoc": "Recuperación",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:33:48",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 26,
+    "titulo": "Renegociación y aplicación de normas técnicas temporales",
+    "descripcionDoc": "Renegociación y aplicación de normas técnicas temporales",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:34:37",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 27,
+    "titulo": "Técnicas temporales para créditos afectados por COVID 19",
+    "descripcionDoc": "Técnicas temporales para créditos afectados por COVID 19",
+    "tipoDocumento_id": 5,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:36:21",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 28,
+    "titulo": "PROGARA para addendas incluidas",
+    "descripcionDoc": "PROGARA para addendas incluidas",
+    "tipoDocumento_id": 5,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:37:45",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 29,
+    "titulo": "Otorgamiento de créditos con CDP y ahorro programado",
+    "descripcionDoc": "Otorgamiento de créditos con CDP y ahorro programado",
+    "tipoDocumento_id": 2,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:38:50",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 30,
+    "titulo": "Aprobación de crédito",
+    "descripcionDoc": "Aprobación de crédito",
+    "tipoDocumento_id": 2,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:40:08",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 31,
+    "titulo": "Colocación aprobada",
+    "descripcionDoc": "Colocación aprobada",
+    "tipoDocumento_id": 6,
+    "colaborador_id": 25,
+    "fechaRegistro": "29/7/2021 15:41:38",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 32,
+    "titulo": "Liquidez aprobada",
+    "descripcionDoc": "Liquidez aprobada",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 15:45:08",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 33,
+    "titulo": "Manejo de liquidez",
+    "descripcionDoc": "Manejo de liquidez",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 15:46:21",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 34,
+    "titulo": "Adquisiciones y contrataciones",
+    "descripcionDoc": "Adquisiciones y contrataciones",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 15:54:56",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 35,
+    "titulo": "Descripción de puestos por competencia",
+    "descripcionDoc": "Descripción de puestos por competencia",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 16:02:54",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 36,
+    "titulo": "Reclutamiento y selección de personal",
+    "descripcionDoc": "Reclutamiento y selección de personal",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 16:04:08",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 37,
+    "titulo": "Evaluación de desempeño ACACYPAC",
+    "descripcionDoc": "Evaluación de desempeño ACACYPAC",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 16:05:08",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 38,
+    "titulo": "Evaluación de desempeño ACACYPAC",
+    "descripcionDoc": "Evaluación de desempeño ACACYPAC",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 16:06:02",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 39,
+    "titulo": "Evaluación de desempeño ACACYPAC",
+    "descripcionDoc": "Evaluación de desempeño ACACYPAC",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 16:06:51",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 40,
+    "titulo": "Reglamento interno",
+    "descripcionDoc": "Reglamento interno",
+    "tipoDocumento_id": 2,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 16:08:10",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 41,
+    "titulo": "Uso de uniformes",
+    "descripcionDoc": "Uso de uniformes",
+    "tipoDocumento_id": 2,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 16:11:38",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 42,
+    "titulo": "Manejo de numerario",
+    "descripcionDoc": "Manejo de numerario",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 27,
+    "fechaRegistro": "29/7/2021 16:12:21",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 43,
+    "titulo": "Política MIPYME",
+    "descripcionDoc": "Política de créditos vigente 10/11/2021",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "10/11/2021 14:47:54",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 44,
+    "titulo": "Política Especial para el tratamiento de creditos afectados por pandemia COVID-19",
+    "descripcionDoc": "Política especial para la cartera COVID-19 vigente 20/10/2021",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "10/11/2021 18:04:28",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 45,
+    "titulo": "POLITICA AGROPECUARIA MODIFICADA",
+    "descripcionDoc": "Política modificada 10 de noviembre 2021",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "17/11/2021 12:43:33",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 46,
+    "titulo": "POLITICA MIPYME MODIFICADA",
+    "descripcionDoc": "Política MIPYME vigente del 10 de noviembre 2021",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "17/11/2021 13:54:02",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 47,
+    "titulo": "POLITICA PARA ATENCION A EMPLEADOS, PENSIONADOS Y OTROS MODIFICADA",
+    "descripcionDoc": "Política para atencion de empleados vigente desde 10 de noviembre 2021",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "17/11/2021 13:57:20",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 48,
+    "titulo": "ESTRATEGIAS VIGENTES SEGUNDO SEMESTRES 2021",
+    "descripcionDoc": "Estrategias Modificadas vigentes ",
+    "tipoDocumento_id": 6,
+    "colaborador_id": 25,
+    "fechaRegistro": "18/11/2021 07:51:57",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 49,
+    "titulo": "Política de Bienes Recibidos en Pago y Adjudicados",
+    "descripcionDoc": "Adquisición, Administración y Venta de Activos Extraordinarios",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "10/12/2021 15:43:00",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 50,
+    "titulo": "NORMA NRP-19",
+    "descripcionDoc": "Normas Tecnicas paa el registro, obligaciones, y funcionamiento de entidades que realizan operaciones de envio o recepción de dinero a traves de subagentes o administradores de subagentes.",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "14/2/2022 12:08:30",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 51,
+    "titulo": "CONTRATO DE REMESAS",
+    "descripcionDoc": "CONTRATO DE REMESAS",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "17/2/2022 10:51:56",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 52,
+    "titulo": "Anexo 1 Número de Cuenta de Ahorro",
+    "descripcionDoc": "Anexo 1 Número de Cuenta de Ahorro",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "17/2/2022 10:56:37",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 53,
+    "titulo": "Anexo 2 Contactos del Departamento de Remesas 29112021",
+    "descripcionDoc": "Anexo 2 Contactos del Departamento de Remesas 29112021",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "17/2/2022 11:02:13",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 54,
+    "titulo": "Anexo 3 Directorio Subagente",
+    "descripcionDoc": "Anexo 3 Directorio Subagente",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "17/2/2022 11:04:32",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 55,
+    "titulo": "Anexo 4 Modelo Operativo de Negocios",
+    "descripcionDoc": "Anexo 4 Modelo Operativo de Negocios",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "17/2/2022 11:06:22",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 56,
+    "titulo": "Anexo 5 Tabla Comisiones Pagos Remesas Fedecaces-Cooperativas Actualizada",
+    "descripcionDoc": "Anexo 5 Tabla Comisiones Pagos Remesas Fedecaces-Cooperativas Actualizada",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "17/2/2022 11:08:54",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 57,
+    "titulo": "ANEXO 6 - Política CC remesas 2020 aprobada Consejo 2020_mod.13112020",
+    "descripcionDoc": "ANEXO 6 - Política CC remesas 2020 aprobada Consejo 2020_mod.13112020",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "17/2/2022 11:10:49",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 58,
+    "titulo": "ANEXO 7 - MANUAL DE ADMINISTRACION DE LA GESTION DE LIQUIDEZ",
+    "descripcionDoc": "ANEXO 7 - MANUAL DE ADMINISTRACION DE LA GESTION DE LIQUIDEZ",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "17/2/2022 11:12:26",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 59,
+    "titulo": "certificación del SERVICIO DE ENVIO Y RECEPCION DE REMESAS. Doctrina Cooperativista.",
+    "descripcionDoc": "Leer detelladamente.",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "17/2/2022 15:20:46",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 60,
+    "titulo": "Presentación contrato del servicio de remesas",
+    "descripcionDoc": "Favor de lectura al documento.",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "22/2/2022 10:25:53",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 61,
+    "titulo": "Política para el Conocimiento del Cliente -FEDECACES",
+    "descripcionDoc": "Política para el Conocimiento del Cliente  Servicio de Envío y Recepción de Dinero",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 17,
+    "fechaRegistro": "24/2/2022 17:44:23",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 62,
+    "titulo": "Manual de Políticas y Procedimientos  RDC",
+    "descripcionDoc": "Manual de Políticas y Procedimientos para Consulta en Lista de Cautela RDC",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "24/2/2022 17:47:26",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 63,
+    "titulo": "Política Antifraude-FEDECACES",
+    "descripcionDoc": "Política para la Prevención y Detección del Fraude Soborno y Corrupción-Servicio de Envío y Recepción de Dinero",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 17,
+    "fechaRegistro": "24/2/2022 17:55:08",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 64,
+    "titulo": "Protocolo de atención para el servicio de remesas 1",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 6,
+    "fechaRegistro": "25/2/2022 11:55:10",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 65,
+    "titulo": "GUIA DE ENVIO RIA",
+    "descripcionDoc": "Lea el documento",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "25/2/2022 14:28:25",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 66,
+    "titulo": "INTRUCTIVO DE LIBROS DE CONTROL",
+    "descripcionDoc": "El instructivo muestra el proceso para solucionar inconvenientes en libros de control",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 7,
+    "fechaRegistro": "1/3/2022 16:56:19",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 67,
+    "titulo": "MATERIAL MANUAL DE RDC ",
+    "descripcionDoc": "MANUAL RDC",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "5/3/2022 08:11:49",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 68,
+    "titulo": "MATERIAL POLÍTICA ANTIFRAUDE",
+    "descripcionDoc": "POLITICA ANTIFRAUDE",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 17,
+    "fechaRegistro": "5/3/2022 08:14:07",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 69,
+    "titulo": "PROTOCOLOS DE ATENCIÓN PARA EL SERVICIO DE ENVÍO Y RECEPCIÓN DE DINERO 2",
+    "descripcionDoc": "Favor dar lectura completa",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 6,
+    "fechaRegistro": "29/3/2022 10:35:47",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 70,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/5/2022 09:36:10",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 71,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 5,
+    "colaborador_id": 158,
+    "fechaRegistro": "17/5/2022 11:20:00",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 72,
+    "titulo": "Generalidades de remesas",
+    "descripcionDoc": "presentacion de remesas",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "17/5/2022 15:02:36",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 73,
+    "titulo": "Identidad cooperativa",
+    "descripcionDoc": "presentacion de remesas",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "17/5/2022 15:21:24",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 74,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 158,
+    "fechaRegistro": "19/5/2022 13:43:16",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 75,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 158,
+    "fechaRegistro": "19/5/2022 13:46:18",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 76,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 5,
+    "colaborador_id": 158,
+    "fechaRegistro": "20/5/2022 16:40:09",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 77,
+    "titulo": "Contrato de remesas",
+    "descripcionDoc": "lea el contrato de remesas",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "24/5/2022 10:19:07",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 78,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/7/2022 09:21:14",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 79,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/7/2022 10:11:49",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 80,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/7/2022 10:13:14",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 81,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/7/2022 10:14:14",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 82,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/7/2022 10:15:54",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 83,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/7/2022 10:18:46",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 95,
+    "titulo": "Ley Especial Contra Actos de Terrorismo",
+    "descripcionDoc": "Ley Especial Contra Actos de Terrorismo",
+    "tipoDocumento_id": 8,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 16:21:06",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 84,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/7/2022 10:21:04",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 85,
+    "titulo": ".",
+    "descripcionDoc": ".",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 158,
+    "fechaRegistro": "16/7/2022 10:23:22",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 86,
+    "titulo": "Instructivo de control interno de registro de garantías en el sistema informático ",
+    "descripcionDoc": "Instructivo de garantías ",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 8,
+    "fechaRegistro": "19/9/2022 11:49:59",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 87,
+    "titulo": "Ley Contra el Lavado de Dinero y Activos",
+    "descripcionDoc": "Ley Contra el Lavado de Dinero y Activos",
+    "tipoDocumento_id": 8,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 08:34:03",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 88,
+    "titulo": "Reglamento Ley Contra el LDA",
+    "descripcionDoc": "Reglamento Ley Contra el LDA",
+    "tipoDocumento_id": 2,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 09:36:33",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 89,
+    "titulo": "Instructivo de la UIF-Parte I",
+    "descripcionDoc": "Instructivo para la Prevención, Detección y Control del Lavado de Dinero y Activos, Financiación al Terrorismo y Financiación de la Porliferación de Armas de Destrucción Masiva-Acuerdo 380",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 10:08:18",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 90,
+    "titulo": "Instructivo de la UIF-Parte II",
+    "descripcionDoc": "Instructivo para la Prevención, Detección y Control del Lavado de Dinero y Activos, Financiación al Terrorismo y Financiación de la Porliferación de Armas de Destrucción Masiva-Acuerdo 380",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 10:10:57",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 91,
+    "titulo": "Normativa Gestión del Riesgo de LDA/FT -INSAFOCOOP",
+    "descripcionDoc": "Normativa Gestión del Riesgo de LDA/FT -INSAFOCOOP",
+    "tipoDocumento_id": 5,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 10:19:32",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 92,
+    "titulo": "NRP-36 Gestión de los Riesgos de LDA/FT/FPADM",
+    "descripcionDoc": "NRP-36 Normas Técnicas para la Gestión de los Riesgos de LDA/FT/FPADM",
+    "tipoDocumento_id": 5,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 10:22:22",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 93,
+    "titulo": "NRP-19  Servicicio de Envío y Recepción de Dinero",
+    "descripcionDoc": "Normas Técnicas para el Registro, Obligaciones y Funcionamiento de Entidades que Realizan Operaciones de Envío y Recepción de Dinero a través de Subagentes o Administradores de Subagentes",
+    "tipoDocumento_id": 5,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 10:30:04",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 94,
+    "titulo": "Manual para la Prevención del LD/FT",
+    "descripcionDoc": "Manual para la Prevención del LD/FT",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/9/2022 10:35:17",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 96,
+    "titulo": "Migración",
+    "descripcionDoc": "Prueba despues de a migración",
+    "tipoDocumento_id": 6,
+    "colaborador_id": 167,
+    "fechaRegistro": "25/10/2022 08:58:34",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 97,
+    "titulo": "Boletín VIGO-WESTERN UNION ",
+    "descripcionDoc": "Boletín Global de Cumplimiento VIGO-WESTERN UNION y Material de Apoyo enfocado a los delitos: Contrabando y Trata de Personas",
+    "tipoDocumento_id": 9,
+    "colaborador_id": 17,
+    "fechaRegistro": "25/10/2022 14:44:57",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 98,
+    "titulo": "CIRCULAR 001-2022",
+    "descripcionDoc": "CIRCULAR 001-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 16:43:14",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 99,
+    "titulo": "CIRCULAR 001-2022",
+    "descripcionDoc": "CIRCULAR 001-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 16:48:00",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 100,
+    "titulo": "CIRCULAR 002-2022",
+    "descripcionDoc": "CIRCULAR 002-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 16:53:34",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 101,
+    "titulo": "CIRCULAR 003-2022",
+    "descripcionDoc": "CIRCULAR 003-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 16:55:20",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 102,
+    "titulo": "CIRCULAR 004-2022",
+    "descripcionDoc": "CIRCULAR 004-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:32:37",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 103,
+    "titulo": "CIRCULAR 005-2022",
+    "descripcionDoc": "CIRCULAR 005-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:33:41",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 104,
+    "titulo": "CIRCULAR 006-2022",
+    "descripcionDoc": "CIRCULAR 006-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:38:26",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 105,
+    "titulo": "CIRCULAR 007-2022",
+    "descripcionDoc": "CIRCULAR 007-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:39:22",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 106,
+    "titulo": "CIRCULAR 008-2022",
+    "descripcionDoc": "CIRCULAR 008-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:40:26",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 107,
+    "titulo": "CIRCULAR 009-2022",
+    "descripcionDoc": "CIRCULAR 009-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:41:21",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 108,
+    "titulo": "CIRCULAR 010-2022",
+    "descripcionDoc": "CIRCULAR 010-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:42:11",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 109,
+    "titulo": "CIRCULAR 011-2022",
+    "descripcionDoc": "CIRCULAR 011-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:43:10",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 110,
+    "titulo": "CIRCULAR 012-2022",
+    "descripcionDoc": "CIRCULAR 012-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:44:22",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 111,
+    "titulo": "CIRCULAR 013-2022",
+    "descripcionDoc": "CIRCULAR 013-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:45:29",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 112,
+    "titulo": "CIRCULAR 014-2022",
+    "descripcionDoc": "CIRCULAR 014-2022",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "29/11/2022 17:46:59",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 113,
+    "titulo": "PRESENTACIÓN MANUAL DE PREVENCIÓN LD/FT",
+    "descripcionDoc": "Disposiciones del Manual PLD/FT ",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "30/11/2022 14:35:49",
+    "habilitado": "N"
+  },
+  {
+    "idDocumento": 114,
+    "titulo": "POLITICA DE RETENCION Y ATRACCION DE PERFILES AA",
+    "descripcionDoc": "Política para retener y atraer asocioados con record crediticio AA",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "12/1/2023 09:00:03",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 115,
+    "titulo": "POLITICA AGROPECUARIA VIGENTE 2022",
+    "descripcionDoc": "Créditos agropecuarios",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "12/1/2023 09:09:09",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 116,
+    "titulo": "POLITICA MIPIME VIGENTE 2022",
+    "descripcionDoc": "CREDITOS A EMPRESAS",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "12/1/2023 09:13:10",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 117,
+    "titulo": "POLITICA DE ATENCION A EMPLEADOS VIGENTE 2022",
+    "descripcionDoc": "Créditos para consumo",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 25,
+    "fechaRegistro": "12/1/2023 09:17:46",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 118,
+    "titulo": "CIRCULAR 001-2023 ACTUALIZACIÓN DE DATOS.",
+    "descripcionDoc": "CIRCULAR 001-2023 ACTUALIZACIÓN DE DATOS",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "12/1/2023 12:29:46",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 119,
+    "titulo": "Borrador - Manual de Comité de Prevención de LDA/FT/FPADM",
+    "descripcionDoc": "Borrador-Manual de Comité de Prevención de LDA/FT/FPADM",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "1/2/2023 15:13:24",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 120,
+    "titulo": "CIRCULAR 002-2023 NUEVO FORMATO DE HOJA LEGA",
+    "descripcionDoc": "CIRCULAR 002-2023 NUEVO FORMATO DE HOJA LEGA",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "3/2/2023 13:32:26",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 121,
+    "titulo": "CIRCULAR 003-2023 INSTRUCTIVO DE CONTROL INTERNO PARA LA IDENTIFICACIÓN Y FORMALIZACIÓN DE FORMULARIOS",
+    "descripcionDoc": "CIRCULAR 003-2023 INSTRUCTIVO DE CONTROL INTERNO PARA LA IDENTIFICACIÓN Y FORMALIZACIÓN DE FORMULARIOS",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "3/2/2023 13:33:43",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 122,
+    "titulo": "CIRCULAR 004-2023 Formatos estandarización y eliminación de libros manuales",
+    "descripcionDoc": "CIRCULAR 004-2023 Formatos estandarización y eliminación de libros manuales",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "3/2/2023 13:34:46",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 123,
+    "titulo": "INSTRUCTIVO DE CONTROL INTERNO PARA LA IDENTIFICACIÓN Y FORMALIZACIÓN DE FORMULARIOS",
+    "descripcionDoc": "INSTRUCTIVO DE CONTROL INTERNO PARA LA IDENTIFICACIÓN Y FORMALIZACIÓN DE FORMULARIOS",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 7,
+    "fechaRegistro": "3/2/2023 13:37:06",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 124,
+    "titulo": "INSTRUCTIVO DE CONTROL INTERNO PARA LA IDENTIFICACIÓN Y FORMALIZACIÓN DE FORMULARIOS",
+    "descripcionDoc": "INSTRUCTIVO DE CONTROL INTERNO PARA LA IDENTIFICACIÓN Y FORMALIZACIÓN DE FORMULARIOS",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 7,
+    "fechaRegistro": "3/2/2023 13:39:36",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 125,
+    "titulo": "Taller sobre el adecuado registro de información en el perfil del cliente",
+    "descripcionDoc": "Taller sobre el adecuado registro de información en el perfil del cliente",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 7,
+    "fechaRegistro": "16/2/2023 15:24:58",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 126,
+    "titulo": "Boletín -CONOZA SU DINERO- billetes falsos.",
+    "descripcionDoc": "Boletín -CONOZA SU DINERO- billetes falsos.",
+    "tipoDocumento_id": 9,
+    "colaborador_id": 7,
+    "fechaRegistro": "16/2/2023 15:38:49",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 127,
+    "titulo": "Boletín -CONOZA SU DINERO- billetes falsos.",
+    "descripcionDoc": "Boletín -CONOZA SU DINERO- billetes falsos.",
+    "tipoDocumento_id": 9,
+    "colaborador_id": 7,
+    "fechaRegistro": "16/2/2023 15:40:33",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 128,
+    "titulo": "CIRCULAR 005-2023 PROCESO DE CONCILIACIÓN DE INVENTARIOS DE EXPEDIENTES",
+    "descripcionDoc": "CIRCULAR 005-2023 PROCESO DE CONCILIACIÓN DE INVENTARIOS DE EXPEDIENTES",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "27/2/2023 15:15:56",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 129,
+    "titulo": "Manual de Cumplimiento-Western Union",
+    "descripcionDoc": "* Sí bel congreso está enfocado en exponentes solamente o hay actividades como prácticas, competencias o algo sismilar ? *Puedo hacer los pagos con ustedes? y como sería la forma de pago, sí todo de una vez o con anticipo. *Para la compra de boletos ustedes hacen alguna coordinación para comprarlos y que l mayoria vayamos juntas o individualmeente se comrpan? *Sí es que el boleto cada una hace la gestión, ustedes orientan a saber mas o menos en que horario viajar y llegar con todos los tiempos. *Las actividades son de todo el dia? Es que estoy considerando que mi familia pueda llegar allá despues del evennto o sí fuera posible un dia antes pero debo saber detalle sí trabajaremos hasta ya bien tarde. *como ya les comunicaba, he relizado la transferencia para mis certificaciones en abril, no hay problema que en tan poco tiempo me vaya al congreso?",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/2/2023 09:07:17",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 130,
+    "titulo": "NRP-19 Servicicio de Envío y Recepción de Dinero",
+    "descripcionDoc": "NRP-19 Servicicio de Envío y Recepción de Dinero",
+    "tipoDocumento_id": 5,
+    "colaborador_id": 17,
+    "fechaRegistro": "28/2/2023 09:12:25",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 131,
+    "titulo": "Manual de Procedimientos para Envío y Recepción de  Dinero 25-02-2022",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 6,
+    "fechaRegistro": "28/2/2023 11:44:43",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 132,
+    "titulo": "Instructivo_de_actualizacion_de_registro_del_cliente_para_mantener_base_de_datos_vigente",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 6,
+    "fechaRegistro": "28/2/2023 11:52:21",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 133,
+    "titulo": "Politica de quejas y reclamos del servicio de Remesas FEDECACES",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 6,
+    "fechaRegistro": "28/2/2023 11:53:42",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 134,
+    "titulo": "Manual de uso de sistema de quejas y reclamos-perfil referente",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 6,
+    "fechaRegistro": "28/2/2023 11:55:02",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 135,
+    "titulo": "GUIA DE ENVIO RIA",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 6,
+    "fechaRegistro": "28/2/2023 12:11:43",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 136,
+    "titulo": "Contrato del servicio de remesas",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 6,
+    "fechaRegistro": "1/3/2023 10:55:42",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 137,
+    "titulo": "estudio de generalidades de remesas y doctrina cooperativa",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "3/3/2023 15:17:28",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 138,
+    "titulo": "presentacion contrato de remesas",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "3/3/2023 15:24:25",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 139,
+    "titulo": "presentacion politica CC",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "8/3/2023 14:23:10",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 140,
+    "titulo": "Presentacion RDC",
+    "descripcionDoc": "material de apoyo",
+    "tipoDocumento_id": 7,
+    "colaborador_id": 6,
+    "fechaRegistro": "8/3/2023 14:25:04",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 141,
+    "titulo": "Manual para la Prevención, Control y Detección de LDA-FT-FPADM",
+    "descripcionDoc": "Manual para la Prevención, Control y Detección de LDA-FT-FPADM - Actualizado: 14/03/2023",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "27/3/2023 14:59:14",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 142,
+    "titulo": "MANUAL DE PROCEDIMIENTOS DE PREVENCION DE LD-FT-FPADM",
+    "descripcionDoc": "El presente Documento Normativo posee el propósito de brindar al personal de la Cooperativa un conocimiento adecuado de los diferentes procedimientos que se deben aplicar en la debida diligencia; lo anterior, evitará que la Cooperativa sea utilizada como instrumento para el ocultamiento, manejo, inversión o aprovechamiento en cualquier forma, de dinero u otros bienes provenientes de actividades ilícitas.",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "30/3/2023 09:55:30",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 143,
+    "titulo": "CIRCULAR 006-2023 BUQUEDA DE CLIENTE EN LISTAS NEGRAS Y DE CAUTELA",
+    "descripcionDoc": "CLIENTE EN LISTAS NEGRAS Y DE CAUTELA",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "30/3/2023 10:10:50",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 144,
+    "titulo": "PRESENTACIÓN MANUAL DE PREVENCIÓN LD/FT/FPADM",
+    "descripcionDoc": "Material de apoyo para lectura del Manual de PCD de LDA/FT/FPADM",
+    "tipoDocumento_id": 3,
+    "colaborador_id": 17,
+    "fechaRegistro": "30/3/2023 14:50:50",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 145,
+    "titulo": "CIRCULAR 007-2023 PROCESO DE INTEGRIDAD Y ADMINISTRACIÓN DEL EFECTIVO EN LAS AGENCIAS",
+    "descripcionDoc": "CIRCULAR 007-2023 PROCESO DE INTEGRIDAD Y ADMINISTRACIÓN DEL EFECTIVO EN LAS AGENCIAS",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "30/3/2023 18:24:46",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 146,
+    "titulo": "CIRCULAR 008-2023 Modificación de formulario complementario de conocimiento al cliente.",
+    "descripcionDoc": "CIRCULAR 008-2023 Modificación de formulario complementario de conocimiento al cliente.",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "31/3/2023 14:52:06",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 147,
+    "titulo": "CIRCULAR 009-2023 INSTRUCCIONES SORE LA ACTUALIZACION DE DATOS",
+    "descripcionDoc": "CIRCULAR 009-2023 INSTRUCCIONES SORE LA ACTUALIZACION DE DATOS",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "18/4/2023 12:53:25",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 148,
+    "titulo": "CIRCULAR 0010-2023 INSTRUCCIONES SOBRE EL PROCESO DE REGISTRO DE GARANTIAS",
+    "descripcionDoc": "CIRCULAR 0010-2023 INSTRUCCIONES SOBRE EL PROCESO DE REGISTRO DE GARANTIAS",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "18/5/2023 10:01:17",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 149,
+    "titulo": "CIRCULAR 011-2023 Entrega de finiquito por cancelación de préstamos",
+    "descripcionDoc": "CIRCULAR 011-2023 Entrega de finiquito por cancelación de préstamos",
+    "tipoDocumento_id": 10,
+    "colaborador_id": 7,
+    "fechaRegistro": "18/5/2023 10:02:34",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 150,
+    "titulo": "INSTRUCTIVO DE CONTROL INTERNO PARA EL REGISTRO DE GARANTIAS EN EL SISTEMA INFORMATIVO V02-2023",
+    "descripcionDoc": "INSTRUCTIVO DE CONTROL INTERNO PARA EL REGISTRO DE GARANTIAS EN EL SISTEMA INFORMATIVO V02-2023",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 7,
+    "fechaRegistro": "18/5/2023 10:04:26",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 151,
+    "titulo": " Política para el manejo de efectivo en billetes de alta denominación",
+    "descripcionDoc": " Política para el manejo de efectivo en billetes de alta denominación",
+    "tipoDocumento_id": 1,
+    "colaborador_id": 7,
+    "fechaRegistro": "5/6/2023 09:20:08",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 152,
+    "titulo": " Instructivo_para_el_tratamiento_de_billetes_deteriorados_y_presuntamente_falsos",
+    "descripcionDoc": " Instructivo_para_el_tratamiento_de_billetes_deteriorados_y_presuntamente_falsos",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 235,
+    "fechaRegistro": "5/6/2023 09:29:07",
+    "habilitado": "S"
+  },
+  {
+    "idDocumento": 153,
+    "titulo": "Instructivo de consultas al buró de créditos para referencias crediticias",
+    "descripcionDoc": "Contiene la descripción del proceso para consultas en burós de crédito y responsables de los procesos",
+    "tipoDocumento_id": 4,
+    "colaborador_id": 23,
+    "fechaRegistro": "7/6/2023 16:32:30",
+    "habilitado": "S"
+  }
+]

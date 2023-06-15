@@ -49,9 +49,11 @@ export class DtpermisosComponent implements OnInit {
       this.listaPermisos = res.dataDB
       this.isLoading = false;
 
-      setTimeout(() => {
-        this.dtTrigger.next(0);
-    }, 1000);
+      if(this.listaPermisos.length != 0) {
+        setTimeout(() => {
+            this.dtTrigger.next(0);
+        }, 1000);
+      }
     });
   }
 

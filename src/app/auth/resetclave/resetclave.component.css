@@ -39,7 +39,7 @@
 
 .wrapper .name {
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1rem;
   letter-spacing: 1.3px;
   padding-left: 10px;
   color: #555;
@@ -51,7 +51,8 @@
   border: none;
   outline: none;
   background: none;
-  font-size: 1.2rem;
+  font-size: 12px;
+  text-align: center;
   color: #666;
   padding: 10px 15px 10px 10px;
   /* border: 1px solid red; */
@@ -116,9 +117,10 @@
 
 .claveOlvidada {
   cursor: pointer;
+  font-size: 1rem;
 }
 
-.background-radial-gradient {
+/* .background-radial-gradient {
   background-color: hsl(218, 41%, 15%);
   background-image: radial-gradient(
       650px circle at 0% 0%,
@@ -161,4 +163,4 @@
 .bg-glass {
   background-color: hsla(0, 0%, 100%, 0.9) !important;
   backdrop-filter: saturate(200%) blur(25px);
-}
+} */

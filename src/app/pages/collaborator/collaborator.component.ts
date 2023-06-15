@@ -5,6 +5,10 @@ import { Colaborador } from 'src/app/interfaces/colaborador';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
+
+//import { data } from '../../../assets/data/general_datosColaborador.json';
 
 @Component({
   selector: 'app-collaborator',
@@ -29,7 +33,9 @@ export class CollaboratorComponent implements OnInit {
   isLoading = false;
   guardando = true;
 
-  constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute) {
+  
+
+  constructor(public fb:FormBuilder, private colaboradorService:ColaboradorService, private router: Router, private activeRoute: ActivatedRoute, private toastr: ToastrService, private http: HttpClient) {
 
     this.formUser = this.fb.group({
       'dui': ['', Validators.required],
@@ -69,15 +75,34 @@ export class CollaboratorComponent implements OnInit {
   get correo() {
     return this.formUser.get('correo') as FormControl;
   }
-  // get foto() {
-  //   return this.formUser.get('foto') as FormControl;
-  // }
 
   ngOnInit(): void {
     this.loadAgencia();
     this.loadDepartamento();
     this.cargar();
     this.cambiarEstadoLoading();
+
+
+
+    /** ****************************************************************************************/
+    /** ****************************************************************************************/
+
+
+
+    /** ****************************************************************************************/
+    /** ****************************************************************************************/
+
+    
+     
+
+
+
+    /** ****************************************************************************************/
+    /** ****************************************************************************************/
+
+
+
+
   }
 
   async loadAgencia() {
@@ -101,6 +126,7 @@ export class CollaboratorComponent implements OnInit {
       this.listaCargo = response.dataDB;
     })));
   }
+
   async handleChangeAgencia() {
     const id = document.getElementById('agencia') as HTMLInputElement;
     const valor = parseInt(id.value, 10);
@@ -161,46 +187,44 @@ export class CollaboratorComponent implements OnInit {
   }
 
   async guardar() {
-    // Concatenamos valores para la clave del usuario
-    const nombreClave = this.formUser.value.nombres.charAt(0).toUpperCase();
-    const apellidoClave = this.formUser.value.apellidos.split(' ')[0].toLowerCase();
-    const valorClave = nombreClave+apellidoClave+this.codAgencia;
+    // // Concatenamos valores para la clave del usuario
+    // const nombreClave = this.formUser.value.nombres.charAt(0).toUpperCase();
+    // const apellidoClave = this.formUser.value.apellidos.split(' ')[0].toLowerCase();
+    // const valorClave = nombreClave+apellidoClave+this.codAgencia;
 
-    const formData = new FormData();
-    formData.append('nombres', this.formUser.value.nombres),
-    formData.append('apellidos', this.formUser.value.apellidos),
-    formData.append('dui', this.formUser.value.dui),
-    formData.append('password', valorClave),
-    formData.append('telefono', this.formUser.value.telefono),
-    formData.append('correo', this.formUser.value.correo),
-    formData.append('agencia_id', this.formUser.value.agencia),
-    formData.append('departamento_id', this.formUser.value.departamento),
-    formData.append('cargo_id', this.formUser.value.cargo),
-    formData.append('foto', this.imagen!),
-    formData.append('habilitado', 'S'),
-    formData.append('intentos', '5'),
-    formData.append('ultimoIngreso', ''),
+    // const formData = new FormData();
+    // formData.append('nombres', this.formUser.value.nombres),
+    // formData.append('apellidos', this.formUser.value.apellidos),
+    // formData.append('dui', this.formUser.value.dui),
+    // formData.append('password', valorClave),
+    // formData.append('telefono', this.formUser.value.telefono),
+    // formData.append('correo', this.formUser.value.correo),
+    // formData.append('agencia_id', this.formUser.value.agencia),
+    // formData.append('departamento_id', this.formUser.value.departamento),
+    // formData.append('cargo_id', this.formUser.value.cargo),
+    // formData.append('foto', this.imagen!),
+    // formData.append('habilitado', 'S'),
+    // formData.append('intentos', '5'),
+    // formData.append('ultimoIngreso', ''),
 
-    // console.log(this.imagen);
-    // console.log(this.formUser.value)
-    // console.log(formData)
-    await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(formData).subscribe((response) => {
-        console.log(response);
-        Swal.fire({
-          //position: 'center',
-          icon: 'success',
-          title: 'Colaborador registrado con exito',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          },
-          showConfirmButton: false,
-          timer: 1500
-        })
-        this.router.navigate(['/dashboard/list-collaborator']);
-    })));
+    // await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(formData).subscribe((response) => {
+    //     console.log(response);
+    //     this.toastr.success('Colaborador registrado con éxito!', 'Éxito!');
+    //     this.router.navigate(['/dashboard/list-collaborator']);
+    // })));
+
+    
+
+
+
+
+
+
+
+
+
+
+
   }
 
   cargar() {
@@ -272,8 +296,12 @@ export class CollaboratorComponent implements OnInit {
     formData.append('apellidos', this.formUser.value.apellidos),
     formData.append('agencia_id', this.formUser.value.agencia),
     formData.append('departamento_id', this.formUser.value.departamento),
-    formData.append('cargo_id', this.formUser.value.cargo),
-    formData.append('foto', this.imagen == null ? this.img : this.imagen),
+    formData.append('cargo_id', this.formUser.value.cargo)
+
+    if(this.imagen != null) {
+      formData.append('foto', this.imagen)
+    }
+    
     formData.append('telefono', this.formUser.value.telefono),
     formData.append('correo', this.formUser.value.correo),
     formData.append('habilitado', 'S'),
@@ -285,19 +313,20 @@ export class CollaboratorComponent implements OnInit {
     //const id = this.activeRoute.snapshot.paramMap.get('id');
     await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(formData).subscribe((response) => {
       console.log(response);
-      Swal.fire({
-        //position: 'center',
-        icon: 'success',
-        title: 'Colaborador actualizado con exito',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        },
-        showConfirmButton: false,
-        timer: 1500
-      })
+      // Swal.fire({
+      //   //position: 'center',
+      //   icon: 'success',
+      //   title: 'Colaborador actualizado con exito',
+      //   showClass: {
+      //     popup: 'animate__animated animate__fadeInDown'
+      //   },
+      //   hideClass: {
+      //     popup: 'animate__animated animate__fadeOutUp'
+      //   },
+      //   showConfirmButton: false,
+      //   timer: 1500
+      // });
+      this.toastr.success('Colaborador actualizado con éxito!', 'Éxito!');
       this.router.navigate(['/dashboard/list-collaborator']);
     })));
   }

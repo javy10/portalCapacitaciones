@@ -25,6 +25,14 @@ export class GrupoComponent implements OnInit {
   // Variable para almacenar el contador de checkboxes seleccionados
   selectedCheckboxCount = 0;
 
+  /** evaluacion  */
+
+  datosEvaluacion: any;
+  formEvaluacion!: FormGroup;
+  ngSelect: any;
+
+  /** evaluacion  */
+
   constructor( private fb:FormBuilder, 
     private _colaboradorService: ColaboradorService, 
     private toastr: ToastrService,
@@ -39,6 +47,14 @@ export class GrupoComponent implements OnInit {
       'cierre': ['', Validators.required],
       'check': ['', Validators.required],
     });
+
+    this.formEvaluacion = this.fb.group({
+      'nombreE': ['', Validators.required],
+      'descripcion': ['', Validators.required],
+      'calificacionMinima': ['', Validators.required],
+      'intentos': ['', Validators.required]
+      //'minutos': ['', Validators.required],
+    })
   }
 
   get nombre() {
@@ -53,6 +69,23 @@ export class GrupoComponent implements OnInit {
   get check() {
     return this.formGrupos.get('check') as FormControl;
   }
+
+  /* evaluacion */
+
+  get nombreE() {
+    return this.formEvaluacion.get('nombreE') as FormControl;
+  }
+  get descripcion() {
+    return this.formEvaluacion.get('descripcion') as FormControl;
+  }
+  get calificacionMinima() {
+    return this.formEvaluacion.get('calificacionMinima') as FormControl;
+  }
+  get intentos() {
+    return this.formEvaluacion.get('intentos') as FormControl;
+  }
+
+  /* evaluacion */
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -73,6 +106,7 @@ export class GrupoComponent implements OnInit {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
       }
     };
+    this.ngSelect = 0;
     this.loadColaborador();
     this.cargar();
   }
@@ -90,9 +124,6 @@ export class GrupoComponent implements OnInit {
 
   cancelar() {}
 
-
-  
-
   cargar(){
     const id = this.activeRoute.snapshot.paramMap.get('id');
     
@@ -106,6 +137,9 @@ export class GrupoComponent implements OnInit {
 
       const btnEdit = document.getElementById('btnActualizar');
       btnEdit!.hidden = false;
+
+      const btnAgregar = document.getElementById('btnAgregar');
+      btnAgregar!.hidden = true;
 
       this.activeRoute.params.subscribe( e => {
         let id = e['id'];
@@ -140,8 +174,11 @@ export class GrupoComponent implements OnInit {
   }
 
   guardar() {
+
+    console.log(this.datosEvaluacion)
+
     
-    if(this.selectedCheckboxCount > 0) {
+    if(this.selectedCheckboxCount > 0 && this.datosEvaluacion != undefined) {
       let fechaFormateadaA = '';
       let fechaFormateadaC = '';
       const apertura = document.querySelector("#apertura") as HTMLInputElement;
@@ -155,6 +192,7 @@ export class GrupoComponent implements OnInit {
       formData.append('nombre' , this.formGrupos.value.nombre),
       formData.append('apertura' , fechaFormateadaA),
       formData.append('cierre' , fechaFormateadaC)
+      formData.append('intentos' , this.formEvaluacion.value.intentos)
 
       console.log(this.formGrupos.value.nombre)
       console.log(fechaFormateadaA)
@@ -178,23 +216,33 @@ export class GrupoComponent implements OnInit {
           });
           console.log(checkedUsers);
 
-          for (let index = 0; index < checkedUsers.length; index++) {
-            const element = checkedUsers[index];
-            console.log(element)
-            formData.append('colaborador_id' , element)
-            this.evaluacionService.saveDetalleGrupo(formData).subscribe((response) => {
-            });
-          }
-        }
+          this.evaluacionService.saveEvaluacion(this.datosEvaluacion).subscribe((res) => {
+            if(res.success == true) {
+              console.log(this.datosEvaluacion)
+              
+              for (let index = 0; index < checkedUsers.length; index++) {
+                const element = checkedUsers[index];
+                console.log(element)
+                formData.append('colaborador_id' , element)
+                this.evaluacionService.saveDetalleGrupo(formData).subscribe((response) => {
+                });
+              }
+              
+              this.toastr.success('Grupo de evaluación creado con éxito!', 'Éxito!');
+              setTimeout(() => {
+                this.router.navigate(['dashboard/list-grupos']);
+              }, 1000);
 
-        this.toastr.success('Grupo creado con éxito!', 'Éxito!');
-        setTimeout(() => {
-          //this.router.navigate(['dashboard/list-grupos']);
-        }, 1000);
+              this.datosEvaluacion = {}
+            }
+          });
+
+
+        }
       });
 
     } else {
-      this.toastr.warning('Debes seleccionar al menos un colaborador!', 'Advertencia!');
+      this.toastr.warning('Debes seleccionar al menos un colaborador o verifica si agregaste una evaluación!', 'Advertencia!');
     }
   }
 
@@ -259,6 +307,16 @@ export class GrupoComponent implements OnInit {
     // } else {
     //   this.toastr.warning('Debes seleccionar al menos un colaborador!', 'Advertencia!');
     // }
+  }
+
+  guardarEvaluacion(){
+      this.datosEvaluacion = {
+        'nombreE': this.formEvaluacion.value.nombreE,
+        'descripcion': this.formEvaluacion.value.descripcion,
+        'calificacionMinima': this.formEvaluacion.value.calificacionMinima,
+        'intentos': this.formEvaluacion.value.intentos,
+      }
+      console.log(this.datosEvaluacion)
   }
 
 }

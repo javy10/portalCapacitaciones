@@ -49,6 +49,11 @@ import { PreguntasComponent } from './preguntas/preguntas.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { DtevaluacionesdeshabilitadasComponent } from './datatable/dtevaluacionesdeshabilitadas/dtevaluacionesdeshabilitadas.component';
 import { ListevaluacionesdeshabilitadosComponent } from './listevaluacionesdeshabilitados/listevaluacionesdeshabilitados.component';
+import { ListcolaboradoresintentosComponent } from './listcolaboradoresintentos/listcolaboradoresintentos.component';
+import { DtcolaboradoresintentosComponent } from './datatable/dtcolaboradoresintentos/dtcolaboradoresintentos.component';
+import { ListresultadosevaluacionComponent } from './listresultadosevaluacion/listresultadosevaluacion.component';
+import { DtresultadosevaluacionComponent } from './datatable/dtresultadosevaluacion/dtresultadosevaluacion.component';
+import { UserGuardGuardChild } from '../Guard/user-guard-child.guard';
 
 
 @NgModule({
@@ -93,7 +98,11 @@ import { ListevaluacionesdeshabilitadosComponent } from './listevaluacionesdesha
     PreguntasComponent,
     QuizComponent,
     DtevaluacionesdeshabilitadasComponent,
-    ListevaluacionesdeshabilitadosComponent
+    ListevaluacionesdeshabilitadosComponent,
+    ListcolaboradoresintentosComponent,
+    DtcolaboradoresintentosComponent,
+    ListresultadosevaluacionComponent,
+    DtresultadosevaluacionComponent
   ],
   exports: [
     DashboardComponent,
@@ -110,5 +119,8 @@ import { ListevaluacionesdeshabilitadosComponent } from './listevaluacionesdesha
     FormsModule,
     BrowserModule
   ],
+  providers: [
+    UserGuardGuardChild
+  ]
 })
 export class PagesModule { }

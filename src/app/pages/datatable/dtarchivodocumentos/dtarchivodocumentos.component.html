@@ -152,8 +152,8 @@
                         <div class="col-md-4 mb-2">
                             <label class="form-label mt-2">¿Solo lectura?</label>
                             <select [(ngModel)]='ngSelectL' class="form-select" id="lectura" formControlName="lectura" required>
-                                <option value="0" selected>Si</option>
-                                <option value="1">No</option>
+                                <option value="S" selected>Si</option>
+                                <option value="N">No</option>
                             </select>
                         </div>
                         <div class="alert alert-danger mt-2" [hidden]="lectura.valid || lectura.pristine">
@@ -162,8 +162,8 @@
                         <div class="col-md-4 mb-2">
                             <label class="form-label mt-2">¿Disponible?</label>
                             <select [(ngModel)]='ngSelectD' class="form-select" id="disponible" formControlName="disponible" required>
-                                <option value="0" selected>Si</option>
-                                <option value="1">No</option>
+                                <option value="S" selected>Si</option>
+                                <option value="N">No</option>
                             </select>
                         </div>
                         <div class="alert alert-danger mt-2" [hidden]="disponible.valid || disponible.pristine">

@@ -17,11 +17,11 @@ export class ColaboradorService {
   datos: any;
 
   // COLABORADOR ***********************************************************************************************************************************************
-  getCollaborator(): Observable<Colaborador> {
-    return this.http.get<Colaborador>(this.url+'/colaboradores');
+  getCollaborator(): Observable<any> {
+    return this.http.get<any>(this.url+'/colaboradores');
   }
-  getCollaboratorDeshabilitados(): Observable<Colaborador> {
-    return this.http.get<Colaborador>(this.url+'/colaboradoresDeshabilitados');
+  getCollaboratorDeshabilitados(): Observable<any> {
+    return this.http.get<any>(this.url+'/colaboradoresDeshabilitados');
   }
 
   saveColaborador(datos: any): Observable<any> {
@@ -76,11 +76,8 @@ export class ColaboradorService {
     return this.http.get<any>(this.url +'/editarIntentosEquivocados/'+dui)
   }
   reestablecerClave(data: any): Observable<any>  {
-    const url = `${this.url}/forgot-password`;
-    const body = { data };
-    //return this.http.post(url, body);
-    return data;
-    //return this.http.post<any>(this.url +'/forgot-password', data)
+    console.log(data)
+    return this.http.post<any>(this.url +'/recover-password', data)
   }
 
   editarEntrada(datos: any): Observable<any> {
@@ -92,6 +89,18 @@ export class ColaboradorService {
     console.log(datos)
     return this.http.post(this.url+'/editarSalida', datos);
   }
+
+  cambiarClaveNueva(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/editPassword', datos);
+  }
+
+  obtenerUsersPorEmail(email: any): Observable<any> {
+    console.log(email)
+    return this.http.get(this.url+'/obtenerUsersPorEmail/'+email);
+  }
+
+
 
 
   //AGENCIA ***********************************************************************************************************************************************
@@ -125,6 +134,12 @@ export class ColaboradorService {
     return this.http.get<any>(this.url+'/cargos');
   }
 
+  saveCargo(datos: any): Observable<any> {
+    console.log(datos)
+    // return this.http.post(this.url+'/register', datos);
+    return this.http.post(this.url+'/guardarCargo', datos);
+    //return datos;
+  }
 
 
 

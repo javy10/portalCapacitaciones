@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
+import { Location } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-quiz',
@@ -26,8 +29,14 @@ export class QuizComponent implements OnInit {
 
   isLoading = false;
   intento:any;
+  tituloEvaluacion:any;
 
-  constructor(private evaluacionService: EvaluacionesService, private toastr: ToastrService,) {
+  constructor(
+    private evaluacionService: EvaluacionesService, 
+    private toastr: ToastrService, 
+    private router: Router, 
+    private location: Location, 
+    private route: ActivatedRoute) {
 
   }
 
@@ -38,15 +47,20 @@ export class QuizComponent implements OnInit {
   }
 
   loadPreguntas() {
+    const id = this.route.snapshot.paramMap.get('id');
 
-    this.evaluacionService.obtenerPreguntas(this.colaborador_id).subscribe((data: any) => {
+    const formData = new FormData();
+    formData.append('colaborador_id', this.colaborador_id),
+    formData.append('evaluacion_id', id!)
+
+    this.evaluacionService.obtenerPreguntas(formData).subscribe((data: any) => {
       console.log(data.dataDB)
-
+      this.tituloEvaluacion = data.dataDB[0].nombre;
       const preguntasUnicas = data.dataDB.reduce((acc: any, pregunta: any) => {
         const preguntaExistente = acc.find((p: any) => p.valorPregunta === pregunta.valorPregunta);
         if (preguntaExistente) {
           this.evaluacion_id = pregunta.evaluacion_id;
-
+ 
           preguntaExistente.valorRespuestas.push(pregunta.valorRespuesta);
           preguntaExistente.respuesta_id.push(pregunta.respuesta_id);
         } else {
@@ -73,6 +87,16 @@ export class QuizComponent implements OnInit {
   }
 
   guardarRespuestas() {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+
     this.isLoading = true;
     let includedCount: number = 0;
     let notIncludedCount: number = 0;
@@ -239,9 +263,26 @@ export class QuizComponent implements OnInit {
       if(nota >= response.dataDB.calificacionMinima){
         this.isLoading = false;
         setTimeout(() => {
-          this.toastr.success('Tu nota es: '+ nota , 'APROBADO!', {
-            timeOut: 0,
+          // this.toastr.success('¡¡FELICIDADES!!', 'APROBADO!', {
+          //   timeOut: 0,
+          // });
+
+          Swal.fire({
+            title: 'APROBADO',
+            text: "¡¡FELICIDADES HAZ APROBADO!!",
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['dashboard']);
+              window.location.reload();
+            }
           });
+
+
           const boton = document.getElementById('btnGuardarQuiz') as HTMLButtonElement;
           const formulario = document.getElementById('myForm') as HTMLFormElement;
           const inputs = formulario.querySelectorAll('input');
@@ -253,32 +294,89 @@ export class QuizComponent implements OnInit {
       } else {
         
         this.intento--;
-        if(this.intento == 0) {
-          this.isLoading = false;
-          setTimeout(() => {
-          this.toastr.error(`Lo siento... Haz reprobado éste examen!!!`, 'REPROBADO!', {
-            timeOut: 0,
-          });
-          const boton = document.getElementById('btnGuardarQuiz') as HTMLButtonElement;
-          const formulario = document.getElementById('myForm') as HTMLFormElement;
-          const inputs = formulario.querySelectorAll('input');
-          boton.disabled = true;
-          inputs.forEach(input => {
-            input.disabled = true;
-          });
-        }, 1000);
-        } else {
-          this.evaluacionService.editarIntentosEvaluacion(data).subscribe((res: any) => {
+        // if(this.intento == 0) {
+        //   this.isLoading = false;
+        //   setTimeout(() => {
+        //   this.toastr.error(`Lo sentimos... Haz reprobado éste examen!!!`, 'REPROBADO!', {
+        //     timeOut: 0,
+        //   });
+        //   const boton = document.getElementById('btnGuardarQuiz') as HTMLButtonElement;
+        //   const formulario = document.getElementById('myForm') as HTMLFormElement;
+        //   const inputs = formulario.querySelectorAll('input');
+        //   boton.disabled = true;
+        //   inputs.forEach(input => {
+        //     input.disabled = true;
+        //   });
+        // }, 1000);
+        // } else {
+          
+        this.evaluacionService.editarIntentosEvaluacion(data).subscribe((res: any) => {
+          this.intento = res.dataDB.intentos;
+          console.log(this.intento)
+          if(this.intento == 0) {
             this.isLoading = false;
-            setTimeout(() => {
-              this.toastr.error(`Tu nota es: ${nota}\nTe queda ${res.dataDB} intento más.`, 'REPROBADO!', {
-                timeOut: 0,
+
+              Swal.fire({
+                title: 'REPROBADO',
+                text: "Lo sentimos... Haz reprobado éste examen!!!",
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.router.navigate(['dashboard']);
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 500);
+                }
               });
-            }, 1000);
 
-          });
-        }
+          } else {
+            this.isLoading = false;
 
+              Swal.fire({
+                //position: 'center',
+                icon: 'warning',
+                title: 'REPROBADO!',
+                showClass: {
+                  popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                  popup: 'animate__animated animate__fadeOutUp'
+                },
+                showConfirmButton: true,
+                timer: 1500,
+                didOpen: () => {
+                  Swal.showLoading()
+                },
+                willClose: () => {
+      
+                  swalWithBootstrapButtons.fire({
+                    title: `Te queda ${res.dataDB.intentos} intento más.`,
+                    text: "",
+                    icon: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Ok',
+                    //cancelButtonText: 'No, ya no!',
+                    reverseButtons: true
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      
+                      this.router.navigate(['dashboard']);
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, 1000);
+                    }
+                  })
+                }
+              });
+            //}, 1000);
+            
+          }
+        });
+        //}
       }
      
       includedCount = 0;

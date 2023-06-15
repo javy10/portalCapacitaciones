@@ -54,4 +54,14 @@
     }
   }
 
+  @media (max-width: 768px) {
+    table th:nth-child(n+4),
+    table td:nth-child(n+4),
+    table th:nth-child(n+5),
+    table td:nth-child(n+5),
+    table th:nth-child(n+6),
+    table td:nth-child(n+6) {
+      display: none;
+    }
+  }
  

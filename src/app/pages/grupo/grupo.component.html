@@ -136,11 +136,21 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="modal-footer">
+                            <!-- <div class="modal-footer">
+                                <button type="button" class="btn btn-info" (click)="cancelar()">Agregar Evaluación</button>
                                 <button type="button" class="btn btn-secondary cancelar" (click)="cancelar()">Cancelar</button>
                                 <button type="submit" id="btnAceptar" class="btn btn-success" (click)="guardar()" [disabled]="!formGrupos.valid">Guardar grupo</button>
                                 <button type="submit" id="btnActualizar" class="btn btn-success" (click)="editar()" >Actualizar grupo</button>
-                            </div>
+                            </div> -->
+
+                            <div class="">
+                                <button type="button" class="btn btn-info float-start" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnAgregar">Agregar Evaluación</button>
+                                <div class="float-end">
+                                  <button type="button" class="btn btn-secondary cancelar" (click)="cancelar()">Cancelar</button>
+                                  <button type="submit" id="btnAceptar" class="btn btn-success ms-2" (click)="guardar()" [disabled]="!formGrupos.valid">Guardar grupo</button>
+                                  <button type="submit" id="btnActualizar" class="btn btn-success ms-2" (click)="editar()">Actualizar grupo</button>
+                                </div>
+                              </div>
                         </form>
                     </div>
                 </div>
@@ -149,3 +159,90 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Guardar Evaluación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card ">
+                        <div class="card-body ">
+                            <div class="form mt-3">
+                                <div class="row">
+                                    <!-- <h1 class="card-title text-center titulo" id="title">Guardar Evaluación</h1> -->
+                                    <form [formGroup]="formEvaluacion" class="row g-3 ">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-4 mb-2">
+                                                    <label class="form-label">Título de la evaluacion</label>
+                                                    <input type="text"  class="form-control" id="nombreE" placeholder="Ingresa el titulo de la evaluación" formControlName="nombreE"  maxlength="100" required>
+                                                    <div class="alert alert-danger mt-2" [hidden]="nombreE.valid || nombreE.pristine">
+                                                        Debes ingresar un titulo
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 mb-2">
+                                                    <label class="form-label">Descripción general</label>
+                                                    <input type="text"  id="descripcion" class="form-control" placeholder="Ingresa la descripción de la evaluación" formControlName="descripcion" required>
+                                                    <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                                        Debes seleccionar un descripción
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 mb-2">
+                                                    <label class="form-label">Calificación mínima</label>
+                                                    <input type="number"  id="calificacionMinima" class="form-control" placeholder="Calificación mínima" formControlName="calificacionMinima" required>
+                                                    <div class="alert alert-danger mt-2" [hidden]="calificacionMinima.valid || calificacionMinima.pristine">
+                                                        Debes ingresar una calificación
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 mb-2">
+                                                    <label class="form-label">Intentos</label>
+                                                    <select [(ngModel)]='ngSelect' class="form-select" id="intentos" formControlName="intentos" required>
+                                                        <option value="0" disabled selected>Selecciona</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                    </select>
+                                                    <div class="alert alert-danger mt-2" [hidden]="intentos.valid || intentos.pristine">
+                                                        Debes seleccionar la cantidad de intentos
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer footer">
+                                                <button type="button" class="btn btn-secondary cancelar" data-bs-dismiss="modal">
+                                                    Cancelar
+                                                </button>
+                                                <button type="submit" class="btn btn-success" id="btnGuardar" (click)="guardarEvaluacion()" data-bs-dismiss="modal" [disabled]="!formEvaluacion.valid">
+                                                    Guardar
+                                                </button>
+                                                <!-- <button type="submit" class="btn btn-success" id="btnActualizar" (click)="editar()" [disabled]="!formEvaluacion.valid">
+                                                    Actualizar
+                                                </button> -->
+                                            </div>
+                                        </div>
+                                        <!-- <app-tabevaluaciones (eventoEnviarDataGrupo)="pasarDatosGrupo($event)" (eventoEnviarDataPregunta)="pasarDatosPregunta($event)"></app-tabevaluaciones> -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="modal-footer footer">
+            <button type="button" class="btn btn-secondary cancelar" >
+                Cancelar
+            </button>
+            <button type="submit" class="btn btn-success" id="btnGuardar" (click)="guardarEvaluacion()" [disabled]="!formEvaluacion.valid">
+                Guardar
+            </button>
+            <button type="submit" class="btn btn-success" id="btnActualizar" (click)="editar()" [disabled]="!formEvaluacion.valid">
+                Actualizar
+            </button>
+        </div> -->
+      </div>
+    </div>
+</div>

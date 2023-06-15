@@ -31,12 +31,13 @@ export class DatatableComponent implements OnDestroy, OnInit {
       pagingType: 'full_numbers',
       pageLength: 5,
       searching: true,
+      responsive: true,
       columnDefs: [
         { "width": "2%", "targets": 0 },
-        { "width": "15%", "targets": 1 },
+        { "width": "20%", "targets": 1 },
         { "width": "15%", "targets": 2 },
-        { "width": "15%", "targets": 3 },
-        { "width": "25%", "targets": 4 },
+        { "width": "20%", "targets": 3 },
+        { "width": "20%", "targets": 4 },
         { "width": "10%", "targets": 5 },
         { "width": "8%", "targets": 6 }
       ],

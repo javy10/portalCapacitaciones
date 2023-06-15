@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "nombre": "ACTIVADOR DE MARCA",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 2,
+    "nombre": "AGENTE DE SEGURIDAD",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 3,
+    "nombre": "ANALISTA DE CUMPLIMIENTO",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 4,
+    "nombre": "ANALISTA PROGRAMADOR DE SISTEMAS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 5,
+    "nombre": "ASESOR LEGAL",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 6,
+    "nombre": "ASISTENTE DE CONSEJO DE ADMINISTRACIÓN",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 7,
+    "nombre": "ASISTENTE GERENCIA DE NEGOCIOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 8,
+    "nombre": "AUXILIAR CONTABLE ",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 9,
+    "nombre": "AUXILIAR DE AUDITORIA INTERNA",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 10,
+    "nombre": "AUXILIAR DE IMPUESTOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 11,
+    "nombre": "AUXILIAR DE PLANILLAS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 12,
+    "nombre": "AUXILIAR DE SERVICIOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 13,
+    "nombre": "AUXILIAR DE SERVICIOS VARIOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 14,
+    "nombre": "AUXILIAR LEGAL",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 15,
+    "nombre": "AUXILIAR MEDIOS DE PAGOS ELECTRONICOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 16,
+    "nombre": "CAJERO(A)",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 17,
+    "nombre": "COLABORADOR DE ARCHIVO",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 18,
+    "nombre": "COORDINADOR DE ATENCIÓN AL CLIENTE Y CAJA",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 19,
+    "nombre": "COORDINADOR DE CREDITOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 20,
+    "nombre": "EJECUTIVO(A) DE ATENCION AL CLIENTE",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 21,
+    "nombre": "EJECUTIVO(A) DE CREDITOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 22,
+    "nombre": "GERENTE DE ADMINISTRACION Y FINANZAS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 23,
+    "nombre": "GERENTE DE AUDITORIA INTERNA",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 24,
+    "nombre": "GERENTE DE CUMPLIMIENTO",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 25,
+    "nombre": "GERENTE DE NEGOCIOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 26,
+    "nombre": "GERENTE DE OPERACIONES",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 27,
+    "nombre": "GERENTE GENERAL",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 28,
+    "nombre": "JEFE DE AGENCIA",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 29,
+    "nombre": "JEFE DE CARTERA",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 30,
+    "nombre": "JEFE DE CONTABILIDAD",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 31,
+    "nombre": "JEFE DE CREDITOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 32,
+    "nombre": "JEFE DE EVENTOS Y COMUNICACIONES",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 33,
+    "nombre": "JEFE DE MEDIOS DE PAGO ELECTRONICO",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 34,
+    "nombre": "JEFE DE MERCADEO",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 35,
+    "nombre": "JEFE DE OPERACIONES",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 36,
+    "nombre": "JEFE DE RECUPERACION",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 37,
+    "nombre": "JEFE DE RECURSOS HUMANOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 38,
+    "nombre": "JEFE DE SERVICIOS GENERALES Y SEGURIDAD",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 39,
+    "nombre": "JEFE DE TECNOLOGIA E INFORMATICA",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 40,
+    "nombre": "JEFE DE TESORERIA",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 41,
+    "nombre": "PROMOTOR SOCIAL",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 42,
+    "nombre": "RECUPERADOR PRE-JUDICIAL",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 43,
+    "nombre": "TECNICO DE CUSTODIA DE ARCHIVOS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 44,
+    "nombre": "EJECUTIVO(A) DE SEGUROS",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 45,
+    "nombre": "Integrante de consejo de administración",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 46,
+    "nombre": "Integrante de junta de vigilancia",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 47,
+    "nombre": "Integrante de comités de apoyo",
+    "fechaRegistro": "29/7/2021 11:52:15",
+    "habilitado": "S"
+  },
+  {
+    "id": 48,
+    "nombre": "TECNICO DE LOGISTICA",
+    "fechaRegistro": "29/7/2021 13:59:37",
+    "habilitado": "S"
+  },
+  {
+    "id": 49,
+    "nombre": "COORDINADOR DE PUBLICIDAD DEL NEGOCIO",
+    "fechaRegistro": "8/2/2023 17:02:04",
+    "habilitado": "S"
+  },
+  {
+    "id": 50,
+    "nombre": "ANALISTA DE EVENTOS",
+    "fechaRegistro": "11/2/2023 17:50:10",
+    "habilitado": "S"
+  }
+]

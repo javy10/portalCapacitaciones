@@ -50,18 +50,21 @@ export class HeaderComponent implements OnInit{
         this.cargo = resp.dataDB.nombre;
         console.log(this.cargo)
       })));
-      this.colaboradorService.getFotoURL(this.foto).subscribe((data: any) => {
-        //this.isLoading = false;
-   
-        setTimeout(() => {
-          const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
-          this.imgTamanio = data.size;
-          let binaryData = [];
-          binaryData.push(data); 
-          let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
-          this.imgTamanio == 13 ? imagenPrevisualizacion.src = this.avatar : imagenPrevisualizacion.src = foo;
-        }, 100);
-      });
+
+      if(this.foto) {
+        this.colaboradorService.getFotoURL(this.foto).subscribe((data: any) => {
+          //this.isLoading = false;
+    
+          setTimeout(() => {
+            const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
+            this.imgTamanio = data.size;
+            let binaryData = [];
+            binaryData.push(data); 
+            let foo = URL.createObjectURL(new Blob(binaryData, {type: 'image/jpeg'}));
+            this.imgTamanio == 13 ? imagenPrevisualizacion.src = this.avatar : imagenPrevisualizacion.src = foo;
+          }, 100);
+        });
+      }
     })));
 
     // ocultar el sidebar con menu hamburguesa - toggle

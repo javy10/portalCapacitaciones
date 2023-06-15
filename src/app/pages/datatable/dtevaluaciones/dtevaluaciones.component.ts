@@ -62,9 +62,11 @@ export class DtevaluacionesComponent implements OnInit {
       console.log(this.listaEvaluaciones)
 
       this.isLoading = false;
-      setTimeout(() => {
-          this.dtTrigger.next(0);
-      }, 1000);
+      if(this.listaEvaluaciones.length != 0) {
+        setTimeout(() => {
+            this.dtTrigger.next(0);
+        }, 1000);
+      }
     });
   
   }

@@ -5,14 +5,17 @@
   <!-- <app-breadcrumbs></app-breadcrumbs> -->
   <!-- SISTEMA DE RUTAS -->
   <router-outlet (enviarPath)="enviarDatos($event)"></router-outlet>
+  <!-- <app-dashboard></app-dashboard> -->
 </main>
 
- <!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
-  <div class="copyright">
-    &copy; Copyright <strong><span>Acacypac de R.L.</span></strong>. All Rights Reserved
-  </div>
-  <div class="credits">
-    Designed by <a href="#">Equipo TI</a> {{ year }}
-  </div>
-</footer>
+<div class="contenedor">
+    <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Acacypac de R.L.</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed by <a href="#">Equipo TI</a> {{ year }}
+    </div>
+  </footer>
+</div>

@@ -1,4 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
@@ -18,7 +20,10 @@ export class DtdocumentosComponent implements OnInit {
   data: any;
   isLoading = false;
 
+  formTipo!: FormGroup;
 
+  @Input()
+  idTipo:any;
 
 
   /**
@@ -29,14 +34,22 @@ export class DtdocumentosComponent implements OnInit {
    * proporcionar una funcionalidad que se puede compartir entre varios componentes. Al inyectar el
    * servicio en el constructor.
    */
-  constructor(private documentosService: DocumentoService) {}
+  constructor(private documentosService: DocumentoService, private fb:FormBuilder, private documentoService: DocumentoService, private router: Router) {
+    this.formTipo = this.fb.group({
+      'tipo': ['', Validators.required],
+    });
+  }
+
+  get tipo() {
+    return this.formTipo.get('tipo') as FormControl;
+  }
 
   /**
    * La función inicializa las opciones de DataTable y carga documentos mientras establece el indicador
    * isLoading en falso.
    */
+
   ngOnInit(): void {
-    
     //this.Id = localStorage.getItem('id')!;
     this.dtOptions = {
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -72,9 +85,11 @@ export class DtdocumentosComponent implements OnInit {
       console.log(this.listaDocumentos)
       this.isLoading = false;
 
-      setTimeout(() => {
-          this.dtTrigger.next(0);
-      }, 1000);
+      if(this.listaDocumentos.length != 0) {
+        setTimeout(() => {
+            this.dtTrigger.next(0);
+        }, 1000);
+      }
     })));
   }
   /**
@@ -116,4 +131,38 @@ export class DtdocumentosComponent implements OnInit {
       }
     });
   }
+
+  cancelar(){
+    const tipo = document.getElementById('tipo') as HTMLInputElement;
+    tipo.value = "";
+  }
+
+  async guardar(){
+    const formData = new FormData();
+    formData.append('tipo', this.formTipo.value.tipo),
+
+    console.log(formData)
+    await new Promise(resolve => resolve(this.documentoService.saveTipoDocumento(formData).subscribe((response) => {
+      console.log(response);
+      Swal.fire({
+        //position: 'center',
+        icon: 'success',
+        title: 'Tipo de documento registrado con exito',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.router.navigate(['/dashboard']);
+      window.location.reload();
+  })));
+  }
+
+
+
+
 }

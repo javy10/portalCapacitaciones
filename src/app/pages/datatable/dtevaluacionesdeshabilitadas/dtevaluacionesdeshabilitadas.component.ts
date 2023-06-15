@@ -59,9 +59,11 @@ export class DtevaluacionesdeshabilitadasComponent implements OnInit {
       console.log(this.listaEvaluacionesDeshabilitadas)
 
       this.isLoading = false;
-      setTimeout(() => {
-          this.dtTrigger.next(0);
-      }, 1000);
+      if(this.listaEvaluacionesDeshabilitadas.length != 0) {
+        setTimeout(() => {
+            this.dtTrigger.next(0);
+        }, 1000);
+      }
     });
   
   }

@@ -28,13 +28,21 @@ import { GrupoComponent } from './grupo/grupo.component';
 import { PreguntasComponent } from './preguntas/preguntas.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { ListevaluacionesdeshabilitadosComponent } from './listevaluacionesdeshabilitados/listevaluacionesdeshabilitados.component';
+import { ListcolaboradoresintentosComponent } from './listcolaboradoresintentos/listcolaboradoresintentos.component';
+import { ListresultadosevaluacionComponent } from './listresultadosevaluacion/listresultadosevaluacion.component';
+import { UserGuardGuardChild } from '../Guard/user-guard-child.guard';
 
 const routes: Routes = [
+    
     {
-        path: 'dashboard', component: PagesComponent, canActivate: [UserGuardGuard],
+        
+        path: 'dashboard', 
+        component: PagesComponent, 
+        canActivate: [UserGuardGuard], 
+        //canActivateChild: [UserGuardGuardChild],
         children: [
           { path: '', component: DashboardComponent },
-          { path: 'blank', component: BlankComponent },
+          { path: 'blank', component: BlankComponent},
           { path: 'perfil/:id', component: PerfilComponent },
           { path: 'tabperfil/:id', component: TabperfilComponent },
           { path: 'list-collaborator', component: listCollaboratorComponent },
@@ -64,9 +72,13 @@ const routes: Routes = [
           { path: 'pregunta/:id', component: PreguntasComponent},
           { path: 'pregunta', component: PreguntasComponent},
           { path: 'quiz', component: QuizComponent},
+          { path: 'quiz/:id', component: QuizComponent},
           { path: 'evaluaciones-deshabilitadas', component: ListevaluacionesdeshabilitadosComponent},
+          { path: 'list-intentos', component: ListcolaboradoresintentosComponent},
+          { path: 'list-resultados-evaluacion', component: ListresultadosevaluacionComponent},
         ]
     },
+    //{ path: '', component: DashboardComponent },
 ];
 
 

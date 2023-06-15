@@ -8,7 +8,7 @@ export interface Colaborador {
     departamento: string;
     cargo: string;
     telefono: string;
-    correo: string;
+    email: string;
     habilitado: string;
     ultimoIngreso: string;
     foto: string;

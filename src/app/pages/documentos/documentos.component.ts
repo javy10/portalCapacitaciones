@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DocumentoService } from 'src/app/services/documento.service';
 import Swal from 'sweetalert2';
 
@@ -30,7 +31,7 @@ export class DocumentosComponent implements OnInit{
   @Output()
   enviarPath = new EventEmitter<any>()
 
-  constructor(public fb:FormBuilder, private documentoService:DocumentoService, private router: Router, private activeRoute: ActivatedRoute) {
+  constructor(public fb:FormBuilder, private documentoService:DocumentoService, private router: Router, private activeRoute: ActivatedRoute, private toastr: ToastrService,) {
     this.formDocumento = this.fb.group({
       'titulo': ['', Validators.required],
       'descripcion': ['', Validators.required],
@@ -51,6 +52,7 @@ export class DocumentosComponent implements OnInit{
   ngOnInit(): void {
     this.loadTipoDocumento();
     this.cargar();
+    this.guardarMigracion();
   }
 
   async loadTipoDocumento() {
@@ -109,43 +111,12 @@ export class DocumentosComponent implements OnInit{
               }
             });
           }
-          Swal.fire({
-            //position: 'center',
-            icon: 'success',
-            title: 'Documento registrado con éxito',
-            showClass: {
-              popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-              popup: 'animate__animated animate__fadeOutUp'
-            },
-            showConfirmButton: false,
-            timer: 1500,
-            didOpen: () => {
-              Swal.showLoading()
-            },
-            willClose: () => {
-              
-              this.router.navigate(['dashboard/list-documentos']);
-              //window.location.reload();
-            }
-          });
+          this.toastr.success('Documento registrado con éxito!', 'Éxito!');
+          this.router.navigate(['dashboard/list-documentos']);
         }
       });
     } else {
-      Swal.fire({
-        //position: 'center',
-        icon: 'warning',
-        title: 'Debes agregar el documento ó el tipo de documento',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        },
-        showConfirmButton: true,
-        
-      });
+      this.toastr.warning('Debes agregar el documento ó el tipo de documento', 'Warning!');
     }
     
   }
@@ -230,27 +201,30 @@ export class DocumentosComponent implements OnInit{
         this.tipoPermiso_id = [];
         this.departamento_id = [];
         this.colaborador_id = [];
-        Swal.fire({
-          //position: 'center',
-          icon: 'success',
-          title: 'Documento actualizado con éxito',
-          showClass: {
-            popup: 'animate__animated animate__fadeInDown'
-          },
-          hideClass: {
-            popup: 'animate__animated animate__fadeOutUp'
-          },
-          showConfirmButton: false,
-          timer: 1500,
-          didOpen: () => {
-            Swal.showLoading()
-          },
-          willClose: () => {
+        // Swal.fire({
+        //   //position: 'center',
+        //   icon: 'success',
+        //   title: 'Documento actualizado con éxito',
+        //   showClass: {
+        //     popup: 'animate__animated animate__fadeInDown'
+        //   },
+        //   hideClass: {
+        //     popup: 'animate__animated animate__fadeOutUp'
+        //   },
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        //   didOpen: () => {
+        //     Swal.showLoading()
+        //   },
+        //   willClose: () => {
             
-            this.router.navigate(['dashboard/list-documentos']);
-            //window.location.reload();
-          }
-        });
+        //     this.router.navigate(['dashboard/list-documentos']);
+        //     //window.location.reload();
+        //   }
+        // });
+
+        this.toastr.success('Documento actualizado con éxito!', 'Éxito!');
+        this.router.navigate(['dashboard/list-documentos']);
       } 
     });   
 
@@ -292,6 +266,11 @@ export class DocumentosComponent implements OnInit{
 
 
 
+
+    guardarMigracion() {
+     
+ 
+    }
 
 
 

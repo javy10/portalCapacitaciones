@@ -58,6 +58,7 @@ export class SidebarComponent implements OnInit {
   idMenu:any;
 
   listaDetalleEvaluacion:any = [];
+  listadoEvaluaciones:any = [];
   
   /**
    * La función ngOnInit recupera la identificación del usuario del almacenamiento local, obtiene sus
@@ -70,13 +71,13 @@ export class SidebarComponent implements OnInit {
     new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
       this.permisos = res.dataDB.cargo_id;
       this.departamento_id = res.dataDB.departamento_id;
-      console.log(this.departamento_id)
-      console.log(this.permisos)
+      // console.log(this.departamento_id)
+      // console.log(this.permisos)
     })));
     this.listarDocumentos();
     this.loadDetalle();
     this.obtenerDetalleEvaluacion();
-    //this.obtenerPermisos();
+    this.obtenerEvaluaciones();
   }
   
   /**
@@ -141,13 +142,13 @@ export class SidebarComponent implements OnInit {
       formData.append('id', Id!.toString()),
       formData.append('idDepart', this.departamento_id),
       
-      console.log(this.departamento_id)
+      //console.log(this.departamento_id)
   
       this.menuService.getDetallePermiso(formData).subscribe((data: any) => {
         this.listaDetalle = data;
-        console.log(this.listaDetalle)
-        console.log(this.listaDetalle[0].menu_id)
-        console.log(data)
+        // console.log(this.listaDetalle)
+        // console.log(this.listaDetalle[0].menu_id)
+        // console.log(data)
         for (let index = 0; index < this.listaDetalle.length; index++) {
           const element = this.listaDetalle[index];
           //console.log(element)
@@ -156,10 +157,10 @@ export class SidebarComponent implements OnInit {
           this.idUser = this.listaDetalle[index].colaborador_id;
           this.idMenu = this.listaDetalle[index].menu_id;
     
-          console.log(this.listaDetalle[index].cargo_id)
-          console.log(this.listaDetalle[index].departamento_id)
-          console.log(this.listaDetalle[index].colaborador_id)
-          console.log(this.listaDetalle[index].menu_id)
+          // console.log(this.listaDetalle[index].cargo_id)
+          // console.log(this.listaDetalle[index].departamento_id)
+          // console.log(this.listaDetalle[index].colaborador_id)
+          // console.log(this.listaDetalle[index].menu_id)
         }
       });
     });
@@ -180,7 +181,7 @@ export class SidebarComponent implements OnInit {
 
       for (let index = 0; index < this.listaDetalleEvaluacion.length; index++) {
         //const element = this.listaDetalleEvaluacion[index];
-        if(fechaFormateada! >= this.listaDetalleEvaluacion[index].apertura && fechaFormateada! <= this.listaDetalleEvaluacion[index].cierre && this.listaDetalleEvaluacion[index].intentos > 0) {
+        if(fechaFormateada! >= this.listaDetalleEvaluacion[index].apertura && fechaFormateada! <= this.listaDetalleEvaluacion[index].cierre && this.listaDetalleEvaluacion[index].intentos > 0 && this.listaDetalleEvaluacion[index].cantidadPreguntas > 0) {
           console.log('Hola')
           this.habilitarEvaluacion = true;
         } else {
@@ -190,5 +191,24 @@ export class SidebarComponent implements OnInit {
       }
     });
   }
+
+  obtenerEvaluaciones() {
+    const Id = localStorage.getItem('id');
+    this.evaluacionService.getEvaluaciones().subscribe((res) => {
+      console.log(res.dataDB)
+      this.listadoEvaluaciones = res.dataDB;
+    });
+     
+  }
+
+  cargarQuiz(item: any) {
+    this.router.navigate(['/dashboard/blank']);
+    setTimeout(() => {
+      this.router.navigate(['/dashboard/quiz', item.id]);
+    }, 1000);
+  }
+
+
+
    
 }

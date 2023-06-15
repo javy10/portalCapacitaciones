@@ -149,12 +149,12 @@
                             
                             <li *ngFor="let item of listaDocumentos">
 
-                                <a type="button" *ngIf="item.tipoDocumento_id == tipo.id  && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 0 && item.lectura == 0"  (click)="cargarPDF(item.nombreArchivo)">
+                                <a type="button" *ngIf="item.tipoDocumento_id == tipo.id  && (item.fechaLimite >= fecha || item.fechaLimite == null) && item.disponible == 'S' && item.lectura == 'S'"  (click)="cargarPDF(item.nombreArchivo)">
                                     <div class="card cardStyle">
                                         <div class="card-body">
                                             <img  src="../../../assets/img/pdf.png" alt="" style="height: 100px; width: 100px;">
                                             <br>
-                                            <span >{{ item.nombreArchivo }}</span>
+                                            <span >{{ item.titulo }}</span>
                                         </div>
                                     </div>
                                 </a>
