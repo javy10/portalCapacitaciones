@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { MenuService } from 'src/app/services/menu.service';
@@ -23,7 +24,7 @@ export class DtconfiguracionComponent implements OnInit {
   idUser:any;
   idMenu:any;
 
-  constructor(public colaboradorService: ColaboradorService,  private menuService: MenuService) {}
+  constructor(public colaboradorService: ColaboradorService,  private menuService: MenuService, private router: Router) {}
 
   ngOnInit(): void {
     this.Id = localStorage.getItem('id')!;
@@ -75,7 +76,7 @@ export class DtconfiguracionComponent implements OnInit {
           this.idDepar = data[0].departamento_id;
           this.idUser = data[0].colaborador_id;
           this.idMenu = data[0].menu_id;
-  
+   
           this.isLoading = false;
           setTimeout(() => {
               this.dtTrigger.next(0);
@@ -83,6 +84,13 @@ export class DtconfiguracionComponent implements OnInit {
   
       });
     });
+  }
+
+  editar(item:any) {
+    //[routerLink]="['/dashboard/configuracion', item.idConfig, item.colaborador_id, item.departamento_id, item.cargo_id, item.menu_id]"
+
+    console.log(item.idConfig, item.colaborador_id, item.departamento_id, item.cargo_id, item.menu_id)
+    this.router.navigate(['/dashboard/configuracion', item.idConfig, item.colaborador_id, item.departamento_id, item.cargo_id, item.menu_id]);
   }
 
 

@@ -38,6 +38,10 @@ export class ColaboradorService {
     return this.http.get<any>(this.url +'/colaborador/'+id)
   }
 
+  getColaboradorClave(datos: any) {
+    return this.http.post<any>(this.url +'/buscarPorClave', datos)
+  }
+
   editarColaborador(datos: any): Observable<any> {
     console.log(datos)
     return this.http.post(this.url+'/editarcolaborador', datos);

@@ -1,6 +1,13 @@
 <div class="container">
     <form [formGroup]="formUser">
         <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Contraseña actual</label>
+          <input type="password" class="form-control"id="claveActual" name="claveActual" formControlName="claveActual" required >
+          <div class="alert alert-danger mt-2" [hidden]="claveActual.valid || claveActual.pristine">
+            Debes ingresar la clave actual
+          </div>
+        </div>
+        <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Nueva Contraseña</label>
           <input type="password" class="form-control"id="password" name="password" formControlName="clave" required >
           <div class="alert alert-danger mt-2" [hidden]="clave.valid || clave.pristine">

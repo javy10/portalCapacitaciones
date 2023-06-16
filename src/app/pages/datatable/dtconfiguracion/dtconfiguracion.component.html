@@ -33,7 +33,7 @@
                 <td>{{ item.menu }}</td>
                 <td>{{ item.fechaRegistro }}</td>
                <td style="text-align: center;">
-                    <a  data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" [routerLink]="['/dashboard/configuracion', item.idConfig, item.colaborador_id, item.departamento_id, item.cargo_id]">
+                    <a  data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" (click)="editar(item)" [routerLink]="['/dashboard/configuracion', item.idConfig, item.colaborador_id, item.departamento_id, item.cargo_id, item.menu_id]">
                         <i class="bi bi-pencil-square" style="font-size: 1rem; color: cornflowerblue;"></i>
                     </a>
                     <!-- <a type="button" class="btn btn-outline-danger ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar" (click)="eliminarColaborador(item.id)" *ngIf="Id != item.id">

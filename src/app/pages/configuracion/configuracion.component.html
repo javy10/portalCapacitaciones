@@ -132,7 +132,7 @@
                 </div>
                 <div class=" mt-2">
                     <label class="form-label mt-2">Colaborador</label>
-                    <select [(ngModel)]='ngSelectU' class="form-select" id="colaboradorSelect" formControlName="colaboradorSelect" required>
+                    <select [(ngModel)]='ngSelectU' class="form-select selectpicker" id="colaboradorSelect" formControlName="colaboradorSelect" required>
                         <option value="0" disabled selected>Selecciona</option>
                         <option *ngFor="let e of listaColaborador" [value]="e.id">
                             {{ e.nombres }} {{ e.apellidos }}

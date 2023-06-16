@@ -82,27 +82,6 @@ export class CollaboratorComponent implements OnInit {
     this.cargar();
     this.cambiarEstadoLoading();
 
-
-
-    /** ****************************************************************************************/
-    /** ****************************************************************************************/
-
-
-
-    /** ****************************************************************************************/
-    /** ****************************************************************************************/
-
-    
-     
-
-
-
-    /** ****************************************************************************************/
-    /** ****************************************************************************************/
-
-
-
-
   }
 
   async loadAgencia() {
@@ -157,6 +136,7 @@ export class CollaboratorComponent implements OnInit {
           dui.value += '-';
         }
   }
+
   //validamos el telefono
   validateFormatTel(event: any) {
     let key;
@@ -188,42 +168,30 @@ export class CollaboratorComponent implements OnInit {
 
   async guardar() {
     // // Concatenamos valores para la clave del usuario
-    // const nombreClave = this.formUser.value.nombres.charAt(0).toUpperCase();
-    // const apellidoClave = this.formUser.value.apellidos.split(' ')[0].toLowerCase();
-    // const valorClave = nombreClave+apellidoClave+this.codAgencia;
+    const nombreClave = this.formUser.value.nombres.charAt(0).toUpperCase();
+    const apellidoClave = this.formUser.value.apellidos.split(' ')[0].toLowerCase();
+    const valorClave = nombreClave+apellidoClave+this.codAgencia;
 
-    // const formData = new FormData();
-    // formData.append('nombres', this.formUser.value.nombres),
-    // formData.append('apellidos', this.formUser.value.apellidos),
-    // formData.append('dui', this.formUser.value.dui),
-    // formData.append('password', valorClave),
-    // formData.append('telefono', this.formUser.value.telefono),
-    // formData.append('correo', this.formUser.value.correo),
-    // formData.append('agencia_id', this.formUser.value.agencia),
-    // formData.append('departamento_id', this.formUser.value.departamento),
-    // formData.append('cargo_id', this.formUser.value.cargo),
-    // formData.append('foto', this.imagen!),
-    // formData.append('habilitado', 'S'),
-    // formData.append('intentos', '5'),
-    // formData.append('ultimoIngreso', ''),
+    const formData = new FormData();
+    formData.append('nombres', this.formUser.value.nombres),
+    formData.append('apellidos', this.formUser.value.apellidos),
+    formData.append('dui', this.formUser.value.dui),
+    formData.append('password', valorClave),
+    formData.append('telefono', this.formUser.value.telefono),
+    formData.append('correo', this.formUser.value.correo),
+    formData.append('agencia_id', this.formUser.value.agencia),
+    formData.append('departamento_id', this.formUser.value.departamento),
+    formData.append('cargo_id', this.formUser.value.cargo),
+    formData.append('foto', this.imagen!),
+    formData.append('habilitado', 'S'),
+    formData.append('intentos', '5'),
+    formData.append('ultimoIngreso', ''),
 
-    // await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(formData).subscribe((response) => {
-    //     console.log(response);
-    //     this.toastr.success('Colaborador registrado con éxito!', 'Éxito!');
-    //     this.router.navigate(['/dashboard/list-collaborator']);
-    // })));
-
-    
-
-
-
-
-
-
-
-
-
-
+    await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(formData).subscribe((response) => {
+        console.log(response);
+        this.toastr.success('Colaborador registrado con éxito!', 'Éxito!');
+        this.router.navigate(['/dashboard/list-collaborator']);
+    })));
 
   }
 

@@ -130,7 +130,7 @@
         <div class="col-lg-12">
             
             <div class="card" *ngFor="let tipo of listaTipoDocumentos; let i = index">
-                <div class="filter " *ngIf="id_cargo == 1">
+                <div class="filter " *ngIf="id_cargo == 4">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li><a class="dropdown-item" (click)="deshabilitar(tipo.id)">Deshabilitar</a></li>
@@ -144,7 +144,7 @@
                               <h5>{{ tipo.tipo }}</h5>
                             </button>
                           </h2>
-                        <div [id]="'miElementoPersonalizado' + tipo.tipo" class="accordion-collapse collapse show"  [attr.data-bs-parent]="'#miAcordeonPersonalizado'">
+                        <div [id]="'miElementoPersonalizado' + tipo.tipo" class="accordion-collapse collapse "  [attr.data-bs-parent]="'#miAcordeonPersonalizado'">
                         <div class="accordion-body ">
                             
                             <li *ngFor="let item of listaDocumentos">

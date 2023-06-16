@@ -155,5 +155,10 @@ export class EvaluacionesService {
     return this.http.post(this.url+'/obtenerResultadosEvaluacion', datos);
   }
 
+  getObtenerPreguntasRespuestas(id: any): Observable<any> {
+    console.log(id)
+    return this.http.get(this.url+'/obtenerPreguntasRespuestas/'+id);
+  }
+
 
 }

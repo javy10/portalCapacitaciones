@@ -118,8 +118,8 @@ export class ConfiguracionComponent implements OnInit {
 
     const formData = new FormData();
     console.log(tipo.value)
-    console.log(tipo.value)
-    if(tipo.value == '1') {
+    console.log(tipoColaborador.value)
+    if(tipo.value == '1' && tipo.value != null) {
       const combo = document.getElementById('cargoSelect') as HTMLSelectElement;
       idCargo = this.formConfiguracion.value.cargoSelect;
       idDepart = this.formConfiguracion.value.departamento;
@@ -146,18 +146,6 @@ export class ConfiguracionComponent implements OnInit {
     this.menuService.savePermisos(formData).subscribe((res) => {
       console.log(res)
       if(res.success) {
-        // Swal.fire({
-        //   icon: 'success',
-        //   title: 'Configuración registrada con éxito',
-        //   showClass: {
-        //     popup: 'animate__animated animate__fadeInDown'
-        //   },
-        //   hideClass: {
-        //     popup: 'animate__animated animate__fadeOutUp'
-        //   },
-        //   showConfirmButton: false,
-        //   timer: 1500
-        // });
         this.toastr.success('Configuración registrada con éxito!', 'Éxito!');
       }
       this.router.navigate(['/dashboard/list-configuracion']);
@@ -170,6 +158,7 @@ export class ConfiguracionComponent implements OnInit {
     const idC = this.activeRoute.snapshot.paramMap.get('idC');
     const idD = this.activeRoute.snapshot.paramMap.get('idD');
     const idCa = this.activeRoute.snapshot.paramMap.get('idCa');
+    const idM = this.activeRoute.snapshot.paramMap.get('idM');
 
     if(id) {
       console.log(id)
@@ -189,6 +178,7 @@ export class ConfiguracionComponent implements OnInit {
         let idC = e['idC'];
         let idD = e['idD'];
         let idCa = e['idCa'];
+        let idM = e['idM'];
         if(id) {
         //   const Id = localStorage.getItem('id');
         console.log(id)
@@ -197,11 +187,12 @@ export class ConfiguracionComponent implements OnInit {
         const formData = new FormData();
         formData.append('id', idC!.toString()),
         formData.append('idDepart', idD),
+        formData.append('menu_id', idM),
         
         //console.log(this.departamento_id)
         
-        this.menuService.getDetallePermiso(formData).subscribe((data: any) => {
-
+        this.menuService.getDetallePermisoConfiguracion(formData).subscribe((data: any) => {
+          console.log(data)
           console.log(data[0])
           this.idPermisoMenu = data[0].permisoMenu_id;
           this.idconfig = data[0].idConfig;
@@ -259,22 +250,23 @@ export class ConfiguracionComponent implements OnInit {
     console.log(this.idconfig)
 
     const tipo = document.querySelector('input[name="tipo"]:checked') as HTMLInputElement;
+    const tipoColaborador = document.querySelector('input[name="colaborador"]:checked') as HTMLInputElement;
     let idCargo = 0;
     let idColab = 0, idDepart = 0;
 
-    if(tipo.value == '1') {
+    if(tipo.value == '1' && tipo.value != null) {
       const combo = document.getElementById('cargoSelect') as HTMLSelectElement;
       idCargo = this.formConfiguracion.value.cargoSelect;
       idDepart = this.formConfiguracion.value.departamento;
 
-    } else if(tipo.value == '2') {
+    } else if(tipoColaborador.value == '2') {
       const comboC = document.getElementById('colaboradorSelect') as HTMLSelectElement;    
       idColab = this.formConfiguracion.value.colaboradorSelect;
     }
 
     const formData = new FormData();
     formData.append('menu_id', this.formConfiguracion.value.menu),
-    formData.append('tipoPermisoMenu_id', tipo.value),
+    formData.append('tipoPermisoMenu_id', tipo.value == '1' ? tipo.value : tipoColaborador.value),
     formData.append('departamento_id', idDepart.toString()),
     formData.append('cargo_id', idCargo.toString()),
     formData.append('colaborador_id', idColab.toString()),

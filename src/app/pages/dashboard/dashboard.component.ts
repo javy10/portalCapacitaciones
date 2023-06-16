@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit{
         'idC': this.id,
         'idD': res.dataDB.departamento_id
       }
-
+ 
       new Promise(resolve => resolve(this.documentoService.getDocumentosPorDatos(this.usuario).subscribe((res) => {
         this.listaDocumentos = res.dataDB;
         console.log(this.listaDocumentos)

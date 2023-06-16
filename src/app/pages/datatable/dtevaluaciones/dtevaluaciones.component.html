@@ -35,8 +35,11 @@
                 <td>{{ item.cantidadPreguntas }}</td>
                 <td>{{ item.created_at | date: 'yyyy-MM-dd HH:mm:ss'  }}</td>
                 <td style="text-align: center;">
-                    <a *ngIf="item.cantidadPreguntas == 0" type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Pregunta" [routerLink]="['/dashboard/pregunta', item.id]">
+                    <a  type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Pregunta" [routerLink]="['/dashboard/pregunta', item.id]">
                         <i class="bi bi-question-circle-fill" style="font-size: 1rem; color: rgb(12, 204, 5);"></i>
+                    </a>
+                    <a type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar preguntas" [routerLink]="['/dashboard/pregunta', item.nombre, item.id]">
+                        <i class="bi bi-pencil-fill" style="font-size: 1rem; color: rgb(8, 134, 252);"></i>
                     </a>
                     <a type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" [routerLink]="['/dashboard/evaluacion', item.id]">
                         <i class="bi bi-pencil-square" style="font-size: 1rem; color: rgb(8, 134, 252);"></i>
@@ -53,3 +56,4 @@
     </table>
 </div>
 
+<!-- *ngIf="item.cantidadPreguntas == 0" -->

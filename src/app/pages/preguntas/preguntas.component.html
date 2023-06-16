@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card ">
+        <div class="card " *ngIf="ocultarCard == true">
             <div class="card-body ">
                 <div class="form mt-3">
                     <div class="row">
@@ -60,9 +60,9 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer footer">
-                                    <button type="button" class="btn btn-secondary cancelar"  >
+                                    <!-- <button type="button" class="btn btn-secondary cancelar"  >
                                         Cancelar
-                                    </button>
+                                    </button> -->
                                     <button type="submit" class="btn btn-success" id="btnCrearCard"  (click)="obtenerValoresInputs()">
                                         Agregar
                                     </button>
@@ -76,11 +76,14 @@
     </div>
 
     <div id="card-container"></div>
-    <div *ngIf="ocultarBoton == true" class="container">
+    <div  class="container">
         <div class="row">
-            <div class="col-md-6 mx-auto text-center d-flex align-items-center">
+            <div class="col-md-6 mx-auto text-center d-flex align-items-center" *ngIf="ocultarBoton == true">
                 <button id="btnGuardarPreguntas" type="button" class="btn btn-success mx-auto" (click)="guardarPregunta()">Guardar preguntas...</button>
             </div>
-          </div>
+            <div class="col-md-6 mx-auto text-center d-flex align-items-center" *ngIf="ocultarBotonEdit == true">
+                <button id="btnEditarPreguntas" type="button" class="btn btn-info mx-auto" (click)="editarPreguntas()">Actualizar preguntas...</button>
+            </div>
+        </div>
     </div>
 </div>
