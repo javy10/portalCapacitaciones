@@ -32,24 +32,26 @@ export class HeaderComponent implements OnInit{
 
   ngOnInit(): void {
     const Id = localStorage.getItem('id');
-    new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
+    new Promise(resolve => resolve(this.colaboradorService.getobtenerColaboradorID(parseInt(Id!)).subscribe((res) => {
       //this.eliminarSesion();
-      console.log(res.dataDB);
-      this.foto = res.dataDB.foto;
-      console.log(this.foto)
-      this.nombre = res.dataDB.nombres.split(' ')[0];
-      this.apellido = res.dataDB.apellidos.split(' ')[0];
+      //console.log(res.dataDB[0]);
+      this.foto = res.dataDB[0].foto;
+      //console.log(this.foto)
+      this.nombre = res.dataDB[0].nombres.split(' ')[0];
+      this.apellido = res.dataDB[0].apellidos.split(' ')[0];
+      this.agencia = res.dataDB[0].codAgencia;
+      this.cargo = res.dataDB[0].Cargo;
 
-      new Promise(resolve => resolve(this.colaboradorService.getAgenciaId(res.dataDB.agencia_id).subscribe((resp) => {
-        console.log(resp.dataDB)
-        this.agencia = resp.dataDB.codAgencia;
-        console.log(this.agencia)
-      })));
-      new Promise(resolve => resolve(this.colaboradorService.getCargoId(res.dataDB.cargo_id).subscribe((resp) => {
-        console.log(resp)
-        this.cargo = resp.dataDB.nombre;
-        console.log(this.cargo)
-      })));
+      // new Promise(resolve => resolve(this.colaboradorService.getAgenciaId(res.dataDB.agencia_id).subscribe((resp) => {
+      //   console.log(resp.dataDB)
+      //   this.agencia = resp.dataDB.codAgencia;
+      //   console.log(this.agencia)
+      // })));
+      // new Promise(resolve => resolve(this.colaboradorService.getCargoId(res.dataDB.cargo_id).subscribe((resp) => {
+      //   console.log(resp)
+      //   this.cargo = resp.dataDB.nombre;
+      //   console.log(this.cargo)
+      // })));
 
       if(this.foto) {
         this.colaboradorService.getFotoURL(this.foto).subscribe((data: any) => {
@@ -124,7 +126,7 @@ export class HeaderComponent implements OnInit{
     }
 
     this.colaboradorService.editarSalida(this.logs).subscribe((respuest) => {
-      console.log(respuest)
+      //console.log(respuest)
     });
   }
 

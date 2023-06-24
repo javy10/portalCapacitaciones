@@ -1,0 +1,111 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form mt-3">
+                    <div class="row">
+                        <h1 class="card-title text-center titulo" id="title">Guardar documento</h1>
+                        <form [formGroup]="formDocumento" (ngSubmit)="guardarDatos()" class="row g-3 ">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <label class="form-label">Título del documento</label>
+                                        <input type="text"  class="form-control" id="titulo" placeholder="Ingresa el título" formControlName="titulo"  maxlength="100" required>
+                                        <div class="alert alert-danger mt-2" [hidden]="titulo.valid || titulo.pristine">
+                                            Debes seleccionar un titulo
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label class="form-label">Descripción general</label>
+                                        <input type="text"  id="descripcion" class="form-control" placeholder="Ingresa la descripción" formControlName="descripcion" required>
+                                        <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                            Debes seleccionar un descripcion
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-2">
+                                        <label class="form-label">Tipo documento</label>
+                                        <select [(ngModel)]='ngSelect' class="form-select" id="tipo" formControlName="tipo" required>
+                                            <option value="0" disabled selected>Selecciona</option>
+                                            <option *ngFor="let e of listaTipoDocumentos;" [value]="e.id">
+                                                {{ e.tipo }}
+                                            </option>
+                                        </select>
+                                        <div class="alert alert-danger mt-2" [hidden]="tipo.valid || tipo.pristine">
+                                            Debes seleccionar un tipo
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 mb-2 modal-footer footer">
+                                        <button type="button" class="btn btn-secondary cancelar"  routerLink="/dashboard/list-documentos">
+                                            Cancelar
+                                        </button>
+                                        <button type="submit" class="btn btn-success" id="btnGuardar"  [disabled]="!formDocumento.valid" hidden>
+                                            Guardar
+                                        </button>
+                                        <button type="button" class="btn btn-info" id="btnActualizar" (click)="editar()" [disabled]="!formDocumento.valid" hidden>
+                                            Actualizar
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="modal-footer footer">
+                                    
+                                </div>
+                                <app-tabdocumento (eventoEnviarDataDoc)="pasarDatosDoc($event)" (eventoEnviarDataPer)="pasarDatosPer($event)" [id]="id"></app-tabdocumento>
+                            </div>
+
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="mt-4" style="text-align: center;">Listado de colaboradores que tendrán acceso</h5>
+                        <div class="col-md-12 mb-2 mt-4">
+                            <form [formGroup]="formPermisos" class="row g-3 ">
+
+                                <div class="mx-auto loader" *ngIf="isLoading">
+                                    <div class="orbe" style="--index: 0"></div>
+                                    <div class="orbe" style="--index: 1"></div>
+                                    <div class="orbe" style="--index: 2"></div>
+                                    <div class="orbe" style="--index: 3"></div>
+                                    <div class="orbe" style="--index: 4"></div>
+                                </div>
+
+                                <table *ngIf="!isLoading" datatable="datatable" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover">
+                                    <thead>
+                                        <tr>
+                                            <th>N°</th>
+                                            <th style="display: none;">N°</th>
+                                            <th>Nombre del colaborador</th>
+                                            <th>Agencia</th>
+                                            <th>Cargo</th>
+                                            <th>Dar acceso</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of listaColaboradores; let i = index;">
+                                            <td>{{ i + 1 }}</td>
+                                            <td class="user" style="display: none;">{{ item.id }}</td>
+                                            <td >{{ item.nombres }} {{ item.apellidos}}</td>
+                                            <td >{{ item.agencia }} </td>
+                                            <td >{{ item.cargo }} </td>
+                                            <td><input id="inputCheck" type="checkbox" (change)="handleCheckboxChange($event)"  [checked]="datos.includes(item.id)" formControlName="check"></td>
+                                        </tr>
+                                        <tr *ngIf="listaColaboradores.length === 0">
+                                            <td colspan="5" style="text-align: center;">No hay registros</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

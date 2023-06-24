@@ -120,6 +120,11 @@ export class DocumentoService {
       return this.http.get<any>(this.url +'/documentoID/'+id)
     }
 
+    getDocumentoDeshabilitadosID(id: number) {
+      console.log(id)
+      return this.http.get<any>(this.url +'/documentoDeshabilitadosID/'+id)
+    }
+
     getDetalleDocumentoID(id: number) {
       console.log(id)
       return this.http.get<any>(this.url +'/detalleDoc/'+id)
@@ -139,6 +144,11 @@ export class DocumentoService {
     getDetallePermisosID(id: number) {
       console.log(id)
       return this.http.get<any>(this.url +'/detallePermisos/'+id)
+    }
+
+    getBuscarColaboradoresPermisos(id: any) {
+      console.log(id)
+      return this.http.get<any>(this.url +'/buscarColaboradoresPermisos/'+id)
     }
 
     // detalleID(id: number) {

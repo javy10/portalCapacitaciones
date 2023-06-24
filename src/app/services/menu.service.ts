@@ -36,4 +36,18 @@ export class MenuService {
     return this.http.post(this.url+'/editarconfiguracion', datos);
   }
 
+  getMenus(): Observable<any> {
+    return this.http.get<any>(this.url+'/menus');
+  }
+
+  getDetallePermisosMenu(id:any): Observable<any> {
+    return this.http.get<any>(this.url+'/detallePermisosMenu/'+id);
+  }
+
+  editarDetallePermisoMenu(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/editarDetallePermisosMenu', datos);
+  }
+
+
 }

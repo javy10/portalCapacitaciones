@@ -68,13 +68,14 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     const Id = localStorage.getItem('id');
-    new Promise(resolve => resolve(this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
-      this.permisos = res.dataDB.cargo_id;
-      this.departamento_id = res.dataDB.departamento_id;
+    this.id = localStorage.getItem('id');
+    new Promise(resolve => resolve(this.colaboradorService.getobtenerColaboradorID(parseInt(Id!)).subscribe((res) => {
+      this.permisos = res.dataDB[0].cargo_id;
+      this.departamento_id = res.dataDB[0].departamento_id;
       // console.log(this.departamento_id)
       // console.log(this.permisos)
     })));
-    this.listarDocumentos();
+    //this.listarDocumentos();
     this.loadDetalle();
     this.obtenerDetalleEvaluacion();
     this.obtenerEvaluaciones();
@@ -83,19 +84,19 @@ export class SidebarComponent implements OnInit {
   /**
    * La función recupera una lista de documentos de un servicio y la asigna a una variable local.
   */
- listarDocumentos() {
-    let today = new Date();
-    const fechaFormateada = this.datePipe.transform(today, 'yyyy-MM-dd HH:mm:ss');
-    this.fecha = fechaFormateada;
-    console.log(this.fecha)
-    // 2023-04-26 11:30:00
+//  listarDocumentos() {
+//     let today = new Date();
+//     const fechaFormateada = this.datePipe.transform(today, 'yyyy-MM-dd HH:mm:ss');
+//     this.fecha = fechaFormateada;
+//     console.log(this.fecha)
+//     // 2023-04-26 11:30:00
 
-    this.id = localStorage.getItem('id');
-    new Promise(resolve => resolve(this.documentoService.getDocumentos().subscribe((res) => {
-      this.listaDocumentos = res.dataDB;
-      console.log(this.listaDocumentos)
-    })));
-  }
+//     this.id = localStorage.getItem('id');
+//     new Promise(resolve => resolve(this.documentoService.getDocumentos().subscribe((res) => {
+//       this.listaDocumentos = res.dataDB;
+//       console.log(this.listaDocumentos)
+//     })));
+//   }
   /**
    * La función obtiene permisos para un documento de un servicio y los asigna a las variables.
    */
@@ -135,8 +136,9 @@ export class SidebarComponent implements OnInit {
     const Id = localStorage.getItem('id');
     console.log(Id)
     
-    this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
-      this.departamento_id = res.dataDB.departamento_id;
+    // this.colaboradorService.getColaboradorID(parseInt(Id!)).subscribe((res) => {
+    this.colaboradorService.getobtenerColaboradorID(parseInt(Id!)).subscribe((res) => {
+      this.departamento_id = res.dataDB[0].departamento_id;
 
       const formData = new FormData();
       formData.append('id', Id!.toString()),

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ColaboradorService } from './services/colaborador.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'pcFrontEnd';
   logs:any;
   cont:any = 0;
@@ -19,8 +19,7 @@ export class AppComponent {
   private readonly MAX_INACTIVITY_TIME: number = 300000; // 5 minutes in milliseconds
   
   constructor(private datePipe: DatePipe,  private colaboradorService: ColaboradorService, private router: Router, private toastr: ToastrService,) {
-    this.initInactivityTimer();
-    this.eliminarSesion();
+   
   }
 
   @HostListener('window:mousemove')
@@ -29,23 +28,59 @@ export class AppComponent {
   resetInactivityTimer() {
     this.inactivityTime = 0;
   }
-  
-  private initInactivityTimer() {
-    
-    console.log(this.inactivityTime)
-    setInterval(() => {
-      
-        this.inactivityTime += 1800000;
-        if (this.inactivityTime >= this.MAX_INACTIVITY_TIME) {
-          if(this.conteo == 0) {
-            this.conteo = 1;
-            this.toastr.info('Tiempo de inactividad excedido. Cerrando sesión...!', 'Información!');
-            this.logout();
-          }
-        } 
-    }, 1800000);
-    
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.initInactivityTimer();
+    this.eliminarSesion();
   }
+  
+  // private initInactivityTimer() {
+    
+  //   console.log(this.inactivityTime)
+  //   setInterval(() => {
+  //       console.log(this.inactivityTime)
+  //       this.inactivityTime += 1800000;
+  //       if (this.inactivityTime >= this.MAX_INACTIVITY_TIME) {
+  //         if(this.conteo == 0) {
+  //           this.conteo = 1;
+  //           this.toastr.info('Tiempo de inactividad excedido. Cerrando sesión...!', 'Información!');
+  //           this.logout();
+  //         }
+  //       } 
+  //   }, 1800000);
+    
+  // }
+
+  private initInactivityTimer() {
+    console.log(this.inactivityTime);
+    setInterval(() => {
+      console.log(this.inactivityTime);
+      this.inactivityTime += 1800000;
+      if (this.inactivityTime >= this.MAX_INACTIVITY_TIME) {
+        if (this.conteo == 0) {
+          this.conteo = 1;
+          this.toastr.info(
+            'Tiempo de inactividad excedido. Cerrando sesión...!',
+            'Información!'
+          );
+          this.logout();
+        }
+      }
+    }, 1800000);
+  
+    // Add event listeners to reset inactivityTime
+    document.addEventListener('mousemove', () => {
+      this.inactivityTime = 0;
+    });
+    document.addEventListener('click', () => {
+      this.inactivityTime = 0;
+    });
+  }
+
+
+
 
   logout() {
 
@@ -86,11 +121,6 @@ export class AppComponent {
       });
     }
   }
-
-  ngOnInit(): void {
-    
-  }
-
 
 
 

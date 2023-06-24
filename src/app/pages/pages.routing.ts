@@ -3,34 +3,34 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProgressComponent } from './progress/progress.component';
-import { listCollaboratorComponent } from './listCollaborator/listcollaborator.component';
-import { CollaboratorComponent } from './collaborator/collaborator.component';
+import { DashboardComponent } from './DOCUMENTO/dashboard/dashboard.component';
+import { listCollaboratorComponent } from './COLABORADORES/listCollaborator/listcollaborator.component';
+import { CollaboratorComponent } from './COLABORADORES/collaborator/collaborator.component';
 import { UserGuardGuard } from '../Guard/user-guard.guard';
-import { ListdocumentosComponent } from './listdocumentos/listdocumentos.component';
-import { DocumentosComponent } from './documentos/documentos.component';
-import { ArchivoComponent } from './archivo/archivo.component';
-import { BlankComponent } from './blank/blank.component';
-import { PerfilComponent } from './perfil/perfil.component';
-import { TabperfilComponent } from './tabs/tabperfil/tabperfil.component';
-import { ListevaluacionComponent } from './listevaluacion/listevaluacion.component';
-import { EvaluacionComponent } from './evaluacion/evaluacion.component';
-import { TipodocumentoComponent } from './tipodocumento/tipodocumento.component';
-import { ListtipodocumentoComponent } from './listtipodocumento/listtipodocumento.component';
-import { ListcolaboradoresdeshabilitadosComponent } from './listcolaboradoresdeshabilitados/listcolaboradoresdeshabilitados.component';
-import { ConfiguracionComponent } from './configuracion/configuracion.component';
-import { ListconfiguracionComponent } from './listconfiguracion/listconfiguracion.component';
-import { PermisosComponent } from './permisos/permisos.component';
-import { ListpermisosComponent } from './listpermisos/listpermisos.component';
-import { ListgrupoComponent } from './listgrupo/listgrupo.component';
-import { GrupoComponent } from './grupo/grupo.component';
-import { PreguntasComponent } from './preguntas/preguntas.component';
-import { QuizComponent } from './quiz/quiz.component';
-import { ListevaluacionesdeshabilitadosComponent } from './listevaluacionesdeshabilitados/listevaluacionesdeshabilitados.component';
-import { ListcolaboradoresintentosComponent } from './listcolaboradoresintentos/listcolaboradoresintentos.component';
-import { ListresultadosevaluacionComponent } from './listresultadosevaluacion/listresultadosevaluacion.component';
+import { ListdocumentosComponent } from './DOCUMENTO/listdocumentos/listdocumentos.component';
+import { DocumentosComponent } from './DOCUMENTO/documentos/documentos.component';
+import { ArchivoComponent } from './DOCUMENTO/archivo/archivo.component';
+import { BlankComponent } from './DOCUMENTO/blank/blank.component';
+import { PerfilComponent } from './COLABORADORES/perfil/perfil.component';
+import { TabperfilComponent } from './COLABORADORES/tab/tabperfil/tabperfil.component';
+import { ListevaluacionComponent } from './EVALUACIONES/listevaluacion/listevaluacion.component';
+import { EvaluacionComponent } from './EVALUACIONES/evaluacion/evaluacion.component';
+import { TipodocumentoComponent } from './DOCUMENTO/tipodocumento/tipodocumento.component';
+import { ListtipodocumentoComponent } from './DOCUMENTO/listtipodocumento/listtipodocumento.component';
+import { ListcolaboradoresdeshabilitadosComponent } from './COLABORADORES/listcolaboradoresdeshabilitados/listcolaboradoresdeshabilitados.component';
+import { ConfiguracionComponent } from './MENU/configuracion/configuracion.component';
+import { ListconfiguracionComponent } from './MENU/listconfiguracion/listconfiguracion.component';
+import { PermisosComponent } from './DOCUMENTO/permisos/permisos.component';
+import { ListpermisosComponent } from './DOCUMENTO/listpermisos/listpermisos.component';
+import { ListgrupoComponent } from './EVALUACIONES/listgrupo/listgrupo.component';
+import { GrupoComponent } from './EVALUACIONES/grupo/grupo.component';
+import { PreguntasComponent } from './EVALUACIONES/preguntas/preguntas.component';
+import { QuizComponent } from './EVALUACIONES/quiz/quiz.component';
+import { ListevaluacionesdeshabilitadosComponent } from './EVALUACIONES/listevaluacionesdeshabilitados/listevaluacionesdeshabilitados.component';
+import { ListcolaboradoresintentosComponent } from './COLABORADORES/listcolaboradoresintentos/listcolaboradoresintentos.component';
+import { ListresultadosevaluacionComponent } from './EVALUACIONES/listresultadosevaluacion/listresultadosevaluacion.component';
 import { UserGuardGuardChild } from '../Guard/user-guard-child.guard';
+import { ListdocumentosdeshabilitadosComponent } from './DOCUMENTO/listdocumentosdeshabilitados/listdocumentosdeshabilitados.component';
 
 const routes: Routes = [
     
@@ -77,6 +77,7 @@ const routes: Routes = [
           { path: 'evaluaciones-deshabilitadas', component: ListevaluacionesdeshabilitadosComponent},
           { path: 'list-intentos', component: ListcolaboradoresintentosComponent},
           { path: 'list-resultados-evaluacion', component: ListresultadosevaluacionComponent},
+          { path: 'list-documentos-deshabilitados', component: ListdocumentosdeshabilitadosComponent},
         ]
     },
     //{ path: '', component: DashboardComponent },
