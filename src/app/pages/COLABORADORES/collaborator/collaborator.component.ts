@@ -237,7 +237,10 @@ export class CollaboratorComponent implements OnInit {
       if(response.success == true){
         this.toastr.success('Colaborador registrado con éxito!', 'Éxito!');
         this.router.navigate(['/dashboard/list-collaborator']);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+        
       }
     });
 
@@ -390,25 +393,31 @@ export class CollaboratorComponent implements OnInit {
     });
     console.log(checkedMenu);
 
-    //formData.append('menu_id', JSON.stringify(checkedMenu))
-    formData.append('menu_id', checkedMenu.toString())
     
     // console.log(this.imagen);
     // console.log(this.formUser.value)
-
+    
     //const id = this.activeRoute.snapshot.paramMap.get('id');
-
+    
     this.colaboradorService.editarColaborador(formData).subscribe((response) => {
       console.log(response);
 
+      //formData.append('menu_id', JSON.stringify(checkedMenu))
+      formData.append('tipoPermisoMenu_id', '2'),
+      formData.append('menu_id', checkedMenu.toString())
+
+      console.log(checkedMenu.toString())
+
       this.menuService.editarDetallePermisoMenu(formData).subscribe((resp) => {
-        console.log(resp)
+        console.log(resp.success)
       });
       checkedMenu = [];
-
+ 
       this.toastr.success('Colaborador actualizado con éxito!', 'Éxito!');
       this.router.navigate(['/dashboard/list-collaborator']);
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     });
   }
 
