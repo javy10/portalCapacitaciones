@@ -142,63 +142,17 @@ export class LoginComponent implements OnInit{
       await new Promise(resolve => resolve(this.colaboradorService.getColaboradorDui(duiIngresado.value).subscribe((res) => {
         console.log(res.dataDB);
         if(res.dataDB == '') {
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Oops...',
-          //   showClass: {
-          //     popup: 'animate__animated animate__fadeInDown'
-          //   },
-          //   hideClass: {
-          //     popup: 'animate__animated animate__fadeOutUp'
-          //   },
-          //   text: 'No se ha encontrado ningún usuario con éstas credenciales!',
-          //   footer: '<h5 href="">Verifica que tengas las credenciales correctas</h5>',
-          // });
           this.toastr.warning('No se ha encontrado ningún usuario con éstas credenciales!', 'Warning!');
         }
           else {
             this.id = res.dataDB[0].id;
-            new Promise(resolve => resolve(this.colaboradorService.login(formData).subscribe((response: any) => {
+            this.colaboradorService.login(formData).subscribe((response: any) => {
               if(response.success == true) {
-                // Swal.fire({
-                //   //position: 'center',
-                //   icon: 'success',
-                //   title: 'Colaborador Correcto!!',
-                //   timerProgressBar: true,
-                //   showClass: {
-                //     popup: 'animate__animated animate__fadeInDown'
-                //   },
-                //   hideClass: {
-                //     popup: 'animate__animated animate__fadeOutUp'
-                //   },
-                //   showConfirmButton: false,
-                //   timer: 1500,
-                //   didOpen: () => {
-                //     Swal.showLoading()
-                //   },
-                //   willClose: () => {
-                //     localStorage.setItem('token', response.dataDB.original.access_token);
-                //     localStorage.setItem('logeado', response.success);
-                //     localStorage.setItem('id', this.id.toString());
 
-                //     let fechaFormateadaHoy = '';
-                //     let today = new Date();
-                //     const fechaISO = today.toISOString();
-                //     let fechaHoy = new Date(fechaISO)
-                //     fechaFormateadaHoy = this.datePipe.transform(fechaHoy, 'yyyy-MM-dd HH:mm:ss')!;
-
-                //     this.logs = {
-                //       'colaborador_id': this.id,
-                //       'fechaEntrada': fechaFormateadaHoy,
-                //     }
-
-                //     this.colaboradorService.editarEntrada(this.logs).subscribe((respuest) => {
-                //       console.log(respuest)
-                //     });
-
-                //     this.router.navigate(['']);
-                //   }
-                // });
+                //console.log(duiIngresado.value)
+                this.colaboradorService.reestablecerIntentos(duiIngresado.value).subscribe((respuest) => {
+                  console.log(respuest)
+                });
 
                 this.toastr.success('Colaborador Correcto!!', 'Éxito!');
                 localStorage.setItem('token', response.dataDB.original.access_token);
@@ -220,6 +174,8 @@ export class LoginComponent implements OnInit{
                   console.log(respuest)
                 });
 
+                
+
                 this.router.navigate(['']);
               }
               else
@@ -228,71 +184,25 @@ export class LoginComponent implements OnInit{
                 if(res.dataDB[0].intentos > 0)
                 {
 
-                  new Promise(resolve => resolve(this.colaboradorService.editarIntentosEquivocados(duiIngresado.value).subscribe((response) => {
+                  this.colaboradorService.editarIntentosEquivocados(duiIngresado.value).subscribe((response) => {
                     if((res.dataDB[0].intentos - 1) != 0) {
-                      // Swal.fire({
-                      //   icon: 'error',
-                      //   title: 'Oops...',
-                      //   showClass: {
-                      //     popup: 'animate__animated animate__fadeInDown'
-                      //   },
-                      //   hideClass: {
-                      //     popup: 'animate__animated animate__fadeOutUp'
-                      //   },
-                      //   text: 'Usuario Incorrecto! Te quedan '+ (res.dataDB[0].intentos - 1)  +' intentos restantes',
-                      //   footer: '<h5 href="">Verifica que tengas las credenciales correctas</h5>',
-                      // });
+                      
                       this.toastr.warning('Usuario Incorrecto! Te quedan '+ (res.dataDB[0].intentos - 1)  +' intentos restantes', 'Warning!');
                     } else {
-                      // Swal.fire({
-                      //   title: 'El usuario se ha bloqueado...',
-                      //   width: 600,
-                      //   padding: '3em',
-                      //   color: '#716add',
-                      //   background: '#fff url(../../../assets/img/fondo.png)',
-                      //   backdrop: `
-                      //     rgba(0,0,123,0.4)
-                      //     url("../../../assets/img/error1.gif")
-                      //     left top
-                      //     no-repeat
-                      //   `
-                      // });
+                      
                       this.toastr.error('El usuario se ha bloqueado...', 'Error!');
                     }
-                  })));
+                  });
                 } else {
-                  // Swal.fire({
-                  //   title: 'El usuario está bloqueado...',
-                  //   width: 600,
-                  //   padding: '3em',
-                  //   color: '#716add',
-                  //   background: '#fff url(../../../assets/img/fondo.png)',
-                  //   backdrop: `
-                  //     rgba(0,0,123,0.4)
-                  //     url("../../../assets/img/error1.gif")
-                  //     left top
-                  //     no-repeat
-                  //   `
-                  // });
+                  
                   this.toastr.error('El usuario está bloqueado...', 'Error!');
                 }
               }
-            })));
+            });
           }
       })));
     } else {
-      // Swal.fire({
-      //   icon: 'error',
-      //   title: 'Oops...',
-      //   showClass: {
-      //     popup: 'animate__animated animate__fadeInDown'
-      //   },
-      //   hideClass: {
-      //     popup: 'animate__animated animate__fadeOutUp'
-      //   },
-      //   text: 'Los campos no pueden estar vacios!!!',
-      //   footer: '<h5 href="">Ingresa las credenciales correctas</h5>',
-      // });
+      
       this.toastr.warning('Los campos no pueden estar vacios!!! --- Ingresa las credenciales correctas! ', 'Warning!');
     }
   }

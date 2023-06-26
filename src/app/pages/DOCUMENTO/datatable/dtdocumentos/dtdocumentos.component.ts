@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { DocumentoService } from 'src/app/services/documento.service';
@@ -34,7 +35,7 @@ export class DtdocumentosComponent implements OnInit {
    * proporcionar una funcionalidad que se puede compartir entre varios componentes. Al inyectar el
    * servicio en el constructor.
    */
-  constructor(private documentosService: DocumentoService, private fb:FormBuilder, private documentoService: DocumentoService, private router: Router) {
+  constructor(private documentosService: DocumentoService, private fb:FormBuilder, private documentoService: DocumentoService, private router: Router, private toastr: ToastrService) {
     this.formTipo = this.fb.group({
       'tipo': ['', Validators.required],
     });
@@ -88,7 +89,7 @@ export class DtdocumentosComponent implements OnInit {
       if(this.listaDocumentos.length != 0) {
         setTimeout(() => {
             this.dtTrigger.next(0);
-        }, 1000);
+        }, 10);
       }
     })));
   }
@@ -144,21 +145,11 @@ export class DtdocumentosComponent implements OnInit {
     //console.log(formData)
     await new Promise(resolve => resolve(this.documentoService.saveTipoDocumento(formData).subscribe((response) => {
       //console.log(response);
-      Swal.fire({
-        //position: 'center',
-        icon: 'success',
-        title: 'Tipo de documento registrado con exito',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        },
-        showConfirmButton: false,
-        timer: 1500
-      })
+      this.toastr.success('Tipo de documento registrado con éxito!', 'Éxito!');
       this.router.navigate(['/dashboard']);
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
   })));
   }
 

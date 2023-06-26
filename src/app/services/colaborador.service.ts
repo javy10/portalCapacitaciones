@@ -153,6 +153,15 @@ export class ColaboradorService {
     
     return this.http.get<any>(this.url +'/editarIntentosEquivocados/'+dui, { headers })
   }
+
+  reestablecerIntentos (dui: any) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`
+    });
+    
+    return this.http.get<any>(this.url +'/reestablecerIntentos/'+dui, { headers })
+  }
+
   reestablecerClave(data: any): Observable<any>  {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`

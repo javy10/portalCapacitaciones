@@ -70,12 +70,7 @@ export class DocumentosComponent implements OnInit{
 
   ngOnInit(): void {
 
-    if (sessionStorage.getItem('reloaded') === 'true') {
-      sessionStorage.setItem('reloaded', 'false');
-    } else {
-      sessionStorage.setItem('reloaded', 'true');
-      location.reload();
-    }
+    
 
     this.dtOptions = {
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
@@ -207,8 +202,16 @@ export class DocumentosComponent implements OnInit{
     const id = this.activeRoute.snapshot.paramMap.get('id');
     this.id = id;
     //const idPerfil = localStorage.getItem('id');
+    console.log(id)
     if(id){
       
+    if (sessionStorage.getItem('reloaded') === 'true') {
+      sessionStorage.setItem('reloaded', 'false');
+    } else {
+      sessionStorage.setItem('reloaded', 'true');
+      location.reload();
+    }
+
       const titulo = document.getElementById('title');
       titulo!.innerHTML = 'Editar Documento';
       
@@ -223,24 +226,24 @@ export class DocumentosComponent implements OnInit{
       this.activeRoute.params.subscribe( e => {
         let id = e['id'];
         if(id) {
-          
+          console.log(id)
           this.documentoService.getDocumentoID(this.id).subscribe((response) => {
-            this.docs = response.dataDB;
-            //console.log(response)
+            this.docs = response.dataDB[0];
+            console.log(response.dataDB)
             this.formDocumento.patchValue(this.docs);
            
-            this.documentoService.getTipoDocumentoID(response.dataDB.tipoDocumento_id).subscribe((res: any) => {
+            this.documentoService.getTipoDocumentoID(response.dataDB[0].tipoDocumento_id).subscribe((res: any) => {
               //console.log(res)
-              //console.log(res.dataDB.id)
+              console.log(res.dataDB)
               this.ngSelect = res.dataDB.id;
               //console.log(this.ngSelect)
             });
           });
 
-          this.documentoService.getBuscarColaboradoresPermisos(id).subscribe((res: any) => {
-            //console.log(res.dataDB)
-            for (let index = 0; index < res.dataDB.length; index++) {
-              this.datos.push(res.dataDB[index].colaborador_id);
+          this.documentoService.getBuscarColaboradoresPermisos(this.id).subscribe((resp: any) => {
+            //console.log(resp.dataDB)
+            for (let index = 0; index < resp.dataDB.length; index++) {
+              this.datos.push(resp.dataDB[index].colaborador_id);
             }
             //console.log(this.datos)
           });
