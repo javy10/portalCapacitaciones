@@ -16,7 +16,10 @@ export class GrupoComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+  dtOptions1: DataTables.Settings = {};
+  dtTrigger1: Subject<any> = new Subject<any>();
   listaColaboradores:any;
+  listaEvaluacion:any = [];
   formGrupos: FormGroup;
   isLoading = false;
   listaGrupos: any = [];
@@ -106,6 +109,26 @@ export class GrupoComponent implements OnInit {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
       }
     };
+
+    this.dtOptions1 = {
+      lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      searching: true,
+      processing: true,
+      //destroy:true,
+      columnDefs: [
+        { "width": "2%", "targets": 0 },
+        { "width": "25%", "targets": 1 },
+        { "width": "25%", "targets": 2 },
+        { "width": "15%", "targets": 3 },
+        { "width": "15%", "targets": 4 },
+        { "width": "10%", "targets": 5 },
+      ],
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
+      }
+    };
     this.ngSelect = 0;
     this.loadColaborador();
     this.cargar();
@@ -118,7 +141,7 @@ export class GrupoComponent implements OnInit {
       this.isLoading = false;
       setTimeout(() => {
           this.dtTrigger.next(0);
-      }, 1000);
+      }, 10);
     });
   }
 
@@ -173,6 +196,24 @@ export class GrupoComponent implements OnInit {
     }
   }
 
+  selectedItems: any[] = [];
+  isSelected(item: any) {
+    this.selectedItems.some((selectedItem) => selectedItem.id === item.id);
+  }
+
+  onCheckboxChange(item: any) {
+    const index = this.selectedItems.findIndex((selectedItem) => selectedItem.id === item.id);
+    
+    if (index > -1) {
+      // Si el elemento ya estaba seleccionado, se elimina de la matriz selectedItems
+      this.selectedItems.splice(index, 1);
+    } else {
+      // Si el elemento no estaba seleccionado, se agrega a la matriz selectedItems
+      this.selectedItems.push(item.id);
+      console.log(this.selectedItems)
+    }
+  }
+
   guardar() {
 
     console.log(this.datosEvaluacion)
@@ -216,12 +257,14 @@ export class GrupoComponent implements OnInit {
           });
           console.log(checkedUsers);
 
+          console.log(this.selectedItems)
+
           this.evaluacionService.saveEvaluacion(this.datosEvaluacion).subscribe((res) => {
             if(res.success == true) {
               console.log(this.datosEvaluacion)
               
-              for (let index = 0; index < checkedUsers.length; index++) {
-                const element = checkedUsers[index];
+              for (let index = 0; index < this.selectedItems.length; index++) {
+                const element = this.selectedItems[index];
                 console.log(element)
                 formData.append('colaborador_id' , element)
                 this.evaluacionService.saveDetalleGrupo(formData).subscribe((response) => {
@@ -317,6 +360,40 @@ export class GrupoComponent implements OnInit {
         'intentos': this.formEvaluacion.value.intentos,
       }
       console.log(this.datosEvaluacion)
+      this.listaEvaluacion.push(this.datosEvaluacion)
+      setTimeout(() => {
+        this.dtTrigger1.next(0);
+      }, 10);
+      const cardEvaluacion = document.getElementById('cardEvaluacion');
+      cardEvaluacion!.hidden = false;
+
+      const button = document.getElementById('btnAgregar') as HTMLButtonElement;
+      button.setAttribute('disabled', 'true');
+
   }
+
+  eliminarEvaluacion(item:any) {
+    const indice = this.listaEvaluacion.indexOf(item);
+    if (indice !== -1) {
+      this.listaEvaluacion.splice(indice, 1);
+
+      const button = document.getElementById('btnAgregar') as HTMLButtonElement;
+      button.setAttribute('disabled', 'false');
+      button.disabled = false;
+      button.removeAttribute('disabled');
+
+      const cardEvaluacion = document.getElementById('cardEvaluacion');
+      cardEvaluacion!.hidden = true;
+
+
+      this.datosEvaluacion = {}
+
+      //this.listaEvaluacion.push(this.datosEvaluacion)
+    }
+    console.log(this.listaEvaluacion);
+    console.log(this.datosEvaluacion);
+  }
+
+
 
 }

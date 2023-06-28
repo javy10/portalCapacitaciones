@@ -129,6 +129,24 @@ export class DocumentosComponent implements OnInit{
     console.log(this.datosDoc)
   }
 
+  selectedItems: any[] = [];
+  isSelected(item: any) {
+    this.selectedItems.some((selectedItem) => selectedItem.id === item.id);
+  }
+
+  onCheckboxChange(item: any) {
+    const index = this.selectedItems.findIndex((selectedItem) => selectedItem.id === item.id);
+    
+    if (index > -1) {
+      // Si el elemento ya estaba seleccionado, se elimina de la matriz selectedItems
+      this.selectedItems.splice(index, 1);
+    } else {
+      // Si el elemento no estaba seleccionado, se agrega a la matriz selectedItems
+      this.selectedItems.push(item.id);
+      console.log(this.selectedItems)
+    }
+  }
+
   guardarDatos() {
   
     let tipoPermiso_id = [], departamento_id = [], colaborador_id = [], datos = [];
@@ -149,6 +167,8 @@ export class DocumentosComponent implements OnInit{
       }
     });
     console.log(checkedUsers);
+
+    console.log(this.selectedItems)
     
     if(datos && this.formDocumento.value.tipo > 0) {
       const formData = new FormData();
@@ -159,7 +179,7 @@ export class DocumentosComponent implements OnInit{
       ////formData.append('detalleDoc', JSON.stringify(datos))
 
       formData.append('tipoPermiso_id', '2'),
-      formData.append('colaborador_id', JSON.stringify(checkedUsers))
+      formData.append('colaborador_id', JSON.stringify(this.selectedItems))
   
       this.documentoService.saveDocumentos(formData).subscribe((response) => {
   
@@ -203,14 +223,16 @@ export class DocumentosComponent implements OnInit{
     this.id = id;
     //const idPerfil = localStorage.getItem('id');
     console.log(id)
-    if(id){
-      
     if (sessionStorage.getItem('reloaded') === 'true') {
       sessionStorage.setItem('reloaded', 'false');
     } else {
       sessionStorage.setItem('reloaded', 'true');
-      location.reload();
+      // location.reload();
+      window.location.reload();
     }
+
+    if(id){
+      
 
       const titulo = document.getElementById('title');
       titulo!.innerHTML = 'Editar Documento';

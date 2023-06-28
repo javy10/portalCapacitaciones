@@ -1,10 +1,10 @@
 
-<!-- <div class="d-flex justify-content-center" *ngIf="isLoading">
-    <div class="spinner-border text-success" style="width: 5rem; height: 5rem;" role="status" *ngIf="isLoading">
-      <span class="visually-hidden">Cargando...</span>
-    </div>
-</div> -->
 
+<div class="d-flex justify-content-end mb-2">
+    <button type="button" class="btn btn-primary mt-2" id="grupo" routerLink="/dashboard/evaluacion" data-bs-target="#staticBackdrop" >
+        <i class="bi bi-plus-lg"></i> Agregar Evaluación
+    </button>
+</div>
 <div class="mx-auto loader" *ngIf="isLoading">
     <div class="orbe" style="--index: 0"></div>
     <div class="orbe" style="--index: 1"></div>

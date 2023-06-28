@@ -57,7 +57,7 @@ export class AppComponent implements OnInit{
     console.log(this.inactivityTime);
     setInterval(() => {
       console.log(this.inactivityTime);
-      this.inactivityTime += 1800000;
+      this.inactivityTime += 3600000 ;
       if (this.inactivityTime >= this.MAX_INACTIVITY_TIME) {
         if (this.conteo == 0) {
           this.conteo = 1;
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit{
           this.logout();
         }
       }
-    }, 1800000);
+    }, 3600000 );
   
     // Add event listeners to reset inactivityTime
     document.addEventListener('mousemove', () => {

@@ -50,6 +50,22 @@ export class DtresultadosevaluacionComponent implements OnInit {
     //     url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
     //   }
     // };
+
+    this.dtOptions = {
+      lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      columnDefs: [
+        { "width": "2%", "targets": 0 },
+        { "width": "25%", "targets": 1 },
+        { "width": "15%", "targets": 2 },
+        { "width": "20%", "targets": 3 },
+        { "width": "12%", "targets": 4 }
+      ],
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
+      }
+    };
     
   }
 
@@ -59,6 +75,7 @@ export class DtresultadosevaluacionComponent implements OnInit {
     if(this.formResultados.value.apertura && this.formResultados.value.cierre) {
       let fechaFormateadaA = '';
       let fechaFormateadaC = '';
+      //this.isLoading = true;
       const apertura = document.querySelector("#apertura") as HTMLInputElement;
       const cierre = document.querySelector("#cierre") as HTMLInputElement;
       let fechaObjA = new Date(apertura.value);
@@ -70,33 +87,17 @@ export class DtresultadosevaluacionComponent implements OnInit {
       formData.append('apertura', fechaFormateadaA),
       formData.append('cierre', fechaFormateadaC)
   
-      this.isLoading = true;
       this.evaluacionesService.getObtenerResultadosEvaluacion(formData).subscribe((data: any) => {
 
-        this.dtOptions = {
-          lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-          pagingType: 'full_numbers',
-          pageLength: 5,
-          columnDefs: [
-            { "width": "2%", "targets": 0 },
-            { "width": "25%", "targets": 1 },
-            { "width": "15%", "targets": 2 },
-            { "width": "25%", "targets": 3 },
-            { "width": "10%", "targets": 4 }
-          ],
-          language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
-          }
-        };
-              
+        //this.isLoading = false;
         this.listaResultadoEvaluacion = data.dataDB;
         console.log(this.listaResultadoEvaluacion)
   
-        this.isLoading = false;
+
         if(this.listaResultadoEvaluacion.length != 0) {
           setTimeout(() => {
             this.dtTrigger.next(0);
-          }, 1000);
+          }, 10);
         } 
       });
     } else {
