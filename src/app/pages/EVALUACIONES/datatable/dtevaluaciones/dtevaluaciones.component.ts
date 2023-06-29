@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
@@ -21,7 +22,7 @@ export class DtevaluacionesComponent implements OnInit {
   n_preguntas:any = 0;
   idEvaluacion:any;
 
-  constructor(private evaluacionesService: EvaluacionesService, private toastr: ToastrService,) {}
+  constructor(private evaluacionesService: EvaluacionesService, private toastr: ToastrService, private router: Router) {}
 
   ngOnInit(): void {
     //this.Id = localStorage.getItem('id')!;
@@ -36,7 +37,7 @@ export class DtevaluacionesComponent implements OnInit {
         { "width": "15%", "targets": 3 },
         { "width": "10%", "targets": 4 },
         { "width": "15%", "targets": 5 },
-        { "width": "10%", "targets": 6 },
+        { "width": "15%", "targets": 6 },
       ],
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
@@ -53,7 +54,7 @@ export class DtevaluacionesComponent implements OnInit {
       
       for(let item of data.dataDB){
         //console.log(item.id)
-        this.evaluacionesService.getConteoPreguntas(item.id).subscribe((data: any) => {
+        this.evaluacionesService.getConteoPreguntas(item.id).subscribe((res: any) => {
           
         });
       }
@@ -65,7 +66,7 @@ export class DtevaluacionesComponent implements OnInit {
       if(this.listaEvaluaciones.length != 0) {
         setTimeout(() => {
             this.dtTrigger.next(0);
-        }, 1000);
+        }, 10);
       }
     });
   
@@ -104,6 +105,41 @@ export class DtevaluacionesComponent implements OnInit {
         });
       }
     });
+  }
+
+
+  agregarPregunta(id:any){
+
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-warning'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Agregar Quiz',
+      text: "¿Que tipo de cuestionario deseas hacer?",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Cuestionario evaluado',
+      cancelButtonText: 'Cuestionario sin evaluación',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/dashboard/pregunta', id]);
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        this.router.navigate(['/dashboard/pregunta', id]);
+      }
+    })
+
+
+
   }
 
 }

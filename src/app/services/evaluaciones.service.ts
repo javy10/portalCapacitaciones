@@ -141,8 +141,8 @@ export class EvaluacionesService {
     return this.http.get(this.url+'/habilitarEvaluacion/'+id);
   }
   
-  getIntentosColaboradores(): Observable<any> {
-    return this.http.get(this.url+'/intentosColaboradores');
+  getIntentosColaboradores(id:any): Observable<any> {
+    return this.http.get(this.url+'/intentosColaboradores/'+id);
   }
   
   habilitarIntentosEvaluacion(id: any): Observable<any> {
@@ -158,6 +158,11 @@ export class EvaluacionesService {
   getObtenerPreguntasRespuestas(id: any): Observable<any> {
     console.log(id)
     return this.http.get(this.url+'/obtenerPreguntasRespuestas/'+id);
+  }
+
+  getObtenerGruposPorEvaluacion(id: any): Observable<any> {
+    console.log(id)
+    return this.http.get(this.url+'/obtenerGruposPorEvaluacion/'+id);
   }
 
 

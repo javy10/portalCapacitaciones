@@ -28,6 +28,7 @@ export class DatatableComponent implements OnDestroy, OnInit {
     this.Id = localStorage.getItem('id')!;
     this.loadColaborador()
     this.dtOptions = {
+      autoWidth: false,
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
       pageLength: 5,

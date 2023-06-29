@@ -20,7 +20,7 @@
                 <th>N°</th>
                 <th>Título</th>
                 <th>Descripción</th>                
-                <th>Grupo</th>
+                <th>Cantidad de grupos</th>
                 <th>N° de preguntas</th>
                 <th>Fecha registro</th>
                 <th>Acciones</th>
@@ -35,13 +35,16 @@
                 <td>{{ item.cantidadPreguntas }}</td>
                 <td>{{ item.created_at | date: 'yyyy-MM-dd HH:mm:ss'  }}</td>
                 <td style="text-align: center;">
-                    <a  type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Pregunta" [routerLink]="['/dashboard/pregunta', item.id]">
+                    <a  type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Pregunta" (click)="agregarPregunta(item.id)">
                         <i class="bi bi-question-circle-fill" style="font-size: 1rem; color: rgb(12, 204, 5);"></i>
                     </a>
-                    <a type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar preguntas" [routerLink]="['/dashboard/pregunta', item.nombre, item.id]">
+                    <a *ngIf="item.cantidadPreguntas != 0" type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar preguntas" [routerLink]="['/dashboard/pregunta', item.nombre, item.id]">
                         <i class="bi bi-pencil-fill" style="font-size: 1rem; color: rgb(8, 134, 252);"></i>
                     </a>
-                    <a type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" [routerLink]="['/dashboard/evaluacion', item.id]">
+                    <a *ngIf="item.cantidadPreguntas != 0" type="button" class=" ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultados" [routerLink]="['/dashboard/list-resultados-evaluacion', item.id]">
+                        <i class="bi bi-clipboard-data" style="font-size: 1rem; color: rgb(6, 190, 181);"></i>
+                    </a>
+                    <a type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar evaluación" [routerLink]="['/dashboard/evaluacion', item.id]">
                         <i class="bi bi-pencil-square" style="font-size: 1rem; color: rgb(8, 134, 252);"></i>
                     </a>
                     <a type="button" class=" ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Deshabilitar" (click)="eliminarEvaluacion(item)">
@@ -57,3 +60,5 @@
 </div>
 
 <!-- *ngIf="item.cantidadPreguntas == 0" -->
+
+<!-- [routerLink]="['/dashboard/pregunta', item.id]" -->

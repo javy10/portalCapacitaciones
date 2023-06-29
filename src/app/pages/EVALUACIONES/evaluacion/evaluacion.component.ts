@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-evaluacion',
@@ -37,9 +38,12 @@ export class EvaluacionComponent implements OnInit{
   public datos: any[] = [];
   listaGrupos:any = [];
   listaUsuariosPorGrupo:any = [];
+  idGrupo:any;
 
   @ViewChild(DataTableDirective, { static: true })
   datatableElement!: DataTableDirective;
+
+  
 
   constructor(
     public fb:FormBuilder,
@@ -96,6 +100,7 @@ export class EvaluacionComponent implements OnInit{
     this.ngSelect = 0;
 
     this.dtOptions = {
+      autoWidth: false,
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -115,6 +120,7 @@ export class EvaluacionComponent implements OnInit{
     };
 
     this.dtOptions1 = {
+      autoWidth: false,
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -140,24 +146,24 @@ export class EvaluacionComponent implements OnInit{
 
 
   pasarDatosGrupo(datos:any) {
-    console.log(datos)
+    //console.log(datos)
     this.datosGrupo = datos;
-    console.log(this.datosGrupo)
+    //console.log(this.datosGrupo)
   }
 
   pasarDatosPregunta(datos:any){
-    console.log(datos)
+    //console.log(datos)
     this.datosPregunta = datos;
-    console.log(this.datosPregunta)
+    //console.log(this.datosPregunta)
   }
 
   loadColaborador() {
-    this.isLoading = true;
+    //this.isLoading = true;
     this._colaboradorService.getCollaborator().subscribe((data: any) => {
+      this.dtTrigger.next(0);
       this.listaColaboradores = data.dataDB;
-      this.isLoading = false;
+      //this.isLoading = false;
       setTimeout(() => {
-          this.dtTrigger.next(0);
       }, 10);
     });
   }
@@ -200,6 +206,14 @@ export class EvaluacionComponent implements OnInit{
     const nombre = this.activeRoute.snapshot.paramMap.get('idG');
     console.log(nombre)
 
+    if (sessionStorage.getItem('reloaded') === 'true') {
+      sessionStorage.setItem('reloaded', 'false');
+    } else {
+      sessionStorage.setItem('reloaded', 'true');
+      // location.reload();
+      window.location.reload();
+    }
+
     if(id && !nombre){
       const titulo = document.getElementById('title');
       titulo!.innerHTML = 'Editar evaluación';
@@ -210,12 +224,44 @@ export class EvaluacionComponent implements OnInit{
       const btnEdit = document.getElementById('btnActualizar');
       btnEdit!.hidden = false;
 
+      const cardGrupo = document.getElementById('cardGrupo');
+      cardGrupo!.hidden = false;
+
       this.activeRoute.params.subscribe( e => {
         let id = e['id'];
         if(id) {
           this.evaluacionesServices.getEvaluacionId(id).subscribe((response) => {
             this.formEvaluacion.patchValue(response.dataDB);
           });
+
+          this.evaluacionesServices.getObtenerGruposPorEvaluacion(id).subscribe((resp) => {
+            this.dtTrigger1.next(0);
+            console.log(resp)
+            if(resp.success == true) {
+              
+              // Agrupar los elementos por el campo 'id'
+              const grupos = resp.dataDB.reduce((result:any, item:any) => {
+                const grupo = result.find((g:any) => g.id === item.id);
+                if (grupo) {
+                  grupo.usuarios.push(item.colaborador_id);
+                } else {
+                  result.push({
+                    id: item.id,
+                    nombreG: item.nombreG,
+                    apertura: item.apertura,
+                    cierre: item.cierre,
+                    intentos: item.intentos,
+                    usuarios: [item.colaborador_id]
+                  });
+                }
+                return result;
+              }, []);
+
+              console.log(grupos);
+              this.listaGrupos = grupos;
+            }
+          });
+
         }
       });
     } else {
@@ -228,19 +274,22 @@ export class EvaluacionComponent implements OnInit{
     const id = this.activeRoute.snapshot.paramMap.get('id');
     //console.log(id)
 
+    console.log(this.listaGrupos)
+
     const formData = new FormData();
     formData.append('nombre' , this.formEvaluacion.value.nombre),
     formData.append('descripcion' , this.formEvaluacion.value.descripcion),
     formData.append('calificacionMinima' , this.formEvaluacion.value.calificacionMinima),
     formData.append('intentos' , this.formEvaluacion.value.intentos),
-    formData.append('evaluacion_id' , id!)
+    formData.append('evaluacion_id' , id!),
+    formData.append('grupos' , JSON.stringify(this.listaGrupos))
 
     this.evaluacionesServices.editarEvaluacion(formData).subscribe((response) => {
       if(response.success == true) {
         this.toastr.success('Evaluación actualizada con éxito!', 'Éxito!');
         setTimeout(() => {
           this.router.navigate(['/dashboard/list-evaluaciones']);
-        }, 1000);
+        }, 100);
       } else {
         this.toastr.error('A ocurrido un error no controlado...', 'Error!');
       }
@@ -260,75 +309,23 @@ export class EvaluacionComponent implements OnInit{
 
   guardar() {
 
-    console.log(this.datosEvaluacion)
+    console.log(this.listaGrupos)
 
+    const formData = new FormData();
+    formData.append('nombre' , this.formEvaluacion.value.nombre),
+    formData.append('descripcion' , this.formEvaluacion.value.descripcion),
+    formData.append('calificacionMinima' , this.formEvaluacion.value.calificacionMinima),
+    formData.append('intentos' , this.formEvaluacion.value.intentos),
+    formData.append('grupos' , JSON.stringify(this.listaGrupos))
     
-    // if(this.selectedCheckboxCount > 0 && this.datosEvaluacion != undefined) {
-    //   let fechaFormateadaA = '';
-    //   let fechaFormateadaC = '';
-    //   const apertura = document.querySelector("#apertura") as HTMLInputElement;
-    //   const cierre = document.querySelector("#cierre") as HTMLInputElement;
-    //   let fechaObjA = new Date(apertura.value);
-    //   fechaFormateadaA = this.datePipe.transform(fechaObjA, 'yyyy-MM-dd HH:mm:ss')!;
-    //   let fechaObjC = new Date(cierre.value);
-    //   fechaFormateadaC = this.datePipe.transform(fechaObjC, 'yyyy-MM-dd HH:mm:ss')!;
-
-    //   const formData = new FormData();
-    //   formData.append('nombre' , this.formGrupos.value.nombre),
-    //   formData.append('apertura' , fechaFormateadaA),
-    //   formData.append('cierre' , fechaFormateadaC)
-    //   formData.append('intentos' , this.formEvaluacion.value.intentos)
-
-    //   console.log(this.formGrupos.value.nombre)
-    //   console.log(fechaFormateadaA)
-    //   console.log(fechaFormateadaC)
-
-    //   this.evaluacionesServices.saveGrupo(formData).subscribe((response) => {
-    //     if(response.success == true) {
-
-    //       const checkboxes = document.querySelectorAll<HTMLInputElement>('table input[type="checkbox"]');
-    //       const userCells = document.querySelectorAll('table td.user');
-    //       const checkedUsers: string[] = [];
-          
-    //       checkboxes.forEach((checkbox, index) => {
-    //         if (checkbox.checked) {
-    //           const userCell = userCells[index];
-    //           const userName = userCell.textContent?.trim();
-    //           if (userName) {
-    //             checkedUsers.push(userName);
-    //           }
-    //         }
-    //       });
-    //       console.log(checkedUsers);
-
-    //       this.evaluacionesServices.saveEvaluacion(this.datosEvaluacion).subscribe((res) => {
-    //         if(res.success == true) {
-    //           console.log(this.datosEvaluacion)
-              
-    //           for (let index = 0; index < checkedUsers.length; index++) {
-    //             const element = checkedUsers[index];
-    //             console.log(element)
-    //             formData.append('colaborador_id' , element)
-    //             this.evaluacionesServices.saveDetalleGrupo(formData).subscribe((response) => {
-    //             });
-    //           }
-              
-    //           this.toastr.success('Grupo de evaluación creado con éxito!', 'Éxito!');
-    //           setTimeout(() => {
-    //             this.router.navigate(['dashboard/list-grupos']);
-    //           }, 1000);
-
-    //           this.datosEvaluacion = {}
-    //         }
-    //       });
-
-
-    //     }
-    //   });
-
-    // } else {
-    //   this.toastr.warning('Debes seleccionar al menos un colaborador o verifica si agregaste una evaluación!', 'Advertencia!');
-    // }
+    this.evaluacionesServices.saveEvaluacion(formData).subscribe((res) => {
+      if(res.success) {
+        this.toastr.success('Evaluación creada con éxito!', 'Éxito!');
+        setTimeout(() => {
+          this.router.navigate(['/dashboard/list-evaluaciones']);
+        }, 10);
+      }
+    })
 
 
   }
@@ -336,46 +333,80 @@ export class EvaluacionComponent implements OnInit{
   cancelar() {}
 
   recargar() {
-    if (sessionStorage.getItem('reloaded') === 'true') {
-      sessionStorage.setItem('reloaded', 'false');
-    } else {
-      sessionStorage.setItem('reloaded', 'true');
-      location.reload();
-    }
+    // if (sessionStorage.getItem('reloaded') === 'true') {
+    //   sessionStorage.setItem('reloaded', 'false');
+    // } else {
+    //   sessionStorage.setItem('reloaded', 'true');
+    //   location.reload();
+    // }
   }
 
-  eliminarEvaluacion(item:any) {
+  eliminarGrupo(item:any) {
+    const index = this.listaGrupos.findIndex((objeto:any) => objeto.id === item.id);
+    if (index > -1) {
+      this.listaGrupos.splice(index, 1);
+      this.evaluacionesServices.eliminar(item.id).subscribe((response) => {
+        console.log(response.success)
+      });
+    }
 
+
+    //console.log(this.listaGrupos)
   }
 
   reset() {
+    // this.loadColaborador();
     console.log(this.selectedItems)
     this.formGrupos.reset();
     this.selectedItems = []
     console.log(this.selectedItems)
+    //$('#myModalExito').modal('hide'); // cerrar
   }
 
 
 
   selectedItems: any[] = [];
   isSelected(item: any) {
-    //console.log(this.selectedItems)
     this.selectedItems.some((selectedItem) => selectedItem.id === item.id);
-    //console.log(this.selectedItems)
   }
 
   onCheckboxChange(item: any) {
-    //console.log(this.selectedItems)
-    const index = this.selectedItems.findIndex((selectedItem) => selectedItem.id === item.id);
-    //console.log(this.selectedItems)
-    if (index > -1) {
-      // Si el elemento ya estaba seleccionado, se elimina de la matriz selectedItems
-      this.selectedItems.splice(index, 1);
+    // //console.log(this.selectedItems)
+    // console.log(this.selectedItems);
+    // console.log(this.datos);
+
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+
+    if(!id) {
+      const index = this.selectedItems.findIndex((selectedItem) => selectedItem === item);
+      //console.log(index)
+      if (index > -1) {
+        // Si el elemento ya estaba seleccionado, se elimina de la matriz selectedItems
+        this.selectedItems = this.selectedItems.filter((selectedItem) => selectedItem !== item);
+        //console.log(this.selectedItems);
+      } else {
+        // Si el elemento no estaba seleccionado, se agrega a la matriz selectedItems
+        this.selectedItems.push(item);
+        //console.log(this.selectedItems);
+      }
     } else {
-      // Si el elemento no estaba seleccionado, se agrega a la matriz selectedItems
-      this.selectedItems.push(item.id);
-      console.log(this.selectedItems)
+
+      const indexNew = this.datos.findIndex((selectedItem) => selectedItem === item);
+      //console.log(indexNew)
+      if (indexNew > -1) {
+        // Si el elemento ya estaba seleccionado, se elimina de la matriz selectedItems
+        this.datos = this.datos.filter((selectedItem) => selectedItem !== item);
+        //console.log(this.datos);
+      } else {
+        // Si el elemento no estaba seleccionado, se agrega a la matriz datos
+        this.datos.push(item);
+        //console.log(this.datos);
+      }
+ 
     }
+
+
+
   }
 
   agregar() {
@@ -394,6 +425,7 @@ export class EvaluacionComponent implements OnInit{
       'apertura': fechaFormateadaA,
       'cierre': fechaFormateadaC,
       'intentos': this.formEvaluacion.value.intentos,
+      'usuarios': this.selectedItems
     }
 
     const checkboxes = document.querySelectorAll<HTMLInputElement>('table input[type="checkbox"]');
@@ -411,7 +443,7 @@ export class EvaluacionComponent implements OnInit{
     //this.listaUsuariosPorGrupo.push(checkedUsers)
     console.log(checkedUsers);
     console.log(this.selectedItems)
-    this.grupoDatos.usuarios = this.selectedItems;
+    // this.grupoDatos.usuarios = this.selectedItems;
     this.selectedItems = []
     //console.log(this.grupoDatos)
     this.listaGrupos.push(this.grupoDatos)
@@ -430,7 +462,60 @@ export class EvaluacionComponent implements OnInit{
 
   }
 
+  cargarGrupo(item:any) {
+    console.log(item)
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    if(id){
+      this.datos = [];
+      const titulo = document.getElementById('exampleModalLabel');
+      titulo!.innerHTML = 'Editar grupo';
 
+      const btnGuardar = document.getElementById('btnAceptar');
+      btnGuardar!.hidden = true;
+
+      const btnEdit = document.getElementById('btnActualizar');
+      btnEdit!.hidden = false;
+
+      this.idGrupo = item.id;
+  
+      this.formGrupos.patchValue(item);
+  
+      this.activeRoute.params.subscribe( e => {
+      let id = e['id'];
+        if(id) {
+          this.evaluacionesServices.obtenerColaboradoresGrupoID(item.id).subscribe((response) => { 
+            for (let index = 0; index < response.dataDB.length; index++) {
+              this.datos.push(response.dataDB[index].colaborador_id);
+              console.log(this.datos)
+            }
+            //this.grupoDatos.usuarios = this.datos;
+            console.log(this.listaGrupos)
+          })
+        }
+      });
+    }
+
+  }
+
+  editarGrupo() {
+    const indiceObjeto = this.listaGrupos.findIndex((objeto:any) => objeto.id === this.idGrupo);
+
+    //console.log(this.selectedItems)
+
+    if (indiceObjeto !== -1) {
+      this.listaGrupos[indiceObjeto].id = this.idGrupo;
+      this.listaGrupos[indiceObjeto].nombreG = this.formGrupos.value.nombreG;
+      this.listaGrupos[indiceObjeto].apertura = this.formGrupos.value.apertura;
+      this.listaGrupos[indiceObjeto].cierre = this.formGrupos.value.cierre;
+      this.listaGrupos[indiceObjeto].usuarios = this.datos;
+      // this.listaGrupos[indiceObjeto].usuarios = this.selectedItems.length == 0 ? this.datos : this.datos.concat(this.selectedItems);
+
+    }
+    // console.log(this.datos)
+    // console.log(this.listaGrupos)
+    // console.log(this.selectedItems)
+
+  }
 
 
 

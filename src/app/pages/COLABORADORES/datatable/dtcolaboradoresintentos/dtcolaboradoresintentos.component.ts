@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class DtcolaboradoresintentosComponent implements OnInit {
 
-  constructor(private evaluacionService: EvaluacionesService,  private toastr: ToastrService) {}
+  constructor(private evaluacionService: EvaluacionesService,  private toastr: ToastrService, private activeRoute: ActivatedRoute) {}
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -39,8 +40,9 @@ export class DtcolaboradoresintentosComponent implements OnInit {
   }
 
   loadColaborador() {
+    const id = this.activeRoute.snapshot.paramMap.get('id');
     this.isLoading = true;
-    this.evaluacionService.getIntentosColaboradores().subscribe((data: any) => {
+    this.evaluacionService.getIntentosColaboradores(id).subscribe((data: any) => {
       console.log(data.dataDB)
       this.listaColaboradorIntentos = data.dataDB;
       this.isLoading = false;

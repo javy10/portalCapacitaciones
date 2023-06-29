@@ -30,6 +30,9 @@
                     </a>
                 </td>
             </tr>
+            <tr *ngIf="listaColaboradorIntentos.length == 0">
+                <td colspan="5" style="text-align: center;">No hay registros</td>
+            </tr>
         </tbody>
     </table>
 </div>

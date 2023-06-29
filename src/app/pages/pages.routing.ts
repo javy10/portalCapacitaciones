@@ -77,6 +77,7 @@ const routes: Routes = [
           { path: 'evaluaciones-deshabilitadas', component: ListevaluacionesdeshabilitadosComponent},
           { path: 'list-intentos', component: ListcolaboradoresintentosComponent},
           { path: 'list-resultados-evaluacion', component: ListresultadosevaluacionComponent},
+          { path: 'list-resultados-evaluacion/:id', component: ListresultadosevaluacionComponent},
           { path: 'list-documentos-deshabilitados', component: ListdocumentosdeshabilitadosComponent},
         ]
     },

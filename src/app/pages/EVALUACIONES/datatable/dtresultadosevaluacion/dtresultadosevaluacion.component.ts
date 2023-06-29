@@ -1,9 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dtresultadosevaluacion',
@@ -15,11 +17,13 @@ export class DtresultadosevaluacionComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
+
   listaResultadoEvaluacion:any=[];
   isLoading = false;
   formResultados: FormGroup;
 
-  constructor(private evaluacionesService: EvaluacionesService, private fb:FormBuilder, private toastr: ToastrService, private datePipe: DatePipe,) {
+
+  constructor(private evaluacionesService: EvaluacionesService, private fb:FormBuilder, private toastr: ToastrService, private datePipe: DatePipe, private activeRoute: ActivatedRoute, ) {
     this.formResultados = this.fb.group({
       'apertura': ['', Validators.required],
       'cierre': ['', Validators.required],
@@ -51,6 +55,7 @@ export class DtresultadosevaluacionComponent implements OnInit {
     //   }
     // };
 
+       
     this.dtOptions = {
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
@@ -69,12 +74,13 @@ export class DtresultadosevaluacionComponent implements OnInit {
     
   }
 
-  loadEvaluacionesDeshabilitadas() {
+  loadResultadosEvaluacion() {
     //this.obtenerConteo();
 
     if(this.formResultados.value.apertura && this.formResultados.value.cierre) {
       let fechaFormateadaA = '';
       let fechaFormateadaC = '';
+      const id = this.activeRoute.snapshot.paramMap.get('id');
       //this.isLoading = true;
       const apertura = document.querySelector("#apertura") as HTMLInputElement;
       const cierre = document.querySelector("#cierre") as HTMLInputElement;
@@ -84,6 +90,7 @@ export class DtresultadosevaluacionComponent implements OnInit {
       fechaFormateadaC = this.datePipe.transform(fechaObjC, 'yyyy-MM-dd HH:mm:ss')!;
   
       const formData = new FormData();
+      formData.append('id', id!.toString()),
       formData.append('apertura', fechaFormateadaA),
       formData.append('cierre', fechaFormateadaC)
   
@@ -106,7 +113,6 @@ export class DtresultadosevaluacionComponent implements OnInit {
 
   }
 
-
-
+ 
 
 }

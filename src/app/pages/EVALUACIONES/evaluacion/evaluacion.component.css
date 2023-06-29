@@ -11,7 +11,7 @@ table th {
 table tr th{
   background:#19948a;
   color:white;
-  vertical-align:center;
+  /* vertical-align:center; */
 }
 
 .loader {

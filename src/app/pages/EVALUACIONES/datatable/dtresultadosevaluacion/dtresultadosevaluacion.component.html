@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-md-3 mt-4">
-                <button type="button" class="btn btn-primary" (click)="loadEvaluacionesDeshabilitadas()">Buscar resultados</button>
+                <button type="button" class="btn btn-primary" (click)="loadResultadosEvaluacion()">Buscar resultados</button>
             </div>
         </div>
     </form>
@@ -61,7 +61,7 @@
                   
             </tr>
             <tr *ngIf="listaResultadoEvaluacion.length == 0">
-                <td colspan="5">No hay registros</td>
+                <td colspan="5" style="text-align: center;">No hay registros</td>
             </tr>
         </tbody>
     </table>

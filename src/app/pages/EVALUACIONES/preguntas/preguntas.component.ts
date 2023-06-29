@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-preguntas',
@@ -525,7 +526,7 @@ export class PreguntasComponent implements OnInit {
     const id = this.activeRoute.snapshot.paramMap.get('id');
     const nombre = this.activeRoute.snapshot.paramMap.get('idN');
     console.log(nombre)
-    
+
     if (id && nombre) {
       this.ocultarCard = false;
       // this.isLoading = true;
@@ -536,10 +537,16 @@ export class PreguntasComponent implements OnInit {
       const titulo = document.getElementById('title');
       //titulo!.innerHTML = 'Editar Preguntas';
 
+      window.addEventListener('DOMContentLoaded', () => {
+        const btnEdit = document.getElementById('btnEditarPreguntas') as HTMLButtonElement;
+        btnEdit.hidden = false;
+      });
+
       this.activeRoute.params.subscribe(e => {
         let id = e['id'];
         console.log(id);
         if (id) {
+
           this.evaluacionesService.getObtenerPreguntasRespuestas(id).subscribe((response) => {
             console.log(response)
             const cardContainer = document.getElementById('card-container') as HTMLInputElement;
@@ -674,7 +681,7 @@ export class PreguntasComponent implements OnInit {
     }
     else {
       const btnEdit = document.getElementById('btnEditarPreguntas');
-      btnEdit!.hidden = true;
+      //btnEdit!.hidden = true;
     }
   }
 
