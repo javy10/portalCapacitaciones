@@ -28,7 +28,7 @@
                 <td>{{ item.cantidadPreguntas }}</td>
                 <td>{{ item.created_at | date: 'yyyy-MM-dd HH:mm:ss'  }}</td>
                 <td style="text-align: center;">
-                    <a *ngIf="item.cantidadPreguntas == 0" type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Habilitar" (click)="habilitar(item.id)">
+                    <a *ngIf="item.habilitado == 'N'" type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Habilitar" (click)="habilitar(item.id)">
                         <i class="bi bi-check2-circle" style="font-size: 1rem; color: rgb(12, 204, 5);"></i>
                     </a>
                 </td>

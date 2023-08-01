@@ -22,6 +22,7 @@ export class EvaluacionComponent implements OnInit{
   formEvaluacion!: FormGroup;
   formGrupos: FormGroup;
   ngSelect: any;
+  ngSelectE: any;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -57,8 +58,9 @@ export class EvaluacionComponent implements OnInit{
     this.formEvaluacion = this.fb.group({
       'nombre': ['', Validators.required],
       'descripcion': ['', Validators.required],
-      'calificacionMinima': ['', Validators.required],
-      'intentos': ['', Validators.required]
+      'calificacionMinima': [],
+      'intentos': [],
+      'evaluada': ['', Validators.required]
       //'minutos': ['', Validators.required],
     });
 
@@ -76,11 +78,14 @@ export class EvaluacionComponent implements OnInit{
   get descripcion() {
     return this.formEvaluacion.get('descripcion') as FormControl;
   }
-  get calificacionMinima() {
-    return this.formEvaluacion.get('calificacionMinima') as FormControl;
-  }
-  get intentos() {
-    return this.formEvaluacion.get('intentos') as FormControl;
+  // get calificacionMinima() {
+  //   return this.formEvaluacion.get('calificacionMinima') as FormControl;
+  // }
+  // get intentos() {
+  //   return this.formEvaluacion.get('intentos') as FormControl;
+  // }
+  get evaluada() {
+    return this.formEvaluacion.get('evaluada') as FormControl;
   }
 
   get nombreG() {
@@ -98,12 +103,13 @@ export class EvaluacionComponent implements OnInit{
 
   ngOnInit(): void {
     this.ngSelect = 0;
+    this.ngSelectE = 0;
 
     this.dtOptions = {
       autoWidth: false,
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
-      pageLength: 5,
+      pageLength: 10,
       searching: true,
       processing: true,
       //destroy:true,
@@ -138,8 +144,8 @@ export class EvaluacionComponent implements OnInit{
         url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
       }
     };
-    this.loadColaborador();
     this.cargar();
+    this.loadColaborador();
 
   }
 
@@ -200,7 +206,7 @@ export class EvaluacionComponent implements OnInit{
     });
   }
 
-  cargar() {
+  async cargar() {
     const id = this.activeRoute.snapshot.paramMap.get('id');
     console.log(id)
     const nombre = this.activeRoute.snapshot.paramMap.get('idG');
@@ -211,7 +217,7 @@ export class EvaluacionComponent implements OnInit{
     } else {
       sessionStorage.setItem('reloaded', 'true');
       // location.reload();
-      window.location.reload();
+      window.location.reload(); 
     }
 
     if(id && !nombre){
@@ -227,12 +233,24 @@ export class EvaluacionComponent implements OnInit{
       const cardGrupo = document.getElementById('cardGrupo');
       cardGrupo!.hidden = false;
 
-      this.activeRoute.params.subscribe( e => {
-        let id = e['id'];
+      // this.activeRoute.params.subscribe( e => {
+      //   let id = e['id'];
         if(id) {
-          this.evaluacionesServices.getEvaluacionId(id).subscribe((response) => {
+          const response = await this.evaluacionesServices.getEvaluacionId(parseInt(id)).toPromise()
+            console.log(response.dataDB)
+            console.log(response.dataDB.nombre)
+            if(response.dataDB.evaluada == 'N'){
+              document.getElementById('divIntentos')!.style.display = 'none';
+              document.getElementById('divCalificacion')!.style.display = 'none';
+              document.getElementById('evaluada')!.setAttribute('disabled', 'true');
+            } else {
+              document.getElementById('evaluada')!.setAttribute('disabled', 'true');
+            }
             this.formEvaluacion.patchValue(response.dataDB);
-          });
+            if(response.dataDB.intentos == 'null'){
+              this.ngSelect = 0;
+            }
+          //});
 
           this.evaluacionesServices.getObtenerGruposPorEvaluacion(id).subscribe((resp) => {
             this.dtTrigger1.next(0);
@@ -263,7 +281,7 @@ export class EvaluacionComponent implements OnInit{
           });
 
         }
-      });
+      //});
     } else {
       const btnEdit = document.getElementById('btnActualizar');
       btnEdit!.hidden = true;
@@ -279,8 +297,8 @@ export class EvaluacionComponent implements OnInit{
     const formData = new FormData();
     formData.append('nombre' , this.formEvaluacion.value.nombre),
     formData.append('descripcion' , this.formEvaluacion.value.descripcion),
-    formData.append('calificacionMinima' , this.formEvaluacion.value.calificacionMinima),
-    formData.append('intentos' , this.formEvaluacion.value.intentos),
+    formData.append('calificacionMinima' , this.formEvaluacion.value.calificacionMinima == null ? null : this.formEvaluacion.value.calificacionMinima),
+    formData.append('intentos' , this.formEvaluacion.value.intentos == 0 ? null : this.formEvaluacion.value.intentos),
     formData.append('evaluacion_id' , id!),
     formData.append('grupos' , JSON.stringify(this.listaGrupos))
 
@@ -289,7 +307,10 @@ export class EvaluacionComponent implements OnInit{
         this.toastr.success('Evaluación actualizada con éxito!', 'Éxito!');
         setTimeout(() => {
           this.router.navigate(['/dashboard/list-evaluaciones']);
-        }, 100);
+            setTimeout(() => {
+              window.location.reload();
+            }, 600)
+        }, 500);
       } else {
         this.toastr.error('A ocurrido un error no controlado...', 'Error!');
       }
@@ -297,7 +318,7 @@ export class EvaluacionComponent implements OnInit{
 
   }
 
-  // Función que se ejecuta cuando se produce un cambio en el estado del checkbox
+  // Función que se ejecuta cuando se produce un cambio en el estado del checkbox  
   handleCheckboxChange(event: Event) {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
@@ -310,17 +331,22 @@ export class EvaluacionComponent implements OnInit{
   guardar() {
 
     console.log(this.listaGrupos)
+    console.log(this.formEvaluacion.value.calificacionMinima)
+    console.log(this.formEvaluacion.value.intentos)
+    console.log(this.formEvaluacion.value.nombre)
 
     const formData = new FormData();
     formData.append('nombre' , this.formEvaluacion.value.nombre),
     formData.append('descripcion' , this.formEvaluacion.value.descripcion),
-    formData.append('calificacionMinima' , this.formEvaluacion.value.calificacionMinima),
-    formData.append('intentos' , this.formEvaluacion.value.intentos),
+    formData.append('calificacionMinima' , this.formEvaluacion.value.calificacionMinima == null ? null : this.formEvaluacion.value.calificacionMinima),
+    formData.append('intentos' , this.formEvaluacion.value.intentos == 0 ? null : this.formEvaluacion.value.intentos),
+    formData.append('evaluada' , this.formEvaluacion.value.evaluada),
     formData.append('grupos' , JSON.stringify(this.listaGrupos))
     
     this.evaluacionesServices.saveEvaluacion(formData).subscribe((res) => {
       if(res.success) {
         this.toastr.success('Evaluación creada con éxito!', 'Éxito!');
+        this.listaGrupos = []
         setTimeout(() => {
           this.router.navigate(['/dashboard/list-evaluaciones']);
         }, 10);
@@ -360,6 +386,9 @@ export class EvaluacionComponent implements OnInit{
     this.formGrupos.reset();
     this.selectedItems = []
     console.log(this.selectedItems)
+
+    const btnEdit = document.getElementById('btnActualizarGrupo');
+      btnEdit!.hidden = true;
     //$('#myModalExito').modal('hide'); // cerrar
   }
 
@@ -421,7 +450,7 @@ export class EvaluacionComponent implements OnInit{
     fechaFormateadaC = this.datePipe.transform(fechaObjC, 'yyyy-MM-dd HH:mm:ss')!;
 
     this.grupoDatos = {
-      'nombre': this.formGrupos.value.nombreG,
+      'nombreG': this.formGrupos.value.nombreG,
       'apertura': fechaFormateadaA,
       'cierre': fechaFormateadaC,
       'intentos': this.formEvaluacion.value.intentos,
@@ -502,11 +531,20 @@ export class EvaluacionComponent implements OnInit{
 
     //console.log(this.selectedItems)
 
+    let fechaFormateadaA = '';
+    let fechaFormateadaC = '';
+    const apertura = document.querySelector("#apertura") as HTMLInputElement;
+    const cierre = document.querySelector("#cierre") as HTMLInputElement;
+    let fechaObjA = new Date(apertura.value);
+    fechaFormateadaA = this.datePipe.transform(fechaObjA, 'yyyy-MM-dd HH:mm:ss')!;
+    let fechaObjC = new Date(cierre.value);
+    fechaFormateadaC = this.datePipe.transform(fechaObjC, 'yyyy-MM-dd HH:mm:ss')!;
+
     if (indiceObjeto !== -1) {
       this.listaGrupos[indiceObjeto].id = this.idGrupo;
       this.listaGrupos[indiceObjeto].nombreG = this.formGrupos.value.nombreG;
-      this.listaGrupos[indiceObjeto].apertura = this.formGrupos.value.apertura;
-      this.listaGrupos[indiceObjeto].cierre = this.formGrupos.value.cierre;
+      this.listaGrupos[indiceObjeto].apertura = fechaFormateadaA;
+      this.listaGrupos[indiceObjeto].cierre = fechaFormateadaC;
       this.listaGrupos[indiceObjeto].usuarios = this.datos;
       // this.listaGrupos[indiceObjeto].usuarios = this.selectedItems.length == 0 ? this.datos : this.datos.concat(this.selectedItems);
 
@@ -515,6 +553,16 @@ export class EvaluacionComponent implements OnInit{
     // console.log(this.listaGrupos)
     // console.log(this.selectedItems)
 
+  }
+
+  onChange() {
+    if (this.ngSelectE === 'N') {
+      document.getElementById('divIntentos')!.style.display = 'none';
+      document.getElementById('divCalificacion')!.style.display = 'none';
+    } else {
+      document.getElementById('divIntentos')!.style.display = 'block';
+      document.getElementById('divCalificacion')!.style.display = 'block';
+    }
   }
 
 

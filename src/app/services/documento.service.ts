@@ -28,6 +28,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
+      //console.log(datos)
         return this.http.post<any>(this.url+'/buscarTipoDocumentos', datos, { headers })
     }
 
@@ -56,7 +57,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post<any>(this.url+'/documentosList', datos, { headers });
     }
 
@@ -71,7 +72,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.get(this.url+'/documentos/'+datos, { responseType: 'blob', headers });
     }
 
@@ -115,7 +116,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/guardarPermiso', datos, { headers });
     }
 
@@ -123,7 +124,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/documentos', datos, { headers });
     }
 
@@ -131,7 +132,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/guardarDetalle', datos, { headers });
     }
 
@@ -139,7 +140,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/editarDocumento', datos, { headers });
     }
 
@@ -147,7 +148,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/editarPermiso', datos, { headers });
     }
 
@@ -155,7 +156,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/editarDetallePermiso', datos, { headers });
     }
 
@@ -163,7 +164,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/editarDetalleDocumento', datos, { headers });
     }
 
@@ -171,7 +172,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/tipoDocumento', datos, { headers });
     }
 
@@ -179,7 +180,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(datos)
+      //console.log(datos)
       return this.http.post(this.url+'/editar', datos, { headers });
     }
 
@@ -187,7 +188,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(id)
+      //console.log(id)
       return this.http.get<any>(this.url +'/documentoID/'+id, { headers })
     }
 
@@ -195,7 +196,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(id)
+      //console.log(id)
       return this.http.get<any>(this.url +'/documentoDeshabilitadosID/'+id, { headers })
     }
 
@@ -203,7 +204,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(id)
+      //console.log(id)
       return this.http.get<any>(this.url +'/detalleDoc/'+id, { headers })
     }
 
@@ -211,7 +212,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(id)
+      //console.log(id)
       return this.http.get<any>(this.url +'/detalleDocumento/'+id, { headers })
     }
 
@@ -228,7 +229,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(id)
+      //console.log(id)
       return this.http.get<any>(this.url +'/detallePermisos/'+id, { headers })
     }
 
@@ -236,7 +237,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(id)
+      //console.log(id)
       return this.http.get<any>(this.url +'/buscarColaboradoresPermisos/'+id, { headers })
     }
 
@@ -256,7 +257,7 @@ export class DocumentoService {
       const headers = new HttpHeaders({
         Authorization: `Bearer ${this.token}`
       });
-      console.log(id)
+      //console.log(id)
       return this.http.get<any>(this.url +'/detalleID/'+id, { headers })
     }
 

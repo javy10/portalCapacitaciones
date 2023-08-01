@@ -52,3 +52,10 @@
       transform: rotate(360deg);
     }
   }
+
+  /**************/
+  #days, #hours, #minutes, #seconds {
+    font-size: 2rem;
+    color: #333;
+  }
+  

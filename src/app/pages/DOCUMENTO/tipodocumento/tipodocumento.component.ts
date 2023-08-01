@@ -43,20 +43,7 @@ export class TipodocumentoComponent implements OnInit{
     console.log(formData)
     await new Promise(resolve => resolve(this.documentoService.saveTipoDocumento(formData).subscribe((response) => {
       console.log(response);
-      // Swal.fire({
-      //   //position: 'center',
-      //   icon: 'success',
-      //   title: 'Tipo de documento registrado con exito',
-      //   showClass: {
-      //     popup: 'animate__animated animate__fadeInDown'
-      //   },
-      //   hideClass: {
-      //     popup: 'animate__animated animate__fadeOutUp'
-      //   },
-      //   showConfirmButton: false,
-      //   timer: 1500
-      // })
-
+   
       this.toastr.success('Tipo de documento registrado con éxito!', 'Éxito!');
       this.router.navigate(['/dashboard/list-tipo-documentos']);
 
@@ -101,19 +88,6 @@ export class TipodocumentoComponent implements OnInit{
 
     await new Promise(resolve => resolve(this.documentoService.editarTipoDocumento(formData).subscribe((response) => {
       console.log(response);
-      // Swal.fire({
-      //   //position: 'center',
-      //   icon: 'success',
-      //   title: 'Tipo de documento actualizado con éxito',
-      //   showClass: {
-      //     popup: 'animate__animated animate__fadeInDown'
-      //   },
-      //   hideClass: {
-      //     popup: 'animate__animated animate__fadeOutUp'
-      //   },
-      //   showConfirmButton: false,
-      //   timer: 1500
-      // })
 
       this.toastr.success('Tipo de documento actualizado con éxito!', 'Éxito!');
       this.router.navigate(['/dashboard/list-tipo-documentos']);

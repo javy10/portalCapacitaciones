@@ -11,11 +11,11 @@
 
         <li class="nav-heading" >Administración</li>
 
-          <li class="nav-item" *ngFor="let item of listaDetalle; let i = index; ">
-            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#" *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 1 ">
-            <i class="bi bi-people-fill"></i><span *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 1 ">Colaboradores</span><i class="bi bi-chevron-down ms-auto"></i>
+          <li class="nav-item" >
+            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#" *ngIf="listaDetalle.includes(1)">
+            <i class="bi bi-people-fill"></i><span *ngIf="listaDetalle.includes(1)">Colaboradores</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 1 ">
+            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngIf="listaDetalle.includes(1)">
                 <li>
                     <a routerLink="/dashboard/list-collaborator">
                         <i class="bi bi-card-list"></i><span>Listado de colaboradores</span>
@@ -26,22 +26,27 @@
                         <i class="bi bi-card-list"></i><span>Listado de colaboradores deshabilitados</span>
                     </a>
                 </li>
+                <li>
+                    <a routerLink="/dashboard/config-departamento" *ngIf="this.cargos.includes(4)">
+                        <i class="bi bi-card-list"></i><span>Configuración de departamentos</span>
+                    </a>
+                </li>
             </ul>
         </li>
 
         
-         <li class="nav-item" *ngFor="let item of listaDetalle; let i = index; ">
-            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#" *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 2">
-            <i class="bi bi-file-earmark-text-fill"></i><span *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 2">Documentación</span><i class="bi bi-chevron-down ms-auto"></i>
+         <li class="nav-item" >
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#" *ngIf="listaDetalle.includes(2)">
+            <i class="bi bi-file-earmark-text-fill"></i><span *ngIf="listaDetalle.includes(2)">Documentación</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 2">
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngIf="listaDetalle.includes(2)">
                 <li>
                     <a routerLink="/dashboard/list-documentos">
                         <i class="bi bi-circle"></i><span>Listado de documentos</span>
                     </a>
                 </li>
                 <li>
-                    <a routerLink="/dashboard/list-tipo-documentos">
+                    <a routerLink="/dashboard/list-tipo-documentos" *ngIf="this.cargos.includes(4)">
                         <i class="bi bi-circle"></i><span>Listado de tipo documentos</span>
                     </a>
                 </li>
@@ -55,11 +60,11 @@
 
       
 
-       <li class="nav-item" *ngFor="let item of listaDetalle; let i = index; ">
-            <a class="nav-link collapsed" data-bs-target="#evaluaciones-nav" data-bs-toggle="collapse" href="#" *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 3 ">
-              <i class="bi bi-layout-text-window-reverse"></i><span *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 3 ">Evaluaciones</span><i class="bi bi-chevron-down ms-auto"></i>
+       <li class="nav-item" >
+            <a class="nav-link collapsed" data-bs-target="#evaluaciones-nav" data-bs-toggle="collapse" href="#" *ngIf="listaDetalle.includes(3)">
+              <i class="bi bi-layout-text-window-reverse"></i><span *ngIf="listaDetalle.includes(3)">Evaluaciones</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="evaluaciones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngIf="(listaDetalle[i].colaborador_id == id && listaDetalle[i].cargo_id == permisos) && listaDetalle[i].menu_id == 3 ">
+            <ul id="evaluaciones-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngIf="listaDetalle.includes(3)">
                 <!-- <li>
                     <a routerLink="/dashboard/list-grupos">
                         <i class="bi bi-circle"></i><span>Listado de grupos</span>
@@ -104,13 +109,18 @@
         <li class="nav-heading" *ngIf="habilitarEvaluacion">Evaluaciones</li>
 
        <li class="nav-item" *ngIf="habilitarEvaluacion">
-            <a class="nav-link collapsed" data-bs-target="#evaluacion-nav" data-bs-toggle="collapse" href="#" *ngIf="habilitarEvaluacion">
-              <i class="bi bi-check2-square"></i><span *ngIf="habilitarEvaluacion">Evaluaciones a realizar</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" data-bs-target="#evaluacion-nav" data-bs-toggle="collapse" href="#" *ngIf="habilitarEvaluacion == true">
+              <i class="bi bi-check2-square"></i><span *ngIf="habilitarEvaluacion == true">Evaluaciones a realizar</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
 
             <ul id="evaluacion-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav" *ngFor="let data of listadoEvaluaciones; let i = index; ">
                 <li >
-                    <a (click)="cargarQuiz(data)" *ngIf="data.colaborador_id == id && data.intentos > 0">
+                    <a (click)="cargarQuiz(data)" *ngIf="data.colaborador_id.includes(Id) && data.cantidadPreguntas > 0 && data.intentos > 0 && data.evaluada == 'S'">
+                        <i class="bi bi-circle"></i><span>{{ data.nombre }}</span>
+                    </a>
+                </li>
+                <li >
+                    <a (click)="cargarQuiz(data)" *ngIf="data.colaborador_id.includes(Id) && data.cantidadPreguntas > 0 && data.evaluada == 'N'">
                         <i class="bi bi-circle"></i><span>{{ data.nombre }}</span>
                     </a>
                 </li>

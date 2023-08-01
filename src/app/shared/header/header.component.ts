@@ -1,7 +1,7 @@
 
 
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
 
@@ -13,50 +13,47 @@ import { ColaboradorService } from 'src/app/services/colaborador.service';
 })
 export class HeaderComponent implements OnInit{
 
-  constructor(private router: Router, public colaboradorService: ColaboradorService, private datePipe: DatePipe) {
-    //this.eliminarSesion();
-  }
-
+  
   private sessionTimeoutInMinutes = 5;
   private timeoutHandle: any;
-
+  @Input() datosUsuario: any;
+  
   nombre = '';
   apellido = '';
   agencia:any;
   cargo = 0;
+  cargos:any[] = [];
   id = localStorage.getItem('id');
   foto: any;
   imgTamanio:any;
   avatar = '../../../assets/img/avatar1.png';
   logs:any;
-
+  
+  constructor(private router: Router, public colaboradorService: ColaboradorService, private datePipe: DatePipe) {
+    //this.eliminarSesion();
+    
+  }
+  
   ngOnInit(): void {
     const Id = localStorage.getItem('id');
-    new Promise(resolve => resolve(this.colaboradorService.getobtenerColaboradorID(parseInt(Id!)).subscribe((res) => {
-      //this.eliminarSesion();
-      //console.log(res.dataDB[0]);
-      this.foto = res.dataDB[0].foto;
-      //console.log(this.foto)
-      this.nombre = res.dataDB[0].nombres.split(' ')[0];
-      this.apellido = res.dataDB[0].apellidos.split(' ')[0];
-      this.agencia = res.dataDB[0].codAgencia;
-      this.cargo = res.dataDB[0].Cargo;
-
-      // new Promise(resolve => resolve(this.colaboradorService.getAgenciaId(res.dataDB.agencia_id).subscribe((resp) => {
-      //   console.log(resp.dataDB)
-      //   this.agencia = resp.dataDB.codAgencia;
-      //   console.log(this.agencia)
-      // })));
-      // new Promise(resolve => resolve(this.colaboradorService.getCargoId(res.dataDB.cargo_id).subscribe((resp) => {
-      //   console.log(resp)
-      //   this.cargo = resp.dataDB.nombre;
-      //   console.log(this.cargo)
-      // })));
-
+    setTimeout(() => {
+      //console.log(this.datosUsuario)
+      this.foto = this.datosUsuario[0].foto;
+      this.nombre = this.datosUsuario[0].nombres.split(' ')[0];
+      this.apellido = this.datosUsuario[0].apellidos.split(' ')[0];
+      this.agencia = this.datosUsuario[0].codAgencia;
+      for(let i=0 ;i<this.datosUsuario.length;i++){
+        this.cargos.push(this.datosUsuario[i].Cargo)
+      }
+      const spanElementos = document.getElementById('elementos');
+      for (const elemento of this.cargos) {
+        const span = document.createElement('span');
+        span.textContent = elemento;
+        spanElementos!.appendChild(span);
+        spanElementos!.appendChild(document.createElement('br'));
+      }
       if(this.foto) {
         this.colaboradorService.getFotoURL(this.foto).subscribe((data: any) => {
-          //this.isLoading = false;
-    
           setTimeout(() => {
             const imagenPrevisualizacion = document.querySelector("#img") as HTMLInputElement;
             this.imgTamanio = data.size;
@@ -67,7 +64,8 @@ export class HeaderComponent implements OnInit{
           }, 100);
         });
       }
-    })));
+    }, 2500);
+      
 
     // ocultar el sidebar con menu hamburguesa - toggle
     const ocuultar = document.getElementById("ocuultar") as HTMLInputElement;
@@ -86,6 +84,10 @@ export class HeaderComponent implements OnInit{
     // document.addEventListener('mousemove',  this.eliminarSesion);
     // document.addEventListener('keydown',  this.eliminarSesion);
     // document.addEventListener('click',  this.eliminarSesion);
+  }
+
+  async obtenerColaboradorID(){
+    
   }
   
   logout() {

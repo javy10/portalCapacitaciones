@@ -24,9 +24,20 @@
                                             Debes seleccionar un descripción
                                         </div>
                                     </div>
-                                    <div class="col-md-2 mb-2">
+                                    <div class="col-md-2 mb-2" id="Ev_evaluada">
+                                        <label class="form-label">¿Evaluación evaluada?</label>
+                                        <select [(ngModel)]='ngSelectE' class="form-select" id="evaluada" formControlName="evaluada" required (change)="onChange()">
+                                            <option value="0" disabled selected>Selecciona</option>
+                                            <option value="S">Si</option>
+                                            <option value="N">No</option>
+                                        </select>
+                                        <div class="alert alert-danger mt-2" [hidden]="evaluada.valid || evaluada.pristine">
+                                            Debes seleccionar si sera una Evaluación evaluada o no
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mb-2" id="divIntentos">
                                         <label class="form-label">Intentos</label>
-                                        <select [(ngModel)]='ngSelect' class="form-select" id="intentos" formControlName="intentos" required>
+                                        <select [(ngModel)]='ngSelect' class="form-select" id="intentos" formControlName="intentos">
                                             <option value="0" disabled selected>Selecciona</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
@@ -34,17 +45,18 @@
                                             <option value="4">4</option>
                                             <option value="5">5</option>
                                         </select>
-                                        <div class="alert alert-danger mt-2" [hidden]="intentos.valid || intentos.pristine">
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="intentos.valid || intentos.pristine">
                                             Debes seleccionar la cantidad de intentos
-                                        </div>
+                                        </div> -->
                                     </div>
-                                    <div class="col-md-2 mb-2">
+                                    <div class="col-md-2 mb-2" id="divCalificacion">
                                         <label class="form-label">Calificación mínima</label>
-                                        <input type="number" min="0" max="10"  id="calificacionMinima" class="form-control" placeholder="Calificación mínima" formControlName="calificacionMinima" required>
-                                        <div class="alert alert-danger mt-2" [hidden]="calificacionMinima.valid || calificacionMinima.pristine">
+                                        <input type="number" min="0" max="10"  id="calificacionMinima" class="form-control" placeholder="Calificación mínima" formControlName="calificacionMinima">
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="calificacionMinima.valid || calificacionMinima.pristine">
                                             Debes ingresar una calificación
-                                        </div>
+                                        </div> -->
                                     </div>
+                                   
                                 </div>
                                 <div class="mt-2">
                                     <button type="button" class="btn btn-info float-start" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnAgregar" [disabled]="!formEvaluacion.valid" (click)="reset()">Agregar Grupo</button>
@@ -197,7 +209,7 @@
                                                 <div class="float-end">
                                                 <button type="button" class="btn btn-secondary cancelar" (click)="cancelar()" data-bs-dismiss="modal">Cancelar</button>
                                                 <button type="submit" id="btnAceptar" class="btn btn-success ms-2" (click)="agregar()" [disabled]="!formGrupos.valid" data-bs-dismiss="modal">Guardar grupo</button>
-                                                <button type="submit" id="btnActualizar" class="btn btn-success ms-2" (click)="editarGrupo()" data-bs-dismiss="modal" >Actualizar grupo</button>
+                                                <button type="submit" id="btnActualizarGrupo" class="btn btn-success ms-2" (click)="editarGrupo()" data-bs-dismiss="modal" >Actualizar grupo</button>
                                                 </div>
                                             </div>
                                         </form>

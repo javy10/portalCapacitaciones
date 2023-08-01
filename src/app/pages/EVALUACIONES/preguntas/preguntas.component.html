@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="col-md-12 mb-2">
                                         <label class="form-label">Pregunta</label>
-                                        <input type="text"  id="pregunta" class="form-control" placeholder="Ingresa la descripción" formControlName="pregunta" required>
+                                        <input type="text"  id="pregunta" class="form-control" placeholder="Ingresa la pregunta" formControlName="pregunta" required>
                                         <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
                                             Debes seleccionar un descripcion
                                         </div> -->
@@ -78,10 +78,10 @@
     <div id="card-container"></div>
     <div  class="container">
         <div class="row">
-            <div class="col-md-6 mx-auto text-center d-flex align-items-center" *ngIf="ocultarBoton == true">
+            <div class="col-md-12 mx-auto text-center d-flex align-items-center" *ngIf="ocultarBoton == true">
                 <button id="btnGuardarPreguntas" type="button" class="btn btn-success mx-auto" (click)="guardarPregunta()">Guardar preguntas...</button>
             </div>
-            <div class="col-md-6 mx-auto text-center d-flex align-items-center" *ngIf="ocultarBotonEdit == true">
+            <div class="col-md-12 mx-auto text-center d-flex align-items-center" *ngIf="ocultarBotonEdit == true">
                 <button id="btnEditarPreguntas" type="button" class="btn btn-info mx-auto" (click)="editarPreguntas()" hidden>Actualizar preguntas...</button>
             </div>
         </div>

@@ -29,7 +29,7 @@ export class DtevaluacionesComponent implements OnInit {
     this.dtOptions = {
       lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
       pagingType: 'full_numbers',
-      pageLength: 5,
+      pageLength: 10,
       columnDefs: [
         { "width": "2%", "targets": 0 },
         { "width": "20%", "targets": 1 },
@@ -50,7 +50,7 @@ export class DtevaluacionesComponent implements OnInit {
     //this.obtenerConteo();
     this.isLoading = true;
     this.evaluacionesService.getEvaluaciones().subscribe((data: any) => {
-      
+      //console.log(data.dataDB)
       
       for(let item of data.dataDB){
         //console.log(item.id)
@@ -60,7 +60,7 @@ export class DtevaluacionesComponent implements OnInit {
       }
       
       this.listaEvaluaciones = data.dataDB;
-      console.log(this.listaEvaluaciones)
+      //console.log(this.listaEvaluaciones)
 
       this.isLoading = false;
       if(this.listaEvaluaciones.length != 0) {
@@ -70,7 +70,7 @@ export class DtevaluacionesComponent implements OnInit {
       }
     });
   
-  }
+  } 
 
   // obtenerConteo() {
   //   this.evaluacionesService.getConteoPreguntas(this.idEvaluacion).subscribe((data: any) => {
@@ -108,38 +108,74 @@ export class DtevaluacionesComponent implements OnInit {
   }
 
 
-  agregarPregunta(id:any){
+  agregarPregunta(item:any){
 
 
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-warning'
-      },
-      buttonsStyling: false
-    })
+    // const swalWithBootstrapButtons = Swal.mixin({
+    //   customClass: {
+    //     confirmButton: 'btn btn-success',
+    //     cancelButton: 'btn btn-warning'
+    //   },
+    //   buttonsStyling: false
+    // })
     
-    swalWithBootstrapButtons.fire({
-      title: 'Agregar Quiz',
-      text: "¿Que tipo de cuestionario deseas hacer?",
-      icon: 'info',
-      showCancelButton: true,
-      confirmButtonText: 'Cuestionario evaluado',
-      cancelButtonText: 'Cuestionario sin evaluación',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.router.navigate(['/dashboard/pregunta', id]);
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        this.router.navigate(['/dashboard/pregunta', id]);
-      }
-    })
+    // swalWithBootstrapButtons.fire({
+    //   title: 'Agregar Quiz',
+    //   text: "¿Que tipo de cuestionario deseas hacer?",
+    //   icon: 'info',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Cuestionario evaluado',
+    //   cancelButtonText: 'Cuestionario sin evaluación',
+    //   reverseButtons: true
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     this.router.navigate(['/dashboard/pregunta', id]);
+    //   } else if (
+    //     /* Read more about handling dismissals below */
+    //     result.dismiss === Swal.DismissReason.cancel
+    //   ) {
+    //     this.router.navigate(['/dashboard/preguntasabiertas', id]);
+    //   }
+    // })
 
+    console.log(item)
 
+    if(item.evaluada == 'S'){
+      this.router.navigate(['/dashboard/pregunta', item.id]);
+    } else {
+      this.router.navigate(['/dashboard/preguntasabiertas', item.id]);
+    }
+    // if (result.isConfirmed) {
+    //   this.router.navigate(['/dashboard/pregunta', id]);
+    // } else if (
+    //   /* Read more about handling dismissals below */
+    //   result.dismiss === Swal.DismissReason.cancel
+    // ) {
+    //   this.router.navigate(['/dashboard/preguntasabiertas', id]);
+    // }
 
   }
+
+  verResultados(item:any) {
+
+    console.log(item)
+
+    if(item.evaluada == 'S'){
+      this.router.navigate(['/dashboard/list-resultados-evaluacion', item.id]);
+    } else {
+      this.router.navigate(['/dashboard/list-resultados-evaluacion-abierta', item.id]);
+    }
+
+  }
+
+  rutaEdicion(item:any) {
+    if(item.evaluada == 'S'){
+      this.router.navigate(['/dashboard/editar-evaluacion', item.id]);
+    } else {
+      this.router.navigate(['/dashboard/editar-evaluacion-abierta', item.id]);
+    }
+  }
+
+
 
 }

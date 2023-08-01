@@ -35,13 +35,13 @@
                 <td>{{ item.cantidadPreguntas }}</td>
                 <td>{{ item.created_at | date: 'yyyy-MM-dd HH:mm:ss'  }}</td>
                 <td style="text-align: center;">
-                    <a  type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Pregunta" (click)="agregarPregunta(item.id)">
+                    <a type="button" class="" data-bs-toggle="tooltip" data-bs-placement="top" title="Agregar Pregunta" (click)="agregarPregunta(item)">
                         <i class="bi bi-question-circle-fill" style="font-size: 1rem; color: rgb(12, 204, 5);"></i>
                     </a>
-                    <a *ngIf="item.cantidadPreguntas != 0" type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar preguntas" [routerLink]="['/dashboard/pregunta', item.nombre, item.id]">
+                    <a *ngIf="item.cantidadPreguntas != 0" type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar preguntas" (click)="rutaEdicion(item)">
                         <i class="bi bi-pencil-fill" style="font-size: 1rem; color: rgb(8, 134, 252);"></i>
                     </a>
-                    <a *ngIf="item.cantidadPreguntas != 0" type="button" class=" ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultados" [routerLink]="['/dashboard/list-resultados-evaluacion', item.id]">
+                    <a *ngIf="item.cantidadPreguntas != 0" type="button" class=" ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultados" (click)="verResultados(item)">
                         <i class="bi bi-clipboard-data" style="font-size: 1rem; color: rgb(6, 190, 181);"></i>
                     </a>
                     <a type="button" class="ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar evaluación" [routerLink]="['/dashboard/evaluacion', item.id]">

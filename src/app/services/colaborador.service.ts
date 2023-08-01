@@ -17,7 +17,16 @@ export class ColaboradorService {
   datos: any;
 
   token = localStorage.getItem('token');
+  
+  private datosUsuario: any;
 
+  setDatos(datos: string) {
+    this.datosUsuario = datos;
+  }
+
+  getDatos() {
+    return this.datosUsuario;
+  }
   
 
   // COLABORADOR ***********************************************************************************************************************************************
@@ -41,11 +50,12 @@ export class ColaboradorService {
       Authorization: `Bearer ${this.token}`
     });
     
-    console.log(datos)
+    //console.log(datos)
     // return this.http.post(this.url+'/register', datos);
     return this.http.post(this.url+'/colaborador', datos, { headers });
     //return datos;
   }
+
   eliminar(id: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`
@@ -56,12 +66,21 @@ export class ColaboradorService {
   }
 
   getColaboradorID(id: number) {
-    console.log(this.token)
+    // console.log(this.token)
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`
     });
     
     return this.http.get<any>(this.url +'/colaborador/'+id, { headers })
+  }
+
+  getfiltroUsuarios(nombre: any) {
+    // console.log(this.token)
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`
+    });
+    
+    return this.http.get<any>(this.url +'/filtroUsuarios/'+nombre, { headers })
   }
 
   getobtenerColaboradorID(id: number) {
@@ -70,6 +89,14 @@ export class ColaboradorService {
     });
     
     return this.http.get<any>(this.url +'/obtenerColaboradorID/'+id, { headers })
+  }
+
+  getobtenerPorIDColaborador(id: number) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`
+    });
+    
+    return this.http.get<any>(this.url +'/obtenerPorIDColaborador/'+id, { headers })
   }
 
   getColaboradorClave(datos: any) {
@@ -99,7 +126,7 @@ export class ColaboradorService {
   }
 
   getFotoURL(datos: any): Observable<any> {
-    console.log(datos)
+    //console.log(datos)
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`
     });
@@ -112,7 +139,7 @@ export class ColaboradorService {
       Authorization: `Bearer ${this.token}`
     });
     
-    console.log(datos)
+    //console.log(datos)
     return this.http.post(this.url+'/editPassword', datos, { headers });
   }
   
@@ -167,7 +194,7 @@ export class ColaboradorService {
       Authorization: `Bearer ${this.token}`
     });
     
-    console.log(data)
+    //console.log(data)
     return this.http.post<any>(this.url +'/recover-password', data, { headers })
   }
 
@@ -176,7 +203,7 @@ export class ColaboradorService {
       Authorization: `Bearer ${this.token}`
     });
     
-    console.log(datos)
+    //console.log(datos)
     return this.http.post(this.url+'/editarEntrada', datos, { headers });
   }
 
@@ -185,7 +212,7 @@ export class ColaboradorService {
       Authorization: `Bearer ${this.token}`
     });
     
-    console.log(datos)
+    //console.log(datos)
     return this.http.post(this.url+'/editarSalida', datos, { headers });
   }
 
@@ -194,7 +221,7 @@ export class ColaboradorService {
       Authorization: `Bearer ${this.token}`
     });
     
-    console.log(datos)
+    //console.log(datos)
     return this.http.post(this.url+'/editPassword', datos, { headers });
   }
 
@@ -203,7 +230,7 @@ export class ColaboradorService {
       Authorization: `Bearer ${this.token}`
     });
     
-    console.log(email)
+    //console.log(email)
     return this.http.get(this.url+'/obtenerUsersPorEmail/'+email, { headers });
   }
 
@@ -243,6 +270,17 @@ export class ColaboradorService {
     return this.http.get<any>(this.url +'/departamento/'+id, { headers })
   }
 
+  saveDepartamento(datos: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`
+    });
+    
+    //console.log(datos)
+    // return this.http.post(this.url+'/register', datos);
+    return this.http.post(this.url+'/departamento', datos, { headers });
+    //return datos;
+  }
+
 
   //CARGO ***********************************************************************************************************************************************
   postDeptCargo(id: number): Observable<any> {
@@ -274,12 +312,20 @@ export class ColaboradorService {
       Authorization: `Bearer ${this.token}`
     });
     
-    console.log(datos)
+    //console.log(datos)
     // return this.http.post(this.url+'/register', datos);
     return this.http.post(this.url+'/guardarCargo', datos, { headers });
     //return datos;
   }
 
+  eliminarCargo(id: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`
+    });
+    
+    //console.log(id)
+    return this.http.get<any>(this.url +'/eliminarCargo/'+id, { headers })
+  }
 
 
 

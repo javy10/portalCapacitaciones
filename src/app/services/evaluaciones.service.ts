@@ -43,6 +43,22 @@ export class EvaluacionesService {
     return this.http.get(this.url+'/obtenerEvaluaciones');
   }
 
+  getEvaluacionesAbiertas(): Observable<any> {
+    return this.http.get(this.url+'/obtenerEvaluacionesAbiertas');
+  }
+
+  getEvaluacionesAbiertasId(id: any): Observable<any> {
+    return this.http.get(this.url+'/obtenerEvaluacionesAbiertasId/'+id);
+  }
+
+  getObtenerEvaluacionesAbiertasRespuestaId(datos: any): Observable<any> {
+    return this.http.post(this.url+'/obtenerEvaluacionesAbiertasRespuestaId', datos);
+  }
+
+  getIndexEvaluaciones(): Observable<any> {
+    return this.http.get(this.url+'/indexEvaluaciones');
+  }
+
   getEvaluacionesDeshabilitadas(): Observable<any> {
     return this.http.get(this.url+'/obtenerEvaluacionesDeshabilitadas');
   }
@@ -54,6 +70,10 @@ export class EvaluacionesService {
   savePreguntas(datos: any): Observable<any> {
     console.log(datos)
     return this.http.post(this.url+'/crearPreguntas', datos);
+  }
+  savePreguntasAbiertas(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/crearPreguntasAbiertas', datos);
   }
 
   saveRespuestas(datos: any): Observable<any> {
@@ -74,18 +94,18 @@ export class EvaluacionesService {
     return this.http.post(this.url+'/editarEvaluacion', datos);
   }
 
-  eliminarEvaluacion(id: number): Observable<any> {
-    return this.http.get<any>(this.url +'/eliminarEvaluacion/'+id)
+  eliminarEvaluacion(id: any): Observable<any> {
+    return this.http.get(this.url +'/eliminarEvaluacion/'+id)
   }
   
   getGrupoId(id: number): Observable<any> {
     console.log(id)
-    return this.http.get<any>(this.url+'/obtenerGrupoID/'+id)
+    return this.http.get(this.url+'/obtenerGrupoID/'+id)
   }
   
   obtenerColaboradoresGrupoID(id: number): Observable<any> {
     console.log(id)
-    return this.http.get<any>(this.url+'/obtenerColaboradoresGrupoID/'+id)
+    return this.http.get(this.url+'/obtenerColaboradoresGrupoID/'+id)
   }
   
   editarGrupo(datos: any): Observable<any> {
@@ -99,21 +119,27 @@ export class EvaluacionesService {
   }
   
   eliminar(id: number): Observable<any> {
-    return this.http.get<any>(this.url +'/eliminarGrupo/'+id)
+    return this.http.get(this.url +'/eliminarGrupo/'+id)
   }
   
   // obtenerPreguntas(id: number): Observable<any> {
   //   console.log(id)
   //   return this.http.get<any>(this.url+'/obtenerPreguntasQuiz/'+id)
   // }
+  
+  obtenerPreguntasEvaluacionId(id: number): Observable<any> {
+    console.log(id)
+    return this.http.get(this.url+'/obtenerPreguntasId/'+id)
+  }
+
   obtenerPreguntas(datos:any): Observable<any> {
     console.log(datos)
-    return this.http.post<any>(this.url+'/obtenerPreguntasQuiz', datos)
+    return this.http.post(this.url+'/obtenerPreguntasQuiz', datos)
   }
   
   obtenerRespuestas(id: number): Observable<any> {
     console.log(id)
-    return this.http.get<any>(this.url+'/obtenerRespestasQuiz/'+id)
+    return this.http.get(this.url+'/obtenerRespestasQuiz/'+id)
   }
   
   getObtenerRespuestaCorrecta(datos: any): Observable<any> {
@@ -125,10 +151,20 @@ export class EvaluacionesService {
     console.log(datos)
     return this.http.post(this.url+'/guardarResultadoPreguntas', datos);
   }
+
+  saveResultadosPreguntasAbiertas(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post(this.url+'/ResultadosPreguntasAbiertas', datos);
+  }
   
   getObtenerDetalleGrupoEvaluacion(id: number): Observable<any> {
     console.log(id)
     return this.http.get<any>(this.url+'/obtenerDetalleGrupoEvaluacion/'+id)
+  }
+
+  getEvaluacionAbierta(id: number): Observable<any> {
+    console.log(id)
+    return this.http.get<any>(this.url+'/evaluacionAbierta/'+id)
   }
   
   editarIntentosEvaluacion(datos: any): Observable<any> {
@@ -165,5 +201,19 @@ export class EvaluacionesService {
     return this.http.get(this.url+'/obtenerGruposPorEvaluacion/'+id);
   }
 
+  getObtenerPreguntasId(id: any): Observable<any> {
+    console.log(id)
+    return this.http.get(this.url+'/obtenerPreguntasId/'+id);
+  }
+ 
+  editarPregunta(datos: any): Observable<any> {
+    console.log(datos)
+    return this.http.post<any>(this.url+'/editarPreguntasAbiertas', datos)
+  }
+
+  deshabilitarPregunta(id: any): Observable<any> {
+    console.log(id)
+    return this.http.get(this.url+'/deshabilitarPregunta/'+id);
+  }
 
 }

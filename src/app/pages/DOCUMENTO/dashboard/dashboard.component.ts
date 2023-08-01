@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ColaboradorService } from 'src/app/services/colaborador.service';
@@ -15,12 +15,14 @@ import Swal from 'sweetalert2';
 export class DashboardComponent implements OnInit{
   year = new Date().getFullYear();
 
-  cargos = 0;
+  @Input() datosUsuario: any;
+
   listaDocumentos:any = [];
   listaTipoDocumentos:any = [];
   nombre: any;
   archivoUrl!: any;
   id: any;
+  cargos = 0;
   departamento_id: any;
   Pdocumento_id: any = [];
   Pdepartamento: any = [];
@@ -36,7 +38,8 @@ export class DashboardComponent implements OnInit{
   usuario:any;
   isLoading = false;
 
-
+  cargos_id: any = [];
+  departamentos_id: any = [];
   
 
   constructor(public colaboradorService: ColaboradorService, private documentoService: DocumentoService,  private router: Router,private datePipe: DatePipe, private toastr: ToastrService) {
@@ -46,87 +49,156 @@ export class DashboardComponent implements OnInit{
 
   ngOnInit(): void {
     const Id = localStorage.getItem('id');
-    this.colaboradorService.getobtenerColaboradorID(parseInt(Id!)).subscribe((res) => {
-      this.cargos = res.dataDB[0].cargo_id;
-      this.departamento_id = res.dataDB[0].departamento_id;
-      this.id_departamento = this.departamento_id;
-      console.log(this.departamento_id)
-      console.log(this.cargos)
-      console.log(this.id_departamento)
-    });
-    this.listarDocumentos();
-    this.obtenerPermisos();
-    this.loadTipoDocumento();
-    
-    
-    
+    setTimeout(() => {
+      this.obtenerColaboradorID(parseInt(Id!))
+    }, 2500);
   }
+
+  async obtenerColaboradorID(id: number) {
+    try {
+      // const res = await this.colaboradorService.getobtenerColaboradorID(id).toPromise();
+      // console.log(res.dataDB);
+      // this.cargos = res.dataDB[0].cargo_id;
+      // this.departamento_id = res.dataDB[0].departamento_id;
+      const idsUnicos: number[] = [];
+      this.datosUsuario = this.colaboradorService.getDatos();
+
+      console.log(this.datosUsuario)
+
+      for (let index = 0; index < this.datosUsuario.length; index++) {
+        console.log(this.datosUsuario[index].cargo_id)
+        console.log(this.datosUsuario[index].departamento_id);
+
+        const id = this.datosUsuario[index].departamento_id;
+        // Verificar si el id ya existe en el array de ids únicos
+        if (!idsUnicos.includes(id)) {
+          // Si el id no existe, agregarlo al array de ids únicos
+          idsUnicos.push(id);
+        }
+        this.cargos_id.push(this.datosUsuario[index].cargo_id);
+      }
+
+      this.departamentos_id = idsUnicos;
+      console.log(this.cargos_id)
+      console.log(this.departamentos_id)
+      //this.cargos = this.datosUsuario[0].cargo_id;
+      // this.departamento_id = this.datosUsuario[0].departamento_id;
+
+      this.listarDocumentos();
+      this.obtenerPermisos();
+      this.loadTipoDocumento();
+    } catch (error) {
+      // Manejar el error aquí
+      console.error(error);
+    }
+  }
+
+
+
+  // listarDocumentos() {
+  //   let today = new Date();
+  //   const fechaFormateada = this.datePipe.transform(today, 'yyyy-MM-dd HH:mm:ss');
+  //   this.fecha = fechaFormateada;
+  //   this.id = localStorage.getItem('id');
+  //     console.log(this.departamento_id)
+  //     console.log(this.cargos)
+  //     this.id_cargo = this.cargos;
+  //     this.usuario = {
+  //       'idC': this.id,
+  //       'idD': this.departamento_id
+  //     }
+  //     this.documentoService.getDocumentosPorDatos(this.usuario).subscribe((res) => {
+  //       //console.log(this.listaDocumentos)
+  //       this.listaDocumentos = res.dataDB;
+  //     });
+  // } 
+
   listarDocumentos() {
+
+    console.log(this.cargos_id)
+    console.log(this.departamentos_id)
+
     let today = new Date();
     const fechaFormateada = this.datePipe.transform(today, 'yyyy-MM-dd HH:mm:ss');
     this.fecha = fechaFormateada;
-    //console.log(this.fecha)
-    // 2023-04-26 11:30:00
     this.id = localStorage.getItem('id');
-    new Promise(resolve => resolve(this.colaboradorService.getobtenerColaboradorID(parseInt(this.id!)).subscribe((res) => {
-      this.departamento_id = res.dataDB[0].departamento_id;
-      //console.log(res.dataDB)
-      this.id_cargo = res.dataDB[0].cargo_id
-      //console.log(this.departamento_id)
-      this.id_cargo = this.cargos;
+      // console.log(this.departamento_id)
+      // console.log(this.cargos)
+      //this.id_cargo = this.cargos;
       this.usuario = {
         'idC': this.id,
-        'idD': this.departamento_id
+        'idD': [],
+        'idCa': []
       }
- 
-      new Promise(resolve => resolve(this.documentoService.getDocumentosPorDatos(this.usuario).subscribe((res) => {
-        console.log(this.listaDocumentos)
+
+      // Agregar los ids de departamentos al array idD del objeto usuario
+      for (const id of this.departamentos_id) {
+        this.usuario.idD.push(id);
+      }
+
+      // Agregar los ids de cargos al array idCa del objeto usuario
+      for (const id of this.cargos_id) {
+        this.usuario.idCa.push(id);
+      }
+
+      this.documentoService.getDocumentosPorDatos(this.usuario).subscribe((res) => {
+        //console.log(res.dataDB)
         this.listaDocumentos = res.dataDB;
-      })));
-    })));
-  } 
+        console.log(this.listaDocumentos)
+      });
+  }  
+   
   obtenerPermisos() {
-    new Promise(resolve => resolve(this.documentoService.getPermisos().subscribe((res) => {
-      //console.log(res.dataDB);
+    this.documentoService.getPermisos().subscribe((res) => {
+      
       for (let index = 0; index < res.dataDB.length; index++) {
         this.Pdocumento_id.push(res.dataDB[index].documento_id);
         this.Pdepartamento.push(res.dataDB[index].departamento_id);
         this.Puser.push(res.dataDB[index].colaborador_id);
       }
-
-      // console.log(this.Pdocumento_id)
-      // console.log(this.Pdepartamento)
-      // console.log(this.Puser)
-    })));
+    });
   } 
+
   cargarPDF(nombre: any){
     sessionStorage.setItem('reloaded', 'true');
     this.router.navigate(['/dashboard/blank']);
     setTimeout(() => {
       this.router.navigate(['/dashboard/archivo', nombre]);
-      //console.log(nombre)
   }, 1500);
   }
  
   loadTipoDocumento(){
-    //console.log(this.id)
+    
     this.isLoading = true;
-    new Promise(resolve => resolve(this.colaboradorService.getobtenerColaboradorID(parseInt(this.id!)).subscribe((res) => {
-      this.departamento_id = res.dataDB[0].departamento_id;
-      //console.log(this.departamento_id)
-      const formData = new FormData();
-      formData.append('idC', this.id);
-      formData.append('idD', this.departamento_id);
-      
-      new Promise(resolve => resolve(this.documentoService.getBuscarTipoDocumentos(formData).subscribe((res) => {
-        this.listaTipoDocumentos = res.dataDB;
-        console.log(this.listaTipoDocumentos)
-        this.isLoading = false;
-      })));
-    })));
+    // console.log(this.departamento_id)
+    // console.log(this.cargos)
+
+    // const formData = new FormData();
+    // formData.append('idC', this.id);
+    // formData.append('idD', this.departamento_id);
+
+    this.usuario = {
+      'idC': this.id,
+      'idD': [],
+      'idCa': []
+    }
+
+    // Agregar los ids de departamentos al array idD del objeto usuario
+    for (const id of this.departamentos_id) {
+      this.usuario.idD.push(id);
+    }
+
+    // Agregar los ids de cargos al array idCa del objeto usuario
+    for (const id of this.cargos_id) {
+      this.usuario.idCa.push(id);
+    }
+    
+    this.documentoService.getBuscarTipoDocumentos(this.usuario).subscribe((res) => {
+      this.listaTipoDocumentos = res.dataDB;
+      console.log(this.listaTipoDocumentos)
+      this.isLoading = false;
+    });
   }
- 
- 
 
   deshabilitar(id: number){
     Swal.fire({

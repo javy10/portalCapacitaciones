@@ -326,7 +326,7 @@ export class PreguntasComponent implements OnInit {
         // Crear el botón de cerrar
         const closeButton = document.createElement('button');
         closeButton.setAttribute('type', 'button');
-        closeButton.classList.add('btn-close');
+        closeButton.classList.add('btn-close', 'float-end', 'mt-2', 'me-2');
 
         // Agregar el evento de clic al botón de cerrar
         closeButton.addEventListener('click', () => {
@@ -407,7 +407,7 @@ export class PreguntasComponent implements OnInit {
         // Crear el botón de cerrar
         const closeButton = document.createElement('button');
         closeButton.setAttribute('type', 'button');
-        closeButton.classList.add('btn-close');
+        closeButton.classList.add('btn-close', 'float-end', 'mt-2', 'me-2');
 
         // Agregar el evento de clic al botón de cerrar
         closeButton.addEventListener('click', () => {
@@ -487,33 +487,48 @@ export class PreguntasComponent implements OnInit {
 
   }
 
-  guardarPregunta() {
-    /*
-    this.toastr.success('Hello world!', 'Toastr fun!');
-    this.toastr.info('Hello world!', 'Toastr fun!');
-    this.toastr.warning('Hello world!', 'Toastr fun!');
-    this.toastr.error('Hello world!', 'Toastr fun!');
-    */
+  async guardarPregunta() {
+   
+    // const id = this.activeRoute.snapshot.paramMap.get('id');
+    // for (let index = 0; index < this.preguntasRespuestas.length; index++) {
+    //   this.evaluacionesService.savePreguntas(this.preguntasRespuestas[index]).subscribe((response) => { });
+    // }
+    // this.toastr.success('Preguntas guardadas correctamente!', 'Éxito!');
+    // this.preguntasRespuestas = [];
+    // this.evaluacionesService.getConteoPreguntas(parseInt(id!)).subscribe((data: any) => {
+    //   console.log(data)
+    //   //this.n_preguntas = data.conteo;
+    //   this.evaluacionesService.editarCantidadPreguntas(data.conteo).subscribe((data: any) => {
+    //   });
+    // });
+    // this.router.navigate(['/dashboard/list-evaluaciones']);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 1000);
+
     const id = this.activeRoute.snapshot.paramMap.get('id');
+    console.log(this.preguntasRespuestas)
+    const result = await this.evaluacionesService.savePreguntas(this.preguntasRespuestas).toPromise()
+    console.log(result.success)
 
-    for (let index = 0; index < this.preguntasRespuestas.length; index++) {
-      this.evaluacionesService.savePreguntas(this.preguntasRespuestas[index]).subscribe((response) => { });
-    }
-    this.toastr.success('Preguntas guardadas correctamente!', 'Éxito!');
-    this.preguntasRespuestas = [];
+    if(result.success == true){
+      this.toastr.success('Preguntas guardadas correctamente!', 'Éxito!');
+      this.preguntasRespuestas = [];
 
-    this.evaluacionesService.getConteoPreguntas(parseInt(id!)).subscribe((data: any) => {
+      const data = await this.evaluacionesService.getConteoPreguntas(parseInt(id!)).toPromise();
       console.log(data)
-      //this.n_preguntas = data.conteo;
-      this.evaluacionesService.editarCantidadPreguntas(data.conteo).subscribe((data: any) => {
+        //this.n_preguntas = data.conteo;
+      const resp = await this.evaluacionesService.editarCantidadPreguntas(data.conteo).toPromise();
+      console.log(resp)
 
-      });
-    });
-
-
-    setTimeout(() => {
-      this.router.navigate(['/dashboard/list-evaluaciones']);
-    }, 1000);
+      setTimeout(() => {
+        this.router.navigate(['/dashboard/list-evaluaciones']);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }, 1000);
+        
+    }
 
 
   }
@@ -603,6 +618,9 @@ export class PreguntasComponent implements OnInit {
                     radioDiv.appendChild(option1);
                     radioDiv.appendChild(label1);
                     cardBody.appendChild(radioDiv);
+
+                    // Disable the checkbox
+                    option1.disabled = true;
                   });
 
                   // Agregar los elementos creados a la card y la card al contenedor
@@ -660,6 +678,9 @@ export class PreguntasComponent implements OnInit {
                     checkboxDiv.appendChild(checkbox);
                     checkboxDiv.appendChild(label);
                     cardBody.appendChild(checkboxDiv);
+
+                    // Disable the checkbox
+                    checkbox.disabled = true;
                   });
 
                   // Agregar los elementos creados a la card y la card al contenedor

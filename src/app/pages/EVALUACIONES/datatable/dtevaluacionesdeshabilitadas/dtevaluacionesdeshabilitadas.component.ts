@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
@@ -17,7 +18,7 @@ export class DtevaluacionesdeshabilitadasComponent implements OnInit {
   data: any;
   isLoading = false;
 
-  constructor(private evaluacionesService: EvaluacionesService, private toastr: ToastrService) {}
+  constructor(private evaluacionesService: EvaluacionesService, private toastr: ToastrService, private router: Router, ) {}
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -62,7 +63,7 @@ export class DtevaluacionesdeshabilitadasComponent implements OnInit {
       if(this.listaEvaluacionesDeshabilitadas.length != 0) {
         setTimeout(() => {
             this.dtTrigger.next(0);
-        }, 1000);
+        }, 1000); 
       }
     });
   
@@ -89,7 +90,10 @@ export class DtevaluacionesdeshabilitadasComponent implements OnInit {
         this.evaluacionesService.habilitarEvaluacion(id).subscribe((res: any) => {
           if(res.success == true) {
             this.toastr.success('Evaluación habilitada con éxito!', 'Éxito!');
-            this. loadEvaluacionesDeshabilitadas();
+            this.router.navigate(['dashboard']);
+            setTimeout(() => {
+              window.location.reload();
+            }, 600)
           } else {
             this.toastr.error('A ocurrido un error no controlado!', 'Error!');
           }

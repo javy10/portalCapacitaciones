@@ -23,13 +23,17 @@ export class CollaboratorComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
+  dtOptions1: DataTables.Settings = {};
+  dtTrigger1: Subject<any> = new Subject<any>();
+
   listaAgencia:any=[];
-  listaDepartamento:any=[];
+  listaCargos:any=[];
   listaCargo:any=[];
   listaMenu:any=[];
   colaborador!: Colaborador;
   formUser: FormGroup;
   formPermisos: FormGroup;
+  formCargos: FormGroup;
   ngSelectA: any;
   ngSelectD: any;
   ngSelectC: any;
@@ -42,9 +46,10 @@ export class CollaboratorComponent implements OnInit {
   guardando = true;
   // Variable para almacenar el contador de checkboxes seleccionados
   selectedCheckboxCount = 0;
+  selectedCheckboxCountCargos = 0;
   public datos: any[] = [];
+  public datosCargo: any[] = [];
   
-
   constructor(
     public fb:FormBuilder, 
     private colaboradorService:ColaboradorService, 
@@ -59,8 +64,8 @@ export class CollaboratorComponent implements OnInit {
       'nombres': ['', Validators.required],
       'apellidos': ['', Validators.required],
       'agencia': ['', Validators.required],
-      'departamento': ['', Validators.required],
-      'cargo': ['', Validators.required],
+      // 'departamento': ['', Validators.required],
+      // 'cargo': ['', Validators.required],
       'telefono': ['', Validators.required],
       'email': ['', [Validators.required, Validators.email]],
       // 'foto': ['']
@@ -68,7 +73,9 @@ export class CollaboratorComponent implements OnInit {
     
     this.formPermisos = this.fb.group({
       'check': ['', Validators.required],
-
+    });
+    this.formCargos = this.fb.group({
+      'checkCargo': ['', Validators.required],
     });
 
   }
@@ -85,12 +92,12 @@ export class CollaboratorComponent implements OnInit {
   get agencia() {
     return this.formUser.get('agencia') as FormControl;
   }
-  get departamento() {
-    return this.formUser.get('departamento') as FormControl;
-  }
-  get cargo() {
-    return this.formUser.get('cargo') as FormControl;
-  }
+  // get departamento() {
+  //   return this.formUser.get('departamento') as FormControl;
+  // }
+  // get cargo() {
+  //   return this.formUser.get('cargo') as FormControl;
+  // }
   get telefono() {
     return this.formUser.get('telefono') as FormControl;
   }
@@ -100,13 +107,53 @@ export class CollaboratorComponent implements OnInit {
   get check() {
     return this.formPermisos.get('check') as FormControl;
   }
+  get checkCargo() {
+    return this.formPermisos.get('checkCargo') as FormControl;
+  }
 
   ngOnInit(): void {
     this.loadAgencia();
-    this.loadDepartamento();
+    
     this.cargar();
     this.cambiarEstadoLoading();
     this.loadMenus();
+    this.loadCargos();
+    this.dtOptions = {
+      lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      searching: true,
+      //processing: true,
+      //destroy:true,
+      columnDefs: [
+        { "width": "2%", "targets": 0 },
+        { "width": "2%", "targets": 1 },
+        { "width": "25%", "targets": 2 },
+        { "width": "10%", "targets": 3 },
+      ],
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
+      }
+    };
+
+    this.dtOptions1 = {
+      
+      lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      searching: true,
+      processing: true,
+      //destroy:true,
+      columnDefs: [
+        { "width": "2%", "targets": 0 },
+        { "width": "2%", "targets": 1 },
+        { "width": "25%", "targets": 2 },
+        { "width": "10%", "targets": 3 },
+      ],
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.3/i18n/es-ES.json',
+      }
+    };
   }
 
   async loadAgencia() {
@@ -116,9 +163,11 @@ export class CollaboratorComponent implements OnInit {
     })));
   }
 
-  async loadDepartamento() {
-    return  await new Promise(resolve => resolve( this.colaboradorService.getDepartamento().subscribe((data: any) => {
-      this.listaDepartamento = data;
+  async loadCargos() {
+    return  await new Promise(resolve => resolve( this.colaboradorService.getCargo().subscribe((data: any) => {
+      this.dtTrigger1.next(0);
+      this.listaCargos = data;
+      console.log(this.listaCargos )
     })));
   }
 
@@ -193,56 +242,80 @@ export class CollaboratorComponent implements OnInit {
 
   guardar() {
     // // Concatenamos valores para la clave del usuario
+    if(this.selectedCheckboxCountCargos > 0 ) {
+      const nombreClave = this.formUser.value.nombres.charAt(0).toUpperCase();
+      const apellidoClave = this.formUser.value.apellidos.split(' ')[0].toLowerCase();
+      const valorClave = nombreClave+apellidoClave+this.codAgencia;
+  
+      const formData = new FormData();
+      formData.append('nombres', this.formUser.value.nombres),
+      formData.append('apellidos', this.formUser.value.apellidos),
+      formData.append('dui', this.formUser.value.dui),
+      formData.append('password', valorClave),
+      formData.append('telefono', this.formUser.value.telefono),
+      formData.append('correo', this.formUser.value.email),
+      formData.append('agencia_id', this.formUser.value.agencia),
+      // formData.append('departamento_id', this.formUser.value.departamento),
+      formData.append('cargo_id', JSON.stringify(this.selectedItems)),
+      formData.append('foto', this.imagen!),
+      formData.append('habilitado', 'S'),
+      formData.append('intentos', '5'),
+      formData.append('ultimoIngreso', '')
 
-    const nombreClave = this.formUser.value.nombres.charAt(0).toUpperCase();
-    const apellidoClave = this.formUser.value.apellidos.split(' ')[0].toLowerCase();
-    const valorClave = nombreClave+apellidoClave+this.codAgencia;
+      
+      if(this.selectedItems.length > 0) {
+        formData.append('tipoPermisoMenu_id', '1')
+      } else {
+        formData.append('tipoPermisoMenu_id', '2')
+      }
+      formData.append('menu_id', JSON.stringify(this.selectedItemsMenu))
+      console.log(this.selectedItemsMenu)
 
-    const formData = new FormData();
-    formData.append('nombres', this.formUser.value.nombres),
-    formData.append('apellidos', this.formUser.value.apellidos),
-    formData.append('dui', this.formUser.value.dui),
-    formData.append('password', valorClave),
-    formData.append('telefono', this.formUser.value.telefono),
-    formData.append('correo', this.formUser.value.email),
-    formData.append('agencia_id', this.formUser.value.agencia),
-    formData.append('departamento_id', this.formUser.value.departamento),
-    formData.append('cargo_id', this.formUser.value.cargo),
-    formData.append('foto', this.imagen!),
-    formData.append('habilitado', 'S'),
-    formData.append('intentos', '5'),
-    formData.append('ultimoIngreso', '')
-
-    const checkboxes = document.querySelectorAll<HTMLInputElement>('table input[type="checkbox"]');
-    const userCells = document.querySelectorAll('table td.user');
-    const checkedMenu: string[] = [];
-
-    checkboxes.forEach((checkbox, index) => {
-      if (checkbox.checked) {
-        const userCell = userCells[index];
-        const userName = userCell.textContent?.trim();
-        if (userName) {
-          checkedMenu.push(userName);
+      this.colaboradorService.saveColaborador(formData).subscribe((response) => {
+        console.log(response.success);
+        if(response.success == true){
+          
+          this.toastr.success('Colaborador registrado con éxito!', 'Éxito!');
+          this.router.navigate(['/dashboard/list-collaborator']);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+          
         }
-      }
-    });
-    console.log(checkedMenu);
+      });
 
-    formData.append('tipoPermisoMenu_id', '2'),
-    formData.append('menu_id', JSON.stringify(checkedMenu)),
+    } else {
+      this.toastr.warning('Debes seleccionar al menos un cargo para este usuario...', 'Advertencia!');
+    }
 
 
-    this.colaboradorService.saveColaborador(formData).subscribe((response) => {
-      console.log(response);
-      if(response.success == true){
-        this.toastr.success('Colaborador registrado con éxito!', 'Éxito!');
-        this.router.navigate(['/dashboard/list-collaborator']);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-        
-      }
-    });
+  
+  // const newArray = array.map(item => ({
+  //   id: item.id,
+  //   departamento_id: item.departamento_id,
+  //   cargo_id: item.cargo_id
+  // }));
+
+  // const formData = new FormData();
+  // for (let index = 0; index < newArray.length; index++) {
+  //   const element = newArray[index];
+  //   //console.log(element)
+  //   formData.append('departamento_id', element.departamento_id.toString()),
+  //   formData.append('cargo_id', element.cargo_id.toString()),
+  //   formData.append('colaborador_id', element.id.toString())
+
+  //   this.colaboradorService.saveColaborador(formData).subscribe((response) => {
+  //     console.log(response.success)
+  //   });
+  // }
+  
+  // console.log(newArray);
+
+
+    // this.colaboradorService.saveColaborador(formData).subscribe((response) => {
+
+    // });
+
 
 
     // const checkboxes = document.querySelectorAll<HTMLInputElement>('table input[type="checkbox"]');
@@ -308,30 +381,27 @@ export class CollaboratorComponent implements OnInit {
         let id = e['id'];
         if(id) {
           
-          new Promise(resolve => resolve(this.colaboradorService.getobtenerColaboradorID(id).subscribe((response) => {
+          this.colaboradorService.getobtenerPorIDColaborador(id).subscribe((response) => {
             this.colaborador = response.dataDB[0];
             //console.log(response.dataDB)
             this.formUser.patchValue(this.colaborador);
             this.ngSelectA = response.dataDB[0].agencia_id;
-            this.ngSelectD = response.dataDB[0].departamento_id;
-            this.ngSelectC = response.dataDB[0].cargo_id;
+            // this.ngSelectD = response.dataDB[0].departamento_id;
+            // this.ngSelectC = response.dataDB[0].cargo_id;
 
-            this.colaboradorService.getCargoId(response.dataDB[0].cargo_id).subscribe((res: any) => {
-              this.colaboradorService.postDeptCargo(this.ngSelectD).subscribe((resp) => {
-                this.listaCargo = resp.dataDB;
-                //console.log(res.dataDB)
-                
-              });
-            });
-            
             this.menuService.getDetallePermisosMenu(id).subscribe((res: any) => {
               //console.log(res.dataDB)
               for (let index = 0; index < res.dataDB.length; index++) {
                 this.datos.push(res.dataDB[index].menu_id);
               }
+              console.log(this.datos)
+              for (let index = 0; index < response.dataDB.length; index++) {
+                this.datosCargo.push(response.dataDB[index].cargo_id);
+              }
+              console.log(this.datosCargo)
             });
-
-            if(response.dataDB.foto) {
+            console.log(response.dataDB[0].foto)
+            if(response.dataDB[0].foto) {
               this.colaboradorService.getFotoURL(response.dataDB[0].foto).subscribe((data: any) => {
                 this.isLoading = false;
                 this.img = response.dataDB.foto;
@@ -345,7 +415,7 @@ export class CollaboratorComponent implements OnInit {
                 }, 100);
               });
             }
-          })));
+          });
         }
       });
     } 
@@ -360,66 +430,64 @@ export class CollaboratorComponent implements OnInit {
   }
 
   editar() {
-    const formData = new FormData();
-    formData.append('id', this.activeRoute.snapshot.paramMap.get('id')!),
-    formData.append('dui', this.formUser.value.dui),
-    formData.append('nombres', this.formUser.value.nombres),
-    formData.append('apellidos', this.formUser.value.apellidos),
-    formData.append('agencia_id', this.formUser.value.agencia),
-    formData.append('departamento_id', this.formUser.value.departamento),
-    formData.append('cargo_id', this.formUser.value.cargo)
+    if(this.selectedCheckboxCountCargos > 0 || this.datosCargo.length !== 0) {
+      const formData = new FormData();
+      formData.append('id', this.activeRoute.snapshot.paramMap.get('id')!),
+      formData.append('dui', this.formUser.value.dui),
+      formData.append('nombres', this.formUser.value.nombres),
+      formData.append('apellidos', this.formUser.value.apellidos),
+      formData.append('agencia_id', this.formUser.value.agencia),
+      // formData.append('departamento_id', this.formUser.value.departamento),
+      formData.append('cargo_id', JSON.stringify(this.datosCargo))
 
-    if(this.imagen != null) {
-      formData.append('foto', this.imagen)
-    }
-    
-    formData.append('telefono', this.formUser.value.telefono),
-    formData.append('email', this.formUser.value.email),
-    formData.append('habilitado', 'S'),
-    formData.append('ultimoIngreso', '')
-
-    const checkboxes = document.querySelectorAll<HTMLInputElement>('table input[type="checkbox"]');
-    const userCells = document.querySelectorAll('table td.user');
-    let checkedMenu: string[] = [];
-
-    checkboxes.forEach((checkbox, index) => {
-      if (checkbox.checked) {
-        const userCell = userCells[index];
-        const userName = userCell.textContent?.trim();
-        if (userName) {
-          checkedMenu.push(userName);
-        }
+      if(this.imagen != null) {
+        formData.append('foto', this.imagen)
       }
-    });
-    console.log(checkedMenu);
+      
+      formData.append('telefono', this.formUser.value.telefono),
+      formData.append('correo', this.formUser.value.email),
+      formData.append('habilitado', 'S'),
+      formData.append('ultimoIngreso', '')
 
-    
-    // console.log(this.imagen);
-    // console.log(this.formUser.value)
-    
-    //const id = this.activeRoute.snapshot.paramMap.get('id');
-    
-    this.colaboradorService.editarColaborador(formData).subscribe((response) => {
-      console.log(response);
-
-      //formData.append('menu_id', JSON.stringify(checkedMenu))
-      formData.append('tipoPermisoMenu_id', '2'),
-      formData.append('menu_id', checkedMenu.toString())
-
+      let checkedMenu: string[] = [];
+      console.log(this.selectedCheckboxCount)
+      
+      console.log(this.datos)
+      console.log(this.datosCargo)
+      if(this.datosCargo.length > 0) {
+        formData.append('tipoPermisoMenu_id', '1')
+      } else {
+        formData.append('tipoPermisoMenu_id', '2')
+      }
+      formData.append('menu_id', this.datos.toString())
       console.log(checkedMenu.toString())
-
-      this.menuService.editarDetallePermisoMenu(formData).subscribe((resp) => {
-        console.log(resp.success)
+      console.log(checkedMenu);
+      //} 
+      //console.log(this.datosCargo);
+      //const id = this.activeRoute.snapshot.paramMap.get('id');
+      
+      this.colaboradorService.editarColaborador(formData).subscribe((response) => {
+        //console.log(response.success);
+        this.datos = [];
+        this.datosCargo = [];
+        // this.menuService.editarDetallePermisoMenu(formData).subscribe((resp) => {
+        //   console.log(resp.success)
+        // });
+        checkedMenu = [];
+  
+        if(response.success == true) {
+          this.toastr.success('Colaborador actualizado con éxito!', 'Éxito!');
+          this.router.navigate(['/dashboard/list-collaborator']);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
       });
-      checkedMenu = [];
- 
-      this.toastr.success('Colaborador actualizado con éxito!', 'Éxito!');
-      this.router.navigate(['/dashboard/list-collaborator']);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    });
+    } else {
+      this.toastr.warning('Debes seleccionar al menos un cargo para este usuario...', 'Advertencia!');
+    }
   }
+
 
   cancelar() {
     const dui = document.getElementById('dui') as HTMLInputElement;
@@ -470,15 +538,93 @@ export class CollaboratorComponent implements OnInit {
     } else {
       this.selectedCheckboxCount--;
     }
+    console.log(this.selectedCheckboxCount)
   }
 
   loadMenus() {
     return this.menuService.getMenus().subscribe((data: any) => {
+      this.dtTrigger.next(0);
       this.listaMenu = data.dataDB;
       //console.log(data.dataDB)
     });
   }
 
+  handleCheckboxChangeCargo(event: Event){
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.selectedCheckboxCountCargos++;
+    } else {
+      this.selectedCheckboxCountCargos--;
+    }
+  }
+
+  selectedItems: any[] = [];
+  isSelected(item: any) {
+    this.selectedItems.some((selectedItem) => selectedItem === item);
+    //console.log(this.selectedItems)
+  }
+
+  selectedItemsMenu: any[] = [];
+  isSelectedMenu(item: any) {
+    this.selectedItemsMenu.some((selectedItem) => selectedItem === item);
+    //console.log(this.selectedItems)
+  }
+
+  onCheckboxChange(item: any) {
+    // //console.log(this.selectedItems)
+    console.log(this.selectedItems);
+    // console.log(this.datos);
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    if(!id) {
+      const index = this.selectedItems.findIndex((selectedItem) => selectedItem === item);
+      console.log(index)
+      if (index > -1) {
+        this.selectedItems.splice(index, 1);
+        console.log(this.selectedItems);
+      } else {
+        this.selectedItems.push(item);
+        console.log(this.selectedItems);
+      }
+    } else {
+      const indexNew = this.datosCargo.findIndex((selectedItem) => selectedItem === item);
+      console.log(indexNew)
+      if (indexNew > -1) {
+        this.datosCargo.splice(indexNew, 1);
+        console.log(this.datosCargo);
+      } else {
+        this.datosCargo.push(item);
+        console.log(this.datosCargo);
+      }
+    }
+  }
+
+  onCheckboxChangeMenu(item: any) {
+    // //console.log(this.selectedItems)
+    // console.log(this.selectedItemsMenu);
+    // console.log(this.datos);
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    if(!id) {
+      const index = this.selectedItemsMenu.findIndex((selectedItem) => selectedItem === item);
+      console.log(index)
+      if (index > -1) {
+        this.selectedItemsMenu.splice(index, 1);
+        console.log(this.selectedItemsMenu);
+      } else {
+        this.selectedItemsMenu.push(item);
+        console.log(this.selectedItemsMenu);
+      }
+    } else {
+      const indexNew = this.datos.findIndex((selectedItem) => selectedItem === item);
+      console.log(indexNew)
+      if (indexNew > -1) {
+        this.datos.splice(indexNew, 1);
+        console.log(this.datos);
+      } else {
+        this.datos.push(item);
+        console.log(this.datos);
+      }
+    }
+  }
 
 
 }

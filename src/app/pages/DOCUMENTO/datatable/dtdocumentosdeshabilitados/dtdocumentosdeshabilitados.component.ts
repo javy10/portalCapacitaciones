@@ -14,7 +14,6 @@ export class DtdocumentosdeshabilitadosComponent implements OnInit{
   listaDocumentos:any=[];
   listaTipoDocumentos:any=[];
 
-
   @ViewChild(DataTableDirective, { static: false })
   datatableElement!: DataTableDirective;
   dtOptions: DataTables.Settings = {};

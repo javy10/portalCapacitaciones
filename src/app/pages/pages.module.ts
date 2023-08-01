@@ -56,6 +56,13 @@ import { UserGuardGuardChild } from '../Guard/user-guard-child.guard';
 import { DtmenuComponent } from './MENU/datatable/dtmenu/dtmenu.component';
 import { ListdocumentosdeshabilitadosComponent } from './DOCUMENTO/listdocumentosdeshabilitados/listdocumentosdeshabilitados.component';
 import { DtdocumentosdeshabilitadosComponent } from './DOCUMENTO/datatable/dtdocumentosdeshabilitados/dtdocumentosdeshabilitados.component';
+import { PreguntasabiertasComponent } from './EVALUACIONES/preguntasabiertas/preguntasabiertas.component';
+import { ConfigdepartamentocargoComponent } from './COLABORADORES/configdepartamentocargo/configdepartamentocargo.component';
+import { QuizabiertoComponent } from './EVALUACIONES/quizabierto/quizabierto.component';
+import { ListresultadosevaluacionabiertaComponent } from './EVALUACIONES/listresultadosevaluacionabierta/listresultadosevaluacionabierta.component';
+import { DtresultadosevaluacionabiertaComponent } from './EVALUACIONES/datatable/dtresultadosevaluacionabierta/dtresultadosevaluacionabierta.component';
+import { EditarevaluacionabiertaComponent } from './EVALUACIONES/editarevaluacionabierta/editarevaluacionabierta.component';
+import { EditarevaluacionComponent } from './EVALUACIONES/editarevaluacion/editarevaluacion.component';
 
 
 @NgModule({
@@ -106,7 +113,14 @@ import { DtdocumentosdeshabilitadosComponent } from './DOCUMENTO/datatable/dtdoc
     DtresultadosevaluacionComponent,
     DtmenuComponent,
     ListdocumentosdeshabilitadosComponent,
-    DtdocumentosdeshabilitadosComponent
+    DtdocumentosdeshabilitadosComponent,
+    PreguntasabiertasComponent,
+    ConfigdepartamentocargoComponent,
+    QuizabiertoComponent,
+    ListresultadosevaluacionabiertaComponent,
+    DtresultadosevaluacionabiertaComponent,
+    EditarevaluacionabiertaComponent,
+    EditarevaluacionComponent
   ],
   exports: [
     DashboardComponent,

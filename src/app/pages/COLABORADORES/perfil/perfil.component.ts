@@ -255,19 +255,6 @@ export class PerfilComponent implements OnInit {
     console.log(formData)
     await new Promise(resolve => resolve(this.colaboradorService.saveColaborador(formData).subscribe((response) => {
         console.log(response);
-        // Swal.fire({
-        //   //position: 'center',
-        //   icon: 'success',
-        //   title: 'Colaborador registrado con exito',
-        //   showClass: {
-        //     popup: 'animate__animated animate__fadeInDown'
-        //   },
-        //   hideClass: {
-        //     popup: 'animate__animated animate__fadeOutUp'
-        //   },
-        //   showConfirmButton: false,
-        //   timer: 1500
-        // })
         this.toastr.success('Colaborador registrado con éxito!', 'Éxito!');
         this.router.navigate(['/dashboard/list-collaborator']);
     })));
@@ -305,22 +292,8 @@ export class PerfilComponent implements OnInit {
     //const id = this.activeRoute.snapshot.paramMap.get('id');
     await new Promise(resolve => resolve(this.colaboradorService.editarColaborador(formData).subscribe((response) => {
       console.log(response);
-      // Swal.fire({
-      //   //position: 'center',
-      //   icon: 'success',
-      //   title: 'Colaborador actualizado con exito',
-      //   showClass: {
-      //     popup: 'animate__animated animate__fadeInDown'
-      //   },
-      //   hideClass: {
-      //     popup: 'animate__animated animate__fadeOutUp'
-      //   },
-      //   showConfirmButton: false,
-      //   timer: 1500
-      // });
-
       this.toastr.success('Colaborador actualizado con éxito!', 'Éxito!');
-      //this.router.navigate(['/dashboard/list-collaborator']);
+      this.router.navigate(['/dashboard/list-collaborator']);
     })));
   }
 

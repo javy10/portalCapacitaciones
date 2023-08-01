@@ -1,10 +1,10 @@
-<app-header></app-header>
-<app-sidebar></app-sidebar>
+<app-header [datosUsuario]="datoUsuario"></app-header>
+<app-sidebar [datosUsuario]="datoUsuario"></app-sidebar>
 <main id="main" class="main">
   <!-- BREADCRUBS -->
   <!-- <app-breadcrumbs></app-breadcrumbs> -->
   <!-- SISTEMA DE RUTAS -->
-  <router-outlet (enviarPath)="enviarDatos($event)"></router-outlet>
+  <router-outlet (enviarPath)="enviarDatos($event)" ></router-outlet>
   <!-- <app-dashboard></app-dashboard> -->
 </main>
 

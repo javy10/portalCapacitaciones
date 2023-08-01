@@ -30,6 +30,11 @@ export class QuizComponent implements OnInit {
   isLoading = false;
   intento:any;
   tituloEvaluacion:any;
+  testAbierto:any;
+  resultados: any[] = [];
+
+  apertura:any;
+  cierre:any;
 
   constructor(
     private evaluacionService: EvaluacionesService, 
@@ -40,22 +45,78 @@ export class QuizComponent implements OnInit {
 
   }
 
-  
-
   ngOnInit(): void {
     this.loadPreguntas();
+    
   }
 
   loadPreguntas() {
     const id = this.route.snapshot.paramMap.get('id');
-
+    console.log(id)
+    console.log(this.colaborador_id)
     const formData = new FormData();
     formData.append('colaborador_id', this.colaborador_id),
     formData.append('evaluacion_id', id!)
-
+ 
     this.evaluacionService.obtenerPreguntas(formData).subscribe((data: any) => {
       console.log(data.dataDB)
+
+      this.apertura = data.dataDB[0].apertura;
+      this.cierre = data.dataDB[0].cierre;
+
+      console.log(this.apertura)
+      console.log(this.cierre)
+
+      const startDate = new Date(this.apertura);
+      const endDate = new Date(this.cierre);
+      const diff = endDate.getTime() - startDate.getTime();
+      console.log(diff)
+
+       // Almacenar el contexto actual en una variable
+       const self = this;
+
+       function updateTimer() {
+        const now = new Date();
+        const remaining = diff - (now.getTime() - startDate.getTime());
+        const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((remaining / (1000 * 60)) % 60);
+        const seconds = Math.floor((remaining / 1000) % 60);
+
+        if (remaining <= 0) {
+          self.evaluacionService.eliminarEvaluacion(id).subscribe((data: any) => {
+            console.log(data.success)
+          });
+          clearInterval(timerInterval);
+          Swal.fire({
+            title: 'Tiempo agotado',
+            text: "¡¡Se término el tiempo para responder ésta evaluación!!",
+            icon: 'error',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              self.router.navigate(['dashboard']);
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000)
+            }
+          });
+          return;
+        }
+        
+        document.getElementById('days')!.textContent = days.toString();
+        document.getElementById('hours')!.textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes')!.textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds')!.textContent = seconds.toString().padStart(2, '0');
+      }
+      
+      const timerInterval = setInterval(updateTimer, 1000);
+
       this.tituloEvaluacion = data.dataDB[0].nombre;
+      this.testAbierto = data.dataDB[0].evaluada;
       const preguntasUnicas = data.dataDB.reduce((acc: any, pregunta: any) => {
         const preguntaExistente = acc.find((p: any) => p.valorPregunta === pregunta.valorPregunta);
         if (preguntaExistente) {
@@ -72,20 +133,21 @@ export class QuizComponent implements OnInit {
             tipoPregunta_id: pregunta.tipoPregunta_id,
             selectedAnswers: []
           });
-        }
+        }   
         return acc;
       }, []);
-
+ 
       console.log(preguntasUnicas);
       this.listadoPreguntas = preguntasUnicas;
       console.log(this.listadoPreguntas);
       console.log(this.evaluacion_id);
 
 
-
+ 
     });
   }
 
+  data:any = {};
   guardarRespuestas() {
 
     const swalWithBootstrapButtons = Swal.mixin({
@@ -233,7 +295,6 @@ export class QuizComponent implements OnInit {
         return obj;
       }, {});
       
-      
       const totalPreguntas = this.resultado.length;
       const respuestasCorrectas = includedCount;
       const notaMinima = 0;
@@ -242,84 +303,51 @@ export class QuizComponent implements OnInit {
       const nota = (respuestasCorrectas / totalPreguntas) * (notaMaxima - notaMinima) + notaMinima;
       console.log('Nota:', nota);
 
-      const nuevoArray = Object.values(nuevoObjeto);
-      const data = {
-        'colaborador_id': this.colaborador_id,
-        'evaluacion_id': this.evaluacion_id,
-        'resultado': nota
-      }
-      const nuevoArreglo = [data, ...nuevoArray];
-      console.log(nuevoArreglo);
-  
-
-      // for (let index = 0; index < nuevoArreglo.length; index++) {
-      //   this.evaluacionService.saveResultadopreguntas(nuevoArreglo[index]).subscribe((resp: any) => {
-          
-      //   });
-      // }
-       
-      ///***********************OBTENER DATOS PARA GUARDAR EN LA DB ***************************************/
-      
-      if(nota >= response.dataDB.calificacionMinima){
-        this.isLoading = false;
-        setTimeout(() => {
-          // this.toastr.success('¡¡FELICIDADES!!', 'APROBADO!', {
-          //   timeOut: 0,
-          // });
-
-          Swal.fire({
-            title: 'APROBADO',
-            text: "¡¡FELICIDADES HAZ APROBADO!!",
-            icon: 'success',
-            showCancelButton: false,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'OK'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.router.navigate(['dashboard']);
-              window.location.reload();
+       ///***********************OBTENER DATOS PARA GUARDAR EN LA DB ***************************************/
+       console.log(nota)
+     
+       const nuevoArray = Object.values(nuevoObjeto);
+       this.data = {
+         'colaborador_id': this.colaborador_id,
+         'evaluacion_id': this.evaluacion_id,
+         'resultado': nota
+       }
+       console.log(this.data)
+       if(nota >= response.dataDB.calificacionMinima){
+         this.isLoading = false;
+         //setTimeout(() => {
+          console.log(this.data)
+          let nuevoArreglo = [this.data, ...nuevoArray];
+          console.log(nuevoArreglo);
+          // Función para convertir elementos de tipo string a tipo number
+          const convertirStringANumber = (elemento: string) => parseInt(elemento, 10);
+          // Recorrer el arreglo y aplicar la función de conversión en cada elemento
+          const arregloConvertido = nuevoArreglo.map((objeto:any) => {
+            if (objeto.respuestaSeleccionada && Array.isArray(objeto.respuestaSeleccionada)) {
+              return {
+                ...objeto,
+                respuestaSeleccionada: objeto.respuestaSeleccionada.map(convertirStringANumber)
+              };
             }
+            return objeto;
           });
-
-
-          const boton = document.getElementById('btnGuardarQuiz') as HTMLButtonElement;
-          const formulario = document.getElementById('myForm') as HTMLFormElement;
-          const inputs = formulario.querySelectorAll('input');
-          boton.disabled = true;
-          inputs.forEach(input => {
-            input.disabled = true;
-          });
-        }, 1000);
-      } else {
-        
-        this.intento--;
-        // if(this.intento == 0) {
-        //   this.isLoading = false;
-        //   setTimeout(() => {
-        //   this.toastr.error(`Lo sentimos... Haz reprobado éste examen!!!`, 'REPROBADO!', {
-        //     timeOut: 0,
-        //   });
-        //   const boton = document.getElementById('btnGuardarQuiz') as HTMLButtonElement;
-        //   const formulario = document.getElementById('myForm') as HTMLFormElement;
-        //   const inputs = formulario.querySelectorAll('input');
-        //   boton.disabled = true;
-        //   inputs.forEach(input => {
-        //     input.disabled = true;
-        //   });
-        // }, 1000);
-        // } else {
-          
-        this.evaluacionService.editarIntentosEvaluacion(data).subscribe((res: any) => {
-          this.intento = res.dataDB.intentos;
-          console.log(this.intento)
-          if(this.intento == 0) {
-            this.isLoading = false;
-
+          console.log(arregloConvertido);
+          // Obtiene el primer objeto del arreglo
+          const primerObjeto = arregloConvertido[0];
+          // Elimina el primer objeto del arreglo original
+          arregloConvertido.shift();
+          // Agrega los objetos como subarreglos dentro del primer objeto
+          primerObjeto['subArreglos'] = arregloConvertido;
+          // Ahora el arreglo principal contiene solo el primer objeto con los subarreglos
+          console.log(primerObjeto);
+          console.log(arregloConvertido.length)
+          this.evaluacionService.saveResultadopreguntas(primerObjeto).subscribe((resp: any) => {
+            console.log(resp)
+            if(resp.success == true) {
               Swal.fire({
-                title: 'REPROBADO',
-                text: "Lo sentimos... Haz reprobado éste examen!!!",
-                icon: 'error',
+                title: 'ÉXITO',
+                text: "¡¡FELICIDADES HAZ APROBADO!!",
+                icon: 'success',
                 showCancelButton: false,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -329,59 +357,113 @@ export class QuizComponent implements OnInit {
                   this.router.navigate(['dashboard']);
                   setTimeout(() => {
                     window.location.reload();
-                  }, 500);
+                  }, 1000)
                 }
               });
-
-          } else {
-            this.isLoading = false;
-
-              Swal.fire({
-                //position: 'center',
-                icon: 'warning',
-                title: 'REPROBADO!',
-                showClass: {
-                  popup: 'animate__animated animate__fadeInDown'
-                },
-                hideClass: {
-                  popup: 'animate__animated animate__fadeOutUp'
-                },
-                showConfirmButton: true,
-                timer: 1500,
-                didOpen: () => {
-                  Swal.showLoading()
-                },
-                willClose: () => {
-      
-                  swalWithBootstrapButtons.fire({
-                    title: `Te queda ${res.dataDB.intentos} intento más.`,
-                    text: "",
-                    icon: 'info',
-                    showCancelButton: false,
-                    confirmButtonText: 'Ok',
-                    //cancelButtonText: 'No, ya no!',
-                    reverseButtons: true
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      
-                      this.router.navigate(['dashboard']);
-                      setTimeout(() => {
-                        window.location.reload();
-                      }, 1000);
-                    }
-                  })
-                }
+    
+              const boton = document.getElementById('btnGuardarQuiz') as HTMLButtonElement;
+              const formulario = document.getElementById('myForm') as HTMLFormElement;
+              const inputs = formulario.querySelectorAll('input');
+              boton.disabled = true;
+              inputs.forEach(input => {
+                input.disabled = true;
               });
-            //}, 1000);
-            
-          }
-        });
-        //}
-      }
-     
+            }
+          });
+
+         //}, 1000);
+       } else {
+         
+         this.intento--;
+         // if(this.intento == 0) {
+         //   this.isLoading = false;
+         //   setTimeout(() => {
+         //   this.toastr.error(`Lo sentimos... Haz reprobado éste examen!!!`, 'REPROBADO!', {
+         //     timeOut: 0,
+         //   });
+         //   const boton = document.getElementById('btnGuardarQuiz') as HTMLButtonElement;
+         //   const formulario = document.getElementById('myForm') as HTMLFormElement;
+         //   const inputs = formulario.querySelectorAll('input');
+         //   boton.disabled = true;
+         //   inputs.forEach(input => {
+         //     input.disabled = true;
+         //   });
+         // }, 1000);
+         // } else {
+        
+         console.log(this.data)
+         this.evaluacionService.editarIntentosEvaluacion(this.data).subscribe((res: any) => {
+           this.intento = res.dataDB.intentos;
+           console.log(this.intento)
+           if(this.intento == 0) {
+             this.isLoading = false;
+ 
+               Swal.fire({
+                 title: 'REPROBADO',
+                 text: "Lo sentimos... Haz reprobado éste examen!!!",
+                 icon: 'error',
+                 showCancelButton: false,
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'OK'
+               }).then((result) => {
+                 if (result.isConfirmed) {
+                   this.router.navigate(['dashboard']);
+                   setTimeout(() => {
+                     window.location.reload();
+                   }, 500);
+                 }
+               });
+ 
+           } else {
+             this.isLoading = false;
+ 
+               Swal.fire({
+                 //position: 'center',
+                 icon: 'warning',
+                 title: 'REPROBADO!',
+                 showClass: {
+                   popup: 'animate__animated animate__fadeInDown'
+                 },
+                 hideClass: {
+                   popup: 'animate__animated animate__fadeOutUp'
+                 },
+                 showConfirmButton: true,
+                 timer: 1500,
+                 didOpen: () => {
+                   Swal.showLoading()
+                 },
+                 willClose: () => {
+       
+                   swalWithBootstrapButtons.fire({
+                     title: `Te queda ${res.dataDB.intentos} intento más.`,
+                     text: "",
+                     icon: 'info',
+                     showCancelButton: false,
+                     confirmButtonText: 'Ok',
+                     //cancelButtonText: 'No, ya no!',
+                     reverseButtons: true
+                   }).then((result) => {
+                     if (result.isConfirmed) {
+                       
+                       this.router.navigate(['dashboard']);
+                       setTimeout(() => {
+                         window.location.reload();
+                       }, 1000);
+                     }
+                   })
+                 }
+               });
+             //}, 1000);
+             
+           }
+         });
+         //}
+       }
       includedCount = 0;
       notIncludedCount = 0;
       this.resultado = [];
+      this.data = {};
     });
 
   }

@@ -1,0 +1,47 @@
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card ">
+            <div class="card-body ">
+                <div class="form mt-3">
+                    <div class="row">
+                        <h2 class="card-title text-center titulo" id="title">Crear Cuestionario de preguntas</h2>
+                        <hr>
+                        <form [formGroup]="formPregunta" class="row g-3 ">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 mb-2">
+                                        <label class="form-label">Digita la pregunta</label>
+                                        <input type="text"  id="preguntaAbierta" class="form-control" placeholder="Ingresa la pregunta" formControlName="pregunta" required>
+                                        <!-- <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                                            Debes seleccionar un descripcion
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="modal-footer footer">
+                                    <!-- <button type="button" class="btn btn-secondary cancelar"  >
+                                        Cancelar
+                                    </button> -->
+                                    <button type="submit" class="btn btn-success" id="btnCrearCard" (click)="obtenerValoresInputs()">
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="card-container-PA"></div>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12 mx-auto text-center d-flex align-items-center justify-content-center" *ngIf="ocultarBoton == true">
+            <button id="btnGuardarPreguntasAbiertas" type="button" class="btn btn-success mx-auto" (click)="guardarPregunta()">Guardar preguntas...</button>
+          </div>
+          <div class="col-md-12 mx-auto text-center d-flex align-items-center justify-content-center" *ngIf="ocultarBoton == true">
+            <button id="btnEditarPreguntasAbiertas" type="button" class="btn btn-info mx-auto" hidden>Actualizar preguntas...</button>
+          </div>
+        </div>
+    </div>
+</div>

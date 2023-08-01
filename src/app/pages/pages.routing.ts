@@ -31,6 +31,12 @@ import { ListcolaboradoresintentosComponent } from './COLABORADORES/listcolabora
 import { ListresultadosevaluacionComponent } from './EVALUACIONES/listresultadosevaluacion/listresultadosevaluacion.component';
 import { UserGuardGuardChild } from '../Guard/user-guard-child.guard';
 import { ListdocumentosdeshabilitadosComponent } from './DOCUMENTO/listdocumentosdeshabilitados/listdocumentosdeshabilitados.component';
+import { PreguntasabiertasComponent } from './EVALUACIONES/preguntasabiertas/preguntasabiertas.component';
+import { ConfigdepartamentocargoComponent } from './COLABORADORES/configdepartamentocargo/configdepartamentocargo.component';
+import { QuizabiertoComponent } from './EVALUACIONES/quizabierto/quizabierto.component';
+import { ListresultadosevaluacionabiertaComponent } from './EVALUACIONES/listresultadosevaluacionabierta/listresultadosevaluacionabierta.component';
+import { EditarevaluacionabiertaComponent } from './EVALUACIONES/editarevaluacionabierta/editarevaluacionabierta.component';
+import { EditarevaluacionComponent } from './EVALUACIONES/editarevaluacion/editarevaluacion.component';
 
 const routes: Routes = [
     
@@ -70,15 +76,24 @@ const routes: Routes = [
           { path: 'evaluacion/:id', component: EvaluacionComponent},
           { path: 'evaluacion/:idG/:id', component: EvaluacionComponent},
           { path: 'pregunta/:id', component: PreguntasComponent},
-          { path: 'pregunta/:idN/:id', component: PreguntasComponent},
+        //   { path: 'pregunta/:idN/:id', component: PreguntasComponent},
           { path: 'pregunta', component: PreguntasComponent},
           { path: 'quiz', component: QuizComponent},
           { path: 'quiz/:id', component: QuizComponent},
+          { path: 'quizabierto/:id', component: QuizabiertoComponent},
           { path: 'evaluaciones-deshabilitadas', component: ListevaluacionesdeshabilitadosComponent},
           { path: 'list-intentos', component: ListcolaboradoresintentosComponent},
           { path: 'list-resultados-evaluacion', component: ListresultadosevaluacionComponent},
           { path: 'list-resultados-evaluacion/:id', component: ListresultadosevaluacionComponent},
+          { path: 'list-resultados-evaluacion-abierta', component: ListresultadosevaluacionabiertaComponent},
+          { path: 'list-resultados-evaluacion-abierta/:id', component: ListresultadosevaluacionabiertaComponent},
           { path: 'list-documentos-deshabilitados', component: ListdocumentosdeshabilitadosComponent},
+          { path: 'preguntasabiertas', component: PreguntasabiertasComponent},
+          { path: 'preguntasabiertas/:id', component: PreguntasabiertasComponent},
+          { path: 'config-departamento', component: ConfigdepartamentocargoComponent},
+          { path: 'config-departamento/:id', component: ConfigdepartamentocargoComponent},
+          { path: 'editar-evaluacion-abierta/:id', component: EditarevaluacionabiertaComponent},
+          { path: 'editar-evaluacion/:id', component: EditarevaluacionComponent},
         ]
     },
     //{ path: '', component: DashboardComponent },

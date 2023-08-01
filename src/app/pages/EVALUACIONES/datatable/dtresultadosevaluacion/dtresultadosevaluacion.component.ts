@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { EvaluacionesService } from 'src/app/services/evaluaciones.service';
@@ -15,6 +16,8 @@ import Swal from 'sweetalert2';
 
 export class DtresultadosevaluacionComponent implements OnInit {
 
+  @ViewChild(DataTableDirective, { static: false })
+  datatableElement!: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -99,13 +102,22 @@ export class DtresultadosevaluacionComponent implements OnInit {
         //this.isLoading = false;
         this.listaResultadoEvaluacion = data.dataDB;
         console.log(this.listaResultadoEvaluacion)
-  
 
-        if(this.listaResultadoEvaluacion.length != 0) {
-          setTimeout(() => {
+        // Destruir la tabla DataTable existente
+        if (this.datatableElement.dtInstance) {
+          this.datatableElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
             this.dtTrigger.next(0);
-          }, 10);
-        } 
+          });
+        } else {
+          // Volver a dibujar la tabla DataTable con los nuevos datos
+          if(this.listaResultadoEvaluacion.length != 0) {
+            setTimeout(() => {
+              this.dtTrigger.next(0);
+            }, 10);
+          } 
+        }
+
       });
     } else {
       this.toastr.warning('Debes seleccionar el rango de fechas para ver los resultados!', 'Advertencia!');

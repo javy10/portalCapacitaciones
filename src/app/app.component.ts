@@ -14,6 +14,8 @@ export class AppComponent implements OnInit{
   logs:any;
   cont:any = 0;
   conteo:any = 0;
+  
+
 
   private inactivityTime: number = 0;
   private readonly MAX_INACTIVITY_TIME: number = 300000; // 5 minutes in milliseconds
@@ -34,24 +36,9 @@ export class AppComponent implements OnInit{
     //Add 'implements OnInit' to the class.
     this.initInactivityTimer();
     this.eliminarSesion();
+
+
   }
-  
-  // private initInactivityTimer() {
-    
-  //   console.log(this.inactivityTime)
-  //   setInterval(() => {
-  //       console.log(this.inactivityTime)
-  //       this.inactivityTime += 1800000;
-  //       if (this.inactivityTime >= this.MAX_INACTIVITY_TIME) {
-  //         if(this.conteo == 0) {
-  //           this.conteo = 1;
-  //           this.toastr.info('Tiempo de inactividad excedido. Cerrando sesión...!', 'Información!');
-  //           this.logout();
-  //         }
-  //       } 
-  //   }, 1800000);
-    
-  // }
 
   private initInactivityTimer() {
     console.log(this.inactivityTime);
@@ -80,8 +67,6 @@ export class AppComponent implements OnInit{
   }
 
 
-
-
   logout() {
 
     this.logsSalida();
@@ -91,6 +76,8 @@ export class AppComponent implements OnInit{
     localStorage.removeItem('logeado');
     localStorage.removeItem('idUserResetPass');
     this.router.navigate(['/login']);
+
+    
 
   }
 
@@ -121,6 +108,9 @@ export class AppComponent implements OnInit{
       });
     }
   }
+
+  
+
 
 
 

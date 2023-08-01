@@ -1,0 +1,23 @@
+
+.titulo {
+    /* background-color: rgba(0, 95, 85, 1);
+    color: #FFFFFF; */
+    font-size: 1.5rem;
+  }
+  
+  th , td {
+    text-align: center;
+  }
+  
+  .table {
+    font-size: 11px;
+  }
+  table th {
+    text-align: center;
+  }
+  table tr th{
+    background:#19948a;
+    color:white;
+    vertical-align:center;
+  }
+  

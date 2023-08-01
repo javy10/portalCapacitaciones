@@ -13,13 +13,6 @@
                                     <label class="position-relative" for="foto">
                                         <img  src="{{avatar}}" id="image" class="img-fluid rounded-start rounded-pill" alt="..." />
                                         <div class="position-absolute w-100 h-100 mx-auto align-items-center">
-                                            <!-- <div class="mx-auto loader" *ngIf="isLoading">
-                                                <div class="orbe" style="--index: 0"></div>
-                                                <div class="orbe" style="--index: 1"></div>
-                                                <div class="orbe" style="--index: 2"></div>
-                                                <div class="orbe" style="--index: 3"></div>
-                                                <div class="orbe" style="--index: 4"></div>
-                                            </div> -->
                                         </div>
                                     </label>
                                 </div>
@@ -60,7 +53,7 @@
                                             Debes seleccionar una agencia
                                         </div>
                                     </div>
-                                    <div class="col-md-4 mb-2">
+                                    <!-- <div class="col-md-4 mb-2">
                                         <label class="form-label">Departamento</label>
                                         <select [(ngModel)]='ngSelectD' class="form-select" id="departamento" formControlName="departamento" (change)="handleChange()">
                                             <option value="0" disabled selected>Selecciona</option>
@@ -83,7 +76,7 @@
                                         <div class="alert alert-danger mt-2" [hidden]="cargo.valid || cargo.pristine">
                                             Debes seleccionar un cargo
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-4 mb-2">
                                         <label class="form-label">Teléfono</label>
                                         <input type="text" formControlName="telefono" id="telefono" class="form-control" placeholder="Ingresa el Telefono" (keypress)="validateFormatTel($event)" maxlength="9">
@@ -104,20 +97,74 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer footer">
-                                <button type="button" class="btn btn-secondary cancelar" (click)="cancelar();" routerLink="/dashboard/list-collaborator">
-                                    Cancelar
-                                </button>
-                                <button type="submit" class="btn btn-primary" id="btnGuardar" [disabled]="!formUser.valid"> 
-                                    Guardar
-                                </button>
-                                <!-- [disabled]="!formUser.valid" -->
-                                <button type="button" class="btn btn-primary" id="btnActualizar" (click)="editar();" [disabled]="!formUser.valid">
-                                    Actualizar
-                                </button>
+                                <div class="modal-footer footer">
+                                    <button type="button" class="btn btn-secondary cancelar" (click)="cancelar();" routerLink="/dashboard/list-collaborator">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" id="btnGuardar" > 
+                                        Guardar
+                                    </button>
+                                    <!-- [disabled]="!formUser.valid" -->
+                                    <button type="button" class="btn btn-primary" id="btnActualizar" (click)="editar();" [disabled]="!formUser.valid">
+                                        Actualizar
+                                    </button>
+                                </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-2 mt-4">
+                        <h5 class="mt-4" style="text-align: center;">Listado de cargos</h5>
+                        <form [formGroup]="formCargos" class="row g-3 ">
+                            <table [ngClass]="{'table-responsive': true}"  datatable="datatable" [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="table table-striped table-bordered row-border hover" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th style="display: none;">N°</th>
+                                        <th>Nombre del cargo</th>
+                                        <th>Dar acceso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of listaCargos; let i = index;">
+                                        <td >{{ i + 1 }}</td>
+                                        <td class="cargo" style="display: none;">{{ item.id }}</td>
+                                        <td >{{ item.nombre }}</td>
+                                        <td><input id="inputCheckCargo" type="checkbox" (change)="handleCheckboxChangeCargo($event)"  [checked]="datosCargo.includes(item.id)" [checked]="isSelected(item.id)" (change)="onCheckboxChange(item.id)" formControlName="checkCargo"></td>
+                                    </tr>
+                                    <tr *ngIf="listaCargos.length === 0">
+                                        <td colspan="3" style="text-align: center;">No hay registros</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>        
+                    </div>
+                    <div class="col-md-6 mb-2 mt-4">
+                        <h5 class="mt-4" style="text-align: center;">Listado del menú al que tendrá acceso</h5>
+                        <form [formGroup]="formPermisos" class="row g-3 ">
+                            <table [ngClass]="{'table-responsive': true}"  datatable="datatable" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover" id="table">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th style="display: none;">N°</th>
+                                        <th>Nombre del menú</th>
+                                        <th>Dar acceso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of listaMenu; let i = index;">
+                                        <td >{{ i + 1 }}</td>
+                                        <td class="menu" style="display: none;">{{ item.id }}</td>
+                                        <td >{{ item.nombre }}</td>
+                                        <td><input id="inputCheck" type="checkbox" (change)="handleCheckboxChange($event)"  [checked]="datos.includes(item.id)" formControlName="check" [checked]="isSelectedMenu(item.id)" (change)="onCheckboxChangeMenu(item.id)"></td>
+                                    </tr>
+                                    <tr *ngIf="listaMenu.length === 0">
+                                        <td colspan="3" style="text-align: center;">No hay registros</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>        
                     </div>
                 </div>
             </div>
@@ -125,6 +172,7 @@
     </div>
 </div>
 
+<!-- 
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -157,4 +205,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
